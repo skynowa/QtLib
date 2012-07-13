@@ -33,6 +33,9 @@
 #include <QList>
 #include <QStringList>
 #include <QSettings>
+
+// filesystem
+#include <QDir>
 #include <QFile>
 
 // Sql
