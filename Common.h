@@ -71,7 +71,7 @@
 //converters
 #define qS2QS(s)                ( QString((s).c_str()) )
     ///< convert std::tstring_t to QString
-#define qQ2S(qs)                ( std::tstring_t( (qs).begin(), (qs).begin() + (qs).size() ) )
+#define qQS2S(qs)               ( std::tstring_t( (qs).begin(), (qs).begin() + (qs).size() ) )
     ///< convert QString to std::tstring_t
 //---------------------------------------------------------------------------
 #endif // QT_COMMON_H
