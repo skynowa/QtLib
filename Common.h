@@ -68,10 +68,16 @@
 #define qCHECK_PTR(var, object) { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Cancel); } }
 
 //---------------------------------------------------------------------------
-//converters
+// converters
 #define qS2QS(s)                ( QString((s).c_str()) )
     ///< convert std::tstring_t to QString
 #define qQS2S(qs)               ( std::tstring_t( (qs).begin(), (qs).begin() + (qs).size() ) )
     ///< convert QString to std::tstring_t
+
+//---------------------------------------------------------------------------
+// other
+#define qDEBUG_VAR(v)           #v":" << (v)
+    ///< debug variable, trace variable and value
+
 //---------------------------------------------------------------------------
 #endif // QT_COMMON_H
