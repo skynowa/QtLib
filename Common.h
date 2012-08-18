@@ -1,20 +1,20 @@
 /**
  * \file  Common.h
- * \brief common header
+ * \brief QtLib common header
  */
 
 
-#ifndef QT_COMMON_H
-#define QT_COMMON_H
+#ifndef QtLib_CommonH
+#define QtLib_CommonH
 //---------------------------------------------------------------------------
-// Core
+// core
 #include <Qt>
 #include <QtGlobal>
 #include <QTextCodec>
 #include <QDebug>
 #include <QClipboard>
 #include <QSignalMapper>
-#include <QTimer.h>
+#include <QTimer>
 
 // GUI
 #include <QtGui>
@@ -28,7 +28,7 @@
 #include <QShortcut>
 #include <QFileDialog>
 
-// Containers
+// containers
 #include <QVector>
 #include <QList>
 #include <QStringList>
@@ -38,23 +38,26 @@
 #include <QDir>
 #include <QFile>
 
-// Sql
+// threads
+
+
+// SQL
 #include <QtSql>
 #include <QSqlTableModel>
 
-// Table
+// table
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QStandardItemModel>
 #include <QTableView>
 
-// Network
+// network
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 
-// Other
+// etc
 #include <QImage>
 
 // xLib
@@ -125,8 +128,8 @@
                 qDEBUG_VAR(_9) << qDEBUG_VAR(_10) << qDEBUG_VAR(_11) << qDEBUG_VAR(_12)
 
 //---------------------------------------------------------------------------
-// other
+// etc
 
 
 //---------------------------------------------------------------------------
-#endif // QT_COMMON_H
+#endif // QtLib_CommonH
