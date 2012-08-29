@@ -60,21 +60,21 @@
 // etc
 #include <QImage>
 
-// xLib
-#include <xLib/Common/xCommon.h>
-
 
 //---------------------------------------------------------------------------
-#define qNOT_IMPL               { QMessageBox::warning(this, qApp->applicationName(), tr(__FUNCTION__) + tr(": Not implemented")); }
-#define qMSG(s)                 { QMessageBox::information(NULL, qApp->applicationName(), s); }
-#define qCHECK_REF(var, object) { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
-#define qCHECK_PTR(var, object) { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
+#define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr);                                       } }
+#define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;                                                    } }
 
+#define qNOT_IMPL                       { QMessageBox::warning(this, qApp->applicationName(), tr(__FUNCTION__) + tr(": Not implemented")); }
+#define qMSG(s)                         { QMessageBox::information(NULL, qApp->applicationName(), s); }
+
+#define qCHECK_REF(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
+#define qCHECK_PTR(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
 //---------------------------------------------------------------------------
 // converters
-#define qS2QS(s)                ( QString((s).c_str()) )
+#define qS2QS(s)                        ( QString((s).c_str()) )
     ///< convert std::tstring_t to QString
-#define qQS2S(qs)               ( std::tstring_t( (qs).begin(), (qs).begin() + (qs).size() ) )
+#define qQS2S(qs)                       ( std::tstring_t( (qs).begin(), (qs).begin() + (qs).size() ) )
     ///< convert QString to std::tstring_t
 
 //---------------------------------------------------------------------------
