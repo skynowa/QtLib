@@ -15,6 +15,7 @@
 #include <QClipboard>
 #include <QSignalMapper>
 #include <QTimer>
+#include <QBuffer>
 
 // GUI
 #include <QtGui>
