@@ -73,11 +73,17 @@
 #define qCHECK_PTR(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
 //---------------------------------------------------------------------------
 // converters
-#define qS2QS(s)                        ( QString().fromStdString(s) )
-    ///< convert std::tstring_t to QString
-#define qQS2S(qs)                       ( (qs).toStdString() )
-    ///< convert QString to std::tstring_t
-
+#if defined(UNICODE) || defined(_UNICODE)
+    #define qS2QS(s)                    ( QString().fromStdWString(s) )
+        ///< convert std::tstring_t to QString
+    #define qQS2S(qs)                   ( (qs).toStdWString() )
+        ///< convert QString to std::tstring_t
+#else
+    #define qS2QS(s)                    ( QString().fromStdString(s) )
+        ///< convert std::tstring_t to QString
+    #define qQS2S(qs)                   ( (qs).toStdString() )
+        ///< convert QString to std::tstring_t
+#endif
 //---------------------------------------------------------------------------
 // debug variables, trace variable and value
 #define  qDEBUG_VAR(v) \
