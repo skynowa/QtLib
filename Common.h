@@ -74,9 +74,9 @@
 //---------------------------------------------------------------------------
 // converters
 #if defined(UNICODE) || defined(_UNICODE)
-    #define qS2QS(s)                    ( QString().fromStdWString(s) )
+    #define qS2QS(s)                    ( CUtils::fromStdWString(s) )
         ///< convert std::tstring_t to QString
-    #define qQS2S(qs)                   ( (qs).toStdWString() )
+    #define qQS2S(qs)                   ( CUtils::toStdWString(qs) )
         ///< convert QString to std::tstring_t
 #else
     #define qS2QS(s)                    ( QString().fromStdString(s) )
