@@ -47,7 +47,7 @@ class CUtils {
         static void         imageConvert         (const QString    &filePathIn,
                                                   QByteArray       *baPhoto,
                                                   const QByteArray &format = "JPEG");
-            ///<
+            ///< convert images
 
         // converters
         static std::wstring toStdWString         (const QString &str);
