@@ -37,6 +37,11 @@ class CUtils {
         static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
             ///< translate text by Google API
 
+        // grafics
+        static void         imageConvert         (const QString    &filePathIn,
+                                                  QByteArray       *baPhoto,
+                                                  const QByteArray &format = "JPEG");
+            ///<
 
         // converters
         static std::wstring toStdWString         (const QString &str);

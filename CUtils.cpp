@@ -319,6 +319,33 @@ CUtils::googleTranslate(
 
 
 /****************************************************************************
+*   grafics
+*
+*****************************************************************************/
+
+//---------------------------------------------------------------------------
+void
+CUtils::imageConvert(
+    const QString    &filePathIn,
+    QByteArray       *baPhoto,
+    const QByteArray &format /* = "JPEG" */
+)
+{
+    QImage       image (filePathIn);
+    QBuffer      buffer(baPhoto);
+    QImageWriter writer(&buffer, format);
+
+    /// writer.setCompression(9);
+
+    bool bRv = writer.write(image);
+    Q_ASSERT(true == bRv);
+
+    buffer.close();
+}
+//---------------------------------------------------------------------------
+
+
+/****************************************************************************
 *   converters
 *
 *****************************************************************************/
