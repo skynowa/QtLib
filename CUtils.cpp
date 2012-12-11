@@ -120,16 +120,16 @@ CUtils::applicationActivate(
 //---------------------------------------------------------------------------
 int
 CUtils::sqlTableModelRowCount(
-    QSqlTableModel *model
+    QSqlTableModel *a_model
 )
 {
-    Q_ASSERT(NULL != model);
+    Q_ASSERT(NULL != a_model);
 
-    for ( ; model->canFetchMore(); ) {
-        model->fetchMore();
+    for ( ; a_model->canFetchMore(); ) {
+        a_model->fetchMore();
     }
 
-    return model->rowCount();
+    return a_model->rowCount();
 }
 //---------------------------------------------------------------------------
 /* static */
@@ -233,82 +233,94 @@ CUtils::exportCsv(
 void
 CUtils::dbFilter(
     QSqlQueryModel    *sqlQueryModel,
-    const QString     &csTableName,
-    const db_fields_t &cFields,
-    const QString     &csSqlStrJoin,
-    const QString     &csSqlStrWhere,
-    const QString     &csSqlStrOrderBy
+    const QString     &a_tableName,
+    const db_fields_t &a_fields,
+    const QString     &a_sqlStrJoin,
+    const QString     &a_sqlStrWhere,
+    const QString     &a_sqlStrOrderBy
 )
 {
+    Q_ASSERT(NULL != sqlQueryModel);
+    Q_ASSERT(false == a_tableName.isEmpty());
+    Q_ASSERT(false == a_fields.isEmpty());
+    // a_sqlStrJoin - n/a
+    // a_sqlStrWhere - n/a
+    // a_sqlStrOrderBy - n/a
+
     QString sSqlStr;
 
     //-------------------------------------
-    // пусты ли все поля?
+    // is field values empty
     bool bIsAllFieldsEmpty = true;
 
-    for (int i = 0; i < cFields.size(); ++ i) {
-        QString sCtrlValue = cFields.at(i).first;
+    for (int i = 0; i < a_fields.size(); ++ i) {
+        QString sCtrlValue = a_fields.at(i).second;
 
         qCHECK_DO(false == sCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
     }
 
     //-------------------------------------
-    // составляем запрос
+    // build query
     {
         if (true == bIsAllFieldsEmpty) {
-            sSqlStr = "SELECT * FROM " + csTableName + " " + csSqlStrJoin;
+            sSqlStr = QString("SELECT * FROM %1 %2")
+                            .arg(a_tableName)
+                            .arg(a_sqlStrJoin);
         } else {
-            sSqlStr = "SELECT * FROM " + csTableName + " " + csSqlStrJoin + " WHERE";
-        }
+            sSqlStr = QString("SELECT * FROM %1 %2 WHERE")
+                            .arg(a_tableName)
+                            .arg(a_sqlStrJoin);
 
-        bool bIsFirstNotEmptyField = true;
+            bool bIsFirstNotEmptyField = true;
 
-        for (int i = 0; i < cFields.size(); ++ i) {
-            QString sFieldName = cFields.at(i).first;
-            QString sCtrlValue = cFields.at(i).second;
+            for (int i = 0; i < a_fields.size(); ++ i) {
+                QString sFieldName = a_fields.at(i).first;
+                QString sCtrlValue = a_fields.at(i).second;
 
-            qCHECK_DO(true == sCtrlValue.isEmpty(), continue);
+                qCHECK_DO(true == sCtrlValue.isEmpty(), continue);
 
-            // 1-ое непустое поле
-            if (true == bIsFirstNotEmptyField) {
-                sSqlStr += " (" + sFieldName + " LIKE '%";
-                sSqlStr += sCtrlValue;
-                sSqlStr += "%')";
+                // 1-st field is empty
+                if (true == bIsFirstNotEmptyField) {
+                    sSqlStr += QString(" (%1 LIKE '%% %2 %%')")
+                                    .arg(sFieldName)
+                                    .arg(sCtrlValue);
 
-                bIsFirstNotEmptyField = false;
-                continue;
+                    bIsFirstNotEmptyField = false;
+                    continue;
+                }
+
+                sSqlStr += QString(" AND (%1 LIKE '%% %2 %%')")
+                                .arg(sFieldName)
+                                .arg(sCtrlValue);
             }
-
-            sSqlStr += " AND (" + sFieldName + " LIKE '%";    // sSqlStr += " AND (FN_NIK = '";
-            sSqlStr += sCtrlValue;
-            sSqlStr += "%')";
         }
     }
 
     //-------------------------------------
-    // вставка csSqlStrWhere
-    if (false == csSqlStrWhere.isEmpty()) {
+    // a_sqlStrWhere
+    if (false == a_sqlStrWhere.isEmpty()) {
         if (true == bIsAllFieldsEmpty) {
-            sSqlStr += " WHERE (" + csSqlStrWhere + ")";
+            sSqlStr += " WHERE (" + a_sqlStrWhere + ")";
         } else {
-            sSqlStr += " AND ("   + csSqlStrWhere + ")";
+            sSqlStr += " AND ("   + a_sqlStrWhere + ")";
         }
     }
 
     //-------------------------------------
-    // ORDER BY
-    {
-        sSqlStr += " " + csSqlStrOrderBy + ";";
-        // SELECT * FROM T_XXXDb (F_OTHER_DATE_CREATE_RECORD BETWEEN #2004/01/01# AND #2011/09/28#);
+    // a_sqlStrOrderBy
+    if (false == a_sqlStrOrderBy.isEmpty()) {
+        sSqlStr += " " + a_sqlStrOrderBy + ";";
     }
 
     //-------------------------------------
-    // выполнить запрос
+    // execute query
     {
         QSqlQueryModel *qmModel = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
         Q_ASSERT(NULL != qmModel);
 
         qmModel->setQuery(sSqlStr);
+
+        qDebug() << sSqlStr;
     }
 }
 //---------------------------------------------------------------------------
@@ -322,9 +334,9 @@ CUtils::dbFilter(
 //---------------------------------------------------------------------------
 QString
 CUtils::googleTranslate(
-    const QString &textFrom,
-    const QString &langFrom,
-    const QString &langTo
+    const QString &a_textFrom,
+    const QString &a_langFrom,
+    const QString &a_langTo
 )
 {
     QString sRv;
@@ -335,11 +347,11 @@ CUtils::googleTranslate(
     {
         const QString csUrl =
             "http://translate.google.com/m?translate_a/t?client=t&text="
-            + textFrom +
+            + a_textFrom +
             "&sl="
-            + langFrom +
+            + a_langFrom +
             "&tl="
-            + langTo;
+            + a_langTo;
 
         QNetworkAccessManager nmManager;
         QNetworkRequest       nrRequest(csUrl);
@@ -408,14 +420,14 @@ CUtils::googleTranslate(
 //---------------------------------------------------------------------------
 void
 CUtils::imageConvert(
-    const QString    &filePathIn,
-    QByteArray       *baPhoto,
-    const QByteArray &format /* = "JPEG" */
+    const QString    &a_filePathIn,
+    QByteArray       *a_baPhoto,
+    const QByteArray &a_format /* = "JPEG" */
 )
 {
-    QImage       image (filePathIn);
-    QBuffer      buffer(baPhoto);
-    QImageWriter writer(&buffer, format);
+    QImage       image (a_filePathIn);
+    QBuffer      buffer(a_baPhoto);
+    QImageWriter writer(&buffer, a_format);
 
     /// writer.setCompression(9);
 
@@ -435,25 +447,25 @@ CUtils::imageConvert(
 //---------------------------------------------------------------------------
 std::wstring
 CUtils::toStdWString(
-    const QString &str
+    const QString &a_str
 )
 {
 #ifdef _MSC_VER
-    return std::wstring(reinterpret_cast<const wchar_t *>( str.utf16() ));
+    return std::wstring(reinterpret_cast<const wchar_t *>( a_str.utf16() ));
 #else
-    return str.toStdWString();
+    return a_str.toStdWString();
 #endif
 }
 //---------------------------------------------------------------------------
 QString
 CUtils::fromStdWString(
-    const std::wstring &str
+    const std::wstring &a_str
 )
 {
 #ifdef _MSC_VER
-    return QString::fromUtf16(reinterpret_cast<const ushort *>( str.c_str() ));
+    return QString::fromUtf16(reinterpret_cast<const ushort *>( a_str.c_str() ));
 #else
-    return QString::fromStdWString(str);
+    return QString::fromStdWString(a_str);
 #endif
 }
 //---------------------------------------------------------------------------
