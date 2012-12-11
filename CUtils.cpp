@@ -230,6 +230,88 @@ CUtils::exportCsv(
     }
 }
 //---------------------------------------------------------------------------
+void
+CUtils::dbFilter(
+    QSqlQueryModel    *sqlQueryModel,
+    const QString     &csTableName,
+    const db_fields_t &cFields,
+    const QString     &csSqlStrJoin,
+    const QString     &csSqlStrWhere,
+    const QString     &csSqlStrOrderBy
+)
+{
+    QString sSqlStr;
+
+    //-------------------------------------
+    // пусты ли все поля?
+    bool bIsAllFieldsEmpty = true;
+
+    for (int i = 0; i < cFields.size(); ++ i) {
+        QString sCtrlValue = cFields.at(i).first;
+
+        qCHECK_DO(false == sCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
+    }
+
+    //-------------------------------------
+    // составляем запрос
+    {
+        if (true == bIsAllFieldsEmpty) {
+            sSqlStr = "SELECT * FROM " + csTableName + " " + csSqlStrJoin;
+        } else {
+            sSqlStr = "SELECT * FROM " + csTableName + " " + csSqlStrJoin + " WHERE";
+        }
+
+        bool bIsFirstNotEmptyField = true;
+
+        for (int i = 0; i < cFields.size(); ++ i) {
+            QString sFieldName = cFields.at(i).first;
+            QString sCtrlValue = cFields.at(i).second;
+
+            qCHECK_DO(true == sCtrlValue.isEmpty(), continue);
+
+            // 1-ое непустое поле
+            if (true == bIsFirstNotEmptyField) {
+                sSqlStr += " (" + sFieldName + " LIKE '%";
+                sSqlStr += sCtrlValue;
+                sSqlStr += "%')";
+
+                bIsFirstNotEmptyField = false;
+                continue;
+            }
+
+            sSqlStr += " AND (" + sFieldName + " LIKE '%";    // sSqlStr += " AND (FN_NIK = '";
+            sSqlStr += sCtrlValue;
+            sSqlStr += "%')";
+        }
+    }
+
+    //-------------------------------------
+    // вставка csSqlStrWhere
+    if (false == csSqlStrWhere.isEmpty()) {
+        if (true == bIsAllFieldsEmpty) {
+            sSqlStr += " WHERE (" + csSqlStrWhere + ")";
+        } else {
+            sSqlStr += " AND ("   + csSqlStrWhere + ")";
+        }
+    }
+
+    //-------------------------------------
+    // ORDER BY
+    {
+        sSqlStr += " " + csSqlStrOrderBy + ";";
+        // SELECT * FROM T_XXXDb (F_OTHER_DATE_CREATE_RECORD BETWEEN #2004/01/01# AND #2011/09/28#);
+    }
+
+    //-------------------------------------
+    // выполнить запрос
+    {
+        QSqlQueryModel *qmModel = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
+        Q_ASSERT(NULL != qmModel);
+
+        qmModel->setQuery(sSqlStr);
+    }
+}
+//---------------------------------------------------------------------------
 
 
 /****************************************************************************

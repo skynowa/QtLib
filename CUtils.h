@@ -23,6 +23,9 @@ class CUtils {
 
 
         // DB
+        typedef QVector< QPair<QString, QString> > db_fields_t;
+            ///< list of db fields
+
         static int          sqlTableModelRowCount(QSqlTableModel *model);
             ///< DB row count
         static void         importCsv            (const QString &filePath, QSqlTableModel *sqlTableModel,
@@ -31,7 +34,10 @@ class CUtils {
         static void         exportCsv            (const QString &filePath, QSqlTableModel *sqlTableModel,
                                                   const QVector<QString> &a_fieldNames, const QString &columnSeparator);
             ///< export CSV file to DB
-
+        static void         dbFilter             (QSqlQueryModel *sqlQueryModel, const QString &csTableName,
+                                                  const db_fields_t &cFields, const QString &csSqlStrJoin,
+                                                  const QString &csSqlStrWhere, const QString &csSqlStrOrderBy);
+            ///< DB filter
 
         // web
         static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
