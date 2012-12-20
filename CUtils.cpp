@@ -281,7 +281,7 @@ CUtils::dbFilter(
 
                 // 1-st field is empty
                 if (true == bIsFirstNotEmptyField) {
-                    sSqlStr += QString(" (%1 LIKE '%% %2 %%')")
+                    sSqlStr += QString(" (%1 LIKE '%%2%')")
                                     .arg(sFieldName)
                                     .arg(sCtrlValue);
 
@@ -289,7 +289,7 @@ CUtils::dbFilter(
                     continue;
                 }
 
-                sSqlStr += QString(" AND (%1 LIKE '%% %2 %%')")
+                sSqlStr += QString(" AND (%1 LIKE '%%2%')")
                                 .arg(sFieldName)
                                 .arg(sCtrlValue);
             }
