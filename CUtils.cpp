@@ -123,7 +123,7 @@ CUtils::sqlTableModelRowCount(
     QSqlTableModel *a_model
 )
 {
-    Q_ASSERT(NULL != a_model);
+    qCHECK_RET(NULL == a_model, 0);
 
     for ( ; a_model->canFetchMore(); ) {
         a_model->fetchMore();
