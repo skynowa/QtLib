@@ -118,6 +118,7 @@ CUtils::applicationActivate(
 *****************************************************************************/
 
 //---------------------------------------------------------------------------
+/* static */
 int
 CUtils::sqlTableModelRowCount(
     QSqlTableModel *a_model
@@ -230,6 +231,7 @@ CUtils::exportCsv(
     }
 }
 //---------------------------------------------------------------------------
+/* static */
 void
 CUtils::dbFilter(
     QSqlQueryModel    *sqlQueryModel,
@@ -332,6 +334,7 @@ CUtils::dbFilter(
 *****************************************************************************/
 
 //---------------------------------------------------------------------------
+/* static */
 QString
 CUtils::googleTranslate(
     const QString &a_textFrom,
@@ -418,6 +421,7 @@ CUtils::googleTranslate(
 *****************************************************************************/
 
 //---------------------------------------------------------------------------
+/* static */
 void
 CUtils::imageConvert(
     const QString    &a_filePathIn,
@@ -445,6 +449,7 @@ CUtils::imageConvert(
 *****************************************************************************/
 
 //---------------------------------------------------------------------------
+/* static */
 std::wstring
 CUtils::toStdWString(
     const QString &a_str
@@ -457,6 +462,7 @@ CUtils::toStdWString(
 #endif
 }
 //---------------------------------------------------------------------------
+/* static */
 QString
 CUtils::fromStdWString(
     const std::wstring &a_str
