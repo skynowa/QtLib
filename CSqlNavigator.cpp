@@ -68,6 +68,7 @@ CSqlNavigator::first() {
 
     int iTargetRow = 0;
 
+    view()->setFocus();
     view()->selectRow(iTargetRow);
 }
 //---------------------------------------------------------------------------
@@ -77,6 +78,7 @@ CSqlNavigator::prior() {
 
     int iTargetRow = view()->currentIndex().row() - 1;
 
+    view()->setFocus();
     view()->selectRow(iTargetRow);
 }
 //---------------------------------------------------------------------------
@@ -86,6 +88,7 @@ CSqlNavigator::next() {
 
     int iTargetRow = view()->currentIndex().row() + 1;
 
+    view()->setFocus();
     view()->selectRow(iTargetRow);
 }
 //---------------------------------------------------------------------------
@@ -96,6 +99,7 @@ CSqlNavigator::last() {
     int iTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= iTargetRow, iTargetRow = 0);
 
+    view()->setFocus();
     view()->selectRow(iTargetRow);
 }
 //---------------------------------------------------------------------------
@@ -117,6 +121,7 @@ CSqlNavigator::remove() {
     foreach (QModelIndex index, ilList) {
         int iTargetRow = index.row();
 
+        view()->setFocus();
         bool bRv = view()->model()->removeRow(iTargetRow, QModelIndex());
         qCHECK_PTR(bRv, model());
     }
@@ -132,6 +137,7 @@ CSqlNavigator::edit() {
     QModelIndex miIndex      = model()->index(iTargetRow, ciTargetCell);
     qCHECK_DO(- 1 == iTargetRow, return);
 
+    view()->setFocus();
     view()->setCurrentIndex(miIndex);
     view()->edit(miIndex);
 }
@@ -147,6 +153,7 @@ CSqlNavigator::post() {
 
     model()->submitAll();
 
+    view()->setFocus();
     view()->setCurrentIndex(miIndex);
     view()->update(miIndex);
 }
@@ -156,6 +163,7 @@ CSqlNavigator::cancel() {
     qCHECK_DO(false == isValid(), return);
 
     // TODO: CSqlNavigator::cancel
+    view()->setFocus();
 }
 //---------------------------------------------------------------------------
 void
@@ -168,6 +176,7 @@ CSqlNavigator::refresh() {
     bool bRv = model()->select();
     qCHECK_PTR(bRv, model());
 
+    view()->setFocus();
     view()->selectRow(iTargetRow);
 }
 //---------------------------------------------------------------------------
