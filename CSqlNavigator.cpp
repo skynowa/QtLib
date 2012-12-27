@@ -16,13 +16,14 @@
 
 //---------------------------------------------------------------------------
 CSqlNavigator::CSqlNavigator(
-    QWidget *a_parent
+    QWidget        *a_parent,
+    QSqlTableModel *a_tableModel /* = NULL */,
+    QTableView     *a_tableView  /* = NULL */
 ) :
     QObject   (a_parent),
-    _m_tmModel(NULL),
-    _m_tvView (NULL)
+    _m_tmModel(a_tableModel),
+    _m_tvView (a_tableView)
 {
-
 }
 //---------------------------------------------------------------------------
 /* virtual */
@@ -32,15 +33,15 @@ CSqlNavigator::~CSqlNavigator() {
 //---------------------------------------------------------------------------
 void
 CSqlNavigator::construct(
-    QSqlTableModel *a_tmTableModel,
-    QTableView     *a_tabvTableView
+    QSqlTableModel *a_tableModel,
+    QTableView     *a_tableView
 )
 {
-    Q_ASSERT(NULL != a_tmTableModel);
-    Q_ASSERT(NULL != a_tabvTableView);
+    Q_ASSERT(NULL != a_tableModel);
+    Q_ASSERT(NULL != a_tableView);
 
-    _m_tmModel = a_tmTableModel;
-    _m_tvView  = a_tabvTableView;
+    _m_tmModel = a_tableModel;
+    _m_tvView  = a_tableView;
 }
 //---------------------------------------------------------------------------
 QSqlTableModel *
@@ -101,6 +102,21 @@ CSqlNavigator::last() {
 
     view()->setFocus();
     view()->selectRow(iTargetRow);
+}
+//---------------------------------------------------------------------------
+void
+CSqlNavigator::to(
+    const int &rowIndex
+)
+{
+    qCHECK_DO(false == isValid(), return);
+
+    for ( ; model()->canFetchMore(); ) {
+        model()->fetchMore();
+    }
+
+    view()->setFocus();
+    view()->selectRow(rowIndex);
 }
 //---------------------------------------------------------------------------
 void

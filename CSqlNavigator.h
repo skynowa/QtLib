@@ -15,19 +15,24 @@ class CSqlNavigator :
         Q_OBJECT
 
     public:
-        explicit        CSqlNavigator(QWidget *parent);
+        explicit        CSqlNavigator(QWidget        *parent,
+                                      QSqlTableModel *tableModel = NULL,
+                                      QTableView     *tableView  = NULL);
         virtual        ~CSqlNavigator();
 
-        void            construct    (QSqlTableModel *tmTableModel,
-                                      QTableView     *tabvTableView);
+        void            construct    (QSqlTableModel *tableModel,
+                                      QTableView     *tableView);
 
         QSqlTableModel *model        ();
         QTableView     *view         ();
         bool            isValid      () const;
+
         void            first        ();
         void            prior        ();
         void            next         ();
         void            last         ();
+        void            to           (const int &rowIndex);
+
         void            insert       ();
         void            remove       ();
         void            edit         ();
