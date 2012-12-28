@@ -15,8 +15,8 @@
 
 #include <QDomDocument>
 #include <QTextStream>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaObject>
+#include <phonon/audiooutput.h>
+#include <phonon/mediaobject.h>
 
 
 /****************************************************************************
@@ -485,7 +485,7 @@ CUtils::googleSpeech(
             {
                 bRv = true;
             } else {
-                Q_ASSERT(Phonon::PausedState == stState);
+                Q_ASSERT(Phonon::PausedState == stState || Phonon::StoppedState == stState);
 
                 bRv = false;
             }
