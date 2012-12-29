@@ -371,39 +371,37 @@ CUtils::googleTranslate(
 
         nrReply->close();
         delete nrReply; nrReply = NULL;
+
+        Q_ASSERT(!sReply.isEmpty());
     }
 
     // parse reply
     QStringList lstReply;
 
     {
-        Q_ASSERT(true == sReply.contains(QObject::tr("Словарь:")));
-
-        QString text = sReply;
-        text.replace("<br>", "~");
-        text.replace("~~", "*");
-        text.replace(QObject::tr("Словарь:"), QObject::tr(""));
-
-        // qDebug() << text;
+        QString sText = sReply;
+        sText.replace("<br>", "~");
+        sText.replace("~~", "*");
+        sText.replace(QObject::tr("Словарь:"), QObject::tr(""));
 
         QDomDocument document;
-        document.setContent(text);
+        document.setContent(sText);
 
         QDomNodeList docList = document.elementsByTagName("div");
         for (int i = 0; i < docList.count(); ++ i) {
             lstReply.append(docList.at(i).toElement().text());
         }
 
-        QString str = lstReply.at(4);
-        if (false == str.contains(QObject::tr("Google"))) {
-            str.replace("~", "\n    - ");
-            str.replace("*", "\n\n");
-            str.remove(str.count() - 2, 2);
+        QString sStr = lstReply.at(4);
+        if (false == sStr.contains(QObject::tr("Google"))) {
+            sStr.replace("~", "\n    - ");
+            sStr.replace("*", "\n\n");
+            sStr.remove(sStr.count() - 2, 2);
         } else {
-            str.clear();
+            sStr.clear();
         }
 
-        lstReply.append(str);
+        lstReply.append(sStr);
 
         //
         sRv = lstReply.at(2);

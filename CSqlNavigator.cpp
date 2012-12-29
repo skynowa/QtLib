@@ -167,7 +167,8 @@ CSqlNavigator::post() {
     int         iTargetRow   = view()->currentIndex().row();
     QModelIndex miIndex      = model()->index(iTargetRow, ciTargetCell);
 
-    model()->submitAll();
+    bool bRv = model()->submitAll();
+    qCHECK_PTR(bRv, model());
 
     view()->setFocus();
     view()->setCurrentIndex(miIndex);
@@ -178,7 +179,7 @@ void
 CSqlNavigator::cancel() {
     qCHECK_DO(false == isValid(), return);
 
-    // TODO: CSqlNavigator::cancel
+    model()->revertAll();
     view()->setFocus();
 }
 //---------------------------------------------------------------------------
