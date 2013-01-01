@@ -47,8 +47,7 @@ class CUtils {
         // web
         static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
             ///< translate text by Google API
-        static void         googleSpeech         (const QString &text, const QString &lang, const QString &filePath);
-            ///< speech text by Google API
+
 
         // grafics
         static void         imageConvert         (const QString    &filePathIn,
