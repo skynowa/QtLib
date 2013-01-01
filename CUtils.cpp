@@ -15,6 +15,8 @@
 
 #include <QDomDocument>
 #include <QTextStream>
+#include <Phonon/AudioOutput>
+#include <Phonon/MediaObject>
 
 
 /****************************************************************************
@@ -409,6 +411,55 @@ CUtils::googleTranslate(
     }
 
     return sRv;
+}
+//---------------------------------------------------------------------------
+/* static */
+void
+CUtils::googleSpeech(
+    const QString &a_text,
+    const QString &a_lang,
+    const QString &a_filePath
+)
+{
+    // request to Google
+    {
+        const QString         csUrl = "http://translate.google.ru/translate_tts?&q=" + a_text + "&tl=" + a_lang;
+        const QUrl            curUrl(csUrl);
+        QNetworkAccessManager nmManager;
+        const QNetworkRequest cnrRequest(curUrl);
+
+        QNetworkReply *nrReply = nmManager.get(cnrRequest);
+        Q_ASSERT(NULL != nrReply);
+
+        do {
+            QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        }
+        while (! nrReply->isFinished());
+
+        // write to audio file
+        {
+            QFile file(a_filePath);
+
+            bool bRv = file.open(QIODevice::WriteOnly);
+            Q_ASSERT(bRv);
+
+            file.write(nrReply->readAll());
+        }
+
+        nrReply->close();
+        delete nrReply; nrReply = NULL;
+    }
+
+    // play audio file
+    {
+        Phonon::MediaObject *moPlayer = Phonon::createPlayer(Phonon::MusicCategory, Phonon::MediaSource(a_filePath));
+        Q_ASSERT(NULL != moPlayer);
+
+        connect(moPlayer, SIGNAL( finished() ),
+                moPlayer, SLOT  ( deleteLater() ));
+
+        moPlayer->play();
+    }
 }
 //---------------------------------------------------------------------------
 

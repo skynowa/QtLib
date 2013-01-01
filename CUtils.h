@@ -9,8 +9,15 @@
 //---------------------------------------------------------------------------
 #include "Common.h"
 //---------------------------------------------------------------------------
-class CUtils {
+class CUtils :
+    public QObject
+{
+        Q_OBJECT
+
     public:
+                            CUtils               ();
+        virtual            ~CUtils               ();
+
         // GUI
         static bool         setApplicationSingle (const QString &applicationGuid);
             ///< set application single inststance
@@ -42,6 +49,8 @@ class CUtils {
         // web
         static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
             ///< translate text by Google API
+        static void         googleSpeech         (const QString &text, const QString &lang, const QString &filePath);
+            ///< speech text by Google API
 
         // grafics
         static void         imageConvert         (const QString    &filePathIn,
@@ -54,10 +63,6 @@ class CUtils {
             ///< convert a QString to an std::wstring
         static QString      fromStdWString       (const std::wstring &str);
             ///< convert an std::wstring to a QString
-
-    private:
-                            CUtils               ();
-                           ~CUtils               ();
 };
 //---------------------------------------------------------------------------
 #endif // QtLib_CUtilsH
