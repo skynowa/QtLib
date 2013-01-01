@@ -20,6 +20,22 @@
 
 
 /****************************************************************************
+*   private
+*
+*****************************************************************************/
+
+//---------------------------------------------------------------------------
+CUtils::CUtils() {
+
+}
+//---------------------------------------------------------------------------
+CUtils::~CUtils() {
+
+}
+//---------------------------------------------------------------------------
+
+
+/****************************************************************************
 *   public
 *
 *****************************************************************************/
@@ -455,10 +471,31 @@ CUtils::googleSpeech(
         Phonon::MediaObject *moPlayer = Phonon::createPlayer(Phonon::MusicCategory, Phonon::MediaSource(a_filePath));
         Q_ASSERT(NULL != moPlayer);
 
-        connect(moPlayer, SIGNAL( finished() ),
-                moPlayer, SLOT  ( deleteLater() ));
+        // for signal slot mechanism
+        // connect(moPlayer, SIGNAL( finished() ),
+        //         moPlayer, SLOT  ( deleteLater() ));
 
         moPlayer->play();
+
+        // wait for finish
+        for (bool bRv = true; bRv; ) {
+            Phonon::State stState = moPlayer->state();
+            if (Phonon::LoadingState == stState ||
+                Phonon::PlayingState == stState)
+            {
+                bRv = true;
+            } else {
+                Q_ASSERT(Phonon::PausedState == stState);
+
+                bRv = false;
+            }
+
+            sleep(100);
+
+            QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        }
+
+        delete moPlayer;    moPlayer = NULL;
     }
 }
 //---------------------------------------------------------------------------
@@ -527,16 +564,27 @@ CUtils::fromStdWString(
 
 
 /****************************************************************************
-*   private
+*   other
 *
 *****************************************************************************/
 
 //---------------------------------------------------------------------------
-CUtils::CUtils() {
+void
+CUtils::sleep(
+    const int &a_timeoutMs
+)
+{
+    Q_ASSERT(a_timeoutMs > 0);
 
-}
-//---------------------------------------------------------------------------
-CUtils::~CUtils() {
+#ifdef Q_OS_WIN
+    (void)::Sleep( DWORD(a_timeoutMs) );
+#else
+    struct timespec tsTime = {
+        a_timeoutMs / 1000,
+        (a_timeoutMs % 1000) * 1000 * 1000
+    };
 
+    ::nanosleep(&tsTime, NULL);
+#endif
 }
 //---------------------------------------------------------------------------

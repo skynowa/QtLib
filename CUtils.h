@@ -9,15 +9,12 @@
 //---------------------------------------------------------------------------
 #include "Common.h"
 //---------------------------------------------------------------------------
-class CUtils :
-    public QObject
-{
-        Q_OBJECT
-
-    public:
+class CUtils {
+    private:
                             CUtils               ();
         virtual            ~CUtils               ();
 
+    public:
         // GUI
         static bool         setApplicationSingle (const QString &applicationGuid);
             ///< set application single inststance
@@ -46,6 +43,7 @@ class CUtils :
                                                   const QString &csSqlStrWhere, const QString &csSqlStrOrderBy);
             ///< DB filter
 
+
         // web
         static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
             ///< translate text by Google API
@@ -58,11 +56,16 @@ class CUtils :
                                                   const QByteArray &format = "JPEG");
             ///< convert images
 
+
         // converters
         static std::wstring toStdWString         (const QString &str);
             ///< convert a QString to an std::wstring
         static QString      fromStdWString       (const std::wstring &str);
             ///< convert an std::wstring to a QString
+
+
+        // other
+        static void         sleep                (const int &timeoutMs);
 };
 //---------------------------------------------------------------------------
 #endif // QtLib_CUtilsH
