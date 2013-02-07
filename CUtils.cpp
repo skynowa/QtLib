@@ -489,6 +489,48 @@ CUtils::fromStdWString(
 #endif
 }
 //---------------------------------------------------------------------------
+/* static */
+QString
+CUtils::formatBytes(
+    const qulonglong &a_bytes
+)
+{
+    QString sRv = "<uknown>";
+
+    const qulonglong cullTB   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
+    const qulonglong cullGB   = 1024ULL * 1024ULL * 1024ULL;
+    const qulonglong cullMB   = 1024ULL * 1024ULL;
+    const qulonglong cullKB   = 1024ULL;
+    const qulonglong cullByte = 1ULL;
+
+    if (     a_bytes / cullTB   > 0ULL) {
+        sRv = QString("%1 TB")
+                .arg( static_cast<double>(a_bytes) / static_cast<double>(cullTB));
+    }
+    else if (a_bytes / cullGB   > 0ULL) {
+        sRv = QString("%1 GB")
+                .arg( static_cast<double>(a_bytes) / static_cast<double>(cullGB));
+    }
+    else if (a_bytes / cullMB   > 0ULL) {
+        sRv = QString("%1 MB")
+                .arg( static_cast<double>(a_bytes) / static_cast<double>(cullMB));
+    }
+    else if (a_bytes / cullKB   > 0ULL) {
+        sRv = QString("%1 KB")
+                .arg( static_cast<double>(a_bytes) / static_cast<double>(cullKB));
+    }
+    else if (a_bytes / cullByte > 0ULL) {
+        sRv = QString("%1 Byte(s)")
+                .arg( static_cast<double>(a_bytes) / static_cast<double>(cullByte));
+    }
+    else {
+        sRv = QString("%1 Bit(s)")
+                .arg(static_cast<double>(a_bytes));
+    }
+
+    return sRv;
+}
+//---------------------------------------------------------------------------
 
 
 /****************************************************************************

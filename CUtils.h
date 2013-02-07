@@ -63,6 +63,11 @@ class CUtils {
             ///< convert an std::wstring to a QString
 
 
+        // formaters
+        static QString      formatBytes          (const qulonglong &bytes);
+            ///< format bytes
+
+
         // other
         static void         sleep                (const int &timeoutMs);
 };
