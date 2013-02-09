@@ -123,7 +123,8 @@ void
 CSqlNavigator::insert() {
     qCHECK_DO(false == isValid(), return);
 
-    bool bRv = model()->insertRow(CUtils::sqlTableModelRowCount(model()), QModelIndex());
+    bool bRv = model()->insertRow(
+                    CUtils::sqlTableModelRowCount(model()), QModelIndex());
     qCHECK_PTR(bRv, model());
 
     last();

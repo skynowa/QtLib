@@ -114,7 +114,9 @@ CUtils::applicationActivate(
 )
 {
 #if defined(Q_WS_WIN)
-    HWND hWnd = ::FindWindow(qQS2S(a_className).c_str(), qQS2S(a_windowName).c_str());
+    HWND hWnd = ::FindWindow(
+                    qQS2S(a_className).c_str(),
+                    qQS2S(a_windowName).c_str());
     if (NULL != hWnd) {
         BOOL blRv = ::SetForegroundWindow(hWnd);
         Q_ASSERT((BOOL)FALSE != blRv);
@@ -225,7 +227,8 @@ CUtils::exportCsv(
 
         for (int i = 0; i < iRealRowCount; ++ i) {
             for (int x = 0; x < a_fieldNames.size(); ++ x) {
-                sCsv.push_back( a_sqlTableModel->record(i).value( a_fieldNames.at(x) ).toString() );
+                sCsv.push_back( a_sqlTableModel->record(i)
+                                    .value( a_fieldNames.at(x) ).toString() );
                 sCsv.push_back( a_columnSeparator );
             }
 
