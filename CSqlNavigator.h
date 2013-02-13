@@ -31,7 +31,7 @@ public:
     void            prior        ();
     void            next         ();
     void            last         ();
-    void            to           (const int &rowIndex);
+    void            to           (cint &rowIndex);
 
     void            insert       ();
     void            remove       ();

@@ -16,60 +16,61 @@ private:
 
 public:
     // GUI
-    static bool         setApplicationSingle (const QString &applicationGuid);
+    static bool         setApplicationSingle (cQString &applicationGuid);
         ///< set application single inststance
     static void         widgetAlignCenter    (QWidget *widget);
         ///< align main widget
     static void         widgetAlignTopCenter (QWidget *widget);
         ///< align main widget
-    static void         applicationActivate  (const QString &className, const QString &windowName);
+    static void         applicationActivate  (cQString &className, cQString &windowName);
         ///< activate main application window
 
 
     // DB
     typedef QVector< QPair<QString, QString> > db_fields_t;
+    typedef const db_fields_t                  cdb_fields_t;
         ///< list of db fields
 
     static int          sqlTableModelRowCount(QSqlTableModel *model);
         ///< DB row count
-    static void         importCsv            (const QString &filePath, QSqlTableModel *sqlTableModel,
-                                              const QVector<QString> &a_fieldNames, const QString &columnSeparator);
+    static void         importCsv            (cQString &filePath, QSqlTableModel *sqlTableModel,
+                                              const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< import DB to CSV file
-    static void         exportCsv            (const QString &filePath, QSqlTableModel *sqlTableModel,
-                                              const QVector<QString> &a_fieldNames, const QString &columnSeparator);
+    static void         exportCsv            (cQString &filePath, QSqlTableModel *sqlTableModel,
+                                              const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
-    static void         dbFilter             (QSqlQueryModel *sqlQueryModel, const QString &csTableName,
-                                              const db_fields_t &cFields, const QString &csSqlStrJoin,
-                                              const QString &csSqlStrWhere, const QString &csSqlStrOrderBy);
+    static void         dbFilter             (QSqlQueryModel *sqlQueryModel, cQString &csTableName,
+                                              cdb_fields_t &cFields, cQString &csSqlStrJoin,
+                                              cQString &csSqlStrWhere, cQString &csSqlStrOrderBy);
         ///< DB filter
 
 
     // web
-    static QString      googleTranslate      (const QString &textFrom, const QString &langFrom, const QString &langTo);
+    static QString      googleTranslate      (cQString &textFrom, cQString &langFrom, cQString &langTo);
         ///< translate text by Google API
 
 
     // grafics
-    static void         imageConvert         (const QString    &filePathIn,
-                                              QByteArray       *baPhoto,
-                                              const QByteArray &format = "JPEG");
+    static void         imageConvert         (cQString    &filePathIn,
+                                              QByteArray  *baPhoto,
+                                              cQByteArray &format = "JPEG");
         ///< convert images
 
 
     // converters
-    static std::wstring toStdWString         (const QString &str);
+    static std::wstring toStdWString         (cQString &str);
         ///< convert a QString to an std::wstring
-    static QString      fromStdWString       (const std::wstring &str);
+    static QString      fromStdWString       (std_cwstring &str);
         ///< convert an std::wstring to a QString
 
 
     // formaters
-    static QString      formatBytes          (const qulonglong &bytes);
+    static QString      formatBytes          (culonglong &bytes);
         ///< format bytes
 
 
     // other
-    static void         sleep                (const int &timeoutMs);
+    static void         sleep                (cint &timeoutMs);
 };
 //-----------------------------------------------------------------------------
 #endif // QtLib_CUtilsH

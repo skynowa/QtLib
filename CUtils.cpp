@@ -48,7 +48,7 @@ CUtils::~CUtils() {
 /* static */
 bool
 CUtils::setApplicationSingle(
-    const QString &a_applicationGuid
+    cQString &a_applicationGuid
 )
 {
     bool bRv = false;
@@ -76,8 +76,8 @@ CUtils::widgetAlignCenter(
     QDesktopWidget *desktop = QApplication::desktop();
     Q_ASSERT(NULL != desktop);
 
-    const int x = (desktop->width()  - a_widget->width())  / 2;
-    const int y = (desktop->height() - a_widget->height()) / 2;
+    cint x = (desktop->width()  - a_widget->width())  / 2;
+    cint y = (desktop->height() - a_widget->height()) / 2;
 
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 #endif
@@ -100,8 +100,8 @@ CUtils::widgetAlignTopCenter(
     QDesktopWidget *desktop = QApplication::desktop();
     Q_ASSERT(NULL != desktop);
 
-    const int x = (desktop->width() - a_widget->width()) / 2;
-    const int y = 0;
+    cint x = (desktop->width() - a_widget->width()) / 2;
+    cint y = 0;
 
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 }
@@ -109,8 +109,8 @@ CUtils::widgetAlignTopCenter(
 /* static */
 void
 CUtils::applicationActivate(
-    const QString &a_className,
-    const QString &a_windowName
+    cQString &a_className,
+    cQString &a_windowName
 )
 {
 #if defined(Q_WS_WIN)
@@ -154,10 +154,10 @@ CUtils::sqlTableModelRowCount(
 /* static */
 void
 CUtils::importCsv(
-    const QString          &a_filePath,
+    cQString          &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
-    const QString          &a_columnSeparator
+    cQString          &a_columnSeparator
 )
 {
     bool bRv = false;
@@ -181,10 +181,10 @@ CUtils::importCsv(
 
     // file -> DB
     for (int i = 0; i < slFile.size(); ++ i) {
-        const QStringList cslRow = slFile.at(i).split(a_columnSeparator);
+        cQStringList cslRow = slFile.at(i).split(a_columnSeparator);
 
         // iTargetRow
-        int iTargetRow = CUtils::sqlTableModelRowCount(a_sqlTableModel) - 1;
+        cint ciTargetRow = CUtils::sqlTableModelRowCount(a_sqlTableModel) - 1;
 
         // srRecord
         QSqlRecord srRecord;
@@ -194,7 +194,7 @@ CUtils::importCsv(
             srRecord.setValue(a_fieldNames.at(x), cslRow.at(x));
         }
 
-        bRv = a_sqlTableModel->insertRecord(iTargetRow, srRecord);
+        bRv = a_sqlTableModel->insertRecord(ciTargetRow, srRecord);
         Q_ASSERT(true == bRv);
 
         bRv = a_sqlTableModel->submitAll();
@@ -205,10 +205,10 @@ CUtils::importCsv(
 /* static */
 void
 CUtils::exportCsv(
-    const QString          &a_filePath,
+    cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
-    const QString          &a_columnSeparator
+    cQString               &a_columnSeparator
 )
 {
     // DB -> text
@@ -223,9 +223,9 @@ CUtils::exportCsv(
 
     // DB -> file
     {
-        int iRealRowCount = CUtils::sqlTableModelRowCount(a_sqlTableModel);
+        cint ciRealRowCount = CUtils::sqlTableModelRowCount(a_sqlTableModel);
 
-        for (int i = 0; i < iRealRowCount; ++ i) {
+        for (int i = 0; i < ciRealRowCount; ++ i) {
             for (int x = 0; x < a_fieldNames.size(); ++ x) {
                 sCsv.push_back( a_sqlTableModel->record(i)
                                     .value( a_fieldNames.at(x) ).toString() );
@@ -253,15 +253,15 @@ CUtils::exportCsv(
 /* static */
 void
 CUtils::dbFilter(
-    QSqlQueryModel    *sqlQueryModel,
-    const QString     &a_tableName,
-    const db_fields_t &a_fields,
-    const QString     &a_sqlStrJoin,
-    const QString     &a_sqlStrWhere,
-    const QString     &a_sqlStrOrderBy
+    QSqlQueryModel *sqlQueryModel,
+    cQString       &a_tableName,
+    cdb_fields_t   &a_fields,
+    cQString       &a_sqlStrJoin,
+    cQString       &a_sqlStrWhere,
+    cQString       &a_sqlStrOrderBy
 )
 {
-    Q_ASSERT(NULL != sqlQueryModel);
+    Q_ASSERT(NULL  != sqlQueryModel);
     Q_ASSERT(false == a_tableName.isEmpty());
     Q_ASSERT(false == a_fields.isEmpty());
     // a_sqlStrJoin - n/a
@@ -275,9 +275,9 @@ CUtils::dbFilter(
     bool bIsAllFieldsEmpty = true;
 
     for (int i = 0; i < a_fields.size(); ++ i) {
-        QString sCtrlValue = a_fields.at(i).second;
+        cQString csCtrlValue = a_fields.at(i).second;
 
-        qCHECK_DO(false == sCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
+        qCHECK_DO(false == csCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
     }
 
     //-------------------------------------
@@ -295,24 +295,24 @@ CUtils::dbFilter(
             bool bIsFirstNotEmptyField = true;
 
             for (int i = 0; i < a_fields.size(); ++ i) {
-                QString sFieldName = a_fields.at(i).first;
-                QString sCtrlValue = a_fields.at(i).second;
+                cQString csFieldName = a_fields.at(i).first;
+                cQString csCtrlValue = a_fields.at(i).second;
 
-                qCHECK_DO(true == sCtrlValue.isEmpty(), continue);
+                qCHECK_DO(true == csCtrlValue.isEmpty(), continue);
 
                 // 1-st field is empty
                 if (true == bIsFirstNotEmptyField) {
                     sSqlStr += QString(" (%1 LIKE '%%2%')")
-                                    .arg(sFieldName)
-                                    .arg(sCtrlValue);
+                                    .arg(csFieldName)
+                                    .arg(csCtrlValue);
 
                     bIsFirstNotEmptyField = false;
                     continue;
                 }
 
                 sSqlStr += QString(" AND (%1 LIKE '%%2%')")
-                                .arg(sFieldName)
-                                .arg(sCtrlValue);
+                                .arg(csFieldName)
+                                .arg(csCtrlValue);
             }
         }
     }
@@ -356,9 +356,9 @@ CUtils::dbFilter(
 /* static */
 QString
 CUtils::googleTranslate(
-    const QString &a_textFrom,
-    const QString &a_langFrom,
-    const QString &a_langTo
+    cQString &a_textFrom,
+    cQString &a_langFrom,
+    cQString &a_langTo
 )
 {
     QString sRv;
@@ -367,7 +367,7 @@ CUtils::googleTranslate(
     QString sReply;
 
     {
-        const QString csUrl =
+        cQString csUrl =
             "http://translate.google.com/m?translate_a/t?client=t&text="
             + a_textFrom +
             "&sl="
@@ -441,9 +441,9 @@ CUtils::googleTranslate(
 /* static */
 void
 CUtils::imageConvert(
-    const QString    &a_filePathIn,
-    QByteArray       *a_baPhoto,
-    const QByteArray &a_format /* = "JPEG" */
+    cQString    &a_filePathIn,
+    QByteArray  *a_baPhoto,
+    cQByteArray &a_format /* = "JPEG" */
 )
 {
     QImage       image (a_filePathIn);
@@ -469,7 +469,7 @@ CUtils::imageConvert(
 /* static */
 std::wstring
 CUtils::toStdWString(
-    const QString &a_str
+    cQString &a_str
 )
 {
 #ifdef _MSC_VER
@@ -482,7 +482,7 @@ CUtils::toStdWString(
 /* static */
 QString
 CUtils::fromStdWString(
-    const std::wstring &a_str
+    std_cwstring &a_str
 )
 {
 #ifdef _MSC_VER
@@ -495,16 +495,16 @@ CUtils::fromStdWString(
 /* static */
 QString
 CUtils::formatBytes(
-    const qulonglong &a_bytes
+    culonglong &a_bytes
 )
 {
     QString sRv = "<uknown>";
 
-    const qulonglong cullTB   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
-    const qulonglong cullGB   = 1024ULL * 1024ULL * 1024ULL;
-    const qulonglong cullMB   = 1024ULL * 1024ULL;
-    const qulonglong cullKB   = 1024ULL;
-    const qulonglong cullByte = 1ULL;
+    culonglong cullTB   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
+    culonglong cullGB   = 1024ULL * 1024ULL * 1024ULL;
+    culonglong cullMB   = 1024ULL * 1024ULL;
+    culonglong cullKB   = 1024ULL;
+    culonglong cullByte = 1ULL;
 
     if (     a_bytes / cullTB   > 0ULL) {
         sRv = QString("%1 TB")
@@ -544,7 +544,7 @@ CUtils::formatBytes(
 //-----------------------------------------------------------------------------
 void
 CUtils::sleep(
-    const int &a_timeoutMs
+    cint &a_timeoutMs
 )
 {
     Q_ASSERT(a_timeoutMs > 0);

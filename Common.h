@@ -63,13 +63,21 @@
 
 //-----------------------------------------------------------------------------
 // typedefs
-typedef const bool    cbool;
-typedef const int     cint;
-typedef const long    clong;
-typedef const size_t  csize_t;
-typedef const float   cfloat;
-typedef const double  cdouble;
-typedef const QString cQString;
+typedef const bool               cbool;
+typedef const int                cint;
+typedef const long               clong;
+typedef const long long          clonglong;
+typedef const unsigned int       cuint;
+typedef const unsigned long      culong;
+typedef const unsigned long long culonglong;
+typedef const size_t             csize_t;
+typedef const float              cfloat;
+typedef const double             cdouble;
+typedef const QString            cQString;
+typedef const QStringList        cQStringList;
+typedef const QByteArray         cQByteArray;
+typedef const std::string        std_cstring;
+typedef const std::wstring       std_cwstring;
 //-----------------------------------------------------------------------------
 #define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr); } }
 #define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;              } }
