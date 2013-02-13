@@ -69,8 +69,7 @@ CSqlNavigator::first() {
 
     cint ciTargetRow = 0;
 
-    view()->setFocus();
-    view()->selectRow(ciTargetRow);
+    to(ciTargetRow);
 }
 //-----------------------------------------------------------------------------
 void
@@ -79,8 +78,7 @@ CSqlNavigator::prior() {
 
     cint ciTargetRow = view()->currentIndex().row() - 1;
 
-    view()->setFocus();
-    view()->selectRow(ciTargetRow);
+    to(ciTargetRow);
 }
 //-----------------------------------------------------------------------------
 void
@@ -89,8 +87,7 @@ CSqlNavigator::next() {
 
     cint iTargetRow = view()->currentIndex().row() + 1;
 
-    view()->setFocus();
-    view()->selectRow(iTargetRow);
+    to(iTargetRow);
 }
 //-----------------------------------------------------------------------------
 void
@@ -100,13 +97,12 @@ CSqlNavigator::last() {
     int ciTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= ciTargetRow, ciTargetRow = 0);
 
-    view()->setFocus();
-    view()->selectRow(ciTargetRow);
+    to(ciTargetRow);
 }
 //-----------------------------------------------------------------------------
 void
 CSqlNavigator::to(
-    const int &rowIndex
+    cint &rowIndex
 )
 {
     qCHECK_DO(false == isValid(), return);
@@ -136,10 +132,10 @@ CSqlNavigator::remove() {
 
     QModelIndexList ilList = view()->selectionModel()->selectedIndexes();
     foreach (QModelIndex index, ilList) {
-        cint iTargetRow = index.row();
+        cint ciTargetRow = index.row();
 
         view()->setFocus();
-        bool bRv = view()->model()->removeRow(iTargetRow, QModelIndex());
+        bool bRv = view()->model()->removeRow(ciTargetRow, QModelIndex());
         qCHECK_PTR(bRv, model());
     }
 }
@@ -154,8 +150,7 @@ CSqlNavigator::edit() {
     QModelIndex miIndex      = model()->index(ciTargetRow, ciTargetCell);
     qCHECK_DO(- 1 == ciTargetRow, return);
 
-    view()->setFocus();
-    view()->setCurrentIndex(miIndex);
+    to(miIndex.row());
     view()->edit(miIndex);
 }
 //-----------------------------------------------------------------------------
