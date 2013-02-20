@@ -6,7 +6,7 @@
 
 #ifndef QtLib_CommonH
 #define QtLib_CommonH
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // core
 #include <Qt>
 #include <QtGlobal>
@@ -61,7 +61,7 @@
 // etc
 #include <QImage>
 
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // typedefs
 typedef const bool               cbool;
 typedef const int                cint;
@@ -78,7 +78,7 @@ typedef const QStringList        cQStringList;
 typedef const QByteArray         cQByteArray;
 typedef const std::string        std_cstring;
 typedef const std::wstring       std_cwstring;
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 #define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr); } }
 #define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;              } }
 
@@ -87,7 +87,7 @@ typedef const std::wstring       std_cwstring;
 
 #define qCHECK_REF(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
 #define qCHECK_PTR(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // converters
 #if defined(UNICODE) || defined(_UNICODE)
     #define qS2QS(s)                    ( CUtils::fromStdWString(s) )
@@ -100,7 +100,7 @@ typedef const std::wstring       std_cwstring;
     #define qQS2S(qs)                   ( (qs).toStdString() )
         ///< convert QString to std::tstring_t
 #endif
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // debug variables, trace variable and value
 #define  qDEBUG_VAR(v) \
                 #v":" << (v)
@@ -150,9 +150,9 @@ typedef const std::wstring       std_cwstring;
                 qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8) << \
                 qDEBUG_VAR(_9) << qDEBUG_VAR(_10) << qDEBUG_VAR(_11) << qDEBUG_VAR(_12)
 
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // etc
 
 
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 #endif // QtLib_CommonH
