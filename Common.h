@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QLabel>
+#include <QMenu>
 
 // containers
 #include <QVector>
@@ -65,6 +66,9 @@
 
 // etc
 #include <QImage>
+#include <QProxyStyle>
+#include <QFileIconProvider>
+#include <QDesktopServices>
 
 //------------------------------------------------------------------------------
 // typedefs

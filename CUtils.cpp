@@ -7,7 +7,7 @@
 #include "CUtils.h"
 
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     #include <windows.h>
 #else
 
@@ -113,7 +113,7 @@ CUtils::applicationActivate(
     cQString &a_windowName
 )
 {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
     HWND hWnd = ::FindWindow(
                     qQS2S(a_className).c_str(),
                     qQS2S(a_windowName).c_str());
