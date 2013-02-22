@@ -28,6 +28,8 @@
 #include <QWidget>
 #include <QShortcut>
 #include <QFileDialog>
+#include <QInputDialog>
+#include <QLabel>
 
 // containers
 #include <QVector>
@@ -45,6 +47,9 @@
 // SQL
 #include <QtSql>
 #include <QSqlTableModel>
+
+// DB
+#include <QDataWidgetMapper>
 
 // table
 #include <QHeaderView>
