@@ -124,6 +124,9 @@ CUtils::applicationActivate(
         ::Beep(400, 400);
     }
 #else
+    Q_UNUSED(a_className);
+    Q_UNUSED(a_windowName);
+
     // TODO: activation application window
 #endif
 }
