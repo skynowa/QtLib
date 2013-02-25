@@ -114,7 +114,7 @@ CUtils::applicationActivate(
 )
 {
 #if defined(Q_OS_WIN)
-    HWND hWnd = ::FindWindow(
+    HWND hWnd = ::FindWindowW(
                     qQS2S(a_className).c_str(),
                     qQS2S(a_windowName).c_str());
     if (NULL != hWnd) {
