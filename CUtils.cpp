@@ -188,10 +188,10 @@ CUtils::sqlTableModelRowCount(
 /* static */
 void
 CUtils::importCsv(
-    cQString          &a_filePath,
+    cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
-    cQString          &a_columnSeparator
+    cQString               &a_columnSeparator
 )
 {
     bool bRv = false;
