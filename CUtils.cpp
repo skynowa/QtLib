@@ -131,6 +131,37 @@ CUtils::applicationActivate(
 #endif
 }
 //------------------------------------------------------------------------------
+void
+CUtils::widgetAlwaysOnTop(
+    QWidget *a_widget,
+    cbool   &a_isChecked
+)
+{
+#if defined(Q_OS_WIN)
+    HWND hWndInsertAfter = NULL;
+    if (a_isChecked) {
+        hWndInsertAfter = HWND_TOPMOST;
+    } else {
+        hWndInsertAfter = HWND_NOTOPMOST;
+    }
+
+    BOOL blRv = ::SetWindowPos((HWND)a_widget->winId(),
+                               hWndInsertAfter, 0, 0, 0, 0,
+                               SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+    Q_ASSERT(FALSE != blRv);
+#else
+    Qt::WindowFlags flags = a_widget->windowFlags();
+    if (a_isChecked) {
+        flags != (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+    } else {
+        flags ^= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+    }
+
+    a_widget->setWindowFlags(flags);
+    a_widget->show();
+#endif
+}
+//------------------------------------------------------------------------------
 
 
 /*******************************************************************************
