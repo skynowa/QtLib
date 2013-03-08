@@ -152,7 +152,7 @@ CUtils::widgetAlwaysOnTop(
 #else
     Qt::WindowFlags flags = a_widget->windowFlags();
     if (a_isChecked) {
-        flags != (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+        flags |= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     } else {
         flags ^= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     }
