@@ -56,10 +56,10 @@ CUtils::setApplicationSingle(
     static QSharedMemory smLocker(a_applicationGuid);
 
     bRv = smLocker.attach();
-    qCHECK_RET(true == bRv, false);
+    qCHECK_RET(bRv, false);
 
     bRv = smLocker.create(1);
-    qCHECK_RET(false == bRv, false);
+    qCHECK_RET(!bRv, false);
 
     return true;
 }
@@ -189,7 +189,7 @@ CUtils::importCsv(
         QFile fileCSV(a_filePath);
 
         bRv = fileCSV.open(QFile::ReadOnly);
-        Q_ASSERT(true == bRv);
+        Q_ASSERT(bRv);
 
         QString data = fileCSV.readAll();
         slFile = data.split("\n");
@@ -215,10 +215,10 @@ CUtils::importCsv(
         }
 
         bRv = a_sqlTableModel->insertRecord(ciTargetRow, srRecord);
-        Q_ASSERT(true == bRv);
+        Q_ASSERT(bRv);
 
         bRv = a_sqlTableModel->submitAll();
-        Q_ASSERT(true == bRv);
+        Q_ASSERT(bRv);
     }
 }
 //------------------------------------------------------------------------------
@@ -261,7 +261,7 @@ CUtils::exportCsv(
         QFile fileCSV(a_filePath);
 
         bool bRv = fileCSV.open(QFile::WriteOnly | QIODevice::Text);
-        Q_ASSERT(true == bRv);
+        Q_ASSERT(bRv);
 
         QTextStream stream(&fileCSV);
 
@@ -473,7 +473,7 @@ CUtils::imageConvert(
     /// writer.setCompression(9);
 
     bool bRv = writer.write(image);
-    Q_ASSERT(true == bRv);
+    Q_ASSERT(bRv);
 
     buffer.close();
 }
