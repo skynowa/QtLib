@@ -51,6 +51,8 @@ CUtils::setApplicationSingle(
     cQString &a_applicationGuid
 )
 {
+    Q_ASSERT(!a_applicationGuid.isEmpty());
+
     bool bRv = false;
 
     static QSharedMemory smLocker(a_applicationGuid);
@@ -113,6 +115,9 @@ CUtils::applicationActivate(
     cQString &a_windowName
 )
 {
+    Q_ASSERT(!a_className.isEmpty());
+    Q_ASSERT(!a_windowName.isEmpty());
+
 #if defined(Q_OS_WIN)
     HWND hWnd = ::FindWindowW(
                     qQS2S(a_className).c_str(),
@@ -137,6 +142,9 @@ CUtils::widgetAlwaysOnTop(
     cbool   &a_isChecked
 )
 {
+    Q_ASSERT(NULL != a_widget);
+    // a_isChecked - n/a
+
     Qt::WindowFlags flags = a_widget->windowFlags();
     if (a_isChecked) {
         flags |= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
@@ -162,6 +170,7 @@ CUtils::sqlTableModelRowCount(
     QSqlTableModel *a_model
 )
 {
+    // a_model - n/a
     qCHECK_RET(NULL == a_model, 0);
 
     for ( ; a_model->canFetchMore(); ) {
@@ -180,6 +189,11 @@ CUtils::importCsv(
     cQString               &a_columnSeparator
 )
 {
+    Q_ASSERT(!a_filePath.isEmpty());
+    Q_ASSERT(NULL != a_sqlTableModel);
+    Q_ASSERT(!a_fieldNames.isEmpty());
+    Q_ASSERT(!a_columnSeparator.isEmpty());
+
     bool bRv = false;
 
     // read file
@@ -231,6 +245,11 @@ CUtils::exportCsv(
     cQString               &a_columnSeparator
 )
 {
+    Q_ASSERT(!a_filePath.isEmpty());
+    Q_ASSERT(NULL != a_sqlTableModel);
+    Q_ASSERT(!a_fieldNames.isEmpty());
+    Q_ASSERT(!a_columnSeparator.isEmpty());
+
     // DB -> text
     QString sCsv;
 
@@ -281,9 +300,9 @@ CUtils::dbFilter(
     cQString       &a_sqlStrOrderBy
 )
 {
-    Q_ASSERT(NULL  != sqlQueryModel);
-    Q_ASSERT(false == a_tableName.isEmpty());
-    Q_ASSERT(false == a_fields.isEmpty());
+    Q_ASSERT(NULL != sqlQueryModel);
+    Q_ASSERT(!a_tableName.isEmpty());
+    Q_ASSERT(!a_fields.isEmpty());
     // a_sqlStrJoin - n/a
     // a_sqlStrWhere - n/a
     // a_sqlStrOrderBy - n/a
@@ -381,6 +400,10 @@ CUtils::googleTranslate(
     cQString &a_langTo
 )
 {
+    Q_ASSERT(!a_textFrom.isEmpty());
+    Q_ASSERT(!a_langFrom.isEmpty());
+    Q_ASSERT(!a_langTo.isEmpty());
+
     QString sRv;
 
     // request to Google
@@ -466,6 +489,10 @@ CUtils::imageConvert(
     cQByteArray &a_format /* = "JPEG" */
 )
 {
+    Q_ASSERT(!a_filePathIn.isEmpty());
+    Q_ASSERT(NULL != a_baPhoto);
+    Q_ASSERT(!a_format.isEmpty());
+
     QImage       image (a_filePathIn);
     QBuffer      buffer(a_baPhoto);
     QImageWriter writer(&buffer, a_format);
@@ -492,6 +519,8 @@ CUtils::toStdWString(
     cQString &a_str
 )
 {
+    // a_str - n/a
+
 #ifdef _MSC_VER
     return std::wstring(reinterpret_cast<const wchar_t *>( a_str.utf16() ));
 #else
@@ -505,6 +534,8 @@ CUtils::fromStdWString(
     std_cwstring &a_str
 )
 {
+    // a_str - n/a
+
 #ifdef _MSC_VER
     return QString::fromUtf16(reinterpret_cast<const ushort *>( a_str.c_str() ));
 #else
@@ -518,6 +549,8 @@ CUtils::formatBytes(
     culonglong &a_bytes
 )
 {
+    // a_bytes - n/a
+
     QString sRv = "<uknown>";
 
     culonglong cullTB   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;

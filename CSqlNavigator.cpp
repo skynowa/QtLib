@@ -24,6 +24,9 @@ CSqlNavigator::CSqlNavigator(
     _m_tmModel(a_tableModel),
     _m_tvView (a_tableView)
 {
+    Q_ASSERT(NULL != a_parent);
+    // a_tableModel - n/a
+    // a_tableView - n/a
 }
 //------------------------------------------------------------------------------
 /* virtual */
@@ -65,7 +68,7 @@ CSqlNavigator::isValid() const {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::first() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = 0;
 
@@ -74,7 +77,7 @@ CSqlNavigator::first() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::prior() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = view()->currentIndex().row() - 1;
 
@@ -83,7 +86,7 @@ CSqlNavigator::prior() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::next() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint iTargetRow = view()->currentIndex().row() + 1;
 
@@ -92,7 +95,7 @@ CSqlNavigator::next() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::last() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     int ciTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= ciTargetRow, ciTargetRow = 0);
@@ -105,7 +108,9 @@ CSqlNavigator::to(
     cint &rowIndex
 )
 {
-    qCHECK_DO(false == isValid(), return);
+    Q_ASSERT(- 1 < rowIndex);
+
+    qCHECK_DO(!isValid(), return);
 
     for ( ; model()->canFetchMore(); ) {
         model()->fetchMore();
@@ -117,7 +122,7 @@ CSqlNavigator::to(
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::insert() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     bool bRv = model()->insertRow(
                     CUtils::sqlTableModelRowCount(model()), QModelIndex());
@@ -128,7 +133,7 @@ CSqlNavigator::insert() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::remove() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     QModelIndexList ilList = view()->selectionModel()->selectedIndexes();
     foreach (QModelIndex index, ilList) {
@@ -142,7 +147,7 @@ CSqlNavigator::remove() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::edit() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint        ciTargetCell = 1;
 
@@ -156,7 +161,7 @@ CSqlNavigator::edit() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::post() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint        ciTargetCell = 1;
 
@@ -173,7 +178,7 @@ CSqlNavigator::post() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::cancel() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     model()->revertAll();
     view()->setFocus();
@@ -181,7 +186,7 @@ CSqlNavigator::cancel() {
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::refresh() {
-    qCHECK_DO(false == isValid(), return);
+    qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = view()->currentIndex().row();
     qCHECK_DO(- 1 == ciTargetRow, return);
