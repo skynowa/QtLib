@@ -210,7 +210,7 @@ CUtils::importCsv(
 
         fileCSV.close();
 
-        qCHECK_DO(true == slFile.isEmpty(), return);
+        qCHECK_DO(slFile.isEmpty(), return);
     }
 
     // file -> DB
@@ -316,13 +316,13 @@ CUtils::dbFilter(
     for (int i = 0; i < a_fields.size(); ++ i) {
         cQString csCtrlValue = a_fields.at(i).second;
 
-        qCHECK_DO(false == csCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
+        qCHECK_DO(!csCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
     }
 
     //-------------------------------------
     // build query
     {
-        if (true == bIsAllFieldsEmpty) {
+        if (bIsAllFieldsEmpty) {
             sSqlStr = QString("SELECT * FROM %1 %2")
                             .arg(a_tableName)
                             .arg(a_sqlStrJoin);
@@ -337,10 +337,10 @@ CUtils::dbFilter(
                 cQString csFieldName = a_fields.at(i).first;
                 cQString csCtrlValue = a_fields.at(i).second;
 
-                qCHECK_DO(true == csCtrlValue.isEmpty(), continue);
+                qCHECK_DO(csCtrlValue.isEmpty(), continue);
 
                 // 1-st field is empty
-                if (true == bIsFirstNotEmptyField) {
+                if (bIsFirstNotEmptyField) {
                     sSqlStr += QString(" (%1 LIKE '%%2%')")
                                     .arg(csFieldName)
                                     .arg(csCtrlValue);
@@ -358,8 +358,8 @@ CUtils::dbFilter(
 
     //-------------------------------------
     // a_sqlStrWhere
-    if (false == a_sqlStrWhere.isEmpty()) {
-        if (true == bIsAllFieldsEmpty) {
+    if (!a_sqlStrWhere.isEmpty()) {
+        if (bIsAllFieldsEmpty) {
             sSqlStr += " WHERE (" + a_sqlStrWhere + ")";
         } else {
             sSqlStr += " AND ("   + a_sqlStrWhere + ")";
@@ -368,7 +368,7 @@ CUtils::dbFilter(
 
     //-------------------------------------
     // a_sqlStrOrderBy
-    if (false == a_sqlStrOrderBy.isEmpty()) {
+    if (!a_sqlStrOrderBy.isEmpty()) {
         sSqlStr += " " + a_sqlStrOrderBy + ";";
     }
 
@@ -455,7 +455,7 @@ CUtils::googleTranslate(
         }
 
         QString sStr = lstReply.at(4);
-        if (false == sStr.contains(QObject::tr("Google"))) {
+        if (!sStr.contains(QObject::tr("Google"))) {
             sStr.replace("~", "\n    - ");
             sStr.replace("*", "\n\n");
             sStr.remove(sStr.count() - 2, 2);

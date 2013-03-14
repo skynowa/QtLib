@@ -96,8 +96,8 @@ typedef const std::wstring       std_cwstring;
 #define qNOT_IMPL                       { QMessageBox::warning(this, qApp->applicationName(), tr(__FUNCTION__) + tr(": Not implemented")); }
 #define qMSG(s)                         { QMessageBox::information(NULL, qApp->applicationName(), s); }
 
-#define qCHECK_REF(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
-#define qCHECK_PTR(var, object)         { if (false == var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
+#define qCHECK_REF(var, object)         { if (!var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
+#define qCHECK_PTR(var, object)         { if (!var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
 //------------------------------------------------------------------------------
 // converters
 #if defined(UNICODE) || defined(_UNICODE)
