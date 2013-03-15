@@ -72,7 +72,7 @@ CSqlNavigator::first() {
 
     cint ciTargetRow = 0;
 
-    to(ciTargetRow);
+    goTo(ciTargetRow);
 }
 //------------------------------------------------------------------------------
 void
@@ -81,7 +81,7 @@ CSqlNavigator::prior() {
 
     cint ciTargetRow = view()->currentIndex().row() - 1;
 
-    to(ciTargetRow);
+    goTo(ciTargetRow);
 }
 //------------------------------------------------------------------------------
 void
@@ -90,7 +90,7 @@ CSqlNavigator::next() {
 
     cint iTargetRow = view()->currentIndex().row() + 1;
 
-    to(iTargetRow);
+    goTo(iTargetRow);
 }
 //------------------------------------------------------------------------------
 void
@@ -100,21 +100,26 @@ CSqlNavigator::last() {
     int ciTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= ciTargetRow, ciTargetRow = 0);
 
-    to(ciTargetRow);
+    goTo(ciTargetRow);
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::to(
-    cint &rowIndex
+CSqlNavigator::goTo(
+    cint &a_rowIndex
 )
 {
-    Q_ASSERT(- 1 < rowIndex);
+    // rowIndex - n/a
 
     qCHECK_DO(!isValid(), return);
+
+    int rowIndex = a_rowIndex;
+    qCHECK_DO(rowIndex < 0, rowIndex = 0);
 
     for ( ; model()->canFetchMore(); ) {
         model()->fetchMore();
     }
+
+    qCHECK_DO(rowIndex > model()->rowCount() - 1, rowIndex = model()->rowCount() - 1);
 
     view()->setFocus();
     view()->selectRow(rowIndex);
@@ -155,7 +160,7 @@ CSqlNavigator::edit() {
     QModelIndex miIndex      = model()->index(ciTargetRow, ciTargetCell);
     qCHECK_DO(- 1 == ciTargetRow, return);
 
-    to(miIndex.row());
+    goTo(miIndex.row());
     view()->edit(miIndex);
 }
 //------------------------------------------------------------------------------
