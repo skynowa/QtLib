@@ -163,7 +163,7 @@ typedef const std::wstring       std_cwstring;
 
 //------------------------------------------------------------------------------
 // etc
-#define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
-
+#define qARRAY_LENGTH(a)    ( sizeof(a) / sizeof((a)[0]) )
+#define qPTR_DELETE(p)      { delete p; p = NULL; }
 //------------------------------------------------------------------------------
 #endif // QtLib_CommonH
