@@ -145,7 +145,7 @@ CSqlNavigator::remove() {
         cint ciTargetRow = index.row();
 
         view()->setFocus();
-        bool bRv = view()->model()->removeRow(ciTargetRow, QModelIndex());
+        bool bRv = model()->removeRow(ciTargetRow, QModelIndex());
         qCHECK_PTR(bRv, model());
     }
 }
