@@ -131,7 +131,7 @@ CSqlNavigator::insert() {
 
     cint ciTargetIndex = CUtils::sqlTableModelRowCount( model() );
 
-    bool bRv = model()->insertRow(ciTargetIndex, QModelIndex());
+    bool bRv = model()->insertRow(ciTargetIndex);
     qCHECK_PTR(bRv, model());
 
     last();
@@ -141,17 +141,18 @@ void
 CSqlNavigator::remove() {
     qCHECK_DO(!isValid(), return);
 
-    QModelIndexList ilList = view()->selectionModel()->selectedIndexes();
+    int             iTargetRow = 0;
+    QModelIndexList ilList     = view()->selectionModel()->selectedIndexes();
     foreach (QModelIndex index, ilList) {
-        cint ciTargetRow = index.row();
+        iTargetRow = index.row();
 
         view()->setFocus();
-        bool bRv = model()->removeRow(ciTargetRow, QModelIndex());
+        bool bRv = model()->removeRow(iTargetRow);
         qCHECK_PTR(bRv, model());
     }
 
     model()->select();
-    goTo( CUtils::sqlTableModelRowCount(model()) );
+    goTo(iTargetRow - 1);
 }
 //------------------------------------------------------------------------------
 void
