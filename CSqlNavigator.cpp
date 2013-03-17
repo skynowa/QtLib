@@ -113,26 +113,38 @@ CSqlNavigator::goTo(
     qCHECK_DO(!isValid(), return);
 
     int rowIndex = a_rowIndex;
-    qCHECK_DO(rowIndex < 0, rowIndex = 0);
+    {
+        qCHECK_DO(rowIndex < 0, rowIndex = 0);
 
-    for ( ; model()->canFetchMore(); ) {
-        model()->fetchMore();
+        // get real model()->rowCount()
+        for ( ; model()->canFetchMore(); ) {
+            model()->fetchMore();
+        }
+
+        if (rowIndex > model()->rowCount() - 1) {
+            rowIndex = model()->rowCount() - 1;
+        }
     }
-
-    qCHECK_DO(rowIndex > model()->rowCount() - 1, rowIndex = model()->rowCount() - 1);
 
     view()->setFocus();
     view()->selectRow(rowIndex);
+
+    QModelIndex index = model()->index(rowIndex, 1);
+    view()->scrollTo(index);
 }
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::insert() {
     qCHECK_DO(!isValid(), return);
 
-    cint ciTargetIndex = CUtils::sqlTableModelRowCount( model() );
+    cint ciTargetField = 1;
 
-    bool bRv = model()->insertRow(ciTargetIndex);
-    qCHECK_PTR(bRv, model());
+    // empty record
+    QSqlRecord record = model()->record();
+    record.setValue(ciTargetField, QVariant());
+
+    model()->insertRecord(ciTargetField, record);
+    model()->select();
 
     last();
 }
@@ -166,7 +178,6 @@ CSqlNavigator::edit() {
     qCHECK_DO(- 1 == ciTargetRow, return);
 
     goTo(cmiIndex.row());
-    view()->edit(cmiIndex);
 }
 //------------------------------------------------------------------------------
 void
