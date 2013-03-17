@@ -88,9 +88,9 @@ void
 CSqlNavigator::next() {
     qCHECK_DO(!isValid(), return);
 
-    cint iTargetRow = view()->currentIndex().row() + 1;
+    cint ciTargetRow = view()->currentIndex().row() + 1;
 
-    goTo(iTargetRow);
+    goTo(ciTargetRow);
 }
 //------------------------------------------------------------------------------
 void
@@ -154,31 +154,31 @@ void
 CSqlNavigator::edit() {
     qCHECK_DO(!isValid(), return);
 
-    cint        ciTargetCell = 1;
+    cint              ciTargetCell = 1;
 
-    cint        ciTargetRow  = view()->currentIndex().row();
-    QModelIndex miIndex      = model()->index(ciTargetRow, ciTargetCell);
+    cint              ciTargetRow  = view()->currentIndex().row();
+    const QModelIndex cmiIndex     = model()->index(ciTargetRow, ciTargetCell);
     qCHECK_DO(- 1 == ciTargetRow, return);
 
-    goTo(miIndex.row());
-    view()->edit(miIndex);
+    goTo(cmiIndex.row());
+    view()->edit(cmiIndex);
 }
 //------------------------------------------------------------------------------
 void
 CSqlNavigator::post() {
     qCHECK_DO(!isValid(), return);
 
-    cint        ciTargetCell = 1;
+    cint              ciTargetCell = 1;
 
-    cint        ciTargetRow  = view()->currentIndex().row();
-    QModelIndex miIndex      = model()->index(ciTargetRow, ciTargetCell);
+    cint              ciTargetRow  = view()->currentIndex().row();
+    const QModelIndex cmiIndex     = model()->index(ciTargetRow, ciTargetCell);
 
     bool bRv = model()->submitAll();
     qCHECK_PTR(bRv, model());
 
     view()->setFocus();
-    view()->setCurrentIndex(miIndex);
-    view()->update(miIndex);
+    view()->setCurrentIndex(cmiIndex);
+    view()->update(cmiIndex);
 }
 //------------------------------------------------------------------------------
 void
