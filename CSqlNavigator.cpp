@@ -97,10 +97,10 @@ void
 CSqlNavigator::last() {
     qCHECK_DO(!isValid(), return);
 
-    int ciTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
-    qCHECK_DO(- 1 >= ciTargetRow, ciTargetRow = 0);
+    int iTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
+    qCHECK_DO(- 1 >= iTargetRow, iTargetRow = 0);
 
-    goTo(ciTargetRow);
+    goTo(iTargetRow);
 }
 //------------------------------------------------------------------------------
 void
