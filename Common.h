@@ -86,7 +86,7 @@ typedef const QString            cQString;
 typedef const QStringList        cQStringList;
 typedef const QByteArray         cQByteArray;
 typedef const QVariant           cQVariant;
-typedef const QSize              cSize;
+typedef const QSize              cQSize;
 typedef const std::string        std_cstring;
 typedef const std::wstring       std_cwstring;
 //------------------------------------------------------------------------------
