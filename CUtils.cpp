@@ -493,9 +493,9 @@ CUtils::imageConvert(
     Q_ASSERT(NULL != a_baPhoto);
     Q_ASSERT(!a_format.isEmpty());
 
-    QImage       image (a_filePathIn);
     QBuffer      buffer(a_baPhoto);
     QImageWriter writer(&buffer, a_format);
+    QImage       image (a_filePathIn);
 
     /// writer.setCompression(9);
 
