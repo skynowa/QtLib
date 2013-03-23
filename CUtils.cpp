@@ -384,6 +384,33 @@ CUtils::dbFilter(
     }
 }
 //------------------------------------------------------------------------------
+void
+CUtils::dbFieldNames(
+    const QSqlDatabase &a_db,           ///< database
+    cQString           &a_tableName,    ///< table name
+    QStringList        *a_dbFileldNames ///< field names [out]
+)
+{
+    Q_ASSERT(a_db.isValid());
+    Q_ASSERT(!a_tableName.isEmpty());
+    Q_ASSERT(NULL != a_dbFileldNames);
+
+    QStringList slRv;
+    QSqlQuery   qryTableInfo(a_db);
+
+    cQString  csSql = \
+        "pragma table_info(" + a_tableName + ");";
+
+    bool bRv = qryTableInfo.exec(csSql);
+    qCHECK_REF(bRv, qryTableInfo);
+
+    while (qryTableInfo.next()) {
+        slRv << qryTableInfo.value(1).toString();
+    }
+
+    slRv.swap(*a_dbFileldNames);
+}
+//------------------------------------------------------------------------------
 
 
 /*******************************************************************************
@@ -432,7 +459,7 @@ CUtils::googleTranslate(
         sReply = QString::fromUtf8(nrReply->readAll());
 
         nrReply->close();
-        delete nrReply; nrReply = NULL;
+        qPTR_DELETE(nrReply);
 
         Q_ASSERT(!sReply.isEmpty());
     }

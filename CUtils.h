@@ -45,6 +45,10 @@ public:
                                               cdb_fields_t &cFields, cQString &csSqlStrJoin,
                                               cQString &csSqlStrWhere, cQString &csSqlStrOrderBy);
         ///< DB filter
+    static void         dbFieldNames         (const QSqlDatabase &db,
+                                              cQString           &tableName,
+                                              QStringList        *dbFileldNames);
+        ///< DB filed names
 
 
     // web
