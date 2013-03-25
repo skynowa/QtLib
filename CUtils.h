@@ -41,9 +41,9 @@ public:
     static void         exportCsv            (cQString &filePath, QSqlTableModel *sqlTableModel,
                                               const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
-    static void         dbFilter             (QSqlQueryModel *sqlQueryModel, cQString &csTableName,
-                                              cdb_fields_t &cFields, cQString &csSqlStrJoin,
-                                              cQString &csSqlStrWhere, cQString &csSqlStrOrderBy);
+    static void         dbFilter             (QSqlQueryModel *sqlQueryModel, cQString &tableName,
+                                              cdb_fields_t &fields, cQString &sqlStrJoin,
+                                              cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter
     static void         dbFieldNames         (const QSqlDatabase &db,
                                               cQString           &tableName,
@@ -58,7 +58,7 @@ public:
 
     // grafics
     static void         imageConvert         (cQString    &filePathIn,
-                                              QByteArray  *baPhoto,
+                                              QByteArray  *photo,
                                               cQByteArray &format = "JPEG");
         ///< convert images
 

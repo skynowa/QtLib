@@ -511,15 +511,15 @@ CUtils::googleTranslate(
 void
 CUtils::imageConvert(
     cQString    &a_filePathIn,
-    QByteArray  *a_baPhoto,
+    QByteArray  *a_photo,
     cQByteArray &a_format /* = "JPEG" */
 )
 {
     Q_ASSERT(!a_filePathIn.isEmpty());
-    Q_ASSERT(NULL != a_baPhoto);
+    Q_ASSERT(NULL != a_photo);
     Q_ASSERT(!a_format.isEmpty());
 
-    QBuffer      buffer(a_baPhoto);
+    QBuffer      buffer(a_photo);
     QImageWriter writer(&buffer, a_format);
     QImage       image (a_filePathIn);
 
