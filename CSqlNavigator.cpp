@@ -155,7 +155,7 @@ CSqlNavigator::remove() {
 
     int             iTargetRow = 0;
     QModelIndexList ilList     = view()->selectionModel()->selectedIndexes();
-    foreach (QModelIndex index, ilList) {
+    Q_FOREACH (QModelIndex index, ilList) {
         iTargetRow = index.row();
 
         view()->setFocus();
