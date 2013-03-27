@@ -143,8 +143,11 @@ CSqlNavigator::insert() {
     QSqlRecord record = model()->record();
     record.setValue(ciTargetField, QVariant());
 
-    model()->insertRecord(ciTargetField, record);
-    model()->select();
+    bool bRv = model()->insertRecord(ciTargetField, record);
+    qCHECK_PTR(bRv, model());
+
+    bRv = model()->select();
+    qCHECK_PTR(bRv, model());
 
     last();
 }
