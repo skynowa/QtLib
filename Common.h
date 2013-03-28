@@ -16,6 +16,7 @@
 #include <QSignalMapper>
 #include <QTimer>
 #include <QBuffer>
+#include <QLocale>
 
 // GUI
 #include <QtGui>
@@ -63,6 +64,9 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
+
+// translate
+#include <QTranslator>
 
 // etc
 #include <QImage>
