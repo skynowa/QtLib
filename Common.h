@@ -93,7 +93,7 @@ typedef const std::wstring       std_cwstring;
 #define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr); } }
 #define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;              } }
 
-#define qNOT_IMPL                       { QMessageBox::warning(this, qApp->applicationName(), tr(__FUNCTION__) + tr(": Not implemented")); }
+#define qNOT_IMPL                       { QMessageBox::warning(this, qApp->applicationName(), QObject::tr(__FUNCTION__) + QObject::tr(": Not implemented")); }
 #define qMSG(s)                         { QMessageBox::information(NULL, qApp->applicationName(), s); }
 
 #define qCHECK_REF(var, object)         { if (!var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
