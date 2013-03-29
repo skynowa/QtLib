@@ -470,7 +470,7 @@ CUtils::googleTranslate(
         QString sText = sReply;
         sText.replace("<br>", "~");
         sText.replace("~~", "*");
-        sText.replace(QObject::tr("Словарь:"), QObject::tr(""));
+        sText.replace("Словарь:", QObject::tr(""));
 
         QDomDocument document;
         document.setContent(sText);
