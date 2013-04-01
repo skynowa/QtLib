@@ -11,20 +11,20 @@
 //------------------------------------------------------------------------------
 class CUtils {
 private:
-                        CUtils               ();
-    virtual            ~CUtils               ();
+                        CUtils();
+    virtual            ~CUtils();
 
 public:
     // GUI
-    static bool         setApplicationSingle (cQString &applicationGuid);
+    static bool         setApplicationSingle(cQString &applicationGuid);
         ///< set application single inststance
-    static void         widgetAlignCenter    (QWidget *widget);
+    static void         widgetAlignCenter(QWidget *widget);
         ///< align main widget
-    static void         widgetAlignTopCenter (QWidget *widget);
+    static void         widgetAlignTopCenter(QWidget *widget);
         ///< align main widget
-    static void         applicationActivate  (cQString &className, cQString &windowName);
+    static void         applicationActivate(cQString &className, cQString &windowName);
         ///< activate main application window
-    static void         widgetAlwaysOnTop    (QWidget *widget, cbool &isChecked);
+    static void         widgetAlwaysOnTop(QWidget *widget, cbool &isChecked);
         ///< toggle 'always on top' for a QMainWindow
 
 
@@ -35,48 +35,46 @@ public:
 
     static int          sqlTableModelRowCount(QSqlTableModel *model);
         ///< DB row count
-    static void         importCsv            (cQString &filePath, QSqlTableModel *sqlTableModel,
-                                              const QVector<QString> &fieldNames, cQString &columnSeparator);
+    static void         importCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+                                  const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< import DB to CSV file
-    static void         exportCsv            (cQString &filePath, QSqlTableModel *sqlTableModel,
-                                              const QVector<QString> &fieldNames, cQString &columnSeparator);
+    static void         exportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+                                  const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
-    static void         dbFilter             (QSqlQueryModel *sqlQueryModel, cQString &tableName,
-                                              cdb_fields_t &fields, cQString &sqlStrJoin,
-                                              cQString &sqlStrWhere, cQString &sqlStrOrderBy);
+    static void         dbFilter(QSqlQueryModel *sqlQueryModel, cQString &tableName,
+                                 cdb_fields_t &fields, cQString &sqlStrJoin,
+                                 cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter
-    static void         dbFieldNames         (const QSqlDatabase &db,
-                                              cQString           &tableName,
-                                              QStringList        *dbFileldNames);
+    static void         dbFieldNames(const QSqlDatabase &db, cQString &tableName,
+                                     QStringList *dbFileldNames);
         ///< DB filed names
 
 
     // web
-    static QString      googleTranslate      (cQString &textFrom, cQString &langFrom, cQString &langTo);
+    static QString      googleTranslate(cQString &textFrom, cQString &langFrom, cQString &langTo);
         ///< translate text by Google API
 
 
     // grafics
-    static void         imageConvert         (cQString    &filePathIn,
-                                              QByteArray  *photo,
-                                              cQByteArray &format = "JPEG");
+    static void         imageConvert(cQString &filePathIn, QByteArray *photo,
+                                     cQByteArray &format = "JPEG");
         ///< convert images
 
 
     // converters
-    static std::wstring toStdWString         (cQString &str);
+    static std::wstring toStdWString(cQString &str);
         ///< convert a QString to an std::wstring
-    static QString      fromStdWString       (std_cwstring &str);
+    static QString      fromStdWString(std_cwstring &str);
         ///< convert an std::wstring to a QString
 
 
     // formaters
-    static QString      formatBytes          (culonglong &bytes);
+    static QString      formatBytes(culonglong &bytes);
         ///< format bytes
 
 
     // other
-    static void         sleep                (cint &timeoutMs);
+    static void         sleep(cint &timeoutMs);
 };
 //------------------------------------------------------------------------------
 #endif // QtLib_CUtilsH
