@@ -17,16 +17,16 @@
 //------------------------------------------------------------------------------
 CSqlNavigator::CSqlNavigator(
     QWidget        *a_parent,
-    QSqlTableModel *a_tableModel /* = NULL */,
-    QTableView     *a_tableView  /* = NULL */
+    QSqlTableModel *a_tableModel,
+    QTableView     *a_tableView
 ) :
     QObject   (a_parent),
     _m_tmModel(a_tableModel),
     _m_tvView (a_tableView)
 {
     Q_ASSERT(NULL != a_parent);
-    // a_tableModel - n/a
-    // a_tableView - n/a
+    Q_ASSERT(NULL != a_tableModel);
+    Q_ASSERT(NULL != a_tableView);
 }
 //------------------------------------------------------------------------------
 /* virtual */
