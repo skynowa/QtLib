@@ -16,17 +16,13 @@
 
 //------------------------------------------------------------------------------
 CSqlNavigator::CSqlNavigator(
-    QWidget        *a_parent,
-    QSqlTableModel *a_tableModel,
-    QTableView     *a_tableView
+    QWidget *a_parent
 ) :
     QObject   (a_parent),
-    _m_tmModel(a_tableModel),
-    _m_tvView (a_tableView)
+    _m_tmModel(NULL),
+    _m_tvView (NULL)
 {
     Q_ASSERT(NULL != a_parent);
-    Q_ASSERT(NULL != a_tableModel);
-    Q_ASSERT(NULL != a_tableView);
 }
 //------------------------------------------------------------------------------
 /* virtual */
@@ -182,43 +178,5 @@ CSqlNavigator::edit() {
     qCHECK_DO(- 1 == ciTargetRow, return);
 
     goTo(cmiIndex.row());
-}
-//------------------------------------------------------------------------------
-void
-CSqlNavigator::post() {
-    qCHECK_DO(!isValid(), return);
-
-    cint              ciTargetCell = 1;
-    cint              ciTargetRow  = view()->currentIndex().row();
-    const QModelIndex cmiIndex     = model()->index(ciTargetRow, ciTargetCell);
-
-    bool bRv = model()->submitAll();
-    qCHECK_PTR(bRv, model());
-
-    view()->setFocus();
-    view()->setCurrentIndex(cmiIndex);
-    view()->update(cmiIndex);
-}
-//------------------------------------------------------------------------------
-void
-CSqlNavigator::cancel() {
-    qCHECK_DO(!isValid(), return);
-
-    model()->revertAll();
-    view()->setFocus();
-}
-//------------------------------------------------------------------------------
-void
-CSqlNavigator::refresh() {
-    qCHECK_DO(!isValid(), return);
-
-    cint ciTargetRow = view()->currentIndex().row();
-    qCHECK_DO(- 1 == ciTargetRow, return);
-
-    bool bRv = model()->select();
-    qCHECK_PTR(bRv, model());
-
-    view()->setFocus();
-    view()->selectRow(ciTargetRow);
 }
 //------------------------------------------------------------------------------

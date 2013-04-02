@@ -15,8 +15,7 @@ class CSqlNavigator :
     Q_OBJECT
 
 public:
-    explicit        CSqlNavigator(QWidget *parent, QSqlTableModel *tableModel,
-                                  QTableView *tableView);
+    explicit        CSqlNavigator(QWidget *parent);
     virtual        ~CSqlNavigator();
 
     void            construct(QSqlTableModel *tableModel, QTableView *tableView);
@@ -34,9 +33,6 @@ public:
     void            insert();
     void            remove();
     void            edit();
-    void            post();
-    void            cancel();
-    void            refresh();
 
 private:
     QSqlTableModel *_m_tmModel;
