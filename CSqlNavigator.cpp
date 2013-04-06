@@ -26,7 +26,8 @@ CSqlNavigator::CSqlNavigator(
 }
 //------------------------------------------------------------------------------
 /* virtual */
-CSqlNavigator::~CSqlNavigator() {
+CSqlNavigator::~CSqlNavigator()
+{
 
 }
 //------------------------------------------------------------------------------
@@ -44,26 +45,30 @@ CSqlNavigator::construct(
 }
 //------------------------------------------------------------------------------
 QSqlTableModel *
-CSqlNavigator::model() {
+CSqlNavigator::model()
+{
     Q_ASSERT(NULL != _m_tmModel);
 
     return _m_tmModel;
 }
 //------------------------------------------------------------------------------
 QTableView *
-CSqlNavigator::view() {
+CSqlNavigator::view()
+{
     Q_ASSERT(NULL != _m_tvView);
 
     return _m_tvView;
 }
 //------------------------------------------------------------------------------
 bool
-CSqlNavigator::isValid() const {
+CSqlNavigator::isValid() const
+{
     return ( (NULL != _m_tmModel) && (NULL != _m_tvView) );
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::first() {
+CSqlNavigator::first()
+{
     qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = 0;
@@ -72,7 +77,8 @@ CSqlNavigator::first() {
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::prior() {
+CSqlNavigator::prior()
+{
     qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = view()->currentIndex().row() - 1;
@@ -81,7 +87,8 @@ CSqlNavigator::prior() {
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::next() {
+CSqlNavigator::next()
+{
     qCHECK_DO(!isValid(), return);
 
     cint ciTargetRow = view()->currentIndex().row() + 1;
@@ -90,7 +97,8 @@ CSqlNavigator::next() {
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::last() {
+CSqlNavigator::last()
+{
     qCHECK_DO(!isValid(), return);
 
     int iTargetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
@@ -130,7 +138,8 @@ CSqlNavigator::goTo(
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::insert() {
+CSqlNavigator::insert()
+{
     qCHECK_DO(!isValid(), return);
 
     cint ciTargetField = 1;
@@ -150,7 +159,8 @@ CSqlNavigator::insert() {
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::remove() {
+CSqlNavigator::remove()
+{
     qCHECK_DO(!isValid(), return);
 
     int             iTargetRow = 0;
@@ -168,7 +178,8 @@ CSqlNavigator::remove() {
 }
 //------------------------------------------------------------------------------
 void
-CSqlNavigator::edit() {
+CSqlNavigator::edit()
+{
     qCHECK_DO(!isValid(), return);
 
     cint              ciTargetCell = 1;
