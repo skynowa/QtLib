@@ -123,6 +123,7 @@ typedef const std::wstring       std_cwstring;
 #define  qDEBUG_VAR(v) \
                 #v":" << (v)
 //------------------------------------------------------------------------------
+// custom assert
 #if qTEST_IS_USED
     #define qTEST(expression) \
         if (!(expression)) { \
