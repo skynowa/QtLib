@@ -72,6 +72,11 @@ public:
     static QString      formatBytes(culonglong &bytes);
         ///< format bytes
 
+    // debug
+    static void         debugTest(cQString &expression, cQString &filePath,
+                                  culong &fileLine, cQString &functionName,
+                                  cqint64 &logSizeMaxBytes);
+        ///< custom assert
 
     // other
     static void         sleep(cint &timeoutMs);

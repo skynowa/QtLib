@@ -7,6 +7,8 @@
 #ifndef QtLib_CommonH
 #define QtLib_CommonH
 //------------------------------------------------------------------------------
+// #define qTEST_IS_USED  1
+
 // core
 #include <Qt>
 #include <QtGlobal>
@@ -83,6 +85,7 @@ typedef const long long          clonglong;
 typedef const unsigned int       cuint;
 typedef const unsigned long      culong;
 typedef const unsigned long long culonglong;
+typedef const qint64             cqint64;
 typedef const size_t             csize_t;
 typedef const float              cfloat;
 typedef const double             cdouble;
@@ -119,52 +122,18 @@ typedef const std::wstring       std_cwstring;
 // debug variables, trace variable and value
 #define  qDEBUG_VAR(v) \
                 #v":" << (v)
-
-#define  qDEBUG_2VARS(_1, _2) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2)
-
-#define  qDEBUG_3VARS(_1, _2, _3) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3)
-
-#define  qDEBUG_4VARS(_1, _2, _3, _4) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4)
-
-#define  qDEBUG_5VARS(_1, _2, _3, _4, _5) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5)
-
-#define  qDEBUG_6VARS(_1, _2, _3, _4, _5, _6) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6)
-
-#define  qDEBUG_7VARS(_1, _2, _3, _4, _5, _6, _7) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7)
-
-#define  qDEBUG_8VARS(_1, _2, _3, _4, _5, _6, _7, _8) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8)
-
-#define  qDEBUG_9VARS(_1, _2, _3, _4, _5, _6, _7, _8, _9) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8) << \
-                qDEBUG_VAR(_9)
-
-#define qDEBUG_10VARS(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8) << \
-                qDEBUG_VAR(_9) << qDEBUG_VAR(_10)
-
-#define qDEBUG_11VARS(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8) << \
-                qDEBUG_VAR(_9) << qDEBUG_VAR(_10) << qDEBUG_VAR(_11)
-
-#define qDEBUG_12VARS(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12) \
-                qDEBUG_VAR(_1) << qDEBUG_VAR(_2) << qDEBUG_VAR(_3) << qDEBUG_VAR(_4) << \
-                qDEBUG_VAR(_5) << qDEBUG_VAR(_6) << qDEBUG_VAR(_7) << qDEBUG_VAR(_8) << \
-                qDEBUG_VAR(_9) << qDEBUG_VAR(_10) << qDEBUG_VAR(_11) << qDEBUG_VAR(_12)
-
+//------------------------------------------------------------------------------
+#if qTEST_IS_USED
+    #define qTEST(expression) \
+        if (!(expression)) { \
+            cqint64 mByte = 1000 * 1000; \
+            CUtils::debugTest(#expression, __FILE__, __LINE__, __FUNCTION__, mByte); \
+            Q_ASSERT(expression); \
+            abort(); \
+        }
+#else
+    #define qTEST(expression)
+#endif
 //------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a)    ( sizeof(a) / sizeof((a)[0]) )

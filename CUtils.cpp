@@ -615,6 +615,49 @@ CUtils::formatBytes(
     return sRv;
 }
 //------------------------------------------------------------------------------
+void
+CUtils::debugTest(
+    cQString &a_expression,
+    cQString &a_filePath,
+    culong   &a_fileLine,
+    cQString &a_functionName,
+    cqint64  &a_logSizeMaxBytes
+)
+{
+    cQString csMsg = QString(
+        "\n-------------------- qTEST ----------------------\n"
+        " Expression: %1\n"
+        " File:       %2\n"
+        " Line:       %3\n"
+        " Function:   %4\n"
+        "--------------------------------------------------\n")
+            .arg(a_expression)
+            .arg(a_filePath)
+            .arg(a_fileLine)
+            .arg(a_functionName);
+
+    // write to file
+    {
+        cQString logPath = QApplication::applicationDirPath() + QDir::separator() +
+                           QApplication::applicationName() + ".log";
+        QFile    log(logPath);
+
+        // truncate log file
+        if (log.size() > a_logSizeMaxBytes) {
+            bool bRv = log.resize(0);
+            Q_ASSERT(bRv);
+        }
+
+        bool bRv = log.open(QFile::Append | QIODevice::Text);
+        Q_ASSERT(bRv);
+
+        QTextStream stream(&log);
+
+        stream.setCodec("UTF-8");
+        stream << csMsg;
+    }
+}
+//------------------------------------------------------------------------------
 
 
 /*******************************************************************************
