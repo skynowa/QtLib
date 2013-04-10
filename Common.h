@@ -132,7 +132,7 @@ typedef const std::wstring       std_cwstring;
             abort(); \
         }
 #else
-    #define qTEST(expression)
+    #define qTEST(expression) Q_ASSERT(expression)
 #endif
 //------------------------------------------------------------------------------
 // etc
