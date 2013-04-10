@@ -53,7 +53,7 @@ CUtils::setApplicationSingle(
     cQString &a_applicationGuid
 )
 {
-    Q_ASSERT(!a_applicationGuid.isEmpty());
+    qTEST(!a_applicationGuid.isEmpty());
 
     bool bRv = false;
 
@@ -74,11 +74,11 @@ CUtils::widgetAlignCenter(
     QWidget *a_widget
 )
 {
-    Q_ASSERT(NULL != a_widget);
+    qTEST(NULL != a_widget);
 
 #if 0
     QDesktopWidget *desktop = QApplication::desktop();
-    Q_ASSERT(NULL != desktop);
+    qTEST(NULL != desktop);
 
     cint x = (desktop->width()  - a_widget->width())  / 2;
     cint y = (desktop->height() - a_widget->height()) / 2;
@@ -99,10 +99,10 @@ CUtils::widgetAlignTopCenter(
     QWidget *a_widget
 )
 {
-    Q_ASSERT(NULL != a_widget);
+    qTEST(NULL != a_widget);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    Q_ASSERT(NULL != desktop);
+    qTEST(NULL != desktop);
 
     cint x = (desktop->width() - a_widget->width()) / 2;
     cint y = 0;
@@ -117,8 +117,8 @@ CUtils::applicationActivate(
     cQString &a_windowName
 )
 {
-    Q_ASSERT(!a_className.isEmpty());
-    Q_ASSERT(!a_windowName.isEmpty());
+    qTEST(!a_className.isEmpty());
+    qTEST(!a_windowName.isEmpty());
 
 #if defined(Q_OS_WIN)
     HWND hWnd = ::FindWindowW(
@@ -126,7 +126,7 @@ CUtils::applicationActivate(
                     qQS2S(a_windowName).c_str());
     if (NULL != hWnd) {
         BOOL blRv = ::SetForegroundWindow(hWnd);
-        Q_ASSERT((BOOL)FALSE != blRv);
+        qTEST((BOOL)FALSE != blRv);
 
         ::Beep(400, 400);
     }
@@ -144,7 +144,7 @@ CUtils::widgetAlwaysOnTop(
     cbool   &a_isChecked
 )
 {
-    Q_ASSERT(NULL != a_widget);
+    qTEST(NULL != a_widget);
     // a_isChecked - n/a
 
     Qt::WindowFlags flags = a_widget->windowFlags();
@@ -190,10 +190,10 @@ CUtils::importCsv(
     cQString               &a_columnSeparator
 )
 {
-    Q_ASSERT(!a_filePath.isEmpty());
-    Q_ASSERT(NULL != a_sqlTableModel);
-    Q_ASSERT(!a_fieldNames.isEmpty());
-    Q_ASSERT(!a_columnSeparator.isEmpty());
+    qTEST(!a_filePath.isEmpty());
+    qTEST(NULL != a_sqlTableModel);
+    qTEST(!a_fieldNames.isEmpty());
+    qTEST(!a_columnSeparator.isEmpty());
 
     bool bRv = false;
 
@@ -204,7 +204,7 @@ CUtils::importCsv(
         QFile fileCSV(a_filePath);
 
         bRv = fileCSV.open(QFile::ReadOnly);
-        Q_ASSERT(bRv);
+        qTEST(bRv);
 
         QString data = fileCSV.readAll();
         slFile = data.split("\n");
@@ -230,10 +230,10 @@ CUtils::importCsv(
         }
 
         bRv = a_sqlTableModel->insertRecord(ciTargetRow, srRecord);
-        Q_ASSERT(bRv);
+        qTEST(bRv);
 
         bRv = a_sqlTableModel->submitAll();
-        Q_ASSERT(bRv);
+        qTEST(bRv);
     }
 }
 //------------------------------------------------------------------------------
@@ -246,10 +246,10 @@ CUtils::exportCsv(
     cQString               &a_columnSeparator
 )
 {
-    Q_ASSERT(!a_filePath.isEmpty());
-    Q_ASSERT(NULL != a_sqlTableModel);
-    Q_ASSERT(!a_fieldNames.isEmpty());
-    Q_ASSERT(!a_columnSeparator.isEmpty());
+    qTEST(!a_filePath.isEmpty());
+    qTEST(NULL != a_sqlTableModel);
+    qTEST(!a_fieldNames.isEmpty());
+    qTEST(!a_columnSeparator.isEmpty());
 
     // DB -> text
     QString sCsv;
@@ -281,7 +281,7 @@ CUtils::exportCsv(
         QFile fileCSV(a_filePath);
 
         bool bRv = fileCSV.open(QFile::WriteOnly | QIODevice::Text);
-        Q_ASSERT(bRv);
+        qTEST(bRv);
 
         QTextStream stream(&fileCSV);
 
@@ -301,9 +301,9 @@ CUtils::dbFilter(
     cQString       &a_sqlStrOrderBy
 )
 {
-    Q_ASSERT(NULL != sqlQueryModel);
-    Q_ASSERT(!a_tableName.isEmpty());
-    Q_ASSERT(!a_fields.isEmpty());
+    qTEST(NULL != sqlQueryModel);
+    qTEST(!a_tableName.isEmpty());
+    qTEST(!a_fields.isEmpty());
     // a_sqlStrJoin - n/a
     // a_sqlStrWhere - n/a
     // a_sqlStrOrderBy - n/a
@@ -377,7 +377,7 @@ CUtils::dbFilter(
     // execute query
     {
         QSqlQueryModel *qmModel = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
-        Q_ASSERT(NULL != qmModel);
+        qTEST(NULL != qmModel);
 
         qmModel->setQuery(sSqlStr);
 
@@ -392,9 +392,9 @@ CUtils::dbFieldNames(
     QStringList        *a_dbFileldNames ///< field names [out]
 )
 {
-    Q_ASSERT(a_db.isValid());
-    Q_ASSERT(!a_tableName.isEmpty());
-    Q_ASSERT(NULL != a_dbFileldNames);
+    qTEST(a_db.isValid());
+    qTEST(!a_tableName.isEmpty());
+    qTEST(NULL != a_dbFileldNames);
 
     QStringList slRv;
     QSqlQuery   qryTableInfo(a_db);
@@ -428,9 +428,9 @@ CUtils::googleTranslate(
     cQString &a_langTo
 )
 {
-    Q_ASSERT(!a_textFrom.isEmpty());
-    Q_ASSERT(!a_langFrom.isEmpty());
-    Q_ASSERT(!a_langTo.isEmpty());
+    qTEST(!a_textFrom.isEmpty());
+    qTEST(!a_langFrom.isEmpty());
+    qTEST(!a_langTo.isEmpty());
 
     QString sRv;
 
@@ -450,7 +450,7 @@ CUtils::googleTranslate(
         QNetworkRequest       nrRequest(csUrl);
 
         QNetworkReply *nrReply = nmManager.get(nrRequest);
-        Q_ASSERT(NULL != nrReply);
+        qTEST(NULL != nrReply);
 
         do {
             QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -462,7 +462,7 @@ CUtils::googleTranslate(
         nrReply->close();
         qPTR_DELETE(nrReply);
 
-        Q_ASSERT(!sReply.isEmpty());
+        qTEST(!sReply.isEmpty());
     }
 
     // parse reply
@@ -517,9 +517,9 @@ CUtils::imageConvert(
     cQByteArray &a_format /* = "JPEG" */
 )
 {
-    Q_ASSERT(!a_filePathIn.isEmpty());
-    Q_ASSERT(NULL != a_photo);
-    Q_ASSERT(!a_format.isEmpty());
+    qTEST(!a_filePathIn.isEmpty());
+    qTEST(NULL != a_photo);
+    qTEST(!a_format.isEmpty());
 
     QBuffer      buffer(a_photo);
     QImageWriter writer(&buffer, a_format);
@@ -528,7 +528,7 @@ CUtils::imageConvert(
     /// writer.setCompression(9);
 
     bool bRv = writer.write(image);
-    Q_ASSERT(bRv);
+    qTEST(bRv);
 
     buffer.close();
 }
@@ -645,11 +645,11 @@ CUtils::debugTest(
         // truncate log file
         if (log.size() > a_logSizeMaxBytes) {
             bool bRv = log.resize(0);
-            Q_ASSERT(bRv);
+            qTEST(bRv);
         }
 
         bool bRv = log.open(QFile::Append | QIODevice::Text);
-        Q_ASSERT(bRv);
+        qTEST(bRv);
 
         QTextStream stream(&log);
 
@@ -671,7 +671,7 @@ CUtils::sleep(
     cint &a_timeoutMs
 )
 {
-    Q_ASSERT(a_timeoutMs > 0);
+    qTEST(a_timeoutMs > 0);
 
 #ifdef Q_OS_WIN
     (void)::Sleep( DWORD(a_timeoutMs) );

@@ -22,7 +22,7 @@ CSqlNavigator::CSqlNavigator(
     _m_tmModel(NULL),
     _m_tvView (NULL)
 {
-    Q_ASSERT(NULL != a_parent);
+    qTEST(NULL != a_parent);
 }
 //------------------------------------------------------------------------------
 /* virtual */
@@ -37,8 +37,8 @@ CSqlNavigator::construct(
     QTableView     *a_tableView
 )
 {
-    Q_ASSERT(NULL != a_tableModel);
-    Q_ASSERT(NULL != a_tableView);
+    qTEST(NULL != a_tableModel);
+    qTEST(NULL != a_tableView);
 
     _m_tmModel = a_tableModel;
     _m_tvView  = a_tableView;
@@ -47,7 +47,7 @@ CSqlNavigator::construct(
 QSqlTableModel *
 CSqlNavigator::model()
 {
-    Q_ASSERT(NULL != _m_tmModel);
+    qTEST(NULL != _m_tmModel);
 
     return _m_tmModel;
 }
@@ -55,7 +55,7 @@ CSqlNavigator::model()
 QTableView *
 CSqlNavigator::view()
 {
-    Q_ASSERT(NULL != _m_tvView);
+    qTEST(NULL != _m_tvView);
 
     return _m_tvView;
 }
