@@ -630,11 +630,13 @@ CUtils::debugTest(
         " File:       %2\n"
         " Line:       %3\n"
         " Function:   %4\n"
+        " Date:       %5\n"
         "--------------------------------------------------\n")
             .arg(a_expression)
             .arg(a_filePath)
             .arg(a_fileLine)
-            .arg(a_functionName);
+            .arg(a_functionName)
+            .arg( QDateTime::currentDateTime().toString() );
 
     // write to file
     {
