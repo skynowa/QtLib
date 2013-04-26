@@ -4,8 +4,8 @@
  */
 
 
-#ifndef XXXDb_CApplicationH
-#define XXXDb_CApplicationH
+#ifndef QtLib_CApplicationH
+#define QtLib_CApplicationH
 //------------------------------------------------------------------------------
 #include "../QtLib/Common.h"
 #include "../QtLib/CUtils.h"
@@ -39,9 +39,6 @@ public:
         ///< check if application already running
     static bool    selfCheck();
         ///< self check
-
-private:
-
 };
 //------------------------------------------------------------------------------
-#endif // XXXDb_CApplicationH
+#endif // QtLib_CApplicationH
