@@ -25,6 +25,12 @@ public:
         ///< ini file path
     static QString langsDirPath();
         ///< languages directory path
+    static QString dbDirPath();
+        ///< database directory path
+    static QString dbFilePath();
+        ///< database file path
+    static QString dbBackupDirPath();
+        ///< database backup directory path
 
     static QString pluginPlatformsDirPath();
         ///< plugin platforms directory path

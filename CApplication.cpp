@@ -24,9 +24,11 @@ namespace {
     cQByteArray APP_LOCALE_CODEC            = "UTF-8";
 #endif
 
-    // etc
     cQString    INI_FILE_EXT                = ".ini";
     cQString    LANGS_DIR_NAME              = "Langs";
+    cQString    BACKUP_DIR_NAME             = "Backup";
+    cQString    DB_DIR_NAME                 = "Db";
+    cQString    DB_FILE_EXT                 = ".db";
 }
 //------------------------------------------------------------------------------
 
@@ -75,6 +77,27 @@ QString
 CApplication::langsDirPath()
 {
     return applicationDirPath() + QDir::separator() + LANGS_DIR_NAME;
+}
+//------------------------------------------------------------------------------
+/* static */
+QString
+CApplication::dbDirPath()
+{
+    return applicationDirPath() + QDir::separator() + DB_DIR_NAME;
+}
+//------------------------------------------------------------------------------
+/* static */
+QString
+CApplication::dbFilePath()
+{
+    return dbDirPath() + QDir::separator() + applicationName() + DB_FILE_EXT;
+}
+//------------------------------------------------------------------------------
+/* static */
+QString
+CApplication::dbBackupDirPath()
+{
+    return dbDirPath() + QDir::separator() + BACKUP_DIR_NAME;
 }
 //------------------------------------------------------------------------------
 /* static */
