@@ -31,6 +31,8 @@ public:
         ///< database file path
     static QString dbBackupDirPath();
         ///< database backup directory path
+    static QString debugTracePath();
+        ///< debug trace path
 
     static QString pluginPlatformsDirPath();
         ///< plugin platforms directory path

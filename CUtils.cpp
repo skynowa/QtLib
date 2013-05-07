@@ -6,11 +6,10 @@
 
 #include "CUtils.h"
 
+#include "CApplication.h"
 
 #if defined(Q_OS_WIN)
     #include <windows.h>
-#else
-
 #endif
 
 #include <QDomDocument>
@@ -678,8 +677,6 @@ CUtils::debugTracer(
     cQString                 &a_msg
 )
 {
-    cQString APP_TRACE_LOG_NAME = "trace.log";
-
     QString msg = QString("%1 (%2:%3)")
                 .arg(a_msg.toLocal8Bit().constData())
                 .arg(a_context.file)
@@ -705,7 +702,7 @@ CUtils::debugTracer(
 
     // write to file
     {
-        QFile outFile(APP_TRACE_LOG_NAME);
+        QFile outFile( CApplication::debugTracePath() );
         outFile.open(QIODevice::WriteOnly | QIODevice::Append);
 
         QTextStream ts(&outFile);

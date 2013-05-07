@@ -29,6 +29,7 @@ namespace {
     cQString    BACKUP_DIR_NAME             = "Backup";
     cQString    DB_DIR_NAME                 = "Db";
     cQString    DB_FILE_EXT                 = ".db";
+    cQString    APP_TRACE_PATH              = "trace.log";
 }
 //------------------------------------------------------------------------------
 
@@ -98,6 +99,13 @@ QString
 CApplication::dbBackupDirPath()
 {
     return dbDirPath() + QDir::separator() + BACKUP_DIR_NAME;
+}
+//------------------------------------------------------------------------------
+/* static */
+QString
+CApplication::debugTracePath()
+{
+    return applicationDirPath() + QDir::separator() + APP_TRACE_PATH;
 }
 //------------------------------------------------------------------------------
 /* static */
