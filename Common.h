@@ -76,6 +76,9 @@
 #include <QFileIconProvider>
 #include <QDesktopServices>
 
+// std
+#include <iostream>
+
 //------------------------------------------------------------------------------
 // typedefs
 typedef const bool               cbool;

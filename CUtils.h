@@ -77,6 +77,9 @@ public:
                                   culong &fileLine, cQString &functionName,
                                   cqint64 &logSizeMaxBytes);
         ///< custom assert
+    static void         debugTracer(QtMsgType type, const QMessageLogContext &context,
+                                    cQString &msg);
+        ///< callback for qInstallMessageHandler
 
     // other
     static void         sleep(cint &timeoutMs);

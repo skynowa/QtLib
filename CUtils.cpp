@@ -618,6 +618,14 @@ CUtils::formatBytes(
     return sRv;
 }
 //------------------------------------------------------------------------------
+
+
+/*******************************************************************************
+*   debug
+*
+*******************************************************************************/
+
+//------------------------------------------------------------------------------
 void
 CUtils::debugTest(
     cQString &a_expression,
@@ -661,6 +669,60 @@ CUtils::debugTest(
         stream.setCodec("UTF-8");
         stream << csMsg;
     }
+}
+//------------------------------------------------------------------------------
+void
+CUtils::debugTracer(
+    QtMsgType                 a_type,
+    const QMessageLogContext &a_context,
+    cQString                 &a_msg
+)
+{
+    cQString APP_TRACE_LOG_NAME = "trace.log";
+
+    QString msg = QString("%1 (%2:%3)")
+                .arg(a_msg.toLocal8Bit().constData())
+                .arg(a_context.file)
+                .arg(a_context.line);
+
+    switch (a_type) {
+        case QtDebugMsg:
+            msg = QString("Debug:    %1").arg(msg);
+            break;
+        case QtWarningMsg:
+            msg = QString("Warning:  %1").arg(msg);
+            break;
+        case QtCriticalMsg:
+            msg = QString("Critical: %1").arg(msg);
+            break;
+        case QtFatalMsg:
+            msg = QString("Fatal:    %1").arg(msg);
+            abort();
+        default:
+            msg = QString("Unknown:  %1").arg(msg);
+            break;
+    }
+
+    // write to file
+    {
+        QFile outFile(APP_TRACE_LOG_NAME);
+        outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+
+        QTextStream ts(&outFile);
+        ts << msg << endl;
+    }
+
+    // write to std::out
+    {
+        std::wcout << msg.toStdWString() << std::endl;
+    }
+
+#if defined(Q_OS_WIN)
+    // write to debbuger
+    {
+        (void)::OutputDebugStringW(msg.toStdWString().c_str());
+    }
+#endif
 }
 //------------------------------------------------------------------------------
 
