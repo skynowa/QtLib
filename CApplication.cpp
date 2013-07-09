@@ -156,22 +156,22 @@ CApplication::selfCheck()
 
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr << "Plugin directory "
-                   << pluginPlatformsDirPath().toStdWString() << " not exists\n";
+        std::wcerr << "Missing plugin directory "
+                   << pluginPlatformsDirPath().toStdWString() << std::endl;
         return false;
     }
 
     bRv = QDir( pluginSqlDriversDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr << "Plugin directory "
-                   << pluginSqlDriversDirPath().toStdWString() << " not exists\n";
+        std::wcerr << "Missing plugin directory "
+                   << pluginSqlDriversDirPath().toStdWString() << std::endl;
         return false;
     }
 
     bRv = QDir( pluginImageFormatsDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr << "Plugin directory "
-                   << pluginImageFormatsDirPath().toStdWString() << " not exists\n";
+        std::wcerr << "Missing plugin directory "
+                   << pluginImageFormatsDirPath().toStdWString() << std::endl;
         return false;
     }
 
