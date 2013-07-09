@@ -148,7 +148,6 @@ CApplication::isRunnig(
     return CUtils::setApplicationSingle(a_appGuid);
 }
 //------------------------------------------------------------------------------
-// BUG: CApplication::selfCheck()
 /* static */
 bool
 CApplication::selfCheck()
@@ -157,34 +156,22 @@ CApplication::selfCheck()
 
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
-        QMessageBox::warning(
-            NULL,
-            "CApplication",
-            QObject::tr("Plugin directory %1 not exists")
-                            .arg( pluginPlatformsDirPath() ));
-
+        std::wcerr << "Plugin directory "
+                   << pluginPlatformsDirPath().toStdWString() << " not exists\n";
         return false;
     }
 
     bRv = QDir( pluginSqlDriversDirPath() ).isReadable();
     if (!bRv) {
-        QMessageBox::warning(
-            NULL,
-            "CApplication",
-            QObject::tr("Plugin directory %1 not exists")
-                            .arg( pluginSqlDriversDirPath() ));
-
+        std::wcerr << "Plugin directory "
+                   << pluginSqlDriversDirPath().toStdWString() << " not exists\n";
         return false;
     }
 
     bRv = QDir( pluginImageFormatsDirPath() ).isReadable();
     if (!bRv) {
-        QMessageBox::warning(
-            NULL,
-            "CApplication",
-            QObject::tr("Plugin directory %1 not exists")
-                            .arg( pluginImageFormatsDirPath() ));
-
+        std::wcerr << "Plugin directory "
+                   << pluginImageFormatsDirPath().toStdWString() << " not exists\n";
         return false;
     }
 
