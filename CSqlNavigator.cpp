@@ -165,6 +165,7 @@ CSqlNavigator::remove()
 
     int             iTargetRow = 0;
     QModelIndexList ilList     = view()->selectionModel()->selectedIndexes();
+
     Q_FOREACH (QModelIndex index, ilList) {
         iTargetRow = index.row();
 
@@ -172,6 +173,9 @@ CSqlNavigator::remove()
         bool bRv = model()->removeRow(iTargetRow);
         qCHECK_PTR(bRv, model());
     }
+
+    bool bRv = model()->submitAll();
+    qCHECK_PTR(bRv, model());
 
     model()->select();
     goTo(iTargetRow - 1);
