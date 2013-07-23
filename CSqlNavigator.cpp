@@ -152,6 +152,9 @@ CSqlNavigator::insert()
     bool bRv = model()->insertRecord(- 1, record);
     qCHECK_PTR(bRv, model());
 
+    bRv = model()->submitAll();
+    qCHECK_PTR(bRv, model());
+
     bRv = model()->select();
     qCHECK_PTR(bRv, model());
 
@@ -191,6 +194,9 @@ CSqlNavigator::edit()
     cint              ciTargetRow  = view()->currentIndex().row();
     const QModelIndex cmiIndex     = model()->index(ciTargetRow, ciTargetCell);
     qCHECK_DO(- 1 == ciTargetRow, return);
+
+    bool bRv = model()->submitAll();
+    qCHECK_PTR(bRv, model());
 
     goTo(cmiIndex.row());
 }
