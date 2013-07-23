@@ -168,7 +168,7 @@ CUtils::widgetAlwaysOnTop(
 int
 CUtils::sqlTableModelRowCount(
     QSqlTableModel *a_model,
-    cbool          &a_isFetchAllRows /* = false */
+    cbool          &a_isFetchAllRows /* = true */
 )
 {
     // a_model - n/a
