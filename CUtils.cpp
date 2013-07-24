@@ -27,6 +27,7 @@ CUtils::CUtils()
 
 }
 //------------------------------------------------------------------------------
+/* virtual */
 CUtils::~CUtils()
 {
 
@@ -401,7 +402,7 @@ CUtils::dbFieldNames(
     QStringList slRv;
     QSqlQuery   qryTableInfo(a_db);
 
-    cQString  csSql = \
+    cQString csSql = \
         "pragma table_info(" + a_tableName + ");";
 
     bool bRv = qryTableInfo.exec(csSql);
@@ -732,17 +733,17 @@ CUtils::debugTracer(
 //------------------------------------------------------------------------------
 void
 CUtils::sleep(
-    cint &a_timeoutMs
+    cint &a_timeoutMsec
 )
 {
-    qTEST(a_timeoutMs > 0);
+    qTEST(a_timeoutMsec > 0);
 
 #ifdef Q_OS_WIN
-    (void)::Sleep( DWORD(a_timeoutMs) );
+    (void)::Sleep( DWORD(a_timeoutMsec) );
 #else
     struct timespec tsTime = {
-        a_timeoutMs / 1000,
-        (a_timeoutMs % 1000) * 1000 * 1000
+        a_timeoutMsec / 1000,
+        (a_timeoutMsec % 1000) * 1000 * 1000
     };
 
     ::nanosleep(&tsTime, NULL);
