@@ -70,7 +70,9 @@ CApplication::~CApplication()
 QString
 CApplication::iniFilePath()
 {
-    return applicationFilePath() + INI_FILE_EXT;
+    cQString basename = QFileInfo( applicationFilePath() ).baseName();
+
+    return applicationDirPath() + QDir::separator() + basename + INI_FILE_EXT;
 }
 //------------------------------------------------------------------------------
 /* static */
