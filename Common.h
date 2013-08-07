@@ -99,6 +99,17 @@ typedef const QVariant           cQVariant;
 typedef const QSize              cQSize;
 typedef const std::string        std_cstring;
 typedef const std::wstring       std_cwstring;
+
+//------------------------------------------------------------------------------
+#if defined(Q_OS_WIN)
+    #ifdef QT_PLUGIN
+        #define qPLUGIN_EXPORT Q_DECL_EXPORT
+    #else
+        #define qPLUGIN_EXPORT Q_DECL_IMPORT
+    #endif
+#else
+    #define qPLUGIN_EXPORT
+#endif
 //------------------------------------------------------------------------------
 #define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr); } }
 #define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;              } }
