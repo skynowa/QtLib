@@ -10,6 +10,10 @@
 #include "../QtLib/Common.h"
 #include "../QtLib/CUtils.h"
 //------------------------------------------------------------------------------
+class CApplication;
+
+#define qCApp  ( static_cast<CApplication *>(QCoreApplication::instance()) )
+//------------------------------------------------------------------------------
 class CApplication :
     public QApplication
     /// application
@@ -47,6 +51,8 @@ public:
         ///< check if application already running
     static bool    selfCheck();
         ///< self check
+    static QString versionInfo();
+        ///< fuul version information
 };
 //------------------------------------------------------------------------------
 #endif // QtLib_CApplicationH

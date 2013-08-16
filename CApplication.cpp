@@ -180,3 +180,14 @@ CApplication::selfCheck()
     return true;
 }
 //------------------------------------------------------------------------------
+/* static */
+QString
+CApplication::versionInfo()
+{
+    return QString("%1 %2 (%3 %4)")
+                .arg( applicationName() )
+                .arg( applicationVersion() )
+                .arg(__TIME__)
+                .arg(__DATE__);
+}
+//------------------------------------------------------------------------------

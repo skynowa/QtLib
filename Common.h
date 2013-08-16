@@ -155,7 +155,7 @@ typedef const std::wstring       std_cwstring;
 #define qTEST_NA(expression) ;
 //------------------------------------------------------------------------------
 // etc
-#define qARRAY_LENGTH(a)    ( sizeof(a) / sizeof((a)[0]) )
-#define qPTR_DELETE(p)      { delete p; p = NULL; }
+#define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
+#define qPTR_DELETE(p)   { delete p; p = NULL; }
 //------------------------------------------------------------------------------
 #endif // QtLib_CommonH
