@@ -6,7 +6,7 @@
 
 #ifndef QtLib_CommonH
 #define QtLib_CommonH
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // #define qTEST_IS_USED  1
 
 // core
@@ -79,7 +79,7 @@
 // std
 #include <iostream>
 
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // typedefs
 typedef const bool               cbool;
 typedef const int                cint;
@@ -100,7 +100,7 @@ typedef const QSize              cQSize;
 typedef const std::string        std_cstring;
 typedef const std::wstring       std_cwstring;
 
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 #if defined(Q_OS_WIN)
     #ifdef QT_PLUGIN
         #define qPLUGIN_EXPORT Q_DECL_EXPORT
@@ -110,7 +110,7 @@ typedef const std::wstring       std_cwstring;
 #else
     #define qPLUGIN_EXPORT
 #endif
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 #define qCHECK_RET(expr, return_expr) \
             { if ((expr)) { return (return_expr); } }
 #define qCHECK_DO(expr, do_expr) \
@@ -137,7 +137,7 @@ typedef const std::wstring       std_cwstring;
                     QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); \
                 } \
             }
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // converters
 #if defined(UNICODE) || defined(_UNICODE)
     #define qS2QS(s) \
@@ -154,11 +154,11 @@ typedef const std::wstring       std_cwstring;
             ( (qs).toStdString() )
         ///< convert QString to std::tstring_t
 #endif
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // debug variables, trace variable and value
 #define  qDEBUG_VAR(v) \
                 #v":" << (v)
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // custom assert
 #if qTEST_IS_USED
     #define qTEST(expression) \
@@ -175,9 +175,9 @@ typedef const std::wstring       std_cwstring;
 
 #define qTEST_NA(expression) \
             ;
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
 #define qPTR_DELETE(p)   { delete p; p = NULL; }
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 #endif // QtLib_CommonH
