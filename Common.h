@@ -111,27 +111,47 @@ typedef const std::wstring       std_cwstring;
     #define qPLUGIN_EXPORT
 #endif
 //------------------------------------------------------------------------------
-#define qCHECK_RET(expr, return_expr)   { if ((expr)) { return (return_expr); } }
-#define qCHECK_DO(expr, do_expr)        { if ((expr)) { do_expr;              } }
+#define qCHECK_RET(expr, return_expr) \
+            { if ((expr)) { return (return_expr); } }
+#define qCHECK_DO(expr, do_expr) \
+            { if ((expr)) { do_expr;              } }
 
-#define qNOT_IMPL                       { QMessageBox::warning(this, qApp->applicationName(), QObject::tr(__FUNCTION__) + QObject::tr(": Not implemented")); }
-#define qMSG_INFO(s)                    { QMessageBox::information(this, qApp->applicationName(), (s)); }
-#define qMSG_WARN(s)                    { QMessageBox::warning(this, qApp->applicationName(), (s)); }
-#define qMSG(s)                         { QMessageBox::information(NULL, qApp->applicationName(), (s)); }
+#define qNOT_IMPL \
+            { QMessageBox::warning(this, qApp->applicationName(), QObject::tr(__FUNCTION__) + QObject::tr(": Not implemented")); }
+#define qMSG_INFO(s) \
+            { QMessageBox::information(this, qApp->applicationName(), (s)); }
+#define qMSG_WARN(s) \
+            { QMessageBox::warning(this, qApp->applicationName(), (s)); }
+#define qMSG(s) \
+            { QMessageBox::information(NULL, qApp->applicationName(), (s)); }
 
-#define qCHECK_REF(var, object)         { if (!var) { QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); } }
-#define qCHECK_PTR(var, object)         { if (!var) { QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); } }
+#define qCHECK_REF(var, object) \
+            { \
+                if (!var) { \
+                    QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); \
+                }\
+            }
+#define qCHECK_PTR(var, object) \
+            { \
+                if (!var) { \
+                    QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); \
+                } \
+            }
 //------------------------------------------------------------------------------
 // converters
 #if defined(UNICODE) || defined(_UNICODE)
-    #define qS2QS(s)                    ( CUtils::fromStdWString(s) )
+    #define qS2QS(s) \
+            ( CUtils::fromStdWString(s) )
         ///< convert std::tstring_t to QString
-    #define qQS2S(qs)                   ( CUtils::toStdWString(qs) )
+    #define qQS2S(qs) \
+            ( CUtils::toStdWString(qs) )
         ///< convert QString to std::tstring_t
 #else
-    #define qS2QS(s)                    ( QString().fromStdString(s) )
+    #define qS2QS(s) \
+            ( QString().fromStdString(s) )
         ///< convert std::tstring_t to QString
-    #define qQS2S(qs)                   ( (qs).toStdString() )
+    #define qQS2S(qs) \
+            ( (qs).toStdString() )
         ///< convert QString to std::tstring_t
 #endif
 //------------------------------------------------------------------------------
@@ -149,10 +169,12 @@ typedef const std::wstring       std_cwstring;
             abort(); \
         }
 #else
-    #define qTEST(expression) Q_ASSERT(expression)
+    #define qTEST(expression) \
+                Q_ASSERT(expression)
 #endif
 
-#define qTEST_NA(expression) ;
+#define qTEST_NA(expression) \
+            ;
 //------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )

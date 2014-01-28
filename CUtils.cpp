@@ -86,9 +86,8 @@ CUtils::widgetAlignCenter(
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 #endif
 
-    QRect rcRect = QStyle::alignedRect(
-                        Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
-                        qApp->desktop()->availableGeometry());
+    QRect rcRect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
+        qApp->desktop()->availableGeometry());
 
     a_widget->setGeometry(rcRect);
 }
@@ -121,10 +120,8 @@ CUtils::applicationActivate(
     qTEST(!a_windowName.isEmpty());
 
 #if defined(Q_OS_WIN)
-    HWND hWnd = ::FindWindowW(
-                    qQS2S(a_className).c_str(),
-                    qQS2S(a_windowName).c_str());
-    if (NULL != hWnd) {
+    HWND hWnd = ::FindWindowW(qQS2S(a_className).c_str(), qQS2S(a_windowName).c_str());
+    if (hWnd != NULL) {
         BOOL blRv = ::SetForegroundWindow(hWnd);
         qTEST((BOOL)FALSE != blRv);
 
@@ -194,7 +191,7 @@ CUtils::importCsv(
 )
 {
     qTEST(!a_filePath.isEmpty());
-    qTEST(NULL != a_sqlTableModel);
+    qTEST(a_sqlTableModel != NULL);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_columnSeparator.isEmpty());
 

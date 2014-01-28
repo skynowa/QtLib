@@ -10,49 +10,60 @@
 #include "../QtLib/Common.h"
 #include "../QtLib/CUtils.h"
 //------------------------------------------------------------------------------
-class CApplication;
-
-#define qCApp  ( static_cast<CApplication *>(QCoreApplication::instance()) )
-//------------------------------------------------------------------------------
 class CApplication :
     public QApplication
-    /// application
+    ///< application
 {
 public:
-                   CApplication(int &argc, char **argv);
+            CApplication(int &argc, char **argv);
         ///< constructor
-    virtual       ~CApplication();
+    virtual ~CApplication();
         ///< destructor
 
     // static
-    static QString iniFilePath();
+    static
+    QString iniFilePath();
         ///< ini file path
-    static QString langsDirPath();
+    static
+    QString langsDirPath();
         ///< languages directory path
-    static QString dbDirPath();
+    static
+    QString dbDirPath();
         ///< database directory path
-    static QString dbFilePath();
+    static
+    QString dbFilePath();
         ///< database file path
-    static QString dbBackupDirPath();
+    static
+    QString dbBackupDirPath();
         ///< database backup directory path
-    static QString debugTracePath();
+    static
+    QString debugTracePath();
         ///< debug trace path
 
-    static QString pluginPlatformsDirPath();
+    static
+    QString pluginPlatformsDirPath();
         ///< plugin platforms directory path
-    static QString pluginSqlDriversDirPath();
+    static
+    QString pluginSqlDriversDirPath();
         ///< plugin sqldrivers  directory path
-    static QString pluginImageFormatsDirPath();
+    static
+    QString pluginImageFormatsDirPath();
         ///< plugin imageformats  directory path
 
-    static void    windowActivate(cQString &appWndClass, cQString &appName);
+    static
+    void    windowActivate(cQString &appWndClass, cQString &appName);
         ///< activate main window
-    static bool    isRunnig(cQString &appGuid);
+    static
+    bool    isRunnig(cQString &appGuid);
         ///< check if application already running
-    static bool    selfCheck();
+    static
+    bool    selfCheck();
         ///< self check
-    static QString versionInfo();
+    static
+    QString versionInfo();
         ///< fuul version information
 };
+//------------------------------------------------------------------------------
+#define qCApp  ( static_cast<CApplication *>(QCoreApplication::instance()) )
 //------------------------------------------------------------------------------
 #endif // QtLib_CApplicationH
