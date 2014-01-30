@@ -61,7 +61,10 @@ public:
         ///< self check
     static
     QString versionInfo();
-        ///< fuul version information
+        ///< full version information
+    static
+    QString buildInfo();
+        ///< build information
 };
 //-------------------------------------------------------------------------------------------------
 #define qCApp  ( static_cast<CApplication *>(QCoreApplication::instance()) )
