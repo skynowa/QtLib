@@ -156,6 +156,13 @@ CApplication::selfCheck()
 {
     bool bRv = false;
 
+    bRv = QString(QT_VERSION_STR) != QString( qVersion() );
+    if (!bRv) {
+        std::wcerr << "Qt compile version " << QT_VERSION_STR << " and "
+                   << "Qt runtime version " << qVersion()     << " mismatch" << std::endl;
+        return false;
+    }
+
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
         std::wcerr << "Missing plugin directory "
