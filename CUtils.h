@@ -11,10 +11,6 @@
 //-------------------------------------------------------------------------------------------------
 class CUtils
 {
-private:
-                 CUtils();
-    virtual     ~CUtils();
-
 public:
     // GUI
     static
@@ -94,14 +90,17 @@ public:
                      cQString &functionName, cqint64 &logSizeMaxBytes);
         ///< custom assert
     static
-    void         debugTracer(QtMsgType type,
-                            const QMessageLogContext &context, cQString &msg);
+    void         debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
         ///< callback for qInstallMessageHandler
 
 
     // other
     static
     void         sleep(cint &timeoutMsec);
+
+private:
+                 CUtils();
+                ~CUtils();
 };
 //-------------------------------------------------------------------------------------------------
 #endif // QtLib_CUtilsH
