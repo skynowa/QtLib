@@ -165,6 +165,9 @@ CApplication::selfCheck()
         return false;
     }
 
+#if 0
+    // TODO: CApplication::selfCheck()
+
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
         std::wcerr
@@ -191,6 +194,7 @@ CApplication::selfCheck()
             << pluginImageFormatsDirPath().toStdWString() << "\"" << std::endl;
         return false;
     }
+#endif
 
     return true;
 }
