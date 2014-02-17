@@ -665,6 +665,8 @@ CUtils::debugTest(
 
         stream.setCodec("UTF-8");
         stream << csMsg;
+
+        std::wcerr << csMsg.toStdWString() << std::endl;
     }
 }
 //-------------------------------------------------------------------------------------------------

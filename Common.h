@@ -166,7 +166,7 @@ typedef const std::wstring       std_cwstring;
             cqint64 mByte = 1000 * 1000; \
             CUtils::debugTest(#expression, __FILE__, __LINE__, __FUNCTION__, mByte); \
             Q_ASSERT(expression); \
-            abort(); \
+            std::exit(EXIT_FAILURE); \
         }
 #else
     #define qTEST(expression) \
