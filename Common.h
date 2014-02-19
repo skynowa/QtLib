@@ -168,9 +168,15 @@ typedef const std::wstring       std_cwstring;
             Q_ASSERT(expression); \
             std::exit(EXIT_FAILURE); \
         }
+
+    #define qTEST_PTR(expression) \
+            qTEST((expression) != NULL)
 #else
     #define qTEST(expression) \
                 Q_ASSERT(expression)
+
+    #define qTEST_PTR(expression) \
+                Q_ASSERT((expression) != NULL)
 #endif
 
 #define qTEST_NA(expression) \
