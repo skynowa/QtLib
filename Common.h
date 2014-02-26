@@ -13,7 +13,6 @@
 #include <Qt>
 #include <QtGlobal>
 #include <QTextCodec>
-#include <QDebug>
 #include <QClipboard>
 #include <QSignalMapper>
 #include <QTimer>
@@ -21,6 +20,8 @@
 #include <QLocale>
 
 // GUI
+// #undef Status
+
 #include <QtGui>
 #include <QCoreApplication>
 #include <QApplication>
