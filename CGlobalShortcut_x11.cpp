@@ -6,50 +6,49 @@
 
 #include "CGlobalShortcut_x11.h"
 
-#if defined(Q_OS_WIN)
-    #include <windows.h>
-#elif defined(Q_OS_UNIX)
-    #include <QX11Info>
-
-    #include <X11/X.h>
-    #include <X11/Xlib.h>
-    #include <X11/keysym.h>
-
-    #if defined(KeyPress)
-        const int XKeyPress   = KeyPress;
-        const int XKeyRelease = KeyRelease;
-
-        #undef KeyPress
-        #undef KeyRelease
-    #endif
-#endif
-
 
 /**************************************************************************************************
 *   public
 *
 **************************************************************************************************/
 
+namespace {
+    #if defined(KeyPress)
+        const int XKeyPress = KeyPress;
+        #undef KeyPress
+    #endif
+
+    #if defined(KeyRelease)
+        const int XKeyRelease = KeyRelease;
+        #undef KeyRelease
+    #endif
+}
+
 //-------------------------------------------------------------------------------------------------
 CGlobalShortcut_x11::CGlobalShortcut_x11(
     QWidget *a_parent
 ) :
-    QMainWindow(a_parent)
+    QMainWindow(a_parent),
+    _display   (Q_NULLPTR)
 {
     qApp->installEventFilter(this);
 
-    m_keyCode = ::XKeysymToKeycode(QX11Info::display(), XK_F11);
-    ::XGrabKey(QX11Info::display(), m_keyCode, ControlMask | ShiftMask, QX11Info::appRootWindow(),
+    _display = ::XOpenDisplay(Q_NULLPTR);
+
+    _keyCode = ::XKeysymToKeycode(_display, XK_F11);
+    ::XGrabKey(_display, _keyCode, ControlMask | ShiftMask, ::XDefaultRootWindow(_display),
         False, GrabModeAsync, GrabModeAsync);
-    ::XFlush(QX11Info::display());
+    ::XFlush(_display);
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
 CGlobalShortcut_x11::~CGlobalShortcut_x11()
 {
-    ::XUngrabKey(QX11Info::display(), m_keyCode, ControlMask|ShiftMask, QX11Info::appRootWindow());
+    ::XUngrabKey(_display, _keyCode, ControlMask | ShiftMask, ::XDefaultRootWindow(_display));
+    ::XCloseDisplay(_display);  _display = Q_NULLPTR;
 }
 //-------------------------------------------------------------------------------------------------
+/* virtual */
 bool
 CGlobalShortcut_x11::eventFilter(
     QObject *a_object,
@@ -58,13 +57,13 @@ CGlobalShortcut_x11::eventFilter(
 {
     Q_UNUSED(a_object);
 
-    if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    if (a_event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(a_event);
 
         if (keyEvent->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier) &&
             keyEvent->key() == Qt::Key_F11)
         {
-            qDebug() << "Ctrl+Shift+F11 pressed!\n";
+            qDebug() << "CGlobalShortcut_x11 event";
             return false;
         }
     }
