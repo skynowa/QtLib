@@ -1,10 +1,10 @@
 /**
- * \file   CGlobalShortcut_x11.cpp
+ * \file   QxGlobalShortcut_x11.cpp
  * \brief  Global shortcut
  */
 
 
-#include "CGlobalShortcut_x11.h"
+#include "QxGlobalShortcut_x11.h"
 
 
 /**************************************************************************************************
@@ -25,7 +25,7 @@ namespace {
 }
 
 //-------------------------------------------------------------------------------------------------
-CGlobalShortcut_x11::CGlobalShortcut_x11(
+QxGlobalShortcut_x11::QxGlobalShortcut_x11(
     QWidget *a_parent
 ) :
     QMainWindow(a_parent),
@@ -42,7 +42,7 @@ CGlobalShortcut_x11::CGlobalShortcut_x11(
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
-CGlobalShortcut_x11::~CGlobalShortcut_x11()
+QxGlobalShortcut_x11::~QxGlobalShortcut_x11()
 {
     ::XUngrabKey(_display, _keyCode, ControlMask | ShiftMask, ::XDefaultRootWindow(_display));
     ::XCloseDisplay(_display);  _display = Q_NULLPTR;
@@ -50,7 +50,7 @@ CGlobalShortcut_x11::~CGlobalShortcut_x11()
 //-------------------------------------------------------------------------------------------------
 /* virtual */
 bool
-CGlobalShortcut_x11::eventFilter(
+QxGlobalShortcut_x11::eventFilter(
     QObject *a_object,
     QEvent  *a_event
 )
@@ -63,7 +63,7 @@ CGlobalShortcut_x11::eventFilter(
         if (keyEvent->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier) &&
             keyEvent->key() == Qt::Key_F11)
         {
-            qDebug() << "CGlobalShortcut_x11 event";
+            qDebug() << "QxGlobalShortcut_x11 event";
             return false;
         }
     }
