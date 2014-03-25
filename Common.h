@@ -20,8 +20,6 @@
 #include <QLocale>
 
 // GUI
-// #undef Status
-
 #include <QtGui>
 #include <QCoreApplication>
 #include <QApplication>
@@ -35,6 +33,7 @@
 #include <QInputDialog>
 #include <QLabel>
 #include <QMenu>
+#include <QSystemTrayIcon>
 
 // containers
 #include <QVector>
@@ -76,6 +75,7 @@
 #include <QProxyStyle>
 #include <QFileIconProvider>
 #include <QDesktopServices>
+#include <QPrinter>
 
 // std
 #include <iostream>
