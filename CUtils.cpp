@@ -29,7 +29,6 @@ CUtils::CUtils()
 /* virtual */
 CUtils::~CUtils()
 {
-
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -56,12 +55,12 @@ CUtils::setApplicationSingle(
 
     bool bRv = false;
 
-    static QSharedMemory smLocker(a_applicationGuid);
+    static QSharedMemory locker(a_applicationGuid);
 
-    bRv = smLocker.attach();
+    bRv = locker.attach();
     qCHECK_RET(bRv, false);
 
-    bRv = smLocker.create(1);
+    bRv = locker.create(1);
     qCHECK_RET(!bRv, false);
 
     return true;
@@ -73,7 +72,7 @@ CUtils::widgetAlignCenter(
     QWidget *a_widget
 )
 {
-    qTEST(NULL != a_widget);
+    qTEST_PTR(a_widget);
 
 #if 0
     QDesktopWidget *desktop = QApplication::desktop();
@@ -85,10 +84,10 @@ CUtils::widgetAlignCenter(
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 #endif
 
-    QRect rcRect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
+    QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
         qApp->desktop()->availableGeometry());
 
-    a_widget->setGeometry(rcRect);
+    a_widget->setGeometry(rect);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -97,10 +96,10 @@ CUtils::widgetAlignTopCenter(
     QWidget *a_widget
 )
 {
-    qTEST(NULL != a_widget);
+    qTEST_PTR(a_widget);
 
     QDesktopWidget *desktop = QApplication::desktop();
-    qTEST(NULL != desktop);
+    qTEST_PTR(desktop);
 
     cint x = (desktop->width() - a_widget->width()) / 2;
     cint y = 0;
@@ -120,7 +119,7 @@ CUtils::applicationActivate(
 
 #if defined(Q_OS_WIN)
     HWND hWnd = ::FindWindowW(qQS2S(a_className).c_str(), qQS2S(a_windowName).c_str());
-    if (hWnd != NULL) {
+    if (hWnd != Q_NULLPTR) {
         BOOL blRv = ::SetForegroundWindow(hWnd);
         qTEST((BOOL)FALSE != blRv);
 
@@ -140,7 +139,7 @@ CUtils::widgetAlwaysOnTop(
     cbool   &a_isChecked
 )
 {
-    qTEST(NULL != a_widget);
+    qTEST_PTR(a_widget);
     // a_isChecked - n/a
 
     Qt::WindowFlags flags = a_widget->windowFlags();
@@ -169,7 +168,7 @@ CUtils::sqlTableModelRowCount(
 )
 {
     // a_model - n/a
-    qCHECK_RET(NULL == a_model, 0);
+    qCHECK_RET(Q_NULLPTR == a_model, 0);
 
     if (a_isFetchAllRows) {
         for ( ; a_model->canFetchMore(); ) {
@@ -190,14 +189,14 @@ CUtils::importCsv(
 )
 {
     qTEST(!a_filePath.isEmpty());
-    qTEST(a_sqlTableModel != NULL);
+    qTEST_PTR(a_sqlTableModel);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_columnSeparator.isEmpty());
 
     bool bRv = false;
 
     // read file
-    QStringList slFile;
+    QStringList file;
 
     {
         QFile fileCSV(a_filePath);
@@ -206,29 +205,29 @@ CUtils::importCsv(
         qTEST(bRv);
 
         QString data = fileCSV.readAll();
-        slFile = data.split("\n");
+        file = data.split("\n");
 
         fileCSV.close();
 
-        qCHECK_DO(slFile.isEmpty(), return);
+        qCHECK_DO(file.isEmpty(), return);
     }
 
     // file -> DB
-    for (int i = 0; i < slFile.size(); ++ i) {
-        cQStringList cslRow = slFile.at(i).split(a_columnSeparator);
+    for (int i = 0; i < file.size(); ++ i) {
+        cQStringList row = file.at(i).split(a_columnSeparator);
 
-        // iTargetRow
-        cint ciTargetRow = CUtils::sqlTableModelRowCount(a_sqlTableModel) - 1;
+        // targetRow
+        cint targetRow = CUtils::sqlTableModelRowCount(a_sqlTableModel) - 1;
 
-        // srRecord
-        QSqlRecord srRecord;
+        // record
+        QSqlRecord record;
 
         for (int x = 0; x < a_fieldNames.size(); ++ x) {
-            srRecord.append(QSqlField(a_fieldNames.at(x)));
-            srRecord.setValue(a_fieldNames.at(x), cslRow.at(x));
+            record.append(QSqlField(a_fieldNames.at(x)));
+            record.setValue(a_fieldNames.at(x), row.at(x));
         }
 
-        bRv = a_sqlTableModel->insertRecord(ciTargetRow, srRecord);
+        bRv = a_sqlTableModel->insertRecord(targetRow, record);
         qTEST(bRv);
 
         bRv = a_sqlTableModel->submitAll();
@@ -246,32 +245,32 @@ CUtils::exportCsv(
 )
 {
     qTEST(!a_filePath.isEmpty());
-    qTEST(NULL != a_sqlTableModel);
+    qTEST_PTR(a_sqlTableModel);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_columnSeparator.isEmpty());
 
     // DB -> text
-    QString sCsv;
+    QString csv;
 
     // DB fields -> CSV header
     for (int x = 0; x < a_fieldNames.size(); ++ x) {
-        sCsv.push_back( a_fieldNames.at(x) );
-        sCsv.push_back( a_columnSeparator );
+        csv.push_back( a_fieldNames.at(x) );
+        csv.push_back( a_columnSeparator );
     }
-    sCsv.push_back( "\n" );
+    csv.push_back( "\n" );
 
     // DB -> file
     {
-        cint ciRealRowCount = CUtils::sqlTableModelRowCount(a_sqlTableModel);
+        cint realRowCount = CUtils::sqlTableModelRowCount(a_sqlTableModel);
 
-        for (int i = 0; i < ciRealRowCount; ++ i) {
+        for (int i = 0; i < realRowCount; ++ i) {
             for (int x = 0; x < a_fieldNames.size(); ++ x) {
-                sCsv.push_back( a_sqlTableModel->record(i)
+                csv.push_back( a_sqlTableModel->record(i)
                                     .value( a_fieldNames.at(x) ).toString() );
-                sCsv.push_back( a_columnSeparator );
+                csv.push_back( a_columnSeparator );
             }
 
-            sCsv.push_back( "\n" );
+            csv.push_back( "\n" );
         }
     }
 
@@ -285,7 +284,7 @@ CUtils::exportCsv(
         QTextStream stream(&fileCSV);
 
         stream.setCodec("UTF-8");
-        stream << sCsv;
+        stream << csv;
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -300,58 +299,56 @@ CUtils::dbFilter(
     cQString       &a_sqlStrOrderBy
 )
 {
-    qTEST(NULL != sqlQueryModel);
+    qTEST_PTR(sqlQueryModel);
     qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
     // a_sqlStrJoin - n/a
     // a_sqlStrWhere - n/a
     // a_sqlStrOrderBy - n/a
 
-    QString sSqlStr;
+    QString sqlStr;
 
-    //-------------------------------------
     // is field values empty
-    bool bIsAllFieldsEmpty = true;
+    bool isAllFieldsEmpty = true;
 
     for (int i = 0; i < a_fields.size(); ++ i) {
-        cQString csCtrlValue = a_fields.at(i).second;
+        cQString ctrlValue = a_fields.at(i).second;
 
-        qCHECK_DO(!csCtrlValue.isEmpty(), bIsAllFieldsEmpty = false; break);
+        qCHECK_DO(!ctrlValue.isEmpty(), isAllFieldsEmpty = false; break);
     }
 
-    //-------------------------------------
     // build query
     {
-        if (bIsAllFieldsEmpty) {
-            sSqlStr = QString("SELECT * FROM %1 %2")
+        if (isAllFieldsEmpty) {
+            sqlStr = QString("SELECT * FROM %1 %2")
                             .arg(a_tableName)
                             .arg(a_sqlStrJoin);
         } else {
-            sSqlStr = QString("SELECT * FROM %1 %2 WHERE")
+            sqlStr = QString("SELECT * FROM %1 %2 WHERE")
                             .arg(a_tableName)
                             .arg(a_sqlStrJoin);
 
-            bool bIsFirstNotEmptyField = true;
+            bool isFirstNotEmptyField = true;
 
             for (int i = 0; i < a_fields.size(); ++ i) {
                 cQString csFieldName = a_fields.at(i).first;
-                cQString csCtrlValue = a_fields.at(i).second;
+                cQString ctrlValue = a_fields.at(i).second;
 
-                qCHECK_DO(csCtrlValue.isEmpty(), continue);
+                qCHECK_DO(ctrlValue.isEmpty(), continue);
 
                 // 1-st field is empty
-                if (bIsFirstNotEmptyField) {
-                    sSqlStr += QString(" (%1 LIKE '%%2%')")
+                if (isFirstNotEmptyField) {
+                    sqlStr += QString(" (%1 LIKE '%%2%')")
                                     .arg(csFieldName)
-                                    .arg(csCtrlValue);
+                                    .arg(ctrlValue);
 
-                    bIsFirstNotEmptyField = false;
+                    isFirstNotEmptyField = false;
                     continue;
                 }
 
-                sSqlStr += QString(" AND (%1 LIKE '%%2%')")
+                sqlStr += QString(" AND (%1 LIKE '%%2%')")
                                 .arg(csFieldName)
-                                .arg(csCtrlValue);
+                                .arg(ctrlValue);
             }
         }
     }
@@ -359,28 +356,28 @@ CUtils::dbFilter(
     //-------------------------------------
     // a_sqlStrWhere
     if (!a_sqlStrWhere.isEmpty()) {
-        if (bIsAllFieldsEmpty) {
-            sSqlStr += " WHERE (" + a_sqlStrWhere + ")";
+        if (isAllFieldsEmpty) {
+            sqlStr += " WHERE (" + a_sqlStrWhere + ")";
         } else {
-            sSqlStr += " AND ("   + a_sqlStrWhere + ")";
+            sqlStr += " AND ("   + a_sqlStrWhere + ")";
         }
     }
 
     //-------------------------------------
     // a_sqlStrOrderBy
     if (!a_sqlStrOrderBy.isEmpty()) {
-        sSqlStr += " " + a_sqlStrOrderBy + ";";
+        sqlStr += " " + a_sqlStrOrderBy + ";";
     }
 
     //-------------------------------------
     // execute query
     {
-        QSqlQueryModel *qmModel = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
-        qTEST(NULL != qmModel);
+        QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
+        qTEST_PTR(model);
 
-        qmModel->setQuery(sSqlStr);
+        model->setQuery(sqlStr);
 
-        qDebug() << sSqlStr;
+        qDebug() << sqlStr;
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -393,15 +390,15 @@ CUtils::dbFieldNames(
 {
     qTEST(a_db.isValid());
     qTEST(!a_tableName.isEmpty());
-    qTEST(NULL != a_dbFileldNames);
+    qTEST_PTR(a_dbFileldNames);
 
     QStringList slRv;
     QSqlQuery   qryTableInfo(a_db);
 
-    cQString csSql = \
+    cQString sql = \
         "pragma table_info(" + a_tableName + ");";
 
-    bool bRv = qryTableInfo.exec(csSql);
+    bool bRv = qryTableInfo.exec(sql);
     qCHECK_REF(bRv, qryTableInfo);
 
     while (qryTableInfo.next()) {
@@ -434,10 +431,10 @@ CUtils::googleTranslate(
     QString sRv;
 
     // request to Google
-    QString sReply;
+    QString response;
 
     {
-        cQString csUrl =
+        cQString url =
             "http://translate.google.com/m?translate_a/t?client=t&text="
             + a_textFrom +
             "&sl="
@@ -445,56 +442,56 @@ CUtils::googleTranslate(
             "&tl="
             + a_langTo;
 
-        QNetworkAccessManager nmManager;
-        QNetworkRequest       nrRequest(csUrl);
+        QNetworkAccessManager manager;
+        QNetworkRequest       request(url);
 
-        QNetworkReply *nrReply = nmManager.get(nrRequest);
-        qTEST(NULL != nrReply);
+        QNetworkReply *reply = manager.get(request);
+        qTEST_PTR(reply);
 
         do {
             QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
         }
-        while (! nrReply->isFinished());
+        while ( !reply->isFinished() );
 
-        sReply = QString::fromUtf8(nrReply->readAll());
+        response = QString::fromUtf8(reply->readAll());
 
-        nrReply->close();
-        qPTR_DELETE(nrReply);
+        reply->close();
+        qPTR_DELETE(reply);
 
-        qTEST(!sReply.isEmpty());
+        qTEST(!response.isEmpty());
     }
 
     // parse reply
-    QStringList lstReply;
-
     {
-        QString sText = sReply;
-        sText.replace("<br>", "~");
-        sText.replace("~~", "*");
-        sText.replace("Словарь:", QObject::tr(""));
+        QStringList responseList;
+
+        QString text = response;
+        text.replace("<br>", "~");
+        text.replace("~~", "*");
+        text.replace("Словарь:", QObject::tr(""));
 
         QDomDocument document;
-        document.setContent(sText);
+        document.setContent(text);
 
         QDomNodeList docList = document.elementsByTagName("div");
         for (int i = 0; i < docList.count(); ++ i) {
-            lstReply.append(docList.at(i).toElement().text());
+            responseList.append(docList.at(i).toElement().text());
         }
 
-        QString sStr = lstReply.at(4);
-        if (!sStr.contains(QObject::tr("Google"))) {
-            sStr.replace("~", "\n    - ");
-            sStr.replace("*", "\n\n");
-            sStr.remove(sStr.count() - 2, 2);
+        QString str = responseList.at(4);
+        if (!str.contains(QObject::tr("Google"))) {
+            str.replace("~", "\n    - ");
+            str.replace("*", "\n\n");
+            str.remove(str.count() - 2, 2);
         } else {
-            sStr.clear();
+            str.clear();
         }
 
-        lstReply.append(sStr);
+        responseList.append(str);
 
         //
-        sRv = lstReply.at(2);
-        sRv += "\n\n" + lstReply.last();
+        sRv = responseList.at(2);
+        sRv += "\n\n" + responseList.last();
     }
 
     return sRv;
@@ -517,7 +514,7 @@ CUtils::imageConvert(
 )
 {
     qTEST(!a_filePathIn.isEmpty());
-    qTEST(NULL != a_photo);
+    qTEST_PTR(a_photo);
     qTEST(!a_format.isEmpty());
 
     QBuffer      buffer(a_photo);
@@ -580,35 +577,29 @@ CUtils::formatBytes(
 
     QString sRv;
 
-    culonglong cullTB   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
-    culonglong cullGB   = 1024ULL * 1024ULL * 1024ULL;
-    culonglong cullMB   = 1024ULL * 1024ULL;
-    culonglong cullKB   = 1024ULL;
-    culonglong cullByte = 1ULL;
+    culonglong tb   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
+    culonglong gb   = 1024ULL * 1024ULL * 1024ULL;
+    culonglong mb   = 1024ULL * 1024ULL;
+    culonglong kb   = 1024ULL;
+    culonglong byte = 1ULL;
 
-    if (     a_bytes / cullTB   > 0ULL) {
-        sRv.sprintf("%.2f TB",
-                    static_cast<double>(a_bytes) / static_cast<double>(cullTB));
+    if      (a_bytes / tb   > 0ULL) {
+        sRv.sprintf("%.2f TB", static_cast<double>(a_bytes) / static_cast<double>(tb));
     }
-    else if (a_bytes / cullGB   > 0ULL) {
-        sRv.sprintf("%.2f GB",
-                    static_cast<double>(a_bytes) / static_cast<double>(cullGB));
+    else if (a_bytes / gb   > 0ULL) {
+        sRv.sprintf("%.2f GB", static_cast<double>(a_bytes) / static_cast<double>(gb));
     }
-    else if (a_bytes / cullMB   > 0ULL) {
-        sRv.sprintf("%.2f MB",
-                    static_cast<double>(a_bytes) / static_cast<double>(cullMB));
+    else if (a_bytes / mb   > 0ULL) {
+        sRv.sprintf("%.2f MB", static_cast<double>(a_bytes) / static_cast<double>(mb));
     }
-    else if (a_bytes / cullKB   > 0ULL) {
-        sRv.sprintf("%.2f KB",
-                    static_cast<double>(a_bytes) / static_cast<double>(cullKB));
+    else if (a_bytes / kb   > 0ULL) {
+        sRv.sprintf("%.2f KB", static_cast<double>(a_bytes) / static_cast<double>(kb));
     }
-    else if (a_bytes / cullByte > 0ULL) {
-        sRv.sprintf("%.2f Byte(s)",
-                    static_cast<double>(a_bytes) / static_cast<double>(cullByte));
+    else if (a_bytes / byte > 0ULL) {
+        sRv.sprintf("%.2f Byte(s)", static_cast<double>(a_bytes) / static_cast<double>(byte));
     }
     else {
-        sRv.sprintf("%.2f Bit(s)",
-                    static_cast<double>(a_bytes));
+        sRv.sprintf("%.2f Bit(s)", static_cast<double>(a_bytes));
     }
 
     return sRv;
@@ -744,7 +735,7 @@ CUtils::sleep(
         (a_timeoutMsec % 1000) * 1000 * 1000
     };
 
-    ::nanosleep(&tsTime, NULL);
+    ::nanosleep(&tsTime, Q_NULLPTR);
 #endif
 }
 //-------------------------------------------------------------------------------------------------

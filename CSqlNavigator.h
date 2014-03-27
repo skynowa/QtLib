@@ -35,8 +35,8 @@ public:
     void            edit();
 
 private:
-    QSqlTableModel *_m_tmModel;
-    QTableView     *_m_tvView;
+    QSqlTableModel *_model;
+    QTableView     *_view;
 
 };
 //-------------------------------------------------------------------------------------------------

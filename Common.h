@@ -124,7 +124,7 @@ typedef const std::wstring       std_cwstring;
 #define qMSG_WARN(s) \
             { QMessageBox::warning(this, qApp->applicationName(), (s)); }
 #define qMSG(s) \
-            { QMessageBox::information(NULL, qApp->applicationName(), (s)); }
+            { QMessageBox::information(Q_NULLPTR, qApp->applicationName(), (s)); }
 
 #define qCHECK_REF(var, object) \
             { \
@@ -171,13 +171,13 @@ typedef const std::wstring       std_cwstring;
         }
 
     #define qTEST_PTR(expression) \
-            qTEST((expression) != NULL)
+            qTEST((expression) != Q_NULLPTR)
 #else
     #define qTEST(expression) \
                 Q_ASSERT(expression)
 
     #define qTEST_PTR(expression) \
-                Q_ASSERT((expression) != NULL)
+                Q_ASSERT((expression) != Q_NULLPTR)
 #endif
 
 #define qTEST_NA(expression) \
@@ -185,6 +185,6 @@ typedef const std::wstring       std_cwstring;
 //-------------------------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
-#define qPTR_DELETE(p)   { delete p; p = NULL; }
+#define qPTR_DELETE(p)   { delete p; p = Q_NULLPTR; }
 //-------------------------------------------------------------------------------------------------
 #endif // QtLib_CommonH
