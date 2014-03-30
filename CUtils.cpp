@@ -432,15 +432,12 @@ CUtils::googleTranslate(
 
     // request to Google
     QString response;
-
     {
-        cQString url =
-            "http://translate.google.com/m?translate_a/t?client=t&text="
-            + a_textFrom +
-            "&sl="
-            + a_langFrom +
-            "&tl="
-            + a_langTo;
+        cQString url = QString("http://translate.google.com/m?translate_a/t?client=t"
+            "&text=%1&sl=%2&tl=%3")
+                .arg(a_textFrom)
+                .arg(a_langFrom)
+                .arg(a_langTo);
 
         QNetworkAccessManager manager;
         QNetworkRequest       request(url);
@@ -448,50 +445,34 @@ CUtils::googleTranslate(
         QNetworkReply *reply = manager.get(request);
         qTEST_PTR(reply);
 
-        do {
+        for ( ;; ) {
             QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+            qCHECK_DO(reply->isFinished(), break);
         }
-        while ( !reply->isFinished() );
 
         response = QString::fromUtf8(reply->readAll());
+        qTEST(!response.isEmpty());
 
         reply->close();
         qPTR_DELETE(reply);
 
-        qTEST(!response.isEmpty());
+        // qDebug() << qDEBUG_VAR(response);
     }
 
-    // parse reply
+    // parse response
     {
-        QStringList responseList;
-
-        QString text = response;
-        text.replace("<br>", "~");
-        text.replace("~~", "*");
-        text.replace("Словарь:", QObject::tr(""));
-
         QDomDocument document;
-        document.setContent(text);
+        document.setContent(response);
 
         QDomNodeList docList = document.elementsByTagName("div");
-        for (int i = 0; i < docList.count(); ++ i) {
-            responseList.append(docList.at(i).toElement().text());
-        }
+        qTEST(docList.count() >= 3);
 
-        QString str = responseList.at(4);
-        if (!str.contains(QObject::tr("Google"))) {
-            str.replace("~", "\n    - ");
-            str.replace("*", "\n\n");
-            str.remove(str.count() - 2, 2);
-        } else {
-            str.clear();
-        }
+        // out
+        sRv = docList.at(2).toElement().text();
+        qTEST(!sRv.isEmpty());
 
-        responseList.append(str);
-
-        //
-        sRv = responseList.at(2);
-        sRv += "\n\n" + responseList.last();
+        // qDebug() << qDEBUG_VAR(sRv);
     }
 
     return sRv;
