@@ -75,7 +75,6 @@
 #include <QProxyStyle>
 #include <QFileIconProvider>
 #include <QDesktopServices>
-#include <QPrinter>
 
 // std
 #include <iostream>
