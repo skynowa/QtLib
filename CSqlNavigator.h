@@ -13,6 +13,7 @@ class CSqlNavigator :
     public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY(CSqlNavigator)
 
 public:
     explicit        CSqlNavigator(QWidget *parent);
