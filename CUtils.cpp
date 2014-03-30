@@ -76,7 +76,7 @@ CUtils::widgetAlignCenter(
 
 #if 0
     QDesktopWidget *desktop = QApplication::desktop();
-    qTEST(NULL != desktop);
+    qTEST_PTR(desktop);
 
     cint x = (desktop->width()  - a_widget->width())  / 2;
     cint y = (desktop->height() - a_widget->height()) / 2;
