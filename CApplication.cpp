@@ -14,22 +14,22 @@
 
 //-------------------------------------------------------------------------------------------------
 namespace {
-    cQString    APP_DIR_PLUGIN_PLATFORMS    = "platforms";
-    cQString    APP_DIR_PLUGIN_SQLDRIVERS   = "sqldrivers";
-    cQString    APP_DIR_PLUGIN_IMAGEFORMATS = "imageformats";
+    cQString    dirPluginPlatform     = "platforms";
+    cQString    dirPluginSqlDrivers   = "sqldrivers";
+    cQString    dirPluginImageFormats = "imageformats";
 
 #if defined(Q_WS_WIN)
-    cQByteArray APP_LOCALE_CODEC            = "Windows-1251";
+    cQByteArray localeCodec           = "Windows-1251";
 #else
-    cQByteArray APP_LOCALE_CODEC            = "UTF-8";
+    cQByteArray localeCodec           = "UTF-8";
 #endif
 
-    cQString    INI_FILE_EXT                = ".ini";
-    cQString    LANGS_DIR_NAME              = "Langs";
-    cQString    BACKUP_DIR_NAME             = "Backup";
-    cQString    DB_DIR_NAME                 = "Db";
-    cQString    DB_FILE_EXT                 = ".db";
-    cQString    APP_TRACE_PATH              = "trace.log";
+    cQString    configFileExt         = ".cfg";
+    cQString    langsDirName          = "Langs";
+    cQString    backupDirName         = "Backup";
+    cQString    dbDirName             = "Db";
+    cQString    dbFileExt             = ".db";
+    cQString    tracePath             = "trace.log";
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ CApplication::CApplication(
 {
     // set codecs
     {
-        QTextCodec *codec = QTextCodec::codecForName(APP_LOCALE_CODEC);
+        QTextCodec *codec = QTextCodec::codecForName(::localeCodec);
         qTEST_PTR(codec);
 
         QTextCodec::setCodecForLocale(codec);
@@ -68,67 +68,67 @@ CApplication::~CApplication()
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::iniFilePath()
+CApplication::configFilePath()
 {
     cQString basename = QFileInfo( applicationFilePath() ).baseName();
 
-    return applicationDirPath() + QDir::separator() + basename + INI_FILE_EXT;
+    return applicationDirPath() + QDir::separator() + basename + ::configFileExt;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::langsDirPath()
 {
-    return applicationDirPath() + QDir::separator() + LANGS_DIR_NAME;
+    return applicationDirPath() + QDir::separator() + ::langsDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::dbDirPath()
 {
-    return applicationDirPath() + QDir::separator() + DB_DIR_NAME;
+    return applicationDirPath() + QDir::separator() + ::dbDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::dbFilePath()
 {
-    return dbDirPath() + QDir::separator() + applicationName() + DB_FILE_EXT;
+    return dbDirPath() + QDir::separator() + applicationName() + ::dbFileExt;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::dbBackupDirPath()
 {
-    return dbDirPath() + QDir::separator() + BACKUP_DIR_NAME;
+    return dbDirPath() + QDir::separator() + ::backupDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::debugTracePath()
 {
-    return applicationDirPath() + QDir::separator() + APP_TRACE_PATH;
+    return applicationDirPath() + QDir::separator() + ::tracePath;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::pluginPlatformsDirPath()
 {
-    return applicationDirPath() + QDir::separator() + APP_DIR_PLUGIN_PLATFORMS;
+    return applicationDirPath() + QDir::separator() + ::dirPluginPlatform;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::pluginSqlDriversDirPath()
 {
-    return applicationDirPath() + QDir::separator() + APP_DIR_PLUGIN_SQLDRIVERS;
+    return applicationDirPath() + QDir::separator() + ::dirPluginSqlDrivers;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
 CApplication::pluginImageFormatsDirPath()
 {
-    return applicationDirPath() + QDir::separator() + APP_DIR_PLUGIN_IMAGEFORMATS;
+    return applicationDirPath() + QDir::separator() + ::dirPluginImageFormats;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */

@@ -22,8 +22,8 @@ public:
 
     // static
     static
-    QString iniFilePath();
-        ///< ini file path
+    QString configFilePath();
+        ///< config file path
     static
     QString langsDirPath();
         ///< languages directory path
