@@ -536,7 +536,7 @@ CUtils::toStdWString(
 /* static */
 QString
 CUtils::fromStdWString(
-    std_cwstring &a_str
+    const std::wstring &a_str
 )
 {
     // a_str - n/a

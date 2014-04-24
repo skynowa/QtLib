@@ -74,7 +74,7 @@ public:
     std::wstring toStdWString(cQString &str);
         ///< convert a QString to an std::wstring
     static
-    QString      fromStdWString(std_cwstring &str);
+    QString      fromStdWString(const std::wstring &str);
         ///< convert an std::wstring to a QString
 
 

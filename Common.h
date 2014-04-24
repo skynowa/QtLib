@@ -88,17 +88,15 @@ typedef const long long          clonglong;
 typedef const unsigned int       cuint;
 typedef const unsigned long      culong;
 typedef const unsigned long long culonglong;
-typedef const qint64             cqint64;
-typedef const size_t             csize_t;
 typedef const float              cfloat;
 typedef const double             cdouble;
+
+typedef const qint64             cqint64;
 typedef const QString            cQString;
 typedef const QStringList        cQStringList;
 typedef const QByteArray         cQByteArray;
 typedef const QVariant           cQVariant;
 typedef const QSize              cQSize;
-typedef const std::string        std_cstring;
-typedef const std::wstring       std_cwstring;
 
 //-------------------------------------------------------------------------------------------------
 #if defined(Q_OS_WIN)
