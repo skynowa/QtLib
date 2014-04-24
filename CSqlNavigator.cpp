@@ -62,7 +62,7 @@ CSqlNavigator::view()
 bool
 CSqlNavigator::isValid() const
 {
-    return ( (Q_NULLPTR != _model) && (Q_NULLPTR != _view) );
+    return ( (_model != Q_NULLPTR ) && (_view != Q_NULLPTR) );
 }
 //-------------------------------------------------------------------------------------------------
 void
