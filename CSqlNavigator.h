@@ -11,6 +11,7 @@
 //-------------------------------------------------------------------------------------------------
 class CSqlNavigator :
     public QObject
+    /// DB SQL navigator
 {
     Q_OBJECT
     Q_DISABLE_COPY(CSqlNavigator)

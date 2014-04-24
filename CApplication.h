@@ -12,7 +12,7 @@
 //-------------------------------------------------------------------------------------------------
 class CApplication :
     public QApplication
-    ///< application
+    /// application
 {
 public:
             CApplication(int &argc, char **argv);
