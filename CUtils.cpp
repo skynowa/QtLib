@@ -433,11 +433,10 @@ CUtils::googleTranslate(
     // request to Google
     QString response;
     {
-        cQString url = QString("http://translate.google.com/m?translate_a/t?client=t"
-            "&text=%1&sl=%2&tl=%3")
-                .arg(a_textFrom)
-                .arg(a_langFrom)
-                .arg(a_langTo);
+        cQString url = QString("https://translate.google.com/m?text=%1&sl=%2&tl=%3")
+                            .arg(a_textFrom)
+                            .arg(a_langFrom)
+                            .arg(a_langTo);
 
         QNetworkAccessManager manager;
         QNetworkRequest       request(url);
@@ -457,6 +456,7 @@ CUtils::googleTranslate(
         reply->close();
         qPTR_DELETE(reply);
 
+        // qDebug() << qDEBUG_VAR(url);
         // qDebug() << qDEBUG_VAR(response);
     }
 
