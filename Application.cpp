@@ -140,7 +140,7 @@ Application::windowActivate(
     cQString &a_appName
 )
 {
-    CUtils::applicationActivate(a_appWndClass, a_appName);
+    ::Utils::applicationActivate(a_appWndClass, a_appName);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -149,7 +149,7 @@ Application::isRunnig(
     cQString &a_appGuid
 )
 {
-    return !CUtils::setApplicationSingle(a_appGuid);
+    return !::Utils::setApplicationSingle(a_appGuid);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */

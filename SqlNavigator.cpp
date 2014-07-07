@@ -1,12 +1,12 @@
 /**
- * \file   CSqlNavigator.cpp
+ * \file   SqlNavigator.cpp
  * \brief
  */
 
 
-#include "CSqlNavigator.h"
+#include "SqlNavigator.h"
 
-#include "CUtils.h"
+#include "Utils.h"
 
 
 /**************************************************************************************************
@@ -15,7 +15,7 @@
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-CSqlNavigator::CSqlNavigator(
+SqlNavigator::SqlNavigator(
     QWidget *a_parent
 ) :
     QObject(a_parent),
@@ -26,12 +26,12 @@ CSqlNavigator::CSqlNavigator(
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
-CSqlNavigator::~CSqlNavigator()
+SqlNavigator::~SqlNavigator()
 {
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::construct(
+SqlNavigator::construct(
     QSqlTableModel *a_tableModel,
     QTableView     *a_tableView
 )
@@ -44,7 +44,7 @@ CSqlNavigator::construct(
 }
 //-------------------------------------------------------------------------------------------------
 QSqlTableModel *
-CSqlNavigator::model()
+SqlNavigator::model()
 {
     qTEST_PTR(_model);
 
@@ -52,7 +52,7 @@ CSqlNavigator::model()
 }
 //-------------------------------------------------------------------------------------------------
 QTableView *
-CSqlNavigator::view()
+SqlNavigator::view()
 {
     qTEST_PTR(_view);
 
@@ -60,13 +60,13 @@ CSqlNavigator::view()
 }
 //-------------------------------------------------------------------------------------------------
 bool
-CSqlNavigator::isValid() const
+SqlNavigator::isValid() const
 {
     return ( (_model != Q_NULLPTR ) && (_view != Q_NULLPTR) );
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::first()
+SqlNavigator::first()
 {
     qCHECK_DO(!isValid(), return);
 
@@ -76,7 +76,7 @@ CSqlNavigator::first()
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::prior()
+SqlNavigator::prior()
 {
     qCHECK_DO(!isValid(), return);
 
@@ -86,7 +86,7 @@ CSqlNavigator::prior()
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::next()
+SqlNavigator::next()
 {
     qCHECK_DO(!isValid(), return);
 
@@ -96,18 +96,18 @@ CSqlNavigator::next()
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::last()
+SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = CUtils::sqlTableModelRowCount( model() ) - 1;
+    int targetRow = ::Utils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= targetRow, targetRow = 0);
 
     goTo(targetRow);
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::goTo(
+SqlNavigator::goTo(
     cint &a_rowIndex
 )
 {
@@ -137,7 +137,7 @@ CSqlNavigator::goTo(
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::insert()
+SqlNavigator::insert()
 {
     qCHECK_DO(!isValid(), return);
 
@@ -161,7 +161,7 @@ CSqlNavigator::insert()
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::remove()
+SqlNavigator::remove()
 {
     qCHECK_DO(!isValid(), return);
 
@@ -184,7 +184,7 @@ CSqlNavigator::remove()
 }
 //-------------------------------------------------------------------------------------------------
 void
-CSqlNavigator::edit()
+SqlNavigator::edit()
 {
     qCHECK_DO(!isValid(), return);
 

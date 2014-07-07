@@ -6,7 +6,7 @@
 
 #include "Utils.h"
 
-#include "CApplication.h"
+#include "Application.h"
 
 #if defined(Q_OS_WIN)
     #include <windows.h>
@@ -673,7 +673,7 @@ Utils::debugTracer(
 
     // write to file
     {
-        QFile outFile( CApplication::debugTracePath() );
+        QFile outFile( Application::debugTracePath() );
         outFile.open(QIODevice::WriteOnly | QIODevice::Append);
 
         QTextStream ts(&outFile);
