@@ -1,5 +1,5 @@
 /**
- * \file   CApplication.h
+ * \file   Application.h
  * \brief  application settings
  */
 
@@ -8,16 +8,16 @@
 #define QtLib_CApplicationH
 //-------------------------------------------------------------------------------------------------
 #include "../QtLib/Common.h"
-#include "../QtLib/CUtils.h"
+#include "../QtLib/Utils.h"
 //-------------------------------------------------------------------------------------------------
-class CApplication :
+class Application :
     public QApplication
     /// application
 {
 public:
-            CApplication(int &argc, char **argv);
+            Application(int &argc, char **argv);
         ///< constructor
-    virtual ~CApplication();
+    virtual ~Application();
         ///< destructor
 
     // static
@@ -67,6 +67,6 @@ public:
         ///< build information
 };
 //-------------------------------------------------------------------------------------------------
-#define qCApp  ( static_cast<CApplication *>(QCoreApplication::instance()) )
+#define qCApp  ( static_cast<Application *>(QCoreApplication::instance()) )
 //-------------------------------------------------------------------------------------------------
 #endif // QtLib_CApplicationH

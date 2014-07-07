@@ -1,5 +1,5 @@
 /**
- * \file   CSqlNavigator.h
+ * \file   SqlNavigator.h
  * \brief
  */
 
@@ -9,16 +9,16 @@
 //-------------------------------------------------------------------------------------------------
 #include "Common.h"
 //-------------------------------------------------------------------------------------------------
-class CSqlNavigator :
+class SqlNavigator :
     public QObject
     /// DB SQL navigator
 {
     Q_OBJECT
-    Q_DISABLE_COPY(CSqlNavigator)
+    Q_DISABLE_COPY(SqlNavigator)
 
 public:
-    explicit        CSqlNavigator(QWidget *parent);
-    virtual        ~CSqlNavigator();
+    explicit        SqlNavigator(QWidget *parent);
+    virtual        ~SqlNavigator();
 
     void            construct(QSqlTableModel *tableModel, QTableView *tableView);
 

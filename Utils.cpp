@@ -1,10 +1,10 @@
 /**
- * \file   CUtils.cpp
+ * \file   Utils.cpp
  * \brief
  */
 
 
-#include "CUtils.h"
+#include "Utils.h"
 
 #include "CApplication.h"
 
@@ -22,12 +22,12 @@
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-CUtils::CUtils()
+Utils::Utils()
 {
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
-CUtils::~CUtils()
+Utils::~Utils()
 {
 }
 //-------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ CUtils::~CUtils()
 //-------------------------------------------------------------------------------------------------
 /* static */
 bool
-CUtils::setApplicationSingle(
+Utils::setApplicationSingle(
     cQString &a_applicationGuid
 )
 {
@@ -68,7 +68,7 @@ CUtils::setApplicationSingle(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::widgetAlignCenter(
+Utils::widgetAlignCenter(
     QWidget *a_widget
 )
 {
@@ -92,7 +92,7 @@ CUtils::widgetAlignCenter(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::widgetAlignTopCenter(
+Utils::widgetAlignTopCenter(
     QWidget *a_widget
 )
 {
@@ -109,7 +109,7 @@ CUtils::widgetAlignTopCenter(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::applicationActivate(
+Utils::applicationActivate(
     cQString &a_className,
     cQString &a_windowName
 )
@@ -134,7 +134,7 @@ CUtils::applicationActivate(
 }
 //-------------------------------------------------------------------------------------------------
 void
-CUtils::widgetAlwaysOnTop(
+Utils::widgetAlwaysOnTop(
     QWidget *a_widget,
     cbool   &a_isChecked
 )
@@ -162,7 +162,7 @@ CUtils::widgetAlwaysOnTop(
 //-------------------------------------------------------------------------------------------------
 /* static */
 int
-CUtils::sqlTableModelRowCount(
+Utils::sqlTableModelRowCount(
     QSqlTableModel *a_model,
     cbool          &a_isFetchAllRows /* = true */
 )
@@ -181,7 +181,7 @@ CUtils::sqlTableModelRowCount(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::importCsv(
+Utils::importCsv(
     cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
@@ -217,7 +217,7 @@ CUtils::importCsv(
         cQStringList row = file.at(i).split(a_columnSeparator);
 
         // targetRow
-        cint targetRow = CUtils::sqlTableModelRowCount(a_sqlTableModel) - 1;
+        cint targetRow = Utils::sqlTableModelRowCount(a_sqlTableModel) - 1;
 
         // record
         QSqlRecord record;
@@ -237,7 +237,7 @@ CUtils::importCsv(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::exportCsv(
+Utils::exportCsv(
     cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
@@ -261,7 +261,7 @@ CUtils::exportCsv(
 
     // DB -> file
     {
-        cint realRowCount = CUtils::sqlTableModelRowCount(a_sqlTableModel);
+        cint realRowCount = Utils::sqlTableModelRowCount(a_sqlTableModel);
 
         for (int i = 0; i < realRowCount; ++ i) {
             for (int x = 0; x < a_fieldNames.size(); ++ x) {
@@ -290,7 +290,7 @@ CUtils::exportCsv(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::dbFilter(
+Utils::dbFilter(
     QSqlQueryModel *sqlQueryModel,
     cQString       &a_tableName,
     cdb_fields_t   &a_fields,
@@ -382,7 +382,7 @@ CUtils::dbFilter(
 }
 //-------------------------------------------------------------------------------------------------
 void
-CUtils::dbFieldNames(
+Utils::dbFieldNames(
     const QSqlDatabase &a_db,           ///< database
     cQString           &a_tableName,    ///< table name
     QStringList        *a_dbFileldNames ///< field names [out]
@@ -418,7 +418,7 @@ CUtils::dbFieldNames(
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CUtils::googleTranslate(
+Utils::googleTranslate(
     cQString &a_textFrom,
     cQString &a_langFrom,
     cQString &a_langTo
@@ -488,7 +488,7 @@ CUtils::googleTranslate(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CUtils::imageConvert(
+Utils::imageConvert(
     cQString    &a_filePathIn,
     QByteArray  *a_photo,
     cQByteArray &a_format /* = "JPEG" */
@@ -520,7 +520,7 @@ CUtils::imageConvert(
 //-------------------------------------------------------------------------------------------------
 /* static */
 std::wstring
-CUtils::toStdWString(
+Utils::toStdWString(
     cQString &a_str
 )
 {
@@ -535,7 +535,7 @@ CUtils::toStdWString(
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CUtils::fromStdWString(
+Utils::fromStdWString(
     const std::wstring &a_str
 )
 {
@@ -550,7 +550,7 @@ CUtils::fromStdWString(
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CUtils::formatBytes(
+Utils::formatBytes(
     culonglong &a_bytes
 )
 {
@@ -595,7 +595,7 @@ CUtils::formatBytes(
 
 //-------------------------------------------------------------------------------------------------
 void
-CUtils::debugTest(
+Utils::debugTest(
     cQString &a_expression,
     cQString &a_filePath,
     culong   &a_fileLine,
@@ -642,7 +642,7 @@ CUtils::debugTest(
 }
 //-------------------------------------------------------------------------------------------------
 void
-CUtils::debugTracer(
+Utils::debugTracer(
     QtMsgType                 a_type,
     const QMessageLogContext &a_context,
     cQString                 &a_msg
@@ -702,7 +702,7 @@ CUtils::debugTracer(
 
 //-------------------------------------------------------------------------------------------------
 void
-CUtils::sleep(
+Utils::sleep(
     cint &a_timeoutMsec
 )
 {

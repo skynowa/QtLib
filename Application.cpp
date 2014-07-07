@@ -1,10 +1,10 @@
 /**
- * \file   CApplication.cpp
+ * \file   Application.cpp
  * \brief  application
  */
 
 
-#include "CApplication.h"
+#include "Application.h"
 
 
 /**************************************************************************************************
@@ -40,7 +40,7 @@ namespace {
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-CApplication::CApplication(
+Application::Application(
     int   &a_argc,
     char **a_argv
 ) :
@@ -56,7 +56,7 @@ CApplication::CApplication(
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
-CApplication::~CApplication()
+Application::~Application()
 {
 }
 //-------------------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ CApplication::~CApplication()
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::configFilePath()
+Application::configFilePath()
 {
     cQString basename = QFileInfo( applicationFilePath() ).baseName();
 
@@ -79,63 +79,63 @@ CApplication::configFilePath()
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::langsDirPath()
+Application::langsDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::langsDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::dbDirPath()
+Application::dbDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::dbDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::dbFilePath()
+Application::dbFilePath()
 {
     return dbDirPath() + QDir::separator() + applicationName() + ::dbFileExt;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::dbBackupDirPath()
+Application::dbBackupDirPath()
 {
     return dbDirPath() + QDir::separator() + ::backupDirName;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::debugTracePath()
+Application::debugTracePath()
 {
     return applicationDirPath() + QDir::separator() + ::tracePath;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::pluginPlatformsDirPath()
+Application::pluginPlatformsDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::dirPluginPlatform;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::pluginSqlDriversDirPath()
+Application::pluginSqlDriversDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::dirPluginSqlDrivers;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::pluginImageFormatsDirPath()
+Application::pluginImageFormatsDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::dirPluginImageFormats;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-CApplication::windowActivate(
+Application::windowActivate(
     cQString &a_appWndClass,
     cQString &a_appName
 )
@@ -145,7 +145,7 @@ CApplication::windowActivate(
 //-------------------------------------------------------------------------------------------------
 /* static */
 bool
-CApplication::isRunnig(
+Application::isRunnig(
     cQString &a_appGuid
 )
 {
@@ -154,26 +154,26 @@ CApplication::isRunnig(
 //-------------------------------------------------------------------------------------------------
 /* static */
 bool
-CApplication::selfCheck()
+Application::selfCheck()
 {
     bool bRv = false;
 
     bRv = QString(QT_VERSION_STR) == QString( qVersion() );
     if (!bRv) {
         std::wcerr
-            << "QtLib/CApplication: "
+            << "QtLib/Application: "
             << "Qt compile version \"" << QT_VERSION_STR << "\" and "
             << "Qt runtime version \"" << qVersion()     << "\" mismatch" << std::endl;
         return false;
     }
 
 #if 0
-    // TODO: CApplication::selfCheck()
+    // TODO: Application::selfCheck()
 
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
         std::wcerr
-            << "QtLib/CApplication: "
+            << "QtLib/Application: "
             << "Missing plugin directory \""
             << pluginPlatformsDirPath().toStdWString() << "\"" << std::endl;
         return false;
@@ -182,7 +182,7 @@ CApplication::selfCheck()
     bRv = QDir( pluginSqlDriversDirPath() ).isReadable();
     if (!bRv) {
         std::wcerr
-            << "QtLib/CApplication: "
+            << "QtLib/Application: "
             << "Missing plugin directory \""
             << pluginSqlDriversDirPath().toStdWString() << "\"" << std::endl;
         return false;
@@ -191,7 +191,7 @@ CApplication::selfCheck()
     bRv = QDir( pluginImageFormatsDirPath() ).isReadable();
     if (!bRv) {
         std::wcerr
-            << "QtLib/CApplication: "
+            << "QtLib/Application: "
             << "Missing plugin directory \""
             << pluginImageFormatsDirPath().toStdWString() << "\"" << std::endl;
         return false;
@@ -203,7 +203,7 @@ CApplication::selfCheck()
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::versionInfo()
+Application::versionInfo()
 {
     return QString("%1 %2 (%3 %4)")
                 .arg( applicationName() )
@@ -214,7 +214,7 @@ CApplication::versionInfo()
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
-CApplication::buildInfo()
+Application::buildInfo()
 {
     return QString("Qt %1")
                 .arg(QT_VERSION_STR);
