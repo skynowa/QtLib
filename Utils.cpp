@@ -291,7 +291,7 @@ Utils::exportCsv(
 /* static */
 void
 Utils::dbFilter(
-    QSqlQueryModel *sqlQueryModel,
+    QSqlQueryModel *a_sqlQueryModel,
     cQString       &a_tableName,
     cdb_fields_t   &a_fields,
     cQString       &a_sqlStrJoin,
@@ -299,7 +299,7 @@ Utils::dbFilter(
     cQString       &a_sqlStrOrderBy
 )
 {
-    qTEST_PTR(sqlQueryModel);
+    qTEST_PTR(a_sqlQueryModel);
     qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
     // a_sqlStrJoin - n/a
@@ -353,7 +353,6 @@ Utils::dbFilter(
         }
     }
 
-    //-------------------------------------
     // a_sqlStrWhere
     if (!a_sqlStrWhere.isEmpty()) {
         if (isAllFieldsEmpty) {
@@ -363,16 +362,14 @@ Utils::dbFilter(
         }
     }
 
-    //-------------------------------------
     // a_sqlStrOrderBy
     if (!a_sqlStrOrderBy.isEmpty()) {
         sqlStr += " " + a_sqlStrOrderBy + ";";
     }
 
-    //-------------------------------------
     // execute query
     {
-        QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>( sqlQueryModel );
+        QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>( a_sqlQueryModel );
         qTEST_PTR(model);
 
         model->setQuery(sqlStr);
