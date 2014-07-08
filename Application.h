@@ -65,6 +65,12 @@ public:
     static
     QString buildInfo();
         ///< build information
+
+#if 0
+    name
+    organizationName
+    organizationDomain
+#endif
 };
 //-------------------------------------------------------------------------------------------------
 #define qCApp  ( static_cast<Application *>(QCoreApplication::instance()) )
