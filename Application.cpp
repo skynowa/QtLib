@@ -34,6 +34,8 @@ namespace {
 //-------------------------------------------------------------------------------------------------
 
 
+namespace qtlib {
+
 /**************************************************************************************************
 *   public
 *
@@ -140,7 +142,7 @@ Application::windowActivate(
     cQString &a_appName
 )
 {
-    ::Utils::applicationActivate(a_appWndClass, a_appName);
+    qtlib::Utils::applicationActivate(a_appWndClass, a_appName);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -149,7 +151,7 @@ Application::isRunnig(
     cQString &a_appGuid
 )
 {
-    return !::Utils::setApplicationSingle(a_appGuid);
+    return !qtlib::Utils::setApplicationSingle(a_appGuid);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -220,3 +222,5 @@ Application::buildInfo()
                 .arg(QT_VERSION_STR);
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

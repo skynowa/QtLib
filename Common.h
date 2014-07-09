@@ -81,6 +81,8 @@
 
 //-------------------------------------------------------------------------------------------------
 // typedefs
+// namespace qtlib {
+
 typedef const bool               cbool;
 typedef const int                cint;
 typedef const long               clong;
@@ -98,6 +100,7 @@ typedef const QByteArray         cQByteArray;
 typedef const QVariant           cQVariant;
 typedef const QSize              cQSize;
 
+// } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
 #if defined(Q_OS_WIN)
     #ifdef QT_PLUGIN
@@ -162,7 +165,7 @@ typedef const QSize              cQSize;
     #define qTEST(expression) \
         if (!(expression)) { \
             cqint64 mByte = 1000 * 1000; \
-            CUtils::debugTest(#expression, __FILE__, __LINE__, __FUNCTION__, mByte); \
+            qtlib::Utils::debugTest(#expression, __FILE__, __LINE__, __FUNCTION__, mByte); \
             Q_ASSERT(expression); \
             std::exit(EXIT_FAILURE); \
         }

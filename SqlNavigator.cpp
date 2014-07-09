@@ -9,6 +9,8 @@
 #include "Utils.h"
 
 
+namespace qtlib {
+
 /**************************************************************************************************
 *   public
 *
@@ -100,7 +102,7 @@ SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = ::Utils::sqlTableModelRowCount( model() ) - 1;
+    int targetRow = qtlib::Utils::sqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(- 1 >= targetRow, targetRow = 0);
 
     goTo(targetRow);
@@ -200,3 +202,5 @@ SqlNavigator::edit()
     goTo(index.row());
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

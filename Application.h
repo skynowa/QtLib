@@ -10,6 +10,8 @@
 #include "../QtLib/Common.h"
 #include "../QtLib/Utils.h"
 //-------------------------------------------------------------------------------------------------
+namespace qtlib {
+
 class Application :
     public QApplication
     /// application
@@ -72,7 +74,9 @@ public:
     organizationDomain
 #endif
 };
+
+} // namespace qtlib
 //-------------------------------------------------------------------------------------------------
-#define qCApp  ( static_cast<Application *>(QCoreApplication::instance()) )
+#define qlApp  ( static_cast<qtlib::Application *>(QCoreApplication::instance()) )
 //-------------------------------------------------------------------------------------------------
 #endif // QtLib_CApplicationH
