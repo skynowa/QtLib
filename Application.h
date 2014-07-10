@@ -17,6 +17,8 @@ class Application :
     /// application
 {
 public:
+    //      Application();
+        ///< constructor
             Application(int &argc, char **argv);
         ///< constructor
     virtual ~Application();
@@ -69,9 +71,13 @@ public:
         ///< build information
 
 #if 0
+    tempDirPath
     name
     organizationName
     organizationDomain
+    about
+    Help
+    Copyright
 #endif
 };
 
