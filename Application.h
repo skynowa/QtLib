@@ -71,13 +71,28 @@ public:
         ///< build information
 
 #if 0
-    tempDirPath
     name
-    organizationName
-    organizationDomain
-    about
+    tempDirPath
+
+    about/decription
     Help
-    Copyright
+    Usage
+    CopyrightYears  // 2009
+
+    versionMajor
+    versionMinor
+    versionPatch
+    versionType     // SNAPSHOT, alpha, beta
+    versionSring    // versionMajor.versionMinor.versionPatch-versionType
+    versionRevision
+
+    vendorName      // Your Company
+    vendorDomain    // com
+    vendorUrl       // yourcompany.com
+    vendorHomePage  // yourcompany.com
+    vendorAuthor    // Skynowa
+    vendorEmail     // skynowa@gmail.com
+    vendorSkype     // skynowa777
 #endif
 };
 
