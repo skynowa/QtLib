@@ -24,7 +24,7 @@ class GlobalShortcut_impl :
 #endif
 {
 public:
-    QXT_DECLARE_PUBLIC(GlobalShortcut)
+    QTLIB_DECLARE_PUBLIC(GlobalShortcut)
 
     GlobalShortcut_impl();
     ~GlobalShortcut_impl();

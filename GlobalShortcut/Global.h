@@ -14,14 +14,14 @@
 #include <QHash>
 #include <QApplication>
 //-------------------------------------------------------------------------------------------------
-#define QXT_DECLARE_PRIVATE(pub) \
+#define QTLIB_DECLARE_PRIVATE(pub) \
     friend class pub##Private; \
     Impl<pub, pub##_impl> _impl;
 
-#define QXT_DECLARE_PUBLIC(pub) \
+#define QTLIB_DECLARE_PUBLIC(pub) \
     friend class pub;
 
-#define QXT_INIT_PRIVATE(pub) \
+#define QTLIB_INIT_PRIVATE(pub) \
     _impl.setPublic(this);
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {

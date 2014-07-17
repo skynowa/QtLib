@@ -38,7 +38,7 @@ Q_SIGNALS:
 
 private:
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(GlobalShortcut)
+    QTLIB_DECLARE_PRIVATE(GlobalShortcut)
 
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
     Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)

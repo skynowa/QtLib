@@ -48,7 +48,9 @@ GlobalShortcut_impl::~GlobalShortcut_impl()
 }
 //-------------------------------------------------------------------------------------------------
 bool
-GlobalShortcut_impl::setShortcut(const QKeySequence& shortcut)
+GlobalShortcut_impl::setShortcut(
+    const QKeySequence& shortcut
+)
 {
     Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
     key  = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((shortcut[0] ^ allMods) & shortcut[0]);
@@ -92,7 +94,10 @@ GlobalShortcut_impl::unsetShortcut()
 }
 //-------------------------------------------------------------------------------------------------
 void
-GlobalShortcut_impl::activateShortcut(quint32 nativeKey, quint32 nativeMods)
+GlobalShortcut_impl::activateShortcut(
+    quint32 nativeKey,
+    quint32 nativeMods
+)
 {
     GlobalShortcut* shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
@@ -131,19 +136,24 @@ GlobalShortcut_impl::activateShortcut(quint32 nativeKey, quint32 nativeMods)
 /*!
     Constructs a new GlobalShortcut with \a parent.
  */
-GlobalShortcut::GlobalShortcut(QObject* parent) :
+GlobalShortcut::GlobalShortcut(
+    QObject* parent
+) :
     QObject(parent)
 {
-    QXT_INIT_PRIVATE(GlobalShortcut);
+    QTLIB_INIT_PRIVATE(GlobalShortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
     Constructs a new GlobalShortcut with \a shortcut and \a parent.
  */
-GlobalShortcut::GlobalShortcut(const QKeySequence& shortcut, QObject* parent) :
+GlobalShortcut::GlobalShortcut(
+    const QKeySequence& shortcut,
+    QObject*            parent
+) :
     QObject(parent)
 {
-    QXT_INIT_PRIVATE(GlobalShortcut);
+    QTLIB_INIT_PRIVATE(GlobalShortcut);
 
     setShortcut(shortcut);
 }
@@ -179,7 +189,9 @@ GlobalShortcut::shortcut() const
 }
 //-------------------------------------------------------------------------------------------------
 bool
-GlobalShortcut::setShortcut(const QKeySequence& shortcut)
+GlobalShortcut::setShortcut(
+    const QKeySequence& shortcut
+)
 {
     if (_impl().key != 0) {
         _impl().unsetShortcut();
@@ -205,7 +217,9 @@ GlobalShortcut::isEnabled() const
 }
 //-------------------------------------------------------------------------------------------------
 void
-GlobalShortcut::setEnabled(bool enabled)
+GlobalShortcut::setEnabled(
+    bool enabled
+)
 {
     _impl().enabled = enabled;
 }
@@ -216,7 +230,9 @@ GlobalShortcut::setEnabled(bool enabled)
     \sa enabled
  */
 void
-GlobalShortcut::setDisabled(bool disabled)
+GlobalShortcut::setDisabled(
+    bool disabled
+)
 {
     _impl().enabled = !disabled;
 }
