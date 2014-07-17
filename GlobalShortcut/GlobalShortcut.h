@@ -4,13 +4,13 @@
  */
 
 
-#ifndef QXTGLOBALSHORTCUT_H
-#define QXTGLOBALSHORTCUT_H
+#pragma once
+
 //-------------------------------------------------------------------------------------------------
 #include <QObject>
 #include <QKeySequence>
 
-#include "QxtGlobal.h"
+#include "Global.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 
@@ -46,4 +46,3 @@ private:
 
 } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
-#endif // QXTGLOBALSHORTCUT_H

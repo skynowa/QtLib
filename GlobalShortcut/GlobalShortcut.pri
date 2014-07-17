@@ -14,26 +14,26 @@ DEPENDPATH += \
     $$PWD
 
 HEADERS += \
-    $$PWD/QxtGlobal.h \
-    $$PWD/QxtGlobalShortcut.h \
-    $$PWD/QxtGlobalShortcut_impl.h
+    $$PWD/Global.h \
+    $$PWD/GlobalShortcut.h \
+    $$PWD/GlobalShortcut_impl.h
 
 SOURCES += \
-    $$PWD/QxtGlobalShortcut.cpp
+    $$PWD/GlobalShortcut.cpp
 
 win32 {
     SOURCES += \
-        $$PWD/QxtGlobalShortcut_win.cpp
+        $$PWD/GlobalShortcut_win.cpp
     LIBS += \
         -luser32
 }
 
 unix {
     SOURCES += \
-        $$PWD/QxtGlobalShortcut_x11.cpp
+        $$PWD/GlobalShortcut_x11.cpp
 }
 
 mac {
     SOURCES += \
-        $$PWD/QxtGlobalShortcut_mac.cpp
+        $$PWD/GlobalShortcut_mac.cpp
 }

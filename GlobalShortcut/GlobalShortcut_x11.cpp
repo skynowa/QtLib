@@ -4,7 +4,7 @@
  */
 
 
-#include "QxtGlobalShortcut_impl.h"
+#include "GlobalShortcut_impl.h"
 
 #include <qpa/qplatformnativeinterface.h>
 #include <X11/Xlib.h>

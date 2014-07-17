@@ -4,10 +4,10 @@
  */
 
 
-#ifndef QXTGLOBALSHORTCUT_P_H
-#define QXTGLOBALSHORTCUT_P_H
+#pragma once
+
 //-------------------------------------------------------------------------------------------------
-#include "QxtGlobalShortcut.h"
+#include "GlobalShortcut.h"
 #include <QAbstractEventDispatcher>
 #include <QKeySequence>
 #include <QHash>
@@ -57,4 +57,3 @@ private:
 
 } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
-#endif // QXTGLOBALSHORTCUT_P_H

@@ -4,9 +4,9 @@
  */
 
 
-#include "QxtGlobalShortcut.h"
+#include "GlobalShortcut.h"
 
-#include "QxtGlobalShortcut_impl.h"
+#include "GlobalShortcut_impl.h"
 #include <QAbstractEventDispatcher>
 
 
