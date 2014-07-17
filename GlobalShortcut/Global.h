@@ -21,7 +21,7 @@
 #define QXT_DECLARE_PUBLIC(pub) \
     friend class pub;
 
-#define QXT_INIT_PRIVATE(pub)    \
+#define QXT_INIT_PRIVATE(pub) \
     _impl.setPublic(this);
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
