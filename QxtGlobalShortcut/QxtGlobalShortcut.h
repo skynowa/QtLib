@@ -14,15 +14,9 @@
 //-------------------------------------------------------------------------------------------------
 class QxtGlobalShortcutPrivate;
 
-class QXT_GUI_EXPORT QxtGlobalShortcut :
+class QxtGlobalShortcut :
     public QObject
 {
-    Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtGlobalShortcut)
-
-    Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
-    Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
-
 public:
     explicit QxtGlobalShortcut(QObject* parent = Q_NULLPTR);
     explicit QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent = Q_NULLPTR);
@@ -39,6 +33,13 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void activated();
+
+private:
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtGlobalShortcut)
+
+    Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+    Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
 };
 //-------------------------------------------------------------------------------------------------
 #endif // QXTGLOBALSHORTCUT_H
