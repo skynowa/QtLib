@@ -16,7 +16,7 @@ DEPENDPATH += \
 HEADERS += \
     $$PWD/QxtGlobal.h \
     $$PWD/QxtGlobalShortcut.h \
-    $$PWD/QxtGlobalShortcut_p.h
+    $$PWD/QxtGlobalShortcut_impl.h
 
 SOURCES += \
     $$PWD/QxtGlobalShortcut.cpp
