@@ -80,12 +80,12 @@ public:
         _interface->setPublic(pub);
     }
     PrivateInterfaceT&
-    operator()()
+    operator () ()
     {
         return *static_cast<PrivateInterfaceT *>(_interface);
     }
     const PrivateInterfaceT&
-    operator()() const
+    operator () () const
     {
         return *static_cast<PrivateInterfaceT *>(_interface);
     }
