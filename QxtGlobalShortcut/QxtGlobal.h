@@ -8,8 +8,13 @@
 #define QXTGLOBAL_H
 //-------------------------------------------------------------------------------------------------
 #include <QtGlobal>
+#include <QtDebug>
+#include <QVector>
+#include <QMap>
+#include <QHash>
+#include <QApplication>
 //-------------------------------------------------------------------------------------------------
-#define QXT_DECLARE_PRIVATE(pub) friend class pub##Private; QxtPrivateInterface<pub, pub##Private> qxt_d;
+#define QXT_DECLARE_PRIVATE(pub) friend class pub##Private; PrivateInterface<pub, pub##Private> qxt_d;
 #define QXT_DECLARE_PUBLIC(pub)  friend class pub;
 #define QXT_INIT_PRIVATE(pub)    qxt_d.setPublic(this);
 #define QXT_D(pub)               pub##Private& d = qxt_d()
@@ -18,10 +23,10 @@
 namespace qtlib {
 
 template <typename PublicT>
-class QxtPrivate
+class Private
 {
 public:
-    virtual ~QxtPrivate()
+    virtual ~Private()
     {
     }
     void
@@ -47,14 +52,14 @@ private:
 };
 //-------------------------------------------------------------------------------------------------
 template <typename PublicT, typename PrivateInterfaceT>
-class QxtPrivateInterface
+class PrivateInterface
 {
 public:
-    QxtPrivateInterface()
+    PrivateInterface()
     {
         _interface = new PrivateInterfaceT;
     }
-    ~QxtPrivateInterface()
+    ~PrivateInterface()
     {
         delete _interface; _interface = Q_NULLPTR;
     }
@@ -76,16 +81,16 @@ public:
     }
 
 private:
-    QxtPrivate<PublicT>* _interface;
+    Private<PublicT>* _interface;
 
-    QxtPrivateInterface(const QxtPrivateInterface&)
+    PrivateInterface(const PrivateInterface&)
     {
     }
-    QxtPrivateInterface& operator = (const QxtPrivateInterface&)
+    PrivateInterface& operator = (const PrivateInterface&)
     {
     }
 
-    friend class QxtPrivate<PublicT>;
+    friend class Private<PublicT>;
 };
 
 } // namespace qtlib

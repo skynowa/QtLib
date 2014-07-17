@@ -16,7 +16,7 @@
 namespace qtlib {
 
 class QxtGlobalShortcutPrivate :
-    public QxtPrivate<QxtGlobalShortcut>
+    public Private<QxtGlobalShortcut>
 #if !defined(Q_OS_MAC)
     ,
     public QAbstractNativeEventFilter

@@ -4,13 +4,9 @@
  */
 
 
-#include <Carbon/Carbon.h>
-
 #include "QxtGlobalShortcut_p.h"
-#include <QMap>
-#include <QHash>
-#include <QtDebug>
-#include <QApplication>
+
+#include <Carbon/Carbon.h>
 
 
 namespace qtlib {

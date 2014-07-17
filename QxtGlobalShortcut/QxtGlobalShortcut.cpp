@@ -8,7 +8,6 @@
 
 #include "QxtGlobalShortcut_p.h"
 #include <QAbstractEventDispatcher>
-#include <QtDebug>
 
 
 namespace qtlib {

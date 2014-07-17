@@ -6,9 +6,6 @@
 
 #include "QxtGlobalShortcut_p.h"
 
-#include <QVector>
-#include <QApplication>
-#include <QDebug>
 #include <qpa/qplatformnativeinterface.h>
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
