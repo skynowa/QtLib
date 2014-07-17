@@ -153,8 +153,8 @@ QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* pare
  */
 QxtGlobalShortcut::~QxtGlobalShortcut()
 {
-    if (qxt_d().key != 0) {
-        qxt_d().unsetShortcut();
+    if (_privateInterface().key != 0) {
+        _privateInterface().unsetShortcut();
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -175,17 +175,17 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
 QKeySequence
 QxtGlobalShortcut::shortcut() const
 {
-    return QKeySequence(qxt_d().key | qxt_d().mods);
+    return QKeySequence(_privateInterface().key | _privateInterface().mods);
 }
 //-------------------------------------------------------------------------------------------------
 bool
 QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
-    if (qxt_d().key != 0) {
-        qxt_d().unsetShortcut();
+    if (_privateInterface().key != 0) {
+        _privateInterface().unsetShortcut();
     }
 
-    return qxt_d().setShortcut(shortcut);
+    return _privateInterface().setShortcut(shortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -201,13 +201,13 @@ QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 bool
 QxtGlobalShortcut::isEnabled() const
 {
-    return qxt_d().enabled;
+    return _privateInterface().enabled;
 }
 //-------------------------------------------------------------------------------------------------
 void
 QxtGlobalShortcut::setEnabled(bool enabled)
 {
-    qxt_d().enabled = enabled;
+    _privateInterface().enabled = enabled;
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -218,7 +218,7 @@ QxtGlobalShortcut::setEnabled(bool enabled)
 void
 QxtGlobalShortcut::setDisabled(bool disabled)
 {
-    qxt_d().enabled = !disabled;
+    _privateInterface().enabled = !disabled;
 }
 //-------------------------------------------------------------------------------------------------
 

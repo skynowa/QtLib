@@ -14,11 +14,21 @@
 #include <QHash>
 #include <QApplication>
 //-------------------------------------------------------------------------------------------------
-#define QXT_DECLARE_PRIVATE(pub) friend class pub##Private; PrivateInterface<pub, pub##Private> qxt_d;
-#define QXT_DECLARE_PUBLIC(pub)  friend class pub;
-#define QXT_INIT_PRIVATE(pub)    qxt_d.setPublic(this);
-#define QXT_D(pub)               pub##Private& d = qxt_d()
-#define QXT_P(pub)               pub& p = get()
+#define QXT_DECLARE_PRIVATE(pub) \
+    friend class pub##Private; \
+    PrivateInterface<pub, pub##Private> _privateInterface;
+
+#define QXT_DECLARE_PUBLIC(pub) \
+    friend class pub;
+
+#define QXT_INIT_PRIVATE(pub)    \
+    _privateInterface.setPublic(this);
+
+#define QXT_D(pub) \
+    pub##Private& d = _privateInterface()
+
+#define QXT_P(pub) \
+    pub& p = get()
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 
