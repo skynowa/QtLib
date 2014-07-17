@@ -11,6 +11,8 @@
 #include <QtDebug>
 
 
+namespace qtlib {
+
 //-------------------------------------------------------------------------------------------------
 #ifndef Q_OS_MAC
     int QxtGlobalShortcutPrivate::ref = 0;
@@ -58,7 +60,7 @@ QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
 
     const bool res = registerShortcut(nativeKey, nativeMods);
     if (res) {
-        shortcuts.insert(qMakePair(nativeKey, nativeMods), &qxt_p());
+        shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
         qWarning() << "QxtGlobalShortcut - OK:" << QKeySequence(key + mods).toString();
     } else {
         qWarning() << "QxtGlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
@@ -74,7 +76,7 @@ QxtGlobalShortcutPrivate::unsetShortcut()
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
-    if (shortcuts.value(qMakePair(nativeKey, nativeMods)) == &qxt_p()) {
+    if (shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
         res = unregisterShortcut(nativeKey, nativeMods);
     }
 
@@ -220,3 +222,5 @@ QxtGlobalShortcut::setDisabled(bool disabled)
     qxt_d().enabled = !disabled;
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

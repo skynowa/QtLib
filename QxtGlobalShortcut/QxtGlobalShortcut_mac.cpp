@@ -11,6 +11,10 @@
 #include <QHash>
 #include <QtDebug>
 #include <QApplication>
+
+
+namespace qtlib {
+
 //-------------------------------------------------------------------------------------------------
 typedef QPair<uint, uint> Identifier;
 
@@ -278,3 +282,5 @@ QxtGlobalShortcutPrivate::unregisterShortcut(
     return !UnregisterEventHotKey(ref);
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

@@ -12,6 +12,8 @@
 
 #include "QxtGlobal.h"
 //-------------------------------------------------------------------------------------------------
+namespace qtlib {
+
 class QxtGlobalShortcutPrivate;
 
 class QxtGlobalShortcut :
@@ -41,5 +43,7 @@ private:
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
     Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
 };
+
+} // namespace qtlib
 //-------------------------------------------------------------------------------------------------
 #endif // QXTGLOBALSHORTCUT_H

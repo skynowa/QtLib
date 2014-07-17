@@ -9,13 +9,15 @@
 //-------------------------------------------------------------------------------------------------
 #include <QtGlobal>
 //-------------------------------------------------------------------------------------------------
-#define QXT_DECLARE_PRIVATE(PUB) friend class PUB##Private; QxtPrivateInterface<PUB, PUB##Private> qxt_d;
-#define QXT_DECLARE_PUBLIC(PUB)  friend class PUB;
-#define QXT_INIT_PRIVATE(PUB)    qxt_d.setPublic(this);
-#define QXT_D(PUB)               PUB##Private& d = qxt_d()
-#define QXT_P(PUB)               PUB& p = qxt_p()
+#define QXT_DECLARE_PRIVATE(pub) friend class pub##Private; QxtPrivateInterface<pub, pub##Private> qxt_d;
+#define QXT_DECLARE_PUBLIC(pub)  friend class pub;
+#define QXT_INIT_PRIVATE(pub)    qxt_d.setPublic(this);
+#define QXT_D(pub)               pub##Private& d = qxt_d()
+#define QXT_P(pub)               pub& p = get()
 //-------------------------------------------------------------------------------------------------
-template <typename PUB>
+namespace qtlib {
+
+template <typename PublicT>
 class QxtPrivate
 {
 public:
@@ -23,87 +25,69 @@ public:
     {
     }
     void
-    QXT_setPublic(PUB* pub)
+    setPublic(PublicT* pub)
     {
-        qxt_p_ptr = pub;
+        _pub = pub;
     }
 
 protected:
-    PUB&
-    qxt_p()
+    PublicT&
+    get()
     {
-        return *qxt_p_ptr;
+        return *_pub;
     }
-    const PUB&
-    qxt_p() const
+    const PublicT&
+    get() const
     {
-        return *qxt_p_ptr;
-    }
-    PUB*
-    qxt_ptr()
-    {
-        return qxt_p_ptr;
-    }
-    const PUB*
-    qxt_ptr() const
-    {
-        return qxt_p_ptr;
+        return *_pub;
     }
 
 private:
-    PUB* qxt_p_ptr;
+    PublicT* _pub;
 };
 //-------------------------------------------------------------------------------------------------
-template <typename PUB, typename PVT>
+template <typename PublicT, typename PrivateInterfaceT>
 class QxtPrivateInterface
 {
 public:
     QxtPrivateInterface()
     {
-        pvt = new PVT;
+        _interface = new PrivateInterfaceT;
     }
     ~QxtPrivateInterface()
     {
-        delete pvt; pvt = Q_NULLPTR;
+        delete _interface; _interface = Q_NULLPTR;
     }
 
     void
-    setPublic(PUB* pub)
+    setPublic(PublicT* pub)
     {
-        pvt->QXT_setPublic(pub);
+        _interface->setPublic(pub);
     }
-    PVT&
+    PrivateInterfaceT&
     operator()()
     {
-        return *static_cast<PVT*>(pvt);
+        return *static_cast<PrivateInterfaceT *>(_interface);
     }
-    const PVT&
+    const PrivateInterfaceT&
     operator()() const
     {
-        return *static_cast<PVT*>(pvt);
-    }
-    PVT *
-    operator->()
-    {
-        return static_cast<PVT*>(pvt);
-    }
-    const PVT *
-    operator->() const
-    {
-        return static_cast<PVT*>(pvt);
+        return *static_cast<PrivateInterfaceT *>(_interface);
     }
 
 private:
-    QxtPrivate<PUB>* pvt;
+    QxtPrivate<PublicT>* _interface;
 
     QxtPrivateInterface(const QxtPrivateInterface&)
     {
     }
-    QxtPrivateInterface& operator=(const QxtPrivateInterface&)
+    QxtPrivateInterface& operator = (const QxtPrivateInterface&)
     {
     }
 
-    friend class QxtPrivate<PUB>;
+    friend class QxtPrivate<PublicT>;
 };
+
+} // namespace qtlib
 //-------------------------------------------------------------------------------------------------
 #endif // QXT_GLOBAL

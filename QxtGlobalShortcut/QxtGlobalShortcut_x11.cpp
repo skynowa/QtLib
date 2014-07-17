@@ -14,6 +14,8 @@
 #include <xcb/xcb.h>
 
 
+namespace qtlib {
+
 //-------------------------------------------------------------------------------------------------
 namespace {
 
@@ -257,3 +259,5 @@ QxtGlobalShortcutPrivate::unregisterShortcut(
     return x11.isValid() && x11.ungrabKey(nativeKey, nativeMods, x11.rootWindow());
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

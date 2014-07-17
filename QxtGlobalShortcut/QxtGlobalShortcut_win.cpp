@@ -8,6 +8,9 @@
 
 #include <qt_windows.h>
 
+
+namespace qtlib {
+
 //-------------------------------------------------------------------------------------------------
 bool
 QxtGlobalShortcutPrivate::nativeEventFilter(
@@ -242,3 +245,5 @@ QxtGlobalShortcutPrivate::unregisterShortcut(
     return UnregisterHotKey(0, nativeMods ^ nativeKey);
 }
 //-------------------------------------------------------------------------------------------------
+
+} // namespace qtlib

@@ -13,6 +13,8 @@
 #include <QHash>
 #include <QAbstractNativeEventFilter>
 //-------------------------------------------------------------------------------------------------
+namespace qtlib {
+
 class QxtGlobalShortcutPrivate :
     public QxtPrivate<QxtGlobalShortcut>
 #if !defined(Q_OS_MAC)
@@ -52,5 +54,7 @@ private:
 
     static QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> shortcuts;
 };
+
+} // namespace qtlib
 //-------------------------------------------------------------------------------------------------
 #endif // QXTGLOBALSHORTCUT_P_H
