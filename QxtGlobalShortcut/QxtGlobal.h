@@ -9,13 +9,6 @@
 //-------------------------------------------------------------------------------------------------
 #include <QtGlobal>
 //-------------------------------------------------------------------------------------------------
-// global macros
-#ifndef QXT_NO_MACROS
-    #ifndef _countof
-        #define _countof(x) (sizeof(x)/sizeof(*x))
-    #endif
-#endif // QXT_NO_MACROS
-//-------------------------------------------------------------------------------------------------
 // export macros
 #define QXT_DLLEXPORT DO_NOT_USE_THIS_ANYMORE
 
@@ -93,8 +86,6 @@
 #   define BUILD_QXT
 #endif
 
-QXT_CORE_EXPORT const char* qxtVersion();
-
 #ifndef QT_BEGIN_NAMESPACE
 #define QT_BEGIN_NAMESPACE
 #endif
@@ -120,25 +111,30 @@ public:
     virtual ~QxtPrivate()
     {
     }
-    inline void QXT_setPublic(PUB* pub)
+    void
+    QXT_setPublic(PUB* pub)
     {
         qxt_p_ptr = pub;
     }
 
 protected:
-    inline PUB& qxt_p()
+    PUB&
+    qxt_p()
     {
         return *qxt_p_ptr;
     }
-    inline const PUB& qxt_p() const
+    const PUB&
+    qxt_p() const
     {
         return *qxt_p_ptr;
     }
-    inline PUB* qxt_ptr()
+    PUB*
+    qxt_ptr()
     {
         return qxt_p_ptr;
     }
-    inline const PUB* qxt_ptr() const
+    const PUB*
+    qxt_ptr() const
     {
         return qxt_p_ptr;
     }
@@ -157,34 +153,44 @@ public:
     }
     ~QxtPrivateInterface()
     {
-        delete pvt;
+        delete pvt; pvt = Q_NULLPTR;
     }
 
-    inline void setPublic(PUB* pub)
+    void
+    setPublic(PUB* pub)
     {
         pvt->QXT_setPublic(pub);
     }
-    inline PVT& operator()()
+    PVT&
+    operator()()
     {
         return *static_cast<PVT*>(pvt);
     }
-    inline const PVT& operator()() const
+    const PVT&
+    operator()() const
     {
         return *static_cast<PVT*>(pvt);
     }
-    inline PVT * operator->()
+    PVT *
+    operator->()
     {
         return static_cast<PVT*>(pvt);
     }
-    inline const PVT * operator->() const
+    const PVT *
+    operator->() const
     {
         return static_cast<PVT*>(pvt);
     }
 
 private:
-    QxtPrivateInterface(const QxtPrivateInterface&) { }
-    QxtPrivateInterface& operator=(const QxtPrivateInterface&) { }
     QxtPrivate<PUB>* pvt;
+
+    QxtPrivateInterface(const QxtPrivateInterface&)
+    {
+    }
+    QxtPrivateInterface& operator=(const QxtPrivateInterface&)
+    {
+    }
 
     friend class QxtPrivate<PUB>;
 };

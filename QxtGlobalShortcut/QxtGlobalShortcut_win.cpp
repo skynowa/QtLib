@@ -9,8 +9,12 @@
 #include <qt_windows.h>
 
 //-------------------------------------------------------------------------------------------------
-bool QxtGlobalShortcutPrivate::nativeEventFilter(const QByteArray & eventType,
-    void * message, long * result)
+bool
+QxtGlobalShortcutPrivate::nativeEventFilter(
+    const QByteArray &eventType,
+    void             *message,
+    long             *result
+)
 {
     Q_UNUSED(eventType);
     Q_UNUSED(result);
@@ -25,7 +29,10 @@ bool QxtGlobalShortcutPrivate::nativeEventFilter(const QByteArray & eventType,
     return false;
 }
 //-------------------------------------------------------------------------------------------------
-quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers)
+quint32
+QxtGlobalShortcutPrivate::nativeModifiers(
+    Qt::KeyboardModifiers modifiers
+)
 {
     // MOD_ALT, MOD_CONTROL, (MOD_KEYUP), MOD_SHIFT, MOD_WIN
     quint32 native = 0;
@@ -50,7 +57,10 @@ quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifier
     return native;
 }
 //-------------------------------------------------------------------------------------------------
-quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
+quint32
+QxtGlobalShortcutPrivate::nativeKeycode(
+    Qt::Key key
+)
 {
     switch (key) {
     case Qt::Key_Escape:
@@ -214,12 +224,20 @@ quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
     }
 }
 //-------------------------------------------------------------------------------------------------
-bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativeMods)
+bool
+QxtGlobalShortcutPrivate::registerShortcut(
+    quint32 nativeKey,
+    quint32 nativeMods
+)
 {
     return RegisterHotKey(0, nativeMods ^ nativeKey, nativeMods, nativeKey);
 }
 //-------------------------------------------------------------------------------------------------
-bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nativeMods)
+bool
+QxtGlobalShortcutPrivate::unregisterShortcut(
+    quint32 nativeKey,
+    quint32 nativeMods
+)
 {
     return UnregisterHotKey(0, nativeMods ^ nativeKey);
 }
