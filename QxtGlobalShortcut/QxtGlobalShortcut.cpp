@@ -6,7 +6,7 @@
 
 #include "QxtGlobalShortcut.h"
 
-#include "QxtGlobalShortcut_p.h"
+#include "QxtGlobalShortcut_impl.h"
 #include <QAbstractEventDispatcher>
 
 

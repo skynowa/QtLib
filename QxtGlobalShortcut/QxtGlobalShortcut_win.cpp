@@ -4,7 +4,7 @@
  */
 
 
-#include "QxtGlobalShortcut_p.h"
+#include "QxtGlobalShortcut_impl.h"
 
 #include <qt_windows.h>
 

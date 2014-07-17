@@ -4,7 +4,7 @@
  */
 
 
-#include "GlobalShortcut_p.h"
+#include "GlobalShortcut_impl.h"
 
 #include <Carbon/Carbon.h>
 
