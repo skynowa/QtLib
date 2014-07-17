@@ -14,12 +14,12 @@ namespace qtlib {
 
 //-------------------------------------------------------------------------------------------------
 #ifndef Q_OS_MAC
-    int QxtGlobalShortcutPrivate::ref = 0;
+    int GlobalShortcut_impl::ref = 0;
 #endif
 
-QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
+QHash<QPair<quint32, quint32>, GlobalShortcut*> GlobalShortcut_impl::shortcuts;
 //-------------------------------------------------------------------------------------------------
-QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() :
+GlobalShortcut_impl::GlobalShortcut_impl() :
     enabled(true),
     key    (Qt::Key(0)),
     mods   (Qt::NoModifier)
@@ -33,7 +33,7 @@ QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() :
 #endif
 }
 //-------------------------------------------------------------------------------------------------
-QxtGlobalShortcutPrivate::~QxtGlobalShortcutPrivate()
+GlobalShortcut_impl::~GlobalShortcut_impl()
 {
 #ifndef Q_OS_MAC
     -- ref;
@@ -48,7 +48,7 @@ QxtGlobalShortcutPrivate::~QxtGlobalShortcutPrivate()
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
+GlobalShortcut_impl::setShortcut(const QKeySequence& shortcut)
 {
     Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
     key  = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((shortcut[0] ^ allMods) & shortcut[0]);
@@ -60,16 +60,16 @@ QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
     const bool res = registerShortcut(nativeKey, nativeMods);
     if (res) {
         shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
-        qWarning() << "QxtGlobalShortcut - OK:" << QKeySequence(key + mods).toString();
+        qWarning() << "GlobalShortcut - OK:" << QKeySequence(key + mods).toString();
     } else {
-        qWarning() << "QxtGlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
+        qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
 
     return res;
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::unsetShortcut()
+GlobalShortcut_impl::unsetShortcut()
 {
     bool res = false;
     const quint32 nativeKey  = nativeKeycode(key);
@@ -82,7 +82,7 @@ QxtGlobalShortcutPrivate::unsetShortcut()
     if (res) {
         shortcuts.remove(qMakePair(nativeKey, nativeMods));
     } else {
-        qWarning() << "QxtGlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
+        qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
     }
 
     key  = Qt::Key(0);
@@ -92,18 +92,18 @@ QxtGlobalShortcutPrivate::unsetShortcut()
 }
 //-------------------------------------------------------------------------------------------------
 void
-QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativeMods)
+GlobalShortcut_impl::activateShortcut(quint32 nativeKey, quint32 nativeMods)
 {
-    QxtGlobalShortcut* shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
+    GlobalShortcut* shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         emit shortcut->activated();
     }
 }
 //-------------------------------------------------------------------------------------------------
 /*!
-    \class QxtGlobalShortcut
+    \class GlobalShortcut
     \inmodule QxtWidgets
-    \brief The QxtGlobalShortcut class provides a global shortcut aka "hotkey".
+    \brief The GlobalShortcut class provides a global shortcut aka "hotkey".
 
     A global shortcut triggers even if the application is not active. This
     makes it easy to implement applications that react to certain shortcuts
@@ -112,16 +112,16 @@ QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativeMods
 
     Example usage:
     \code
-    QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(window);
+    GlobalShortcut* shortcut = new GlobalShortcut(window);
     connect(shortcut, SIGNAL(activated()), window, SLOT(toggleVisibility()));
     shortcut->setShortcut(QKeySequence("Ctrl+Shift+F12"));
     \endcode
 
-    \bold {Note:} Since Qxt 0.6 QxtGlobalShortcut no more requires QxtApplication.
+    \bold {Note:} Since Qxt 0.6 GlobalShortcut no more requires QxtApplication.
  */
 
 /*!
-    \fn QxtGlobalShortcut::activated()
+    \fn GlobalShortcut::activated()
 
     This signal is emitted when the user types the shortcut's key sequence.
 
@@ -129,29 +129,29 @@ QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativeMods
  */
 
 /*!
-    Constructs a new QxtGlobalShortcut with \a parent.
+    Constructs a new GlobalShortcut with \a parent.
  */
-QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent) :
+GlobalShortcut::GlobalShortcut(QObject* parent) :
     QObject(parent)
 {
-    QXT_INIT_PRIVATE(QxtGlobalShortcut);
+    QXT_INIT_PRIVATE(GlobalShortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
-    Constructs a new QxtGlobalShortcut with \a shortcut and \a parent.
+    Constructs a new GlobalShortcut with \a shortcut and \a parent.
  */
-QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent) :
+GlobalShortcut::GlobalShortcut(const QKeySequence& shortcut, QObject* parent) :
     QObject(parent)
 {
-    QXT_INIT_PRIVATE(QxtGlobalShortcut);
+    QXT_INIT_PRIVATE(GlobalShortcut);
 
     setShortcut(shortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
-    Destructs the QxtGlobalShortcut.
+    Destructs the GlobalShortcut.
  */
-QxtGlobalShortcut::~QxtGlobalShortcut()
+GlobalShortcut::~GlobalShortcut()
 {
     if (_privateInterface().key != 0) {
         _privateInterface().unsetShortcut();
@@ -159,7 +159,7 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
 }
 //-------------------------------------------------------------------------------------------------
 /*!
-    \property QxtGlobalShortcut::shortcut
+    \property GlobalShortcut::shortcut
     \brief the shortcut key sequence
 
     \bold {Note:} Notice that corresponding key press and release events are not
@@ -173,13 +173,13 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
     \endcode
  */
 QKeySequence
-QxtGlobalShortcut::shortcut() const
+GlobalShortcut::shortcut() const
 {
     return QKeySequence(_privateInterface().key | _privateInterface().mods);
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
+GlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
     if (_privateInterface().key != 0) {
         _privateInterface().unsetShortcut();
@@ -189,7 +189,7 @@ QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 }
 //-------------------------------------------------------------------------------------------------
 /*!
-    \property QxtGlobalShortcut::enabled
+    \property GlobalShortcut::enabled
     \brief whether the shortcut is enabled
 
     A disabled shortcut does not get activated.
@@ -199,13 +199,13 @@ QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
     \sa setDisabled()
  */
 bool
-QxtGlobalShortcut::isEnabled() const
+GlobalShortcut::isEnabled() const
 {
     return _privateInterface().enabled;
 }
 //-------------------------------------------------------------------------------------------------
 void
-QxtGlobalShortcut::setEnabled(bool enabled)
+GlobalShortcut::setEnabled(bool enabled)
 {
     _privateInterface().enabled = enabled;
 }
@@ -216,7 +216,7 @@ QxtGlobalShortcut::setEnabled(bool enabled)
     \sa enabled
  */
 void
-QxtGlobalShortcut::setDisabled(bool disabled)
+GlobalShortcut::setDisabled(bool disabled)
 {
     _privateInterface().enabled = !disabled;
 }

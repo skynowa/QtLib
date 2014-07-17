@@ -4,7 +4,7 @@
  */
 
 
-#include "QxtGlobalShortcut_p.h"
+#include "GlobalShortcut_p.h"
 
 #include <Carbon/Carbon.h>
 
@@ -34,14 +34,14 @@ qxt_mac_handle_hot_key(
         GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, Q_NULLPTR, sizeof(keyID), Q_NULLPTR, &keyID);
 
         Identifier id = keyIDs.key(keyID.id);
-        QxtGlobalShortcutPrivate::activateShortcut(id.second, id.first);
+        GlobalShortcut_impl::activateShortcut(id.second, id.first);
     }
 
     return noErr;
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-QxtGlobalShortcutPrivate::nativeModifiers(
+GlobalShortcut_impl::nativeModifiers(
     Qt::KeyboardModifiers modifiers
 )
 {
@@ -67,7 +67,7 @@ QxtGlobalShortcutPrivate::nativeModifiers(
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-QxtGlobalShortcutPrivate::nativeKeycode(
+GlobalShortcut_impl::nativeKeycode(
     Qt::Key key
 )
 {
@@ -234,7 +234,7 @@ QxtGlobalShortcutPrivate::nativeKeycode(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::registerShortcut(
+GlobalShortcut_impl::registerShortcut(
     quint32 nativeKey,
     quint32 nativeMods
 )
@@ -261,7 +261,7 @@ QxtGlobalShortcutPrivate::registerShortcut(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::unregisterShortcut(
+GlobalShortcut_impl::unregisterShortcut(
     quint32 nativeKey,
     quint32 nativeMods
 )

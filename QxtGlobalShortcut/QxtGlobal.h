@@ -16,7 +16,7 @@
 //-------------------------------------------------------------------------------------------------
 #define QXT_DECLARE_PRIVATE(pub) \
     friend class pub##Private; \
-    PrivateInterface<pub, pub##Private> _privateInterface;
+    PrivateInterface<pub, pub##_impl> _privateInterface;
 
 #define QXT_DECLARE_PUBLIC(pub) \
     friend class pub;

@@ -14,15 +14,15 @@
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 
-class QxtGlobalShortcutPrivate;
+class GlobalShortcut_impl;
 
-class QxtGlobalShortcut :
+class GlobalShortcut :
     public QObject
 {
 public:
-    explicit QxtGlobalShortcut(QObject* parent = Q_NULLPTR);
-    explicit QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent = Q_NULLPTR);
-    virtual ~QxtGlobalShortcut();
+    explicit GlobalShortcut(QObject* parent = Q_NULLPTR);
+    explicit GlobalShortcut(const QKeySequence& shortcut, QObject* parent = Q_NULLPTR);
+    virtual ~GlobalShortcut();
 
     QKeySequence shortcut() const;
     bool setShortcut(const QKeySequence& shortcut);
@@ -38,7 +38,7 @@ Q_SIGNALS:
 
 private:
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtGlobalShortcut)
+    QXT_DECLARE_PRIVATE(GlobalShortcut)
 
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
     Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)

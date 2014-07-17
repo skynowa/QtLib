@@ -15,18 +15,18 @@
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 
-class QxtGlobalShortcutPrivate :
-    public Private<QxtGlobalShortcut>
+class GlobalShortcut_impl :
+    public Private<GlobalShortcut>
 #if !defined(Q_OS_MAC)
     ,
     public QAbstractNativeEventFilter
 #endif
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtGlobalShortcut)
+    QXT_DECLARE_PUBLIC(GlobalShortcut)
 
-    QxtGlobalShortcutPrivate();
-    ~QxtGlobalShortcutPrivate();
+    GlobalShortcut_impl();
+    ~GlobalShortcut_impl();
 
     bool enabled;
     Qt::Key key;
@@ -52,7 +52,7 @@ private:
     static bool registerShortcut(quint32 nativeKey, quint32 nativeMods);
     static bool unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
 
-    static QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> shortcuts;
+    static QHash<QPair<quint32, quint32>, GlobalShortcut*> shortcuts;
 };
 
 } // namespace qtlib

@@ -4,7 +4,7 @@
  */
 
 
-#include "qxtglobalshortcut_p.h"
+#include "QxtGlobalShortcut_p.h"
 
 #include <qt_windows.h>
 
@@ -13,7 +13,7 @@ namespace qtlib {
 
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::nativeEventFilter(
+GlobalShortcut_impl::nativeEventFilter(
     const QByteArray &eventType,
     void             *message,
     long             *result
@@ -33,7 +33,7 @@ QxtGlobalShortcutPrivate::nativeEventFilter(
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-QxtGlobalShortcutPrivate::nativeModifiers(
+GlobalShortcut_impl::nativeModifiers(
     Qt::KeyboardModifiers modifiers
 )
 {
@@ -61,7 +61,7 @@ QxtGlobalShortcutPrivate::nativeModifiers(
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-QxtGlobalShortcutPrivate::nativeKeycode(
+GlobalShortcut_impl::nativeKeycode(
     Qt::Key key
 )
 {
@@ -228,7 +228,7 @@ QxtGlobalShortcutPrivate::nativeKeycode(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::registerShortcut(
+GlobalShortcut_impl::registerShortcut(
     quint32 nativeKey,
     quint32 nativeMods
 )
@@ -237,7 +237,7 @@ QxtGlobalShortcutPrivate::registerShortcut(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-QxtGlobalShortcutPrivate::unregisterShortcut(
+GlobalShortcut_impl::unregisterShortcut(
     quint32 nativeKey,
     quint32 nativeMods
 )
