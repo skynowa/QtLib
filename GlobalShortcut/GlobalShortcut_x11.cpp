@@ -27,12 +27,12 @@ public:
     QxtX11ErrorHandler()
     {
         error = false;
-        _previousErrorHandler = XSetErrorHandler(qxtX11ErrorHandler);
+        _previousErrorHandler = ::XSetErrorHandler(qxtX11ErrorHandler);
     }
 
     ~QxtX11ErrorHandler()
     {
-        XSetErrorHandler(_previousErrorHandler);
+        ::XSetErrorHandler(_previousErrorHandler);
     }
 
     static bool error;
@@ -109,12 +109,13 @@ public:
         QxtX11ErrorHandler errorHandler;
 
         for (int i = 0; !errorHandler.error && i < maskModifiers.size(); ++ i) {
-            XGrabKey(display(), keycode, modifiers | maskModifiers[i], window, True, GrabModeAsync,
+            ::XGrabKey(display(), keycode, modifiers | maskModifiers[i], window, True, GrabModeAsync,
                 GrabModeAsync);
         }
 
         if (errorHandler.error) {
             ungrabKey(keycode, modifiers, window);
+
             return false;
         }
 
@@ -131,7 +132,7 @@ public:
         QxtX11ErrorHandler errorHandler;
 
         Q_FOREACH(quint32 maskMods, maskModifiers) {
-            XUngrabKey(display(), keycode, modifiers | maskMods, window);
+            ::XUngrabKey(display(), keycode, modifiers | maskMods, window);
         }
 
         return !errorHandler.error;
@@ -226,12 +227,12 @@ GlobalShortcut_impl::nativeKeycode(
         return 0;
     }
 
-    KeySym keysym = XStringToKeysym(QKeySequence(key).toString().toLatin1().data());
+    KeySym keysym = ::XStringToKeysym(QKeySequence(key).toString().toLatin1().data());
     if (keysym == NoSymbol) {
         keysym = static_cast<ushort>(key);
     }
 
-    return XKeysymToKeycode(x11.display(), keysym);
+    return ::XKeysymToKeycode(x11.display(), keysym);
 }
 //-------------------------------------------------------------------------------------------------
 bool
