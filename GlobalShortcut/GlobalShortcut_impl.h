@@ -7,11 +7,12 @@
 #pragma once
 
 //-------------------------------------------------------------------------------------------------
-#include "GlobalShortcut.h"
 #include <QAbstractEventDispatcher>
 #include <QKeySequence>
 #include <QHash>
 #include <QAbstractNativeEventFilter>
+
+#include "GlobalShortcut.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 

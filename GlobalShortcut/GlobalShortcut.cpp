@@ -153,8 +153,8 @@ GlobalShortcut::GlobalShortcut(const QKeySequence& shortcut, QObject* parent) :
  */
 GlobalShortcut::~GlobalShortcut()
 {
-    if (_privateInterface().key != 0) {
-        _privateInterface().unsetShortcut();
+    if (_impl().key != 0) {
+        _impl().unsetShortcut();
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -175,17 +175,17 @@ GlobalShortcut::~GlobalShortcut()
 QKeySequence
 GlobalShortcut::shortcut() const
 {
-    return QKeySequence(_privateInterface().key | _privateInterface().mods);
+    return QKeySequence(_impl().key | _impl().mods);
 }
 //-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
-    if (_privateInterface().key != 0) {
-        _privateInterface().unsetShortcut();
+    if (_impl().key != 0) {
+        _impl().unsetShortcut();
     }
 
-    return _privateInterface().setShortcut(shortcut);
+    return _impl().setShortcut(shortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -201,13 +201,13 @@ GlobalShortcut::setShortcut(const QKeySequence& shortcut)
 bool
 GlobalShortcut::isEnabled() const
 {
-    return _privateInterface().enabled;
+    return _impl().enabled;
 }
 //-------------------------------------------------------------------------------------------------
 void
 GlobalShortcut::setEnabled(bool enabled)
 {
-    _privateInterface().enabled = enabled;
+    _impl().enabled = enabled;
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -218,7 +218,7 @@ GlobalShortcut::setEnabled(bool enabled)
 void
 GlobalShortcut::setDisabled(bool disabled)
 {
-    _privateInterface().enabled = !disabled;
+    _impl().enabled = !disabled;
 }
 //-------------------------------------------------------------------------------------------------
 

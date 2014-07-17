@@ -16,19 +16,13 @@
 //-------------------------------------------------------------------------------------------------
 #define QXT_DECLARE_PRIVATE(pub) \
     friend class pub##Private; \
-    PrivateInterface<pub, pub##_impl> _privateInterface;
+    Impl<pub, pub##_impl> _impl;
 
 #define QXT_DECLARE_PUBLIC(pub) \
     friend class pub;
 
 #define QXT_INIT_PRIVATE(pub)    \
-    _privateInterface.setPublic(this);
-
-#define QXT_D(pub) \
-    pub##Private& d = _privateInterface()
-
-#define QXT_P(pub) \
-    pub& p = get()
+    _impl.setPublic(this);
 //-------------------------------------------------------------------------------------------------
 namespace qtlib {
 
@@ -61,15 +55,15 @@ private:
     PublicT* _pub;
 };
 //-------------------------------------------------------------------------------------------------
-template <typename PublicT, typename PrivateInterfaceT>
-class PrivateInterface
+template <typename PublicT, typename ImplT>
+class Impl
 {
 public:
-    PrivateInterface()
+    Impl()
     {
-        _interface = new PrivateInterfaceT;
+        _interface = new ImplT;
     }
-    ~PrivateInterface()
+    ~Impl()
     {
         delete _interface; _interface = Q_NULLPTR;
     }
@@ -79,24 +73,24 @@ public:
     {
         _interface->setPublic(pub);
     }
-    PrivateInterfaceT&
+    ImplT&
     operator () ()
     {
-        return *static_cast<PrivateInterfaceT *>(_interface);
+        return *static_cast<ImplT *>(_interface);
     }
-    const PrivateInterfaceT&
+    const ImplT&
     operator () () const
     {
-        return *static_cast<PrivateInterfaceT *>(_interface);
+        return *static_cast<ImplT *>(_interface);
     }
 
 private:
     Private<PublicT>* _interface;
 
-    PrivateInterface(const PrivateInterface&)
+    Impl(const Impl&)
     {
     }
-    PrivateInterface& operator = (const PrivateInterface&)
+    Impl& operator = (const Impl&)
     {
     }
 
