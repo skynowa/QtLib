@@ -62,7 +62,8 @@ public:
 
     // web
     static
-    QString      googleTranslate(cQString &textFrom, cQString &langFrom, cQString &langTo);
+    void         googleTranslate(cQString &textFrom, cQString &langFrom, cQString &langTo,
+                     QString *textToBrief, QString *textToDetail);
         ///< translate text by Google API
 
 

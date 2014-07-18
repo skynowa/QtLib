@@ -416,18 +416,23 @@ Utils::dbFieldNames(
 
 //-------------------------------------------------------------------------------------------------
 /* static */
-QString
+void
 Utils::googleTranslate(
-    cQString &a_textFrom,
-    cQString &a_langFrom,
-    cQString &a_langTo
+    cQString &a_textFrom,       ///< source text
+    cQString &a_langFrom,       ///< source text language
+    cQString &a_langTo,         ///< target text language
+    QString  *a_textToBrief,    ///< [out] target brief translate
+    QString  *a_textToDetail    ///< [out] target detail translate
 )
 {
     qTEST(!a_textFrom.isEmpty());
     qTEST(!a_langFrom.isEmpty());
     qTEST(!a_langTo.isEmpty());
+    qTEST(a_textToBrief  != Q_NULLPTR);
+    qTEST(a_textToDetail != Q_NULLPTR);
 
-    QString sRv;
+    QString textToBrief;
+    QString textToDetail;
 
     // request to Google
     QString response;
@@ -456,7 +461,7 @@ Utils::googleTranslate(
         qPTR_DELETE(reply);
 
         // qDebug() << qDEBUG_VAR(url);
-        // qDebug() << qDEBUG_VAR(response);
+        qDebug() << qDEBUG_VAR(response);
     }
 
     // parse response
@@ -468,13 +473,18 @@ Utils::googleTranslate(
         qTEST(docList.count() >= 3);
 
         // out
-        sRv = docList.at(2).toElement().text();
-        qTEST(!sRv.isEmpty());
+        textToBrief = docList.at(2).toElement().text();
+        qTEST(!textToBrief.isEmpty());
 
-        // qDebug() << qDEBUG_VAR(sRv);
+        textToDetail = docList.at(5).toElement().text();
+        qTEST(!textToDetail.isEmpty());
     }
 
-    return sRv;
+    // out
+    {
+        a_textToBrief->swap(textToBrief);
+        a_textToDetail->swap(textToDetail);
+    }
 }
 //-------------------------------------------------------------------------------------------------
 
