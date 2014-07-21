@@ -461,7 +461,13 @@ Utils::googleTranslate(
         qPTR_DELETE(reply);
 
         // qDebug() << qDEBUG_VAR(url);
-        qDebug() << qDEBUG_VAR(response);
+        // qDebug() << qDEBUG_VAR(response);
+    }
+
+    // proccess response
+    {
+        response.replace("Dictionary:", "\n");
+        response.replace("<br>", "\n");
     }
 
     // parse response
