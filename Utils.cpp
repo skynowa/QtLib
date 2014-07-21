@@ -490,6 +490,9 @@ Utils::googleTranslate(
     {
         a_textToBrief->swap(textToBrief);
         a_textToDetail->swap(textToDetail);
+
+        qDebug() << qDEBUG_VAR(*a_textToBrief);
+        qDebug() << qDEBUG_VAR(*a_textToDetail);
     }
 }
 //-------------------------------------------------------------------------------------------------
