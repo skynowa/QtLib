@@ -441,13 +441,17 @@ Utils::googleTranslate(
     QString response;
     bool    isDictionaryText = false;
     {
-        cQString url = QString("https://translate.google.com/m?text=%1&sl=%2&tl=%3")
+        cQString host = QString("https://translate.google.com");
+        cQString url  = QString("%1/m?text=%2&sl=%3&tl=%4")
+                            .arg(host)
                             .arg(a_textFrom)
                             .arg(a_langFrom)
                             .arg(a_langTo);
 
         QNetworkAccessManager manager;
-        QNetworkRequest       request(url);
+        manager.connectToHost(host, 80);
+
+        QNetworkRequest request(url);
 
         QNetworkReply *reply = manager.get(request);
         qTEST_PTR(reply);
