@@ -31,6 +31,8 @@ win32 {
 unix {
     SOURCES += \
         $$PWD/GlobalShortcut_x11.cpp
+    LIBS += \
+        -lX11
 }
 
 mac {
