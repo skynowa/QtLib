@@ -422,7 +422,8 @@ Utils::googleTranslate(
     cQString &a_langFrom,       ///< source text language
     cQString &a_langTo,         ///< target text language
     QString  *a_textToBrief,    ///< [out] target brief translate
-    QString  *a_textToDetail    ///< [out] target detail translate
+    QString  *a_textToDetail,   ///< [out] target detail translate
+    QString  *a_textToRaw       ///< [out] target raw translate (HTML) (maybe Q_NULLPTR)
 )
 {
     qTEST(!a_textFrom.isEmpty());
@@ -430,12 +431,15 @@ Utils::googleTranslate(
     qTEST(!a_langTo.isEmpty());
     qTEST(a_textToBrief  != Q_NULLPTR);
     qTEST(a_textToDetail != Q_NULLPTR);
+    qTEST_NA(a_textToDetail);
 
     QString textToBrief;
     QString textToDetail;
+    QString textToRaw;
 
     // request to Google
     QString response;
+    bool    isDictionaryText = false;
     {
         cQString url = QString("https://translate.google.com/m?text=%1&sl=%2&tl=%3")
                             .arg(a_textFrom)
@@ -448,7 +452,7 @@ Utils::googleTranslate(
         QNetworkReply *reply = manager.get(request);
         qTEST_PTR(reply);
 
-        for ( ;; ) {
+        for ( ; ; ) {
             QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
             qCHECK_DO(reply->isFinished(), break);
@@ -460,11 +464,15 @@ Utils::googleTranslate(
         reply->close();
         qPTR_DELETE(reply);
 
+        textToRaw = response;
+        isDictionaryText = response.contains("Dictionary:");
+
         // qDebug() << qDEBUG_VAR(url);
         // qDebug() << qDEBUG_VAR(response);
     }
 
     // proccess response
+
     {
         response.replace("Dictionary:", "\n");
         response.replace("<br>", "\n");
@@ -478,12 +486,17 @@ Utils::googleTranslate(
         QDomNodeList docList = document.elementsByTagName("div");
         qTEST(docList.count() >= 3);
 
-        // out
+        // out - textToBrief
         textToBrief = docList.at(2).toElement().text();
         qTEST(!textToBrief.isEmpty());
 
-        textToDetail = docList.at(5).toElement().text();
-        qTEST(!textToDetail.isEmpty());
+        // out - textToDetail
+        if (isDictionaryText) {
+            textToDetail = docList.at(5).toElement().text();
+            qTEST(!textToDetail.isEmpty());
+        } else {
+            textToDetail = QObject::tr("n/a");
+        }
     }
 
     // out
@@ -491,8 +504,13 @@ Utils::googleTranslate(
         a_textToBrief->swap(textToBrief);
         a_textToDetail->swap(textToDetail);
 
-        qDebug() << qDEBUG_VAR(*a_textToBrief);
-        qDebug() << qDEBUG_VAR(*a_textToDetail);
+        if (a_textToRaw != Q_NULLPTR) {
+            a_textToRaw->swap(textToRaw);
+        }
+
+        // qDebug() << qDEBUG_VAR(*a_textToBrief);
+        // qDebug() << qDEBUG_VAR(*a_textToDetail);
+        // qDebug() << qDEBUG_VAR(*a_textToRaw);
     }
 }
 //-------------------------------------------------------------------------------------------------
