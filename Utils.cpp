@@ -456,6 +456,15 @@ Utils::googleTranslate(
         QNetworkReply *reply = manager.get(request);
         qTEST_PTR(reply);
 
+        if (reply->error() != QNetworkReply::NoError) {
+            qDebug("Connection error");
+
+            reply->close();
+            qPTR_DELETE(reply);
+
+            return;
+        }
+
         for ( ; ; ) {
             QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
