@@ -457,10 +457,15 @@ Utils::googleTranslate(
         qTEST_PTR(reply);
 
         if (reply->error() != QNetworkReply::NoError) {
-            qDebug("Connection error");
-
             reply->close();
             qPTR_DELETE(reply);
+
+            *a_textToBrief  = QObject::tr("Connection error");
+            *a_textToDetail = QObject::tr("Connection error");
+
+            if (a_textToRaw != Q_NULLPTR) {
+                *a_textToRaw = QObject::tr("Connection error");
+            }
 
             return;
         }
