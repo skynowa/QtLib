@@ -14,22 +14,17 @@
 
 //-------------------------------------------------------------------------------------------------
 namespace {
-    cQString    dirPluginPlatform     = "platforms";
-    cQString    dirPluginSqlDrivers   = "sqldrivers";
-    cQString    dirPluginImageFormats = "imageformats";
+
+cQString    dirPluginPlatform     = "platforms";
+cQString    dirPluginSqlDrivers   = "sqldrivers";
+cQString    dirPluginImageFormats = "imageformats";
 
 #if defined(Q_WS_WIN)
-    cQByteArray localeCodec           = "Windows-1251";
+cQByteArray localeCodec           = "Windows-1251";
 #else
-    cQByteArray localeCodec           = "UTF-8";
+cQByteArray localeCodec           = "UTF-8";
 #endif
 
-    cQString    configFileExt         = ".cfg";
-    cQString    langsDirName          = "Langs";
-    cQString    backupDirName         = "Backup";
-    cQString    dbDirName             = "Db";
-    cQString    dbFileExt             = ".db";
-    cQString    tracePath             = "trace.log";
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -69,50 +64,6 @@ Application::~Application()
 *
 **************************************************************************************************/
 
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::configFilePath()
-{
-    cQString basename = QFileInfo( applicationFilePath() ).baseName();
-
-    return applicationDirPath() + QDir::separator() + basename + ::configFileExt;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::langsDirPath()
-{
-    return applicationDirPath() + QDir::separator() + ::langsDirName;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::dbDirPath()
-{
-    return applicationDirPath() + QDir::separator() + ::dbDirName;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::dbFilePath()
-{
-    return dbDirPath() + QDir::separator() + applicationName() + ::dbFileExt;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::dbBackupDirPath()
-{
-    return dbDirPath() + QDir::separator() + ::backupDirName;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::debugTracePath()
-{
-    return applicationDirPath() + QDir::separator() + ::tracePath;
-}
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
@@ -201,25 +152,6 @@ Application::selfCheck()
 #endif
 
     return true;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::versionInfo()
-{
-    return QString("%1 %2 (%3 %4)")
-                .arg( applicationName() )
-                .arg( applicationVersion() )
-                .arg(__TIME__)
-                .arg(__DATE__);
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::buildInfo()
-{
-    return QString("Qt %1")
-                .arg(QT_VERSION_STR);
 }
 //-------------------------------------------------------------------------------------------------
 

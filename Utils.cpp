@@ -708,30 +708,33 @@ Utils::debugTracer(
                 .arg(a_context.line);
 
     switch (a_type) {
-        case QtDebugMsg:
-            msg = QString("Debug:    %1").arg(msg);
-            break;
-        case QtWarningMsg:
-            msg = QString("Warning:  %1").arg(msg);
-            break;
-        case QtCriticalMsg:
-            msg = QString("Critical: %1").arg(msg);
-            break;
-        case QtFatalMsg:
-            msg = QString("Fatal:    %1").arg(msg);
-            abort();
-        default:
-            msg = QString("Unknown:  %1").arg(msg);
-            break;
+    case QtDebugMsg:
+        msg = QString("Debug:    %1").arg(msg);
+        break;
+    case QtWarningMsg:
+        msg = QString("Warning:  %1").arg(msg);
+        break;
+    case QtCriticalMsg:
+        msg = QString("Critical: %1").arg(msg);
+        break;
+    case QtFatalMsg:
+        msg = QString("Fatal:    %1").arg(msg);
+        abort();
+    default:
+        msg = QString("Unknown:  %1").arg(msg);
+        break;
     }
 
     // write to file
     {
+    #if 0
+        // TODO: Utils::debugTracer() - trace file path
         QFile outFile( Application::debugTracePath() );
         outFile.open(QIODevice::WriteOnly | QIODevice::Append);
 
         QTextStream ts(&outFile);
         ts << msg << endl;
+    #endif
     }
 
     // write to std::out
