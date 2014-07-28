@@ -712,7 +712,7 @@ Utils::debugTracer(
 
 //-------------------------------------------------------------------------------------------------
 void
-Utils::sleep(
+Utils::sleepMsec(
     cint &a_timeoutMsec
 )
 {

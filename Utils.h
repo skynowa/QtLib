@@ -94,7 +94,7 @@ public:
 
     // other
     static
-    void         sleep(cint &timeoutMsec);
+    void         sleepMsec(cint &timeoutMsec);
 
 private:
                  Utils();
