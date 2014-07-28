@@ -36,7 +36,7 @@ public:
         ///< plugin imageformats  directory path
 
     static
-    void    windowActivate(cQString &appWndClass, cQString &appName);
+    void    windowActivate(cQString &windowClassName, cQString &windowName);
         ///< activate main window
     static
     bool    isRunnig(cQString &appGuid);

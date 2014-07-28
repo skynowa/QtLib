@@ -26,9 +26,6 @@ public:
     void         widgetAlignTopCenter(QWidget *widget);
         ///< align main widget
     static
-    void         applicationActivate(cQString &className, cQString &windowName);
-        ///< activate main application window
-    static
     void         widgetAlwaysOnTop(QWidget *widget, cbool &isChecked);
         ///< toggle 'always on top' for a QMainWindow
 

@@ -109,32 +109,6 @@ Utils::widgetAlignTopCenter(
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 }
 //-------------------------------------------------------------------------------------------------
-/* static */
-void
-Utils::applicationActivate(
-    cQString &a_className,
-    cQString &a_windowName
-)
-{
-    qTEST(!a_className.isEmpty());
-    qTEST(!a_windowName.isEmpty());
-
-#if defined(Q_OS_WIN)
-    HWND hWnd = ::FindWindowW(qQS2S(a_className).c_str(), qQS2S(a_windowName).c_str());
-    if (hWnd != Q_NULLPTR) {
-        BOOL blRv = ::SetForegroundWindow(hWnd);
-        qTEST((BOOL)FALSE != blRv);
-
-        ::Beep(400, 400);
-    }
-#else
-    Q_UNUSED(a_className);
-    Q_UNUSED(a_windowName);
-
-    // TODO: activation application window
-#endif
-}
-//-------------------------------------------------------------------------------------------------
 void
 Utils::widgetAlwaysOnTop(
     QWidget *a_widget,

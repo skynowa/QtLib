@@ -89,11 +89,27 @@ Application::pluginImageFormatsDirPath()
 /* static */
 void
 Application::windowActivate(
-    cQString &a_appWndClass,
-    cQString &a_appName
+    cQString &a_windowClassName,
+    cQString &a_windowName
 )
 {
-    qtlib::Utils::applicationActivate(a_appWndClass, a_appName);
+    qTEST(!a_windowClassName.isEmpty());
+    qTEST(!a_windowName.isEmpty());
+
+#if defined(Q_OS_WIN)
+    HWND hWnd = ::FindWindowW(qQS2S(a_windowClassName).c_str(), qQS2S(a_windowName).c_str());
+    if (hWnd != Q_NULLPTR) {
+        BOOL blRv = ::SetForegroundWindow(hWnd);
+        qTEST((BOOL)FALSE != blRv);
+
+        ::Beep(400, 400);
+    }
+#else
+    Q_UNUSED(a_windowClassName);
+    Q_UNUSED(a_windowName);
+
+    // TODO: activation application window
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
