@@ -54,16 +54,6 @@ Utils::widgetAlignCenter(
 {
     qTEST_PTR(a_widget);
 
-#if 0
-    QDesktopWidget *desktop = QApplication::desktop();
-    qTEST_PTR(desktop);
-
-    cint x = (desktop->width()  - a_widget->width())  / 2;
-    cint y = (desktop->height() - a_widget->height()) / 2;
-
-    a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
-#endif
-
     QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
         qApp->desktop()->availableGeometry());
 
