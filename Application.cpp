@@ -87,6 +87,27 @@ Application::pluginImageFormatsDirPath()
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
+bool
+Application::setSingle(
+    cQString &a_guid
+)
+{
+    qTEST(!a_guid.isEmpty());
+
+    bool bRv = false;
+
+    static QSharedMemory locker(a_guid);
+
+    bRv = locker.attach();
+    qCHECK_RET(bRv, false);
+
+    bRv = locker.create(1);
+    qCHECK_RET(!bRv, false);
+
+    return true;
+}
+//-------------------------------------------------------------------------------------------------
+/* static */
 void
 Application::windowActivate(
     cQString &a_windowClassName,
@@ -115,10 +136,10 @@ Application::windowActivate(
 /* static */
 bool
 Application::isRunnig(
-    cQString &a_appGuid
+    cQString &a_guid
 )
 {
-    return !qtlib::Utils::setApplicationSingle(a_appGuid);
+    return !setSingle(a_guid);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */

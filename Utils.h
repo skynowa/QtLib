@@ -17,9 +17,6 @@ class Utils
 public:
     // GUI
     static
-    bool         setApplicationSingle(cQString &applicationGuid);
-        ///< set application single inststance
-    static
     void         widgetAlignCenter(QWidget *widget);
         ///< align main widget
     static

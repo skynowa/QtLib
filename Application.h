@@ -36,10 +36,13 @@ public:
         ///< plugin imageformats  directory path
 
     static
+    bool    setSingle(cQString &guid);
+        ///< set application single inststance
+    static
     void    windowActivate(cQString &windowClassName, cQString &windowName);
         ///< activate main window
     static
-    bool    isRunnig(cQString &appGuid);
+    bool    isRunnig(cQString &guid);
         ///< check if application already running
     static
     bool    selfCheck();

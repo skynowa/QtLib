@@ -48,27 +48,6 @@ Utils::~Utils()
 
 //-------------------------------------------------------------------------------------------------
 /* static */
-bool
-Utils::setApplicationSingle(
-    cQString &a_applicationGuid
-)
-{
-    qTEST(!a_applicationGuid.isEmpty());
-
-    bool bRv = false;
-
-    static QSharedMemory locker(a_applicationGuid);
-
-    bRv = locker.attach();
-    qCHECK_RET(bRv, false);
-
-    bRv = locker.create(1);
-    qCHECK_RET(!bRv, false);
-
-    return true;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
 void
 Utils::widgetAlignCenter(
     QWidget *a_widget
