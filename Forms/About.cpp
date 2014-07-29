@@ -54,32 +54,37 @@ About::_initMain()
 {
     ui.setupUi(this);
 
-    cQString msg = QString(tr("<p><b>%1</b></p>"))
-                        .arg( qS2QS(xlib::core::Application::name()) )
-                        .arg( qS2QS(xlib::core::Application::versionFull()) );
+    // title
+    {
+        cQString title = QString(tr("<p><b>%1</b></p>"))
+                            .arg( qS2QS(xlib::core::Application::name()) )
+                            .arg( qS2QS(xlib::core::Application::versionFull()) );
 
-    ui.lblAppName->setText(msg);
+        ui.lblAppName->setText(title);
+    }
 
-    // build info
+    // tab "About"
     {
         xlib::debug::BuildInfo info;
 
         cQString painText = QString(
             tr(
+            "%1\n\n"
             "Build info:\n"
-            "Type: %1\n"
-            "Date time: %2\n"
-            "Language standart: %3\n"
-            "OS environment: %4\n"
-            "OS: %5\n"
-            "Architecture: %6\n"
-            "Compiler: %7\n"
-            "Character encoding: %8\n"
-            "LibC: %9\n"
-            "LibC++: %10\n"
-            "xLib: %11\n"
-            "Qt: %12\n"
-            "Binary type: %13\n")
+            "Type: %2\n"
+            "Date time: %3\n"
+            "Language standart: %4\n"
+            "OS environment: %5\n"
+            "OS: %6\n"
+            "Architecture: %7\n"
+            "Compiler: %8\n"
+            "Character encoding: %9\n"
+            "LibC: %10\n"
+            "LibC++: %11\n"
+            "xLib: %12\n"
+            "Qt: %13\n"
+            "Binary type: %14\n")
+            .arg( xlib::core::Application::decription().c_str() )
             .arg( info.isRelease() ? "Release" : "Debug" )
             .arg( info.datetime().c_str() )
             .arg( info.langStandart().c_str() )
@@ -91,7 +96,7 @@ About::_initMain()
             .arg( info.stdLibC().c_str() )
             .arg( info.stdLibCpp().c_str() )
             .arg( info.xlibVersion().c_str() )
-            .arg( QT_VERSION_STR )
+            .arg( info.qt().c_str() )
             .arg( info.binaryType().c_str() ));
 
         ui.pteAbout->appendPlainText(painText);

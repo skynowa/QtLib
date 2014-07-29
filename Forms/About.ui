@@ -14,7 +14,7 @@
    <string>XXXDb - about</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Resources/App.qrc">
+   <iconset>
     <normaloff>:/Main/Main/App.ico</normaloff>:/Main/Main/App.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -23,7 +23,7 @@
      <item>
       <widget class="QLabel" name="lblAppIcon">
        <property name="pixmap">
-        <pixmap resource="../Resources/App.qrc">:/Main/Main/App.ico</pixmap>
+        <pixmap>:/Main/Main/App.ico</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -81,10 +81,7 @@
           <bool>true</bool>
          </property>
          <property name="plainText">
-          <string>Accounting software for girls.
-
-Platforms: Windows, Linux, OSX
-Architecture: x86, x64
+          <string>
 </string>
          </property>
         </widget>
@@ -222,8 +219,6 @@ Private24 - [TODO]</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../Resources/App.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
