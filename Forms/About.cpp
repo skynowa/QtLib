@@ -76,7 +76,7 @@ About::_initMain()
 
     // tab "About"
     {
-        cQString plainText = QString(tr(
+        cQString text = QString(tr(
             "%1\n"
             "Copyright %2 %3. All rights reserved.\n"
             "\n"
@@ -91,12 +91,12 @@ About::_initMain()
             .arg( xlib::core::Application::help().c_str() )
             .arg( xlib::core::Application::usage().c_str() );
 
-        ui.pteAbout->setPlainText(plainText);
+        ui.pteAbout->setHtml(text);
     }
 
     // tab "Authors"
     {
-        cQString plainText = QString(tr(
+        cQString text = QString(tr(
             "Vendor: %1\n"
             "Domain: %2\n"
             "Authors: %3\n"
@@ -114,19 +114,19 @@ About::_initMain()
             .arg("627713628")
             .arg( xlib::core::Application::vendorUrl().c_str() );
 
-        ui.pteAuthors->setPlainText(plainText);
+        ui.pteAuthors->setHtml(text);
     }
 
     // tab "Thanks to"
     {
-        cQString plainText;
+        cQString text;
 
-        ui.pteThanks->setPlainText(plainText);
+        ui.pteThanks->setHtml(text);
     }
 
     // tab "License"
     {
-        cQString plainText =
+        cQString text =
             "    This program is free software: you can redistribute it and/or modify\n"
             "it under the terms of the GNU General Public License as published by\n"
             "the Free Software Foundation, either version 3 of the License, or\n"
@@ -140,12 +140,12 @@ About::_initMain()
             "    You should have received a copy of the GNU General Public License\n"
             "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 
-        ui.pteLicense->setPlainText(plainText);
+        ui.pteLicense->setHtml(text);
     }
 
     // tab "Report Bugs"
     {
-        cQString plainText = QString(tr(
+        cQString text = QString(tr(
             "Report bugs or wishes.\n"
             "\n"
             "E-mail: %1\n"
@@ -159,14 +159,14 @@ About::_initMain()
             .arg("627713628")
             .arg( xlib::core::Application::vendorUrl().c_str() );
 
-        ui.pteReportBugs->setText(plainText);
+        ui.pteReportBugs->setText(text);
     }
 
     // tab "Build info"
     {
         xlib::debug::BuildInfo info;
 
-        cQString plainText = QString(tr(
+        cQString text = QString(tr(
             "Type: %1\n"
             "Date time: %2\n"
             "Language standart: %3\n"
@@ -194,12 +194,12 @@ About::_initMain()
             .arg( info.qt().c_str() )
             .arg( info.binaryType().c_str() );
 
-        ui.pteBuildinfo->setPlainText(plainText);
+        ui.pteBuildinfo->setHtml(text);
     }
 
     // tab "Donate"
     {
-        cQString plainText = QString(tr(
+        cQString text = QString(tr(
             "PayPal -  %1\n"
             "WebMoney - %2\n"
             "YandexMoney - %3\n"
@@ -209,7 +209,7 @@ About::_initMain()
             .arg("[TODO]")
             .arg("[TODO]");
 
-        ui.pteDonate->setPlainText(plainText);
+        ui.pteDonate->setHtml(text);
     }
 
     //  signals, slots
