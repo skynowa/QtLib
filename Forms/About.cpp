@@ -67,6 +67,8 @@ About::_initMain()
 
     // title
     {
+        ui.lblAppIcon->setPixmap( windowIcon().pixmap(32) );
+
         cQString title = QString(tr("<p><b>%1 %2</b></p>"))
             .arg( xlib::core::Application::name().c_str() )
             .arg( xlib::core::Application::versionFull().c_str() );
