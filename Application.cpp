@@ -72,8 +72,6 @@ Application::~Application()
 bool
 Application::isRunnig() const
 {
-    qTEST(!_guid.isEmpty());
-
     static QSharedMemory locker(_guid);
 
     bool bRv = locker.attach();
@@ -83,27 +81,6 @@ Application::isRunnig() const
     qCHECK_RET(!bRv, true);
 
     return false;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::pluginPlatformsDirPath()
-{
-    return applicationDirPath() + QDir::separator() + ::dirPluginPlatform;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::pluginSqlDriversDirPath()
-{
-    return applicationDirPath() + QDir::separator() + ::dirPluginSqlDrivers;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Application::pluginImageFormatsDirPath()
-{
-    return applicationDirPath() + QDir::separator() + ::dirPluginImageFormats;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -128,8 +105,37 @@ Application::windowActivate(
     Q_UNUSED(a_windowClassName);
     Q_UNUSED(a_windowName);
 
-    // TODO: activation application window
+    // TODO: Application::setWindowActivation() - Unix
 #endif
+}
+//-------------------------------------------------------------------------------------------------
+
+
+/**************************************************************************************************
+*   public static
+*
+**************************************************************************************************/
+
+//-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Application::pluginPlatformsDirPath()
+{
+    return applicationDirPath() + QDir::separator() + ::dirPluginPlatform;
+}
+//-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Application::pluginSqlDriversDirPath()
+{
+    return applicationDirPath() + QDir::separator() + ::dirPluginSqlDrivers;
+}
+//-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Application::pluginImageFormatsDirPath()
+{
+    return applicationDirPath() + QDir::separator() + ::dirPluginImageFormats;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */

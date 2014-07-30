@@ -24,6 +24,8 @@ public:
 
     bool     isRunnig() const;
         ///< is application running
+    void     windowActivate(cQString &windowClassName, cQString &windowName);
+        ///< activate main window
 
     // static
     static
@@ -36,9 +38,6 @@ public:
     QString  pluginImageFormatsDirPath();
         ///< plugin imageformats  directory path
 
-    static
-    void     windowActivate(cQString &windowClassName, cQString &windowName);
-        ///< activate main window
     static
     bool     selfCheck();
         ///< self check
