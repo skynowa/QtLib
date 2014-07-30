@@ -101,10 +101,12 @@ About::_initMain()
             "Domain: %2<br>"
             "Authors: %3<br>"
             "E-mail: %4<br>"
-            "Skype: %5<br>"
+            "Skype: %5 (<a href=\"skype:%5?add\">add</a>, "
+                       "<a href=\"skype:%5?chat\">chat</a>, "
+                       "<a href=\"skype:%5?call\">call</a>)<br>"
             "Jabber: %6<br>"
             "ICQ: %7<br>"
-            "Web: %8<br>"))
+            "Web: <a href=\"%8\">%8</a><br>"))
             .arg( xlib::core::Application::vendorName().c_str() )
             .arg( xlib::core::Application::vendorDomain().c_str() )
             .arg( xlib::core::Application::vendorAuthor().c_str() )
@@ -127,6 +129,7 @@ About::_initMain()
     // tab "License"
     {
         cQString text =
+            "<pre>"
             "    This program is free software: you can redistribute it and/or modify<br>"
             "it under the terms of the GNU General Public License as published by<br>"
             "the Free Software Foundation, either version 3 of the License, or<br>"
@@ -138,7 +141,8 @@ About::_initMain()
             "GNU General Public License for more details.<br>"
             "<br>"
             "    You should have received a copy of the GNU General Public License<br>"
-            "along with this program.  If not, see <http://www.gnu.org/licenses/>.<br>";
+            "along with this program.  If not, see <http://www.gnu.org/licenses/>.<br>"
+            "</pre>";
 
         ui.pteLicense->setHtml(text);
     }
@@ -149,10 +153,12 @@ About::_initMain()
             "Report bugs or wishes.<br>"
             "<br>"
             "E-mail: %1<br>"
-            "Skype: %2<br>"
+            "Skype: %2 (<a href=\"skype:%2?add\">add</a>, "
+                       "<a href=\"skype:%2?chat\">chat</a>, "
+                       "<a href=\"skype:%2?call\">call</a>)<br>"
             "Jabber: %3<br>"
             "ICQ: %4<br>"
-            "Web: %5<br>"))
+            "Web: <a href=\"%5\">%5</a><br>"))
             .arg( xlib::core::Application::vendorEmail().c_str() )
             .arg( xlib::core::Application::vendorSkype().c_str() )
             .arg("skynowa@jabber.ru")
