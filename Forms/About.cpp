@@ -95,7 +95,7 @@ About::_initMain()
             .arg( xlib::core::Application::help().c_str() )
             .arg( xlib::core::Application::usage().c_str() );
 
-        ui.pteAbout->setHtml(text);
+        ui.txtbAbout->setHtml(text);
     }
 
     // tab "Authors"
@@ -123,7 +123,7 @@ About::_initMain()
             .arg("627713628")
             .arg( xlib::core::Application::vendorUrl().c_str() );
 
-        ui.pteAuthors->setHtml(text);
+        ui.txtbAuthors->setHtml(text);
     }
 
     // tab "Thanks to"
@@ -131,7 +131,7 @@ About::_initMain()
         cQString text =
             "<b>Thanks to</b><br>";
 
-        ui.pteThanks->setHtml(text);
+        ui.txtbThanks->setHtml(text);
     }
 
     // tab "License"
@@ -153,7 +153,7 @@ About::_initMain()
             "along with this program.  If not, see <http://www.gnu.org/licenses/>.<br>"
             "</pre>";
 
-        ui.pteLicense->setHtml(text);
+        ui.txtbLicense->setHtml(text);
     }
 
     // tab "Report Bugs"
@@ -175,7 +175,7 @@ About::_initMain()
             .arg("627713628")
             .arg( xlib::core::Application::vendorUrl().c_str() );
 
-        ui.pteReportBugs->setText(text);
+        ui.txtbReportBugs->setText(text);
     }
 
     // tab "Build info"
@@ -212,7 +212,7 @@ About::_initMain()
             .arg( info.qt().c_str() )
             .arg( info.binaryType().c_str() );
 
-        ui.pteBuildinfo->setHtml(text);
+        ui.txtbBuildinfo->setHtml(text);
     }
 
     // tab "Donate"
@@ -229,7 +229,7 @@ About::_initMain()
             .arg("[TODO]")
             .arg("[TODO]");
 
-        ui.pteDonate->setHtml(text);
+        ui.txtbDonate->setHtml(text);
     }
 
     //  signals, slots
