@@ -180,7 +180,7 @@ About::_initMain()
 
     // tab "Build info"
     {
-        xlib::debug::BuildInfo info;
+        const xlib::debug::BuildInfo &info = xlib::core::Application::buildInfo();
 
         cQString text = QString(tr(
             "<b>Build info</b><br>"
@@ -191,25 +191,27 @@ About::_initMain()
             "OS environment: %4<br>"
             "OS: %5<br>"
             "Architecture: %6<br>"
-            "Compiler: %7<br>"
-            "Character encoding: %8<br>"
-            "LibC: %9<br>"
-            "LibC++: %10<br>"
-            "xLib: %11<br>"
+            "Architecture bits: %7<br>"
+            "Compiler: %8<br>"
+            "Character encoding: %9<br>"
+            "LibC: %10<br>"
+            "LibC++: %11<br>"
             "Qt: %12<br>"
-            "Binary type: %13<br>"))
+            "xLib: %13<br>"
+            "Binary type: %14<br>"))
             .arg( info.isRelease() ? "Release" : "Debug" )
             .arg( info.datetime().c_str() )
             .arg( info.langStandart().c_str() )
             .arg( info.osEnvironment().c_str() )
             .arg( info.os().c_str() )
             .arg( info.arch().c_str() )
+            .arg( info.bitsArch().c_str() )
             .arg( info.compiler().c_str() )
             .arg( info.isUnicodeEncoding() ? "Unicode" : "Ansi" )
             .arg( info.stdLibC().c_str() )
             .arg( info.stdLibCpp().c_str() )
-            .arg( info.xlibVersion().c_str() )
             .arg( info.qt().c_str() )
+            .arg( info.xlibVersion().c_str() )
             .arg( info.binaryType().c_str() );
 
         ui.txtbBuildinfo->setHtml(text);
