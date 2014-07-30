@@ -77,14 +77,14 @@ About::_initMain()
     // tab "About"
     {
         cQString text = QString(tr(
-            "%1\n"
-            "Copyright %2 %3. All rights reserved.\n"
-            "\n"
-            "Help:"
-            "%4\n"
-            "\n"
-            "Usage:"
-            "%5\n"))
+            "%1<br>"
+            "Copyright %2 %3. All rights reserved.<br>"
+            "<br>"
+            "Help:<br>"
+            "%4<br>"
+            "<br>"
+            "Usage:<br>"
+            "%5<br>"))
             .arg( xlib::core::Application::decription().c_str() )
             .arg( xlib::core::Application::copyrightYears().c_str() )
             .arg( xlib::core::Application::vendorName().c_str() )
@@ -97,14 +97,14 @@ About::_initMain()
     // tab "Authors"
     {
         cQString text = QString(tr(
-            "Vendor: %1\n"
-            "Domain: %2\n"
-            "Authors: %3\n"
-            "E-mail: %4\n"
-            "Skype: %5\n"
-            "Jabber: %6\n"
-            "ICQ: %7\n"
-            "Web: %8\n"))
+            "Vendor: %1<br>"
+            "Domain: %2<br>"
+            "Authors: %3<br>"
+            "E-mail: %4<br>"
+            "Skype: %5<br>"
+            "Jabber: %6<br>"
+            "ICQ: %7<br>"
+            "Web: %8<br>"))
             .arg( xlib::core::Application::vendorName().c_str() )
             .arg( xlib::core::Application::vendorDomain().c_str() )
             .arg( xlib::core::Application::vendorAuthor().c_str() )
@@ -127,18 +127,18 @@ About::_initMain()
     // tab "License"
     {
         cQString text =
-            "    This program is free software: you can redistribute it and/or modify\n"
-            "it under the terms of the GNU General Public License as published by\n"
-            "the Free Software Foundation, either version 3 of the License, or\n"
-            "(at your option) any later version.\n"
-            "\n"
-            "    This program is distributed in the hope that it will be useful,\n"
-            "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-            "GNU General Public License for more details.\n"
-            "\n"
-            "    You should have received a copy of the GNU General Public License\n"
-            "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
+            "    This program is free software: you can redistribute it and/or modify<br>"
+            "it under the terms of the GNU General Public License as published by<br>"
+            "the Free Software Foundation, either version 3 of the License, or<br>"
+            "(at your option) any later version.<br>"
+            "<br>"
+            "    This program is distributed in the hope that it will be useful,<br>"
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of<br>"
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>"
+            "GNU General Public License for more details.<br>"
+            "<br>"
+            "    You should have received a copy of the GNU General Public License<br>"
+            "along with this program.  If not, see <http://www.gnu.org/licenses/>.<br>";
 
         ui.pteLicense->setHtml(text);
     }
@@ -146,13 +146,13 @@ About::_initMain()
     // tab "Report Bugs"
     {
         cQString text = QString(tr(
-            "Report bugs or wishes.\n"
-            "\n"
-            "E-mail: %1\n"
-            "Skype: %2\n"
-            "Jabber: %3\n"
-            "ICQ: %4\n"
-            "Web: %5\n"))
+            "Report bugs or wishes.<br>"
+            "<br>"
+            "E-mail: %1<br>"
+            "Skype: %2<br>"
+            "Jabber: %3<br>"
+            "ICQ: %4<br>"
+            "Web: %5<br>"))
             .arg( xlib::core::Application::vendorEmail().c_str() )
             .arg( xlib::core::Application::vendorSkype().c_str() )
             .arg("skynowa@jabber.ru")
@@ -167,19 +167,19 @@ About::_initMain()
         xlib::debug::BuildInfo info;
 
         cQString text = QString(tr(
-            "Type: %1\n"
-            "Date time: %2\n"
-            "Language standart: %3\n"
-            "OS environment: %4\n"
-            "OS: %5\n"
-            "Architecture: %6\n"
-            "Compiler: %7\n"
-            "Character encoding: %8\n"
-            "LibC: %9\n"
-            "LibC++: %10\n"
-            "xLib: %11\n"
-            "Qt: %12\n"
-            "Binary type: %13\n"))
+            "Type: %1<br>"
+            "Date time: %2<br>"
+            "Language standart: %3<br>"
+            "OS environment: %4<br>"
+            "OS: %5<br>"
+            "Architecture: %6<br>"
+            "Compiler: %7<br>"
+            "Character encoding: %8<br>"
+            "LibC: %9<br>"
+            "LibC++: %10<br>"
+            "xLib: %11<br>"
+            "Qt: %12<br>"
+            "Binary type: %13<br>"))
             .arg( info.isRelease() ? "Release" : "Debug" )
             .arg( info.datetime().c_str() )
             .arg( info.langStandart().c_str() )
@@ -200,10 +200,10 @@ About::_initMain()
     // tab "Donate"
     {
         cQString text = QString(tr(
-            "PayPal -  %1\n"
-            "WebMoney - %2\n"
-            "YandexMoney - %3\n"
-            "Private24 - %4\n"))
+            "PayPal -  %1<br>"
+            "WebMoney - %2<br>"
+            "YandexMoney - %3<br>"
+            "Private24 - %4<br>"))
             .arg("[TODO]")
             .arg("[TODO]")
             .arg("[TODO]")
