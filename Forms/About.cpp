@@ -77,6 +77,8 @@ About::_initMain()
     // tab "About"
     {
         cQString text = QString(tr(
+            "<b>About</b><br>"
+            "<br>"
             "%1<br>"
             "Copyright %2 %3. All rights reserved.<br>"
             "<br>"
@@ -97,6 +99,8 @@ About::_initMain()
     // tab "Authors"
     {
         cQString text = QString(tr(
+            "<b>Authors</b><br>"
+            "<br>"
             "Vendor: %1<br>"
             "Domain: %2<br>"
             "Authors: %3<br>"
@@ -122,7 +126,8 @@ About::_initMain()
 
     // tab "Thanks to"
     {
-        cQString text;
+        cQString text =
+            "<b>Thanks to</b><br>";
 
         ui.pteThanks->setHtml(text);
     }
@@ -130,6 +135,7 @@ About::_initMain()
     // tab "License"
     {
         cQString text =
+            "<b>License</b>"
             "<pre>"
             "    This program is free software: you can redistribute it and/or modify<br>"
             "it under the terms of the GNU General Public License as published by<br>"
@@ -151,7 +157,7 @@ About::_initMain()
     // tab "Report Bugs"
     {
         cQString text = QString(tr(
-            "Report bugs or wishes.<br>"
+            "<b>Report bugs or wishes</b><br>"
             "<br>"
             "E-mail: %1 (<a href=\"mailto:%1?subject=%2\">send</a>)<br>"
             "Skype: %3 (<a href=\"skype:%2?add\">add</a>, "
@@ -175,6 +181,8 @@ About::_initMain()
         xlib::debug::BuildInfo info;
 
         cQString text = QString(tr(
+            "<b>Build info</b><br>"
+            "<br>"
             "Type: %1<br>"
             "Date time: %2<br>"
             "Language standart: %3<br>"
@@ -208,6 +216,8 @@ About::_initMain()
     // tab "Donate"
     {
         cQString text = QString(tr(
+            "<b>Donate</b><br>"
+            "<br>"
             "PayPal -  %1<br>"
             "WebMoney - %2<br>"
             "YandexMoney - %3<br>"
