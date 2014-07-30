@@ -162,9 +162,9 @@ About::_initMain()
             "<b>Report bugs or wishes</b><br>"
             "<br>"
             "E-mail: %1 (<a href=\"mailto:%1?subject=%2\">send</a>)<br>"
-            "Skype: %3 (<a href=\"skype:%2?add\">add</a>, "
-                       "<a href=\"skype:%2?chat\">chat</a>, "
-                       "<a href=\"skype:%2?call\">call</a>)<br>"
+            "Skype: %3 (<a href=\"skype:%3?add\">add</a>, "
+                       "<a href=\"skype:%3?chat\">chat</a>, "
+                       "<a href=\"skype:%3?call\">call</a>)<br>"
             "Jabber: %4<br>"
             "ICQ: %5<br>"
             "Web: %6 (<a href=\"%6\">go to browser</a>)<br>"))
