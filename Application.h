@@ -17,33 +17,34 @@ class Application :
     /// application
 {
 public:
-    //      Application();
-        ///< constructor
-            Application(int &argc, char **argv);
+             Application(int &argc, char **argv, cQString &guid);
         ///< constructor
     virtual ~Application();
         ///< destructor
 
+    bool     isRunnig() const;
+        ///< is application running
+
     // static
     static
-    QString pluginPlatformsDirPath();
+    QString  pluginPlatformsDirPath();
         ///< plugin platforms directory path
     static
-    QString pluginSqlDriversDirPath();
+    QString  pluginSqlDriversDirPath();
         ///< plugin sqldrivers  directory path
     static
-    QString pluginImageFormatsDirPath();
+    QString  pluginImageFormatsDirPath();
         ///< plugin imageformats  directory path
 
     static
-    void    setSingle(cQString &guid, bool *isRunnig);
-        ///< set application single inststance
-    static
-    void    windowActivate(cQString &windowClassName, cQString &windowName);
+    void     windowActivate(cQString &windowClassName, cQString &windowName);
         ///< activate main window
     static
-    bool    selfCheck();
+    bool     selfCheck();
         ///< self check
+
+private:
+    cQString _guid;
 };
 
 } // namespace qtlib

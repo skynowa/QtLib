@@ -38,11 +38,15 @@ namespace qtlib {
 
 //-------------------------------------------------------------------------------------------------
 Application::Application(
-    int   &a_argc,
-    char **a_argv
+    int        &a_argc,
+    char     **a_argv,
+    cQString  &a_guid
 ) :
-    QApplication(a_argc, a_argv)
+    QApplication(a_argc, a_argv),
+    _guid       (a_guid)
 {
+    qTEST(!a_guid.isEmpty());
+
     // set codecs
     {
         QTextCodec *codec = QTextCodec::codecForName(::localeCodec);
@@ -60,10 +64,26 @@ Application::~Application()
 
 
 /**************************************************************************************************
-*   public, static
+*   public
 *
 **************************************************************************************************/
 
+//-------------------------------------------------------------------------------------------------
+bool
+Application::isRunnig() const
+{
+    qTEST(!_guid.isEmpty());
+
+    static QSharedMemory locker(_guid);
+
+    bool bRv = locker.attach();
+    qCHECK_RET(bRv, true);
+
+    bRv = locker.create(1);
+    qCHECK_RET(!bRv, true);
+
+    return false;
+}
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
@@ -84,29 +104,6 @@ QString
 Application::pluginImageFormatsDirPath()
 {
     return applicationDirPath() + QDir::separator() + ::dirPluginImageFormats;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-void
-Application::setSingle(
-    cQString &a_guid,
-    bool     *a_isRunnig
-)
-{
-    qTEST(!a_guid.isEmpty());
-    qTEST(a_isRunnig != Q_NULLPTR);
-
-    bool bRv = false;
-
-    static QSharedMemory locker(a_guid);
-
-    bRv = locker.attach();
-    qCHECK_DO(bRv, *a_isRunnig = true; return);
-
-    bRv = locker.create(1);
-    qCHECK_DO(!bRv, *a_isRunnig = true; return);
-
-    *a_isRunnig = false;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
