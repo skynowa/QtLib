@@ -106,7 +106,7 @@ About::_initMain()
             "Vendor: %1<br>"
             "Domain: %2<br>"
             "Authors: %3<br>"
-            "E-mail: %5 (<a href=\"mailto:%4?subject=%5\">send</a>)<br>"
+            "E-mail: %4 (<a href=\"mailto:%4?subject=%5\">send</a>)<br>"
             "Skype: %6 (<a href=\"skype:%6?add\">add</a>, "
                        "<a href=\"skype:%6?chat\">chat</a>, "
                        "<a href=\"skype:%6?call\">call</a>)<br>"
