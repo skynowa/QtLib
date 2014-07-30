@@ -100,17 +100,18 @@ About::_initMain()
             "Vendor: %1<br>"
             "Domain: %2<br>"
             "Authors: %3<br>"
-            "E-mail: %4<br>"
-            "Skype: %5 (<a href=\"skype:%5?add\">add</a>, "
-                       "<a href=\"skype:%5?chat\">chat</a>, "
-                       "<a href=\"skype:%5?call\">call</a>)<br>"
-            "Jabber: %6<br>"
-            "ICQ: %7<br>"
-            "Web: <a href=\"%8\">%8</a><br>"))
+            "E-mail: %5 (<a href=\"mailto:%4?subject=%5\">send</a>)<br>"
+            "Skype: %6 (<a href=\"skype:%6?add\">add</a>, "
+                       "<a href=\"skype:%6?chat\">chat</a>, "
+                       "<a href=\"skype:%6?call\">call</a>)<br>"
+            "Jabber: %7<br>"
+            "ICQ: %8<br>"
+            "Web: %9 (<a href=\"%9\">go to browser</a>)<br>"))
             .arg( xlib::core::Application::vendorName().c_str() )
             .arg( xlib::core::Application::vendorDomain().c_str() )
             .arg( xlib::core::Application::vendorAuthor().c_str() )
             .arg( xlib::core::Application::vendorEmail().c_str() )
+            .arg( xlib::core::Application::name().c_str() )
             .arg( xlib::core::Application::vendorSkype().c_str() )
             .arg("skynowa@jabber.ru")
             .arg("627713628")
@@ -152,14 +153,15 @@ About::_initMain()
         cQString text = QString(tr(
             "Report bugs or wishes.<br>"
             "<br>"
-            "E-mail: %1<br>"
-            "Skype: %2 (<a href=\"skype:%2?add\">add</a>, "
+            "E-mail: %1 (<a href=\"mailto:%1?subject=%2\">send</a>)<br>"
+            "Skype: %3 (<a href=\"skype:%2?add\">add</a>, "
                        "<a href=\"skype:%2?chat\">chat</a>, "
                        "<a href=\"skype:%2?call\">call</a>)<br>"
-            "Jabber: %3<br>"
-            "ICQ: %4<br>"
-            "Web: <a href=\"%5\">%5</a><br>"))
+            "Jabber: %4<br>"
+            "ICQ: %5<br>"
+            "Web: %6 (<a href=\"%6\">go to browser</a>)<br>"))
             .arg( xlib::core::Application::vendorEmail().c_str() )
+            .arg( xlib::core::Application::name().c_str() )
             .arg( xlib::core::Application::vendorSkype().c_str() )
             .arg("skynowa@jabber.ru")
             .arg("627713628")
