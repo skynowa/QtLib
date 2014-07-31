@@ -94,6 +94,7 @@ typedef const float              cfloat;
 typedef const double             cdouble;
 
 typedef const qint64             cqint64;
+typedef const QChar              cQChar;
 typedef const QString            cQString;
 typedef const QStringList        cQStringList;
 typedef const QByteArray         cQByteArray;
