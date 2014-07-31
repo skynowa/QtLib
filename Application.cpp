@@ -107,6 +107,12 @@ Application::windowActivate(
 
     // TODO: Application::setWindowActivation() - Unix
 #endif
+
+#if 0
+    actWin->setWindowState(actWin->windowState() & ~Qt::WindowMinimized);
+    actWin->raise();
+    actWin->activateWindow();
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 
