@@ -62,7 +62,6 @@ GlobalShortcut_impl::setShortcut(
     const bool res = registerShortcut(nativeKey, nativeMods);
     if (res) {
         shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
-        qWarning() << "GlobalShortcut - OK:" << QKeySequence(key + mods).toString();
     } else {
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
