@@ -6,13 +6,6 @@
 
 #include "About.h"
 
-#include <QtLib/Common.h>
-#include <QtLib/Utils.h>
-#include <QtLib/Application.h>
-
-#include <xLib/xLib.h>
-#include <xLib/Core/Application.h>
-
 
 /**************************************************************************************************
 *   public
@@ -26,10 +19,46 @@ About::About(
     QWidget     *a_parent,
     const QIcon &a_icon
 ) :
-    QDialog(a_parent),
-    _icon  (a_icon)
+    QDialog              (a_parent),
+    _appDonatePayPal     (),
+    _appDonateWebMoney   (),
+    _appDonateYandexMoney(),
+    _appDonatePrivate24  (),
+    _icon                (a_icon)
 {
     _construct();
+}
+//-------------------------------------------------------------------------------------------------
+void
+About::setAppDonatePayPal(
+    cQString &a_value
+)
+{
+    _appDonatePayPal = a_value;
+}
+//-------------------------------------------------------------------------------------------------
+void
+About::setAppDonateWebMoney(
+    cQString &a_value
+)
+{
+    _appDonateWebMoney = a_value;
+}
+//-------------------------------------------------------------------------------------------------
+void
+About::setAppDonateYandexMoney(
+    cQString &a_value
+)
+{
+    _appDonateYandexMoney = a_value;
+}
+//-------------------------------------------------------------------------------------------------
+void
+About::setAppDonatePrivate24(
+    cQString &a_value
+)
+{
+    _appDonatePrivate24 = a_value;
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -226,10 +255,10 @@ About::_initMain()
             "WebMoney - %2<br>"
             "YandexMoney - %3<br>"
             "Private24 - %4<br>"))
-            .arg("[TODO]")
-            .arg("[TODO]")
-            .arg("[TODO]")
-            .arg("[TODO]");
+            .arg(_appDonatePayPal)
+            .arg(_appDonateWebMoney)
+            .arg(_appDonateYandexMoney)
+            .arg(_appDonatePrivate24);
 
         ui.txtbDonate->setHtml(text);
     }
