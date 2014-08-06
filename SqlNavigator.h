@@ -15,9 +15,6 @@ class SqlNavigator :
     public QObject
     /// DB SQL navigator
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(SqlNavigator)
-
 public:
     explicit        SqlNavigator(QWidget *parent);
     virtual        ~SqlNavigator();
@@ -42,6 +39,8 @@ private:
     QSqlTableModel *_model;
     QTableView     *_view;
 
+    Q_OBJECT
+    Q_DISABLE_COPY(SqlNavigator)
 };
 
 } // namespace qtlib

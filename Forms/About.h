@@ -19,8 +19,6 @@
 class About :
     public QDialog
 {
-    Q_OBJECT
-
 public:
     Ui::UiAbout ui;
 
@@ -42,6 +40,9 @@ private:
     void        _construct();
     void        _destruct();
     void        _initMain();
+
+    Q_OBJECT
+    Q_DISABLE_COPY(About)
 
 private Q_SLOTS:
     void        slot_bbxButtons_onClicked(QAbstractButton *button);
