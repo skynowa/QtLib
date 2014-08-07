@@ -147,17 +147,21 @@ Utils::importCsv(
         bRv = fileCSV.open(QFile::ReadOnly);
         qTEST(bRv);
 
-        cQString data = fileCSV.readAll();
-        file = data.split("\n");
+        cQString lines = fileCSV.readAll();
+        file = lines.split("\n");
 
         fileCSV.close();
 
         qCHECK_DO(file.isEmpty(), return);
+
+        if (file.last().isEmpty()) {
+            file.removeLast();
+        }
     }
 
     // file -> DB
-    for (int r = 0; r < file.size(); ++ r) {
-        cQStringList row = file.at(r).split(a_columnSeparator);
+    for (int l = 0; l < file.size(); ++ l) {
+        cQStringList line = file.at(l).split(a_columnSeparator);
 
         // targetRow
         cint targetRow = Utils::sqlTableModelRowCount(a_sqlTableModel) - 1;
@@ -167,7 +171,7 @@ Utils::importCsv(
 
         for (int f = 0; f < a_fieldNames.size(); ++ f) {
             record.append(QSqlField(a_fieldNames.at(f)));
-            record.setValue(a_fieldNames.at(f), row.at(f));
+            record.setValue(a_fieldNames.at(f), line.at(f));
         }
 
         bRv = a_sqlTableModel->insertRecord(targetRow, record);
