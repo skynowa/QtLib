@@ -182,7 +182,7 @@ typedef const QSize              cQSize;
 #endif
 
 #define qTEST_NA(expression) \
-            ;
+            Q_UNUSED(expression);
 //-------------------------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
