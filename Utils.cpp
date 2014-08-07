@@ -178,7 +178,7 @@ Utils::importCsv(
         qTEST(bRv);
 
         bRv = a_sqlTableModel->submitAll();
-        qTEST(bRv);
+        qCHECK_PTR(bRv, a_sqlTableModel);
     }
 }
 //-------------------------------------------------------------------------------------------------
