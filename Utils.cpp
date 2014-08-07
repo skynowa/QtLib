@@ -141,14 +141,13 @@ Utils::importCsv(
 
     // read file
     QStringList file;
-
     {
         QFile fileCSV(a_filePath);
 
         bRv = fileCSV.open(QFile::ReadOnly);
         qTEST(bRv);
 
-        QString data = fileCSV.readAll();
+        cQString data = fileCSV.readAll();
         file = data.split("\n");
 
         fileCSV.close();
@@ -157,8 +156,8 @@ Utils::importCsv(
     }
 
     // file -> DB
-    for (int i = 0; i < file.size(); ++ i) {
-        cQStringList row = file.at(i).split(a_columnSeparator);
+    for (int r = 0; r < file.size(); ++ r) {
+        cQStringList row = file.at(r).split(a_columnSeparator);
 
         // targetRow
         cint targetRow = Utils::sqlTableModelRowCount(a_sqlTableModel) - 1;
@@ -166,9 +165,9 @@ Utils::importCsv(
         // record
         QSqlRecord record;
 
-        for (int x = 0; x < a_fieldNames.size(); ++ x) {
-            record.append(QSqlField(a_fieldNames.at(x)));
-            record.setValue(a_fieldNames.at(x), row.at(x));
+        for (int f = 0; f < a_fieldNames.size(); ++ f) {
+            record.append(QSqlField(a_fieldNames.at(f)));
+            record.setValue(a_fieldNames.at(f), row.at(f));
         }
 
         bRv = a_sqlTableModel->insertRecord(targetRow, record);
@@ -197,24 +196,28 @@ Utils::exportCsv(
     QString csv;
 
     // DB fields -> CSV header
-    for (int x = 0; x < a_fieldNames.size(); ++ x) {
-        csv.push_back( a_fieldNames.at(x) );
-        csv.push_back( a_columnSeparator );
+    for (int f = 0; f < a_fieldNames.size(); ++ f) {
+        csv.push_back( a_fieldNames.at(f) );
+
+        if (f < a_fieldNames.size() - 1) {
+            csv.push_back( a_columnSeparator );
+        }
     }
-    csv.push_back( "\n" );
+    csv.push_back("\n");
 
     // DB -> file
     {
         cint realRowCount = Utils::sqlTableModelRowCount(a_sqlTableModel);
 
-        for (int i = 0; i < realRowCount; ++ i) {
-            for (int x = 0; x < a_fieldNames.size(); ++ x) {
-                csv.push_back( a_sqlTableModel->record(i)
-                                    .value( a_fieldNames.at(x) ).toString() );
-                csv.push_back( a_columnSeparator );
-            }
+        for (int r = 0; r < realRowCount; ++ r) {
+            for (int f = 0; f < a_fieldNames.size(); ++ f) {
+                csv.push_back( a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toString() );
 
-            csv.push_back( "\n" );
+                if (f < a_fieldNames.size() - 1) {
+                    csv.push_back( a_columnSeparator );
+                }
+            }
+            csv.push_back("\n");
         }
     }
 
