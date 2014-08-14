@@ -251,10 +251,10 @@ About::_initMain()
         cQString text = QString(tr(
             "<b>Donate</b><br>"
             "<br>"
-            "PayPal -  %1 (<a href=\"https://www.paypal.com/\">pay</a>)<br>"
-            "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">pay</a>)<br>"
-            "YandexMoney - %3 (<a href=\"https://money.yandex.ru/\">pay</a>)<br>"
-            "Private24 - %4 (<a href=\"https://privat24.ua/\">pay</a>)<br>"))
+            "PayPal -  %1 (<a href=\"https://www.paypal.com/\">donate</a>)<br>"
+            "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">donate</a>)<br>"
+            "YandexMoney - %3 (<a href=\"https://money.yandex.ru/\">donate</a>)<br>"
+            "Private24 - %4 (<a href=\"https://privat24.ua/\">donate</a>)<br>"))
             .arg(_appDonatePayPal)
             .arg(_appDonateWebMoney)
             .arg(_appDonateYandexMoney)
