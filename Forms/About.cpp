@@ -204,7 +204,7 @@ About::_initMain()
             .arg("627713628")
             .arg( xlib::core::Application::vendorUrl().c_str() );
 
-        ui.txtbReportBugs->setText(text);
+        ui.txtbReportBugs->setHtml(text);
     }
 
     // tab "Build info"
@@ -251,10 +251,10 @@ About::_initMain()
         cQString text = QString(tr(
             "<b>Donate</b><br>"
             "<br>"
-            "PayPal -  %1<br>"
-            "WebMoney - %2<br>"
-            "YandexMoney - %3<br>"
-            "Private24 - %4<br>"))
+            "PayPal -  %1 (<a href=\"https://www.paypal.com/\">pay</a>)<br>"
+            "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">pay</a>)<br>"
+            "YandexMoney - %3 (<a href=\"https://money.yandex.ru/\">pay</a>)<br>"
+            "Private24 - %4 (<a href=\"https://privat24.ua/\">pay</a>)<br>"))
             .arg(_appDonatePayPal)
             .arg(_appDonateWebMoney)
             .arg(_appDonateYandexMoney)
