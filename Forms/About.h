@@ -4,9 +4,8 @@
  */
 
 
-#ifndef QtLib_AboutH
-#define QtLib_AboutH
-//-------------------------------------------------------------------------------------------------
+#pragma once
+
 #include "ui_About.h"
 
 #include <QtLib/Common.h>
@@ -48,4 +47,3 @@ private Q_SLOTS:
     void        slot_bbxButtons_onClicked(QAbstractButton *button);
 };
 //-------------------------------------------------------------------------------------------------
-#endif // QtLib_AboutH

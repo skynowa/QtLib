@@ -4,9 +4,8 @@
  */
 
 
-#ifndef QtLib_CommonH
-#define QtLib_CommonH
-//-------------------------------------------------------------------------------------------------
+#pragma once
+
 // #define qTEST_IS_USED  1
 
 // core
@@ -188,4 +187,3 @@ typedef const QSize              cQSize;
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
 #define qPTR_DELETE(p)   { delete p; p = Q_NULLPTR; }
 //-------------------------------------------------------------------------------------------------
-#endif // QtLib_CommonH
