@@ -200,14 +200,17 @@ Utils::exportCsv(
     QString csv;
 
     // DB fields -> CSV header
-    for (int f = 0; f < a_fieldNames.size(); ++ f) {
-        csv.push_back( a_fieldNames.at(f) );
+    {
+        for (int f = 0; f < a_fieldNames.size(); ++ f) {
+            csv.push_back( a_fieldNames.at(f) );
 
-        if (f < a_fieldNames.size() - 1) {
-            csv.push_back( a_columnSeparator );
+            if (f < a_fieldNames.size() - 1) {
+                csv.push_back( a_columnSeparator );
+            }
         }
+
+        csv.push_back("\n");
     }
-    csv.push_back("\n");
 
     // DB -> file
     {
@@ -221,6 +224,7 @@ Utils::exportCsv(
                     csv.push_back( a_columnSeparator );
                 }
             }
+
             csv.push_back("\n");
         }
     }
