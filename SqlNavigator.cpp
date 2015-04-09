@@ -168,7 +168,7 @@ SqlNavigator::remove()
     qCHECK_DO(!isValid(), return);
 
     int             targetRow = 0;
-    QModelIndexList indexes   = view()->selectionModel()->selectedIndexes();
+    QModelIndexList indexes   = view()->selectionModel()->selectedRows();
 
     Q_FOREACH (QModelIndex index, indexes) {
         targetRow = index.row();
