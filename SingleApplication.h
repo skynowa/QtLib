@@ -25,6 +25,7 @@ public:
     SingleApplication(int &argc, char *argv[], cQString &guid);
 
     bool isRunnig() const;
+        ///< is application running
     bool isMaster() const;
     bool sendMessage(const QString &message) const;
 
