@@ -6,6 +6,8 @@
 
 #include "Application.h"
 
+#include "RunGuard.h"
+
 
 /**************************************************************************************************
 *   private, consts
@@ -13,7 +15,8 @@
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-namespace {
+namespace
+{
 
 cQString    dirPluginPlatform     = "platforms";
 cQString    dirPluginSqlDrivers   = "sqldrivers";
@@ -44,7 +47,7 @@ Application::Application(
     cQString  &a_guid
 ) :
     QApplication(a_argc, a_argv),
-    _is_running (false),
+    _guid       (a_guid),
     _locker     (a_guid)
 {
     qTEST(!a_guid.isEmpty());
@@ -65,7 +68,7 @@ Application::Application(
         }
         _locker.unlock();
 
-        _is_running = false;
+        // _is_running = false;
 
         // start checking for messages of other instances
         QTimer *timer = new QTimer(this);
@@ -74,7 +77,7 @@ Application::Application(
     }
     // it exits, so we can attach it
     else if ( _locker.attach() ){
-        _is_running = true;
+        // _is_running = true;
     }
     else {
         // error
@@ -89,7 +92,9 @@ Application::~Application()
 bool
 Application::isRunnig() const
 {
-    return _is_running;
+    static RunGuard guard(_guid);
+
+    return !guard.tryToRun();
 }
 //-------------------------------------------------------------------------------------------------
 bool

@@ -55,7 +55,7 @@ public:
         ///< self check
 
 private:
-    bool                  _is_running;
+    cQString              _guid;
     mutable QSharedMemory _locker;
 };
 
