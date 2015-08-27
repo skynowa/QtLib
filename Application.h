@@ -6,26 +6,39 @@
 
 #pragma once
 
+//#include <QSharedMemory>
+//#include <QStringList>
 #include "../QtLib/Common.h"
 #include "../QtLib/Utils.h"
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 class Application :
     public QApplication
     /// application
 {
+    Q_OBJECT
+    Q_DISABLE_COPY(Application)
+
 public:
              Application(int &argc, char **argv, cQString &guid);
         ///< constructor
     virtual ~Application();
         ///< destructor
 
-    bool     isRunnig() const;
+    bool isRunnig() const;
         ///< is application running
-    void     windowActivate(cQString &windowClassName, cQString &windowName);
-        ///< activate main window
+    bool isMaster() const;
+    bool sendMessage(const QString &message) const;
 
+public Q_SLOTS:
+    void checkForMessage();
+
+Q_SIGNALS:
+    void messageAvailable(const QStringList &messages);
+
+public:
     // static
     static
     QString  pluginPlatformsDirPath();
@@ -42,7 +55,8 @@ public:
         ///< self check
 
 private:
-    cQString _guid;
+    bool                  _is_running;
+    mutable QSharedMemory _locker;
 };
 
 } // namespace qtlib

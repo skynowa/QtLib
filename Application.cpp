@@ -29,7 +29,8 @@ cQByteArray localeCodec           = "UTF-8";
 //-------------------------------------------------------------------------------------------------
 
 
-namespace qtlib {
+namespace qtlib
+{
 
 /**************************************************************************************************
 *   public
@@ -43,7 +44,8 @@ Application::Application(
     cQString  &a_guid
 ) :
     QApplication(a_argc, a_argv),
-    _guid       (a_guid)
+    _is_running (false),
+    _locker     (a_guid)
 {
     qTEST(!a_guid.isEmpty());
 
@@ -54,11 +56,108 @@ Application::Application(
 
         QTextCodec::setCodecForLocale(codec);
     }
+
+    // when can create it only if it doesn't exist
+    if ( _locker.create(5000) ) {
+        _locker.lock();
+        {
+            *(char*)_locker.data() = '\0';
+        }
+        _locker.unlock();
+
+        _is_running = false;
+
+        // start checking for messages of other instances
+        QTimer *timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(checkForMessage()));
+        timer->start(200);
+    }
+    // it exits, so we can attach it
+    else if ( _locker.attach() ){
+        _is_running = true;
+    }
+    else {
+        // error
+    }
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
 Application::~Application()
 {
+}
+//-------------------------------------------------------------------------------------------------
+bool
+Application::isRunnig() const
+{
+    return _is_running;
+}
+//-------------------------------------------------------------------------------------------------
+bool
+Application::isMaster() const
+{
+    return !isRunnig();
+}
+//-------------------------------------------------------------------------------------------------
+// public functions
+bool
+Application::sendMessage(
+    const QString &a_message
+) const
+{
+    // we cannot send mess if we are master process
+    if ( isMaster() ){
+        return false;
+    }
+
+    QByteArray byteArray;
+    byteArray.append(char(a_message.size()));
+    byteArray.append(a_message.toUtf8());
+    byteArray.append('\0');
+
+    _locker.lock();
+    {
+        char *to = (char *)_locker.data();
+        while (*to != '\0') {
+            int sizeToRead = int(*to);
+            to += sizeToRead + 1;
+        }
+
+        const char *from = byteArray.data();
+        ::memcpy(to, from, qMin(_locker.size(), byteArray.size()));
+    }
+    _locker.unlock();
+
+    return true;
+}
+//-------------------------------------------------------------------------------------------------
+// public slots
+void
+Application::checkForMessage()
+{
+    QStringList arguments;
+
+    _locker.lock();
+    {
+        char *from = (char *)_locker.data();
+
+        while (*from != '\0') {
+            int sizeToRead = int(*from);
+            ++ from;
+
+            QByteArray byteArray = QByteArray(from, sizeToRead);
+            byteArray[sizeToRead] = '\0';
+            from += sizeToRead;
+
+            arguments << QString::fromUtf8( byteArray.constData() );
+        }
+
+        *(char *)_locker.data() = '\0';
+    }
+    _locker.unlock();
+
+    if ( !arguments.isEmpty() ) {
+        Q_EMIT messageAvailable(arguments);
+    }
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -67,54 +166,6 @@ Application::~Application()
 *   public
 *
 **************************************************************************************************/
-
-//-------------------------------------------------------------------------------------------------
-bool
-Application::isRunnig() const
-{
-    static QSharedMemory locker(_guid);
-
-    bool bRv = locker.attach();
-    qCHECK_RET(bRv, true);
-
-    bRv = locker.create(1);
-    qCHECK_RET(!bRv, true);
-
-    return false;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
-void
-Application::windowActivate(
-    cQString &a_windowClassName,
-    cQString &a_windowName
-)
-{
-    qTEST(!a_windowClassName.isEmpty());
-    qTEST(!a_windowName.isEmpty());
-
-#if defined(Q_OS_WIN)
-    HWND hWnd = ::FindWindowW(qQS2S(a_windowClassName).c_str(), qQS2S(a_windowName).c_str());
-    if (hWnd != Q_NULLPTR) {
-        BOOL blRv = ::SetForegroundWindow(hWnd);
-        qTEST((BOOL)FALSE != blRv);
-
-        ::Beep(400, 400);
-    }
-#else
-    Q_UNUSED(a_windowClassName);
-    Q_UNUSED(a_windowName);
-
-    // TODO: Application::setWindowActivation() - Unix
-#endif
-
-#if 0
-    actWin->setWindowState(actWin->windowState() & ~Qt::WindowMinimized);
-    actWin->raise();
-    actWin->activateWindow();
-#endif
-}
-//-------------------------------------------------------------------------------------------------
 
 
 /**************************************************************************************************
