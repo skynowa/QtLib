@@ -6,10 +6,10 @@
 
 #pragma once
 
-//#include <QSharedMemory>
-//#include <QStringList>
-#include "../QtLib/Common.h"
-#include "../QtLib/Utils.h"
+#include "Common.h"
+#include "Utils.h"
+#include <QSharedMemory>
+#include <QStringList>
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
