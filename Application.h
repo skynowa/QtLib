@@ -30,15 +30,10 @@ public:
     bool isRunnig() const;
         ///< is application running
     bool isMaster() const;
-    bool sendMessage(const QString &message) const;
+        ///<
+    bool sendMessage(cQString &message) const;
+        ///<
 
-public Q_SLOTS:
-    void checkForMessage();
-
-Q_SIGNALS:
-    void messageAvailable(const QStringList &messages);
-
-public:
     // static
     static
     QString  pluginPlatformsDirPath();
@@ -49,10 +44,15 @@ public:
     static
     QString  pluginImageFormatsDirPath();
         ///< plugin imageformats  directory path
-
     static
     bool     selfCheck();
         ///< self check
+
+public Q_SLOTS:
+    void slot_checkForMessage();
+
+Q_SIGNALS:
+    void messageAvailable(cQStringList &messages);
 
 private:
     cQString              _guid;

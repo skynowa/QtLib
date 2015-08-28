@@ -72,7 +72,7 @@ Application::Application(
 
         // start checking for messages of other instances
         QTimer *timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(checkForMessage()));
+        connect(timer, SIGNAL(timeout()), this, SLOT(slot_checkForMessage()));
         timer->start(200);
     }
     // it exits, so we can attach it
@@ -106,7 +106,7 @@ Application::isMaster() const
 // public functions
 bool
 Application::sendMessage(
-    const QString &a_message
+    cQString &a_message
 ) const
 {
     // we cannot send mess if we are master process
@@ -134,50 +134,6 @@ Application::sendMessage(
 
     return true;
 }
-//-------------------------------------------------------------------------------------------------
-// public slots
-void
-Application::checkForMessage()
-{
-    QStringList arguments;
-
-    _locker.lock();
-    {
-        char *from = (char *)_locker.data();
-
-        while (*from != '\0') {
-            int sizeToRead = int(*from);
-            ++ from;
-
-            QByteArray byteArray = QByteArray(from, sizeToRead);
-            byteArray[sizeToRead] = '\0';
-            from += sizeToRead;
-
-            arguments << QString::fromUtf8( byteArray.constData() );
-        }
-
-        *(char *)_locker.data() = '\0';
-    }
-    _locker.unlock();
-
-    if ( !arguments.isEmpty() ) {
-        Q_EMIT messageAvailable(arguments);
-    }
-}
-//-------------------------------------------------------------------------------------------------
-
-
-/**************************************************************************************************
-*   public
-*
-**************************************************************************************************/
-
-
-/**************************************************************************************************
-*   public static
-*
-**************************************************************************************************/
-
 //-------------------------------------------------------------------------------------------------
 /* static */
 QString
@@ -247,6 +203,36 @@ Application::selfCheck()
 #endif
 
     return true;
+}
+//-------------------------------------------------------------------------------------------------
+// public slots
+void
+Application::slot_checkForMessage()
+{
+    QStringList arguments;
+
+    _locker.lock();
+    {
+        char *from = (char *)_locker.data();
+
+        while (*from != '\0') {
+            int sizeToRead = int(*from);
+            ++ from;
+
+            QByteArray byteArray = QByteArray(from, sizeToRead);
+            byteArray[sizeToRead] = '\0';
+            from += sizeToRead;
+
+            arguments << QString::fromUtf8( byteArray.constData() );
+        }
+
+        *(char *)_locker.data() = '\0';
+    }
+    _locker.unlock();
+
+    if ( !arguments.isEmpty() ) {
+        Q_EMIT messageAvailable(arguments);
+    }
 }
 //-------------------------------------------------------------------------------------------------
 
