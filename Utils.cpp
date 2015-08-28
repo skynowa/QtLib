@@ -324,10 +324,7 @@ Utils::dbFilter(
 
     // execute query
     {
-        QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>( a_sqlQueryModel );
-        qTEST_PTR(model);
-
-        model->setQuery(sqlStr);
+        a_sqlQueryModel->setQuery(sqlStr);
 
         qDebug() << sqlStr;
     }
@@ -347,7 +344,7 @@ Utils::dbFieldNames(
     QStringList slRv;
     QSqlQuery   qryTableInfo(a_db);
 
-    cQString sql = \
+    cQString sql =
         "pragma table_info(" + a_tableName + ");";
 
     bool bRv = qryTableInfo.exec(sql);
