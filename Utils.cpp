@@ -261,6 +261,10 @@ Utils::dbFilter(
     // a_sqlStrWhere - n/a
     // a_sqlStrOrderBy - n/a
 
+    cbool is_sql_relational_table_model
+        = (dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel) != Q_NULLPTR);
+    qDebug() << qDEBUG_VAR(is_sql_relational_table_model);
+
     QString sqlStr;
 
     // is field values empty
@@ -275,19 +279,23 @@ Utils::dbFilter(
     // build query
     {
         if (isAllFieldsEmpty) {
-            sqlStr = QString("SELECT * FROM %1 %2")
-                            .arg(a_tableName)
-                            .arg(a_sqlStrJoin);
+            if ( !is_sql_relational_table_model ) {
+                sqlStr = QString("SELECT * FROM %1 %2")
+                                .arg(a_tableName)
+                                .arg(a_sqlStrJoin);
+            }
         } else {
-            sqlStr = QString("SELECT * FROM %1 %2 WHERE")
-                            .arg(a_tableName)
-                            .arg(a_sqlStrJoin);
+            if ( !is_sql_relational_table_model ) {
+                sqlStr = QString("SELECT * FROM %1 %2 WHERE")
+                                .arg(a_tableName)
+                                .arg(a_sqlStrJoin);
+            }
 
             bool isFirstNotEmptyField = true;
 
             for (int i = 0; i < a_fields.size(); ++ i) {
                 cQString csFieldName = a_fields.at(i).first;
-                cQString ctrlValue = a_fields.at(i).second;
+                cQString ctrlValue   = a_fields.at(i).second;
 
                 qCHECK_DO(ctrlValue.isEmpty(), continue);
 
@@ -324,7 +332,12 @@ Utils::dbFilter(
 
     // execute query
     {
-        a_sqlQueryModel->setQuery(sqlStr);
+        if ( !is_sql_relational_table_model ) {
+            a_sqlQueryModel->setQuery(sqlStr);
+        } else {
+            QSqlRelationalTableModel *model = dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel);
+            model->setFilter(sqlStr);
+        }
 
         qDebug() << sqlStr;
     }
