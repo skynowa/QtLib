@@ -11,7 +11,8 @@
 
 #include "Global.h"
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 class GlobalShortcut_impl;
 
@@ -33,7 +34,7 @@ public Q_SLOTS:
     void setDisabled(bool disabled = true);
 
 Q_SIGNALS:
-    void activated();
+    void sig_activated();
 
 private:
     Q_OBJECT

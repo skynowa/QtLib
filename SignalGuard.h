@@ -8,7 +8,8 @@
 
 #include "Common.h"
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 class SignalGuard :
     public QObject
@@ -21,7 +22,7 @@ public:
     void setEmit(const bool &a_flag);
 
 Q_SIGNALS:
-    void trigger();
+    void sig_trigger();
 
 private:
     bool _isEmit;
@@ -46,7 +47,7 @@ private:
  * Sample 2:
  *
  * SignalGuard g(this, SIGNAL(uiFinishWait()));
- * emit uiWait();
+ * Q_EMIT uiWait();
  * foo();
  * bar();
  */

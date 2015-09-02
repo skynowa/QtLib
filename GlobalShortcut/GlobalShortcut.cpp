@@ -10,7 +10,8 @@
 #include <QAbstractEventDispatcher>
 
 
-namespace qtlib {
+namespace qtlib
+{
 
 //-------------------------------------------------------------------------------------------------
 #ifndef Q_OS_MAC
@@ -100,7 +101,7 @@ GlobalShortcut_impl::activateShortcut(
 {
     GlobalShortcut* shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
-        emit shortcut->activated();
+        Q_EMIT shortcut->sig_activated();
     }
 }
 //-------------------------------------------------------------------------------------------------

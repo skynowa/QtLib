@@ -52,7 +52,7 @@ public Q_SLOTS:
     void     checkForMessage();
 
 Q_SIGNALS:
-    void     messageAvailable(QStringList messages);
+    void     sig_messageAvailable(QStringList messages);
 
 private:
     cQString              _guid;

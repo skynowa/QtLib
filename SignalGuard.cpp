@@ -23,14 +23,14 @@ SignalGuard::SignalGuard(
 ) :
    _isEmit(true)
 {
-   connect(this,     SIGNAL( trigger() ),
+   connect(this,     SIGNAL( sig_trigger() ),
            a_target, a_slot);
 }
 //-------------------------------------------------------------------------------------------------
 SignalGuard::~SignalGuard()
 {
    if (_isEmit) {
-      emit trigger();
+      Q_EMIT sig_trigger();
    }
 }
 //-------------------------------------------------------------------------------------------------

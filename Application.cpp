@@ -229,7 +229,7 @@ Application::checkForMessage()
     _locker.unlock();
 
     if ( !arguments.isEmpty() ) {
-        Q_EMIT messageAvailable(arguments);
+        Q_EMIT sig_messageAvailable(arguments);
     }
 }
 //-------------------------------------------------------------------------------------------------
