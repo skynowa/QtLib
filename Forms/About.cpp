@@ -266,12 +266,12 @@ About::_initMain()
     //  signals, slots
     {
         connect(ui.bbxButtons, SIGNAL( clicked(QAbstractButton *) ),
-                this,          SLOT  ( slot_bbxButtons_onClicked(QAbstractButton *) ));
+                this,          SLOT  ( bbxButtons_onClicked(QAbstractButton *) ));
     }
 }
 //-------------------------------------------------------------------------------------------------
 void
-About::slot_bbxButtons_onClicked(
+About::bbxButtons_onClicked(
     QAbstractButton *a_button
 )
 {

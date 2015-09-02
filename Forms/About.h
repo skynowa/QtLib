@@ -44,6 +44,6 @@ private:
     Q_DISABLE_COPY(About)
 
 private Q_SLOTS:
-    void        slot_bbxButtons_onClicked(QAbstractButton *button);
+    void        bbxButtons_onClicked(QAbstractButton *button);
 };
 //-------------------------------------------------------------------------------------------------
