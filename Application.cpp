@@ -72,7 +72,7 @@ Application::Application(
 
         // start checking for messages of other instances
         QTimer *timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(slot_checkForMessage()));
+        connect(timer, SIGNAL(timeout()), this, SLOT(checkForMessage()));
         timer->start(200);
     }
     // it exits, so we can attach it
@@ -207,7 +207,7 @@ Application::selfCheck()
 //-------------------------------------------------------------------------------------------------
 // public slots
 void
-Application::slot_checkForMessage()
+Application::checkForMessage()
 {
     QStringList arguments;
 

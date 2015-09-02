@@ -32,7 +32,7 @@ public:
     bool     isMaster() const;
         ///<
     bool     sendMessage(cQString &message) const;
-        ///<
+        ///< send message to another application instance
 
     // static
     static
@@ -49,7 +49,7 @@ public:
         ///< self check
 
 public Q_SLOTS:
-    void     slot_checkForMessage();
+    void     checkForMessage();
 
 Q_SIGNALS:
     void     messageAvailable(QStringList messages);
