@@ -72,7 +72,7 @@ Application::Application(
 
         // start checking for messages of other instances
         QTimer *timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(checkForMessage()));
+        connect(timer, &QTimer::timeout, this, &Application::checkForMessage);
         timer->start(200);
     }
     // it exits, so we can attach it
