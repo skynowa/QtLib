@@ -103,7 +103,6 @@ Application::isMaster() const
     return !isRunnig();
 }
 //-------------------------------------------------------------------------------------------------
-// public functions
 bool
 Application::sendMessage(
     cQString &a_message
@@ -205,7 +204,6 @@ Application::selfCheck()
     return true;
 }
 //-------------------------------------------------------------------------------------------------
-// public slots
 void
 Application::checkForMessage()
 {
