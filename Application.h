@@ -27,11 +27,11 @@ public:
     virtual ~Application();
         ///< destructor
 
-    bool isRunnig() const;
+    bool     isRunnig() const;
         ///< is application running
-    bool isMaster() const;
+    bool     isMaster() const;
         ///<
-    bool sendMessage(cQString &message) const;
+    bool     sendMessage(cQString &message) const;
         ///<
 
     // static
@@ -49,10 +49,10 @@ public:
         ///< self check
 
 public Q_SLOTS:
-    void slot_checkForMessage();
+    void     slot_checkForMessage();
 
 Q_SIGNALS:
-    void messageAvailable(QStringList messages);
+    void     messageAvailable(QStringList messages);
 
 private:
     cQString              _guid;
