@@ -6,8 +6,6 @@
 
 #include "Application.h"
 
-#include "RunGuard.h"
-
 
 /**************************************************************************************************
 *   private, consts
@@ -28,7 +26,31 @@ cQByteArray localeCodec           = "Windows-1251";
 cQByteArray localeCodec           = "UTF-8";
 #endif
 
-}
+class RunGuard
+    ///< run guard
+{
+public:
+    RunGuard(const QString &key);
+    ~RunGuard();
+
+    bool isAnotherRunning();
+    bool tryToRun();
+    void release();
+
+private:
+    const QString    _key;
+    const QString    _memLockKey;
+    const QString    _sharedmemKey;
+
+    QSharedMemory    _sharedMem;
+    QSystemSemaphore _memLock;
+
+    QString _generateKeyHash(cQString &key, cQString &salt) const;
+
+    Q_DISABLE_COPY(RunGuard)
+};
+
+} // namespace
 //-------------------------------------------------------------------------------------------------
 
 
@@ -92,7 +114,7 @@ Application::~Application()
 bool
 Application::isRunnig() const
 {
-    static RunGuard guard(_guid);
+    static ::RunGuard guard(_guid);
 
     return !guard.tryToRun();
 }
@@ -235,3 +257,103 @@ Application::checkForMessage()
 //-------------------------------------------------------------------------------------------------
 
 } // namespace qtlib
+
+
+namespace
+{
+
+#include <QObject>
+#include <QSharedMemory>
+#include <QSystemSemaphore>
+#include <QCryptographicHash>
+
+//-------------------------------------------------------------------------------------------------
+RunGuard::RunGuard(
+    const QString &a_key
+) :
+    _key         (a_key),
+    _memLockKey  (_generateKeyHash(a_key, "_memLockKey" )),
+    _sharedmemKey(_generateKeyHash(a_key, "_sharedmemKey" )),
+    _sharedMem   (_sharedmemKey),
+    _memLock     (_memLockKey, 1)
+{
+    QSharedMemory fix(_sharedmemKey);   // Fix for *nix: http://habrahabr.ru/post/173281/
+    fix.attach();
+}
+//-------------------------------------------------------------------------------------------------
+RunGuard::~RunGuard()
+{
+    release();
+}
+//-------------------------------------------------------------------------------------------------
+bool
+RunGuard::isAnotherRunning()
+{
+    if ( _sharedMem.isAttached() ) {
+        return false;
+    }
+
+    _memLock.acquire();
+
+    const bool isRunning = _sharedMem.attach();
+    if (isRunning) {
+        _sharedMem.detach();
+    }
+
+    _memLock.release();
+
+    return isRunning;
+}
+//-------------------------------------------------------------------------------------------------
+bool
+RunGuard::tryToRun()
+{
+    if ( isAnotherRunning() ) {   // Extra check
+        return false;
+    }
+
+    _memLock.acquire();
+
+    const bool result = _sharedMem.create( sizeof( quint64 ) );
+
+    _memLock.release();
+
+    if ( !result ) {
+        release();
+
+        return false;
+    }
+
+    return true;
+}
+//-------------------------------------------------------------------------------------------------
+void
+RunGuard::release()
+{
+    _memLock.acquire();
+    {
+        if ( _sharedMem.isAttached() ) {
+            _sharedMem.detach();
+        }
+    }
+    _memLock.release();
+}
+//-------------------------------------------------------------------------------------------------
+QString
+RunGuard::_generateKeyHash(
+    cQString &a_key,
+    cQString &a_salt
+) const
+{
+    QByteArray data;
+    data.append( a_key.toUtf8() );
+    data.append( a_salt.toUtf8() );
+
+    data = QCryptographicHash::hash(data, QCryptographicHash::Sha1).toHex();
+
+    return data;
+}
+//-------------------------------------------------------------------------------------------------
+
+} // namespace
+//-------------------------------------------------------------------------------------------------
