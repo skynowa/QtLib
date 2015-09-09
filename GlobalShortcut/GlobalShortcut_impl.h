@@ -14,7 +14,8 @@
 
 #include "GlobalShortcut.h"
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 class GlobalShortcut_impl :
     public Private<GlobalShortcut>
@@ -42,7 +43,7 @@ public:
     static int ref;
 
     virtual bool nativeEventFilter(const QByteArray & eventType, void *message, long *result);
-#endif // Q_OS_MAC
+#endif
 
     static void activateShortcut(quint32 nativeKey, quint32 nativeMods);
 

@@ -18,7 +18,7 @@ namespace qtlib
     int GlobalShortcut_impl::ref = 0;
 #endif
 
-QHash<QPair<quint32, quint32>, GlobalShortcut*> GlobalShortcut_impl::shortcuts;
+QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::shortcuts;
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::GlobalShortcut_impl() :
     enabled(true),
@@ -50,7 +50,7 @@ GlobalShortcut_impl::~GlobalShortcut_impl()
 //-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut_impl::setShortcut(
-    const QKeySequence& shortcut
+    const QKeySequence &shortcut
 )
 {
     Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
@@ -137,7 +137,7 @@ GlobalShortcut_impl::activateShortcut(
     Constructs a new GlobalShortcut with \a parent.
  */
 GlobalShortcut::GlobalShortcut(
-    QObject* parent
+    QObject *parent
 ) :
     QObject(parent)
 {
@@ -148,8 +148,8 @@ GlobalShortcut::GlobalShortcut(
     Constructs a new GlobalShortcut with \a shortcut and \a parent.
  */
 GlobalShortcut::GlobalShortcut(
-    const QKeySequence& shortcut,
-    QObject*            parent
+    const QKeySequence &shortcut,
+    QObject            *parent
 ) :
     QObject(parent)
 {

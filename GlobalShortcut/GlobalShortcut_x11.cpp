@@ -11,10 +11,12 @@
 #include <xcb/xcb.h>
 
 
-namespace qtlib {
+namespace qtlib
+{
 
 //-------------------------------------------------------------------------------------------------
-namespace {
+namespace
+{
 
 const QVector<quint32> maskModifiers = QVector<quint32>() << 0 << Mod2Mask << LockMask
                                                           << (Mod2Mask | LockMask);
@@ -223,7 +225,7 @@ GlobalShortcut_impl::nativeKeycode(
 )
 {
     QxtX11Data x11;
-    if (!x11.isValid()) {
+    if ( !x11.isValid() ) {
         return 0;
     }
 
