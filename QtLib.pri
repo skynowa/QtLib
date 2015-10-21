@@ -10,27 +10,27 @@ QT += \
     core gui widgets sql network xml
 
 HEADERS += \
-    QtLib/Common.h \
-    QtLib/Utils.h \
-    QtLib/Application.h \
-    QtLib/SqlNavigator.h \
-    QtLib/Forms/About.h
+    $$PWD/Common.h \
+    $$PWD/Utils.h \
+    $$PWD/Application.h \
+    $$PWD/SqlNavigator.h \
+    $$PWD/Forms/About.h
 
 SOURCES += \
-    QtLib/Utils.cpp \
-    QtLib/Application.cpp \
-    QtLib/SqlNavigator.cpp \
-    QtLib/Forms/About.cpp
+    $$PWD/Utils.cpp \
+    $$PWD/Application.cpp \
+    $$PWD/SqlNavigator.cpp \
+    $$PWD/Forms/About.cpp
 
 FORMS += \
-    QtLib/Forms/About.ui
+    $$PWD/Forms/About.ui
 
 #RESOURCES = \
-#    Resources/App.qrc
+#    $$PWD/Resources/App.qrc
 
 #win32 {
 #    RC_FILE = \
-#        Resources/App_win.rc
+#        $$PWD/Resources/App_win.rc
 #}
 
 #TRANSLATIONS += \
