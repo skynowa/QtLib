@@ -9,6 +9,9 @@
 QT += \
     core gui widgets sql network xml
 
+INCLUDEPATH += \
+    $$PWD
+
 HEADERS += \
     $$PWD/Common.h \
     $$PWD/Utils.h \
