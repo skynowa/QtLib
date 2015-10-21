@@ -8,9 +8,9 @@
 
 #include "ui_About.h"
 
-#include <QtLib/Common.h>
-#include <QtLib/Utils.h>
-#include <QtLib/Application.h>
+#include "../Common.h"
+#include "../Utils.h"
+#include "../Application.h"
 
 #include <xLib/xLib.h>
 #include <xLib/Core/Application.h>
