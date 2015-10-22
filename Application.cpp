@@ -114,9 +114,14 @@ Application::~Application()
 bool
 Application::isRunnig() const
 {
+#ifndef Q_OS_ANDROID
     static ::RunGuard guard(_guid);
 
     return !guard.tryToRun();
+#else
+    // TODO: [Android] Application::isRunnig()
+    return false;
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 bool
