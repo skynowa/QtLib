@@ -69,8 +69,11 @@ Application::Application(
     cQString  &a_guid
 ) :
     QApplication(a_argc, a_argv),
-    _guid       (a_guid),
+    _guid       (a_guid)
+#ifndef Q_OS_ANDROID
+    ,
     _locker     (a_guid)
+#endif
 {
     qTEST(!a_guid.isEmpty());
 
@@ -82,6 +85,7 @@ Application::Application(
         QTextCodec::setCodecForLocale(codec);
     }
 
+#ifndef Q_OS_ANDROID
     // when can create it only if it doesn't exist
     if ( _locker.create(5000) ) {
         _locker.lock();
@@ -104,6 +108,7 @@ Application::Application(
     else {
         // error
     }
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
@@ -135,6 +140,7 @@ Application::sendMessage(
     cQString &a_message
 ) const
 {
+#ifndef Q_OS_ANDROID
     // we cannot send mess if we are master process
     if ( isMaster() ){
         return false;
@@ -157,6 +163,9 @@ Application::sendMessage(
         ::memcpy(to, from, qMin(_locker.size(), byteArray.size()));
     }
     _locker.unlock();
+#else
+    Q_UNUSED(a_message);
+#endif
 
     return true;
 }
@@ -234,6 +243,7 @@ Application::selfCheck()
 void
 Application::checkForMessage()
 {
+#ifndef Q_OS_ANDROID
     QStringList arguments;
 
     _locker.lock();
@@ -258,6 +268,7 @@ Application::checkForMessage()
     if ( !arguments.isEmpty() ) {
         Q_EMIT sig_messageAvailable(arguments);
     }
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 

@@ -56,7 +56,10 @@ Q_SIGNALS:
 
 private:
     cQString              _guid;
+
+#ifndef Q_OS_ANDROID
     mutable QSharedMemory _locker;
+#endif
 };
 
 } // namespace qtlib
