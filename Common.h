@@ -43,6 +43,7 @@
 // filesystem
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
 
 // threads
 
