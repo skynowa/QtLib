@@ -81,7 +81,8 @@
 
 //-------------------------------------------------------------------------------------------------
 // typedefs
-// namespace qtlib {
+// namespace qtlib
+// {
 
 typedef const bool               cbool;
 typedef const int                cint;

@@ -8,7 +8,8 @@
 
 #include "Common.h"
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 class Utils
     /// utils

@@ -15,7 +15,8 @@
 #include <QTextStream>
 
 
-namespace qtlib {
+namespace qtlib
+{
 
 /**************************************************************************************************
 *   private
