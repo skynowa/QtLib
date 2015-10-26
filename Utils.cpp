@@ -108,20 +108,25 @@ Utils::widgetAlwaysOnTop(
 /* static */
 int
 Utils::sqlTableModelRowCount(
-    QSqlTableModel *a_model,
-    cbool          &a_isFetchAllRows /* = true */
+    QSqlTableModel *a_model
 )
 {
-    // a_model - n/a
-    qCHECK_RET(Q_NULLPTR == a_model, 0);
+    qCHECK_RET(a_model == Q_NULLPTR, 0);
 
-    if (a_isFetchAllRows) {
-        for ( ; a_model->canFetchMore(); ) {
-            a_model->fetchMore();
-        }
+    int  iRv = 0;
+    bool bRv = false;
+
+    QSqlQuery query("SELECT COUNT(*) FROM " + a_model->tableName());
+    bRv = query.next();
+    if (!bRv) {
+        qTEST(false);
+        return 0;
     }
 
-    return a_model->rowCount();
+    iRv = query.value(0).toInt();
+    qTEST(iRv >= 0);
+
+    return iRv;
 }
 //-------------------------------------------------------------------------------------------------
 /* static */

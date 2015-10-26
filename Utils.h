@@ -33,7 +33,7 @@ public:
         ///< list of db fields
 
     static
-    int          sqlTableModelRowCount(QSqlTableModel *model, cbool &isFetchAllRows = true);
+    int          sqlTableModelRowCount(QSqlTableModel *model);
         ///< DB row count
     static
     void         importCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
