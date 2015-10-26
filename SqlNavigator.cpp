@@ -170,6 +170,7 @@ SqlNavigator::remove()
 {
     qCHECK_DO(!isValid(), return);
 
+    bool            bRv       = false;
     int             targetRow = 0;
     QModelIndexList indexes   = view()->selectionModel()->selectedRows();
 
@@ -177,11 +178,11 @@ SqlNavigator::remove()
         targetRow = index.row();
 
         view()->setFocus();
-        bool bRv = model()->removeRow(targetRow);
+        bRv = model()->removeRow(targetRow);
         qCHECK_PTR(bRv, model());
     }
 
-    bool bRv = model()->submitAll();
+    bRv = model()->submitAll();
     qCHECK_PTR(bRv, model());
 
     model()->select();
