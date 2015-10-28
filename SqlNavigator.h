@@ -16,7 +16,7 @@ class SqlNavigator :
     /// DB SQL navigator
 {
 public:
-    explicit        SqlNavigator(QWidget *parent);
+    explicit        SqlNavigator(QWidget *parent, cbool &fetchAll);
     virtual        ~SqlNavigator();
 
     void            construct(QSqlTableModel *tableModel, QTableView *tableView);
@@ -38,6 +38,7 @@ public:
 private:
     QSqlTableModel *_model;
     QTableView     *_view;
+    cbool           _fetchAll;
 
     Q_OBJECT
     Q_DISABLE_COPY(SqlNavigator)
