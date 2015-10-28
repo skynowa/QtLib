@@ -131,13 +131,13 @@ typedef const QSize              cQSize;
 #define qCHECK_REF(var, object) \
             { \
                 if (!var) { \
-                    QMessageBox::critical(0, qApp->applicationName(), object.lastError().text(),  QMessageBox::Ok); \
+                    QMessageBox::critical(0, qApp->applicationName(), QObject::tr("Error: ") + object.lastError().text(),  QMessageBox::Ok); \
                 }\
             }
 #define qCHECK_PTR(var, object) \
             { \
                 if (!var) { \
-                    QMessageBox::critical(0, qApp->applicationName(), object->lastError().text(), QMessageBox::Ok); \
+                    QMessageBox::critical(0, qApp->applicationName(), QObject::tr("Error: ") + object->lastError().text(), QMessageBox::Ok); \
                 } \
             }
 //-------------------------------------------------------------------------------------------------
