@@ -124,7 +124,14 @@ SqlNavigator::goTo(
     {
         qCHECK_DO(rowIndex < 0, rowIndex = 0);
 
-        if (_fetchAll) {
+        bool isLastRow = false;
+        {
+            const int lastRowIndex = qtlib::Utils::sqlTableModelRowCount( model() ) - 1;
+
+            isLastRow = (lastRowIndex == a_rowIndex);
+        }
+
+        if (isLastRow || _fetchAll) {
             // get real model()->rowCount()
             for ( ; model()->canFetchMore(); ) {
                 model()->fetchMore();
