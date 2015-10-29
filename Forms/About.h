@@ -38,7 +38,7 @@ private:
 
     void        _construct();
     void        _destruct();
-    void        _initMain();
+    void        _constructUi();
 
     Q_OBJECT
     Q_DISABLE_COPY(About)

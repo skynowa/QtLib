@@ -72,7 +72,7 @@ About::setAppDonatePrivate24(
 void
 About::_construct()
 {
-    _initMain();
+    _constructUi();
 }
 //-------------------------------------------------------------------------------------------------
 void
@@ -81,7 +81,7 @@ About::_destruct()
 }
 //-------------------------------------------------------------------------------------------------
 void
-About::_initMain()
+About::_constructUi()
 {
     ui.setupUi(this);
 
