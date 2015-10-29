@@ -159,7 +159,7 @@ typedef const QSize              cQSize;
 #endif
 //-------------------------------------------------------------------------------------------------
 // debug variables, trace variable and value
-#define  qDEBUG_VAR(v) \
+#define  qTRACE_VAR(v) \
                 #v":" << (v)
 //-------------------------------------------------------------------------------------------------
 // custom assert

@@ -269,7 +269,7 @@ Utils::dbFilter(
 
     cbool is_sql_relational_table_model
         = (dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel) != Q_NULLPTR);
-    qDebug() << qDEBUG_VAR(is_sql_relational_table_model);
+    qDebug() << qTRACE_VAR(is_sql_relational_table_model);
 
     QString sqlStr;
 
