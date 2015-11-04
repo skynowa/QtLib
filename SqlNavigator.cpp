@@ -19,13 +19,11 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 SqlNavigator::SqlNavigator(
-    QWidget *a_parent,
-    cbool   &a_fetchAll
+    QWidget *a_parent
 ) :
-    QObject  (a_parent),
-    _model   (Q_NULLPTR),
-    _view    (Q_NULLPTR),
-    _fetchAll(a_fetchAll)
+    QObject(a_parent),
+    _model (Q_NULLPTR),
+    _view  (Q_NULLPTR)
 {
     qTEST_PTR(a_parent);
 }
@@ -124,18 +122,9 @@ SqlNavigator::goTo(
     {
         qCHECK_DO(rowIndex < 0, rowIndex = 0);
 
-        bool isLastRow = false;
-        {
-            const int lastRowIndex = qtlib::Utils::sqlTableModelRowCount( model() ) - 1;
-
-            isLastRow = (lastRowIndex == a_rowIndex);
-        }
-
-        if (isLastRow || _fetchAll) {
-            // get real model()->rowCount()
-            for ( ; model()->canFetchMore(); ) {
-                model()->fetchMore();
-            }
+        // get real model()->rowCount()
+        for ( ; model()->canFetchMore(); ) {
+            model()->fetchMore();
         }
 
         if (rowIndex > model()->rowCount() - 1) {
