@@ -29,14 +29,3 @@ SOURCES += \
 
 FORMS += \
     $$PWD/Forms/About.ui
-
-#RESOURCES = \
-#    $$PWD/Resources/App.qrc
-
-#win32 {
-#    RC_FILE = \
-#        $$PWD/Resources/App_win.rc
-#}
-
-#TRANSLATIONS += \
-#    $$DISTR_DIR/Langs/XXXDb_ru_RU.ts
