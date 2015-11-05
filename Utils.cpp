@@ -430,7 +430,7 @@ Utils::toStdWString(
 {
     // a_str - n/a
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
     return std::wstring(reinterpret_cast<const wchar_t *>( a_str.utf16() ));
 #else
     return a_str.toStdWString();
@@ -445,7 +445,7 @@ Utils::fromStdWString(
 {
     // a_str - n/a
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
     return QString::fromUtf16(reinterpret_cast<const ushort *>( a_str.c_str() ));
 #else
     return QString::fromStdWString(a_str);
@@ -615,7 +615,7 @@ Utils::sleepMsec(
 {
     qTEST(a_timeoutMsec > 0);
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
     (void)::Sleep( DWORD(a_timeoutMsec) );
 #else
     struct timespec tsTime = {

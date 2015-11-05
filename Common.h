@@ -105,7 +105,7 @@ typedef const QSize              cQSize;
 // } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
 #if defined(Q_OS_WIN)
-    #ifdef QT_PLUGIN
+    #if defined(QT_PLUGIN)
         #define qPLUGIN_EXPORT Q_DECL_EXPORT
     #else
         #define qPLUGIN_EXPORT Q_DECL_IMPORT
