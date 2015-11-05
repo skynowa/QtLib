@@ -122,11 +122,6 @@ SqlNavigator::goTo(
     {
         qCHECK_DO(rowIndex < 0, rowIndex = 0);
 
-        // get real model()->rowCount()
-        for ( ; model()->canFetchMore(); ) {
-            model()->fetchMore();
-        }
-
         if (rowIndex > model()->rowCount() - 1) {
             rowIndex = model()->rowCount() - 1;
         }
