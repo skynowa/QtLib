@@ -98,3 +98,31 @@ private:
 
 } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------------
+namespace qtlib
+{
+
+class AutoTrace
+{
+public:
+    explicit AutoTrace(const char *a_str) :
+        _str(a_str)
+    {
+        qDebug() << "\n\n::: Start " << _str << " (" << QDateTime::currentDateTime().toString() << ") :::";
+    }
+   ~AutoTrace()
+    {
+        qDebug() << "\n::: Finish " << _str << " (" << QDateTime::currentDateTime().toString() << ") :::";
+    }
+
+private:
+    const char *_str;
+};
+
+#define qTRACE_SCOPE(s) qtlib::AutoTrace autoLog(s)
+#define qTRACE_FUNCTION qTRACE_SCOPE(__FUNCTION__)
+
+} // namespace qtlib
+//-------------------------------------------------------------------------------------------------
