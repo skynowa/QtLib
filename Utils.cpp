@@ -111,6 +111,9 @@ Utils::sqlTableModelRowCount(
     QSqlTableModel *a_model
 )
 {
+    qTEST_PTR(a_model);
+    qTEST(!a_model->tableName().isEmpty());
+
     qCHECK_RET(a_model == Q_NULLPTR, 0);
 
     int  iRv = 0;
