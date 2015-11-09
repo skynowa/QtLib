@@ -64,7 +64,7 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 Application::Application(
-    int        &a_argc,
+    int       &a_argc,
     char     **a_argv,
     cQString  &a_guid
 ) :
@@ -204,6 +204,7 @@ Application::selfCheck()
             << "QtLib/Application: "
             << "Qt compile version \"" << QT_VERSION_STR << "\" and "
             << "Qt runtime version \"" << qVersion()     << "\" mismatch" << std::endl;
+
         return false;
     }
 
