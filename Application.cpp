@@ -30,22 +30,22 @@ class RunGuard
     ///< run guard
 {
 public:
-    RunGuard(const QString &key);
-    ~RunGuard();
+             RunGuard(cQString &key);
+            ~RunGuard();
 
-    bool isAnotherRunning();
-    bool tryToRun();
-    void release();
+    bool     isAnotherRunning();
+    bool     tryToRun();
+    void     release();
 
 private:
-    const QString    _key;
-    const QString    _memLockKey;
-    const QString    _sharedmemKey;
+    cQString _key;
+    cQString _memLockKey;
+    cQString _sharedmemKey;
 
-    QSharedMemory    _sharedMem;
+    QSharedMemory _sharedMem;
     QSystemSemaphore _memLock;
 
-    QString _generateKeyHash(cQString &key, cQString &salt) const;
+    QString  _generateKeyHash(cQString &key, cQString &salt) const;
 
     Q_DISABLE_COPY(RunGuard)
 };
@@ -90,7 +90,7 @@ Application::Application(
     if ( _locker.create(5000) ) {
         _locker.lock();
         {
-            *(char*)_locker.data() = '\0';
+            *(char *)_locker.data() = '\0';
         }
         _locker.unlock();
 
@@ -98,7 +98,8 @@ Application::Application(
 
         // start checking for messages of other instances
         QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, &Application::checkForMessage);
+        connect(timer, &QTimer::timeout,
+                this,  &Application::checkForMessage);
         timer->start(200);
     }
     // it exits, so we can attach it
@@ -197,7 +198,7 @@ Application::selfCheck()
 {
     bool bRv = false;
 
-    bRv = QString(QT_VERSION_STR) == QString( qVersion() );
+    bRv = (QString(QT_VERSION_STR) == QString( qVersion() ));
     if (!bRv) {
         std::wcerr
             << "QtLib/Application: "
@@ -285,7 +286,7 @@ namespace
 
 //-------------------------------------------------------------------------------------------------
 RunGuard::RunGuard(
-    const QString &a_key
+    cQString &a_key
 ) :
     _key         (a_key),
     _memLockKey  (_generateKeyHash(a_key, "_memLockKey" )),
@@ -311,7 +312,7 @@ RunGuard::isAnotherRunning()
 
     _memLock.acquire();
 
-    const bool isRunning = _sharedMem.attach();
+    cbool isRunning = _sharedMem.attach();
     if (isRunning) {
         _sharedMem.detach();
     }
@@ -330,7 +331,7 @@ RunGuard::tryToRun()
 
     _memLock.acquire();
 
-    const bool result = _sharedMem.create( sizeof( quint64 ) );
+    cbool result = _sharedMem.create( sizeof( quint64 ) );
 
     _memLock.release();
 
@@ -372,4 +373,3 @@ RunGuard::_generateKeyHash(
 //-------------------------------------------------------------------------------------------------
 
 } // namespace
-//-------------------------------------------------------------------------------------------------
