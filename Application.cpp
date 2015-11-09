@@ -30,7 +30,7 @@ class RunGuard
     ///< run guard
 {
 public:
-             RunGuard(cQString &key);
+    explicit RunGuard(cQString &key);
             ~RunGuard();
 
     bool     isAnotherRunning();
