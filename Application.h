@@ -18,9 +18,6 @@ class Application :
     public QApplication
     /// application
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(Application)
-
 public:
              Application(int &argc, char **argv, cQString &guid);
         ///< constructor
@@ -60,6 +57,10 @@ private:
 #ifndef Q_OS_ANDROID
     mutable QSharedMemory _locker;
 #endif
+
+private:
+    Q_OBJECT
+    Q_DISABLE_COPY(Application)
 };
 
 } // namespace qtlib
