@@ -127,14 +127,10 @@ SqlNavigator::goTo(
         }
     }
 
+    // TODO: SqlNavigator::goTo - scrollToBottom
+    view()->scrollToBottom();
     view()->setFocus();
     view()->selectRow(rowIndex);
-
-#if 0
-    // TODO: Temp disable - not work
-    QModelIndex index = model()->index(rowIndex, 1);
-    view()->scrollTo(index);
-#endif
 }
 //-------------------------------------------------------------------------------------------------
 void
