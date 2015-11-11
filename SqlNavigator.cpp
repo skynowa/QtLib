@@ -128,7 +128,7 @@ SqlNavigator::goTo(
     }
 
     // TODO: SqlNavigator::goTo - scrollToBottom
-    view()->scrollToBottom();
+    // view()->scrollToBottom();
     view()->setFocus();
     view()->selectRow(rowIndex);
 }
