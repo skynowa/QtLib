@@ -6,6 +6,11 @@
 #-------------------------------------------------------------------------------
 
 
+! include(QtUtils.pri) {
+    error("QtUtils.pri - not found")
+}
+
+
 QT += \
     core gui widgets sql network xml
 
