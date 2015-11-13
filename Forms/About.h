@@ -23,20 +23,35 @@ public:
 
     explicit    About(QWidget *parent, const QIcon &icon);
 
-    void        setAppDonatePayPal(cQString &value);
-    void        setAppDonateWebMoney(cQString &value);
-    void        setAppDonateYandexMoney(cQString &value);
-    void        setAppDonatePrivate24(cQString &value);
+    xPROPERTY(QString, appName);
+    xPROPERTY(QString, appVersionFull);
+    xPROPERTY(QString, appDecription);
+    xPROPERTY(QString, appCopyrightYears);
+    xPROPERTY(QString, appUsage);
+    xPROPERTY(QString, appHelp);
+    xPROPERTY(QString, appVersionMajor);
+    xPROPERTY(QString, appVersionMinor);
+    xPROPERTY(QString, appVersionPatch);
+    xPROPERTY(QString, appVersionType);
+    xPROPERTY(QString, appVersionRevision);
+    xPROPERTY(QString, appVendorName);
+    xPROPERTY(QString, appVendorDomain);
+    xPROPERTY(QString, appVendorAuthor);
+    xPROPERTY(QString, appVendorUrl);
+    xPROPERTY(QString, appVendorEmail);
+    xPROPERTY(QString, appVendorSkype);
+
+    xPROPERTY(QString, appDonatePayPal);
+    xPROPERTY(QString, appDonateWebMoney);
+    xPROPERTY(QString, appDonateYandexMoney);
+    xPROPERTY(QString, appDonatePrivate24);
+
+public:
+    void        construct();
 
 private:
-    QString     _appDonatePayPal;
-    QString     _appDonateWebMoney;
-    QString     _appDonateYandexMoney;
-    QString     _appDonatePrivate24;
-
     const QIcon &_icon;
 
-    void        _construct();
     void        _destruct();
     void        _constructUi();
 

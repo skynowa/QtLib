@@ -17,46 +17,15 @@ About::About(
     QWidget     *a_parent,
     const QIcon &a_icon
 ) :
-    QDialog              (a_parent),
-    _appDonatePayPal     (),
-    _appDonateWebMoney   (),
-    _appDonateYandexMoney(),
-    _appDonatePrivate24  (),
-    _icon                (a_icon)
+    QDialog(a_parent),
+    _icon  (a_icon)
 {
-    _construct();
 }
 //-------------------------------------------------------------------------------------------------
 void
-About::setAppDonatePayPal(
-    cQString &a_value
-)
+About::construct()
 {
-    _appDonatePayPal = a_value;
-}
-//-------------------------------------------------------------------------------------------------
-void
-About::setAppDonateWebMoney(
-    cQString &a_value
-)
-{
-    _appDonateWebMoney = a_value;
-}
-//-------------------------------------------------------------------------------------------------
-void
-About::setAppDonateYandexMoney(
-    cQString &a_value
-)
-{
-    _appDonateYandexMoney = a_value;
-}
-//-------------------------------------------------------------------------------------------------
-void
-About::setAppDonatePrivate24(
-    cQString &a_value
-)
-{
-    _appDonatePrivate24 = a_value;
+    _constructUi();
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -66,12 +35,6 @@ About::setAppDonatePrivate24(
 *
 **************************************************************************************************/
 
-//-------------------------------------------------------------------------------------------------
-void
-About::_construct()
-{
-    _constructUi();
-}
 //-------------------------------------------------------------------------------------------------
 void
 About::_destruct()
@@ -86,10 +49,12 @@ About::_constructUi()
     // dialog title
     {
         cQString dialogTitle = QString(tr("%1 - about"))
-            .arg( xlib::core::Application::name().c_str() );
+            .arg(_appName);
 
         setWindowTitle(dialogTitle);
-        setWindowIcon(_icon);
+
+        // TODO: About::_constructUi - icon
+        // setWindowIcon(_icon);
     }
 
     // title
@@ -97,8 +62,8 @@ About::_constructUi()
         ui.lblAppIcon->setPixmap( windowIcon().pixmap(32) );
 
         cQString title = QString(tr("<p><b>%1 %2</b></p>"))
-            .arg( xlib::core::Application::name().c_str() )
-            .arg( xlib::core::Application::versionFull().c_str() );
+            .arg(_appName)
+            .arg(_appVersionFull);
 
         ui.lblAppName->setText(title);
     }
@@ -116,11 +81,11 @@ About::_constructUi()
             "<br>"
             "Usage:<br>"
             "%5<br>"))
-            .arg( xlib::core::Application::decription().c_str() )
-            .arg( xlib::core::Application::copyrightYears().c_str() )
-            .arg( xlib::core::Application::vendorName().c_str() )
-            .arg( xlib::core::Application::help().c_str() )
-            .arg( xlib::core::Application::usage().c_str() );
+            .arg(_appDecription)
+            .arg(_appCopyrightYears)
+            .arg(_appVendorName)
+            .arg(_appHelp)
+            .arg(_appUsage);
 
         ui.txtbAbout->setHtml(text);
     }
@@ -140,15 +105,15 @@ About::_constructUi()
             "Jabber: %7<br>"
             "ICQ: %8<br>"
             "Web: %9 (<a href=\"%9\">go to browser</a>)<br>"))
-            .arg( xlib::core::Application::vendorName().c_str() )
-            .arg( xlib::core::Application::vendorDomain().c_str() )
-            .arg( xlib::core::Application::vendorAuthor().c_str() )
-            .arg( xlib::core::Application::vendorEmail().c_str() )
-            .arg( xlib::core::Application::name().c_str() )
-            .arg( xlib::core::Application::vendorSkype().c_str() )
+            .arg(_appVendorName)
+            .arg(_appVendorDomain)
+            .arg(_appVendorAuthor)
+            .arg(_appVendorEmail)
+            .arg(_appName)
+            .arg(_appVendorSkype)
             .arg("skynowa@jabber.ru")
             .arg("627713628")
-            .arg( xlib::core::Application::vendorUrl().c_str() );
+            .arg(_appVendorUrl);
 
         ui.txtbAuthors->setHtml(text);
     }
@@ -195,12 +160,12 @@ About::_constructUi()
             "Jabber: %4<br>"
             "ICQ: %5<br>"
             "Web: %6 (<a href=\"%6\">go to browser</a>)<br>"))
-            .arg( xlib::core::Application::vendorEmail().c_str() )
-            .arg( xlib::core::Application::name().c_str() )
-            .arg( xlib::core::Application::vendorSkype().c_str() )
+            .arg(_appVendorEmail)
+            .arg(_appName)
+            .arg(_appVendorSkype)
             .arg("skynowa@jabber.ru")
             .arg("627713628")
-            .arg( xlib::core::Application::vendorUrl().c_str() );
+            .arg(_appVendorUrl);
 
         ui.txtbReportBugs->setHtml(text);
     }
