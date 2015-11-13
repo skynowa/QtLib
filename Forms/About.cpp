@@ -114,8 +114,8 @@ About::_constructUi()
             .arg(_data.appVendorEmail)
             .arg(_data.appName)
             .arg(_data.appVendorSkype)
-            .arg("skynowa@jabber.ru")
-            .arg("627713628")
+            .arg(_data.appVendorJabber)
+            .arg(_data.appVendorIcq)
             .arg(_data.appVendorUrl);
 
         ui.txtbAuthors->setHtml(text);
@@ -166,8 +166,8 @@ About::_constructUi()
             .arg(_data.appVendorEmail)
             .arg(_data.appName)
             .arg(_data.appVendorSkype)
-            .arg("skynowa@jabber.ru")
-            .arg("627713628")
+            .arg(_data.appVendorJabber)
+            .arg(_data.appVendorIcq)
             .arg(_data.appVendorUrl);
 
         ui.txtbReportBugs->setHtml(text);
