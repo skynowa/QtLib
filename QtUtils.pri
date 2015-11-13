@@ -19,7 +19,16 @@ CONFIG(release, debug | release) {
 
 #---------------------------------------------------------------------------------------------------
 # DESTDIR_PLATFORM
-DESTDIR_PLATFORM = $${QMAKE_HOST.os}_$${QMAKE_HOST.arch}_Qt$${QT_VERSION}_$${BUILD_TYPE}
+
+# _QMAKE_HOST_OS
+android {
+  _QMAKE_HOST_OS = Android
+
+} else {
+  _QMAKE_HOST_OS = $${QMAKE_HOST.os}
+}
+
+DESTDIR_PLATFORM = $${_QMAKE_HOST_OS}_$${QMAKE_HOST.arch}_Qt$${QT_VERSION}_$${BUILD_TYPE}
 
 message(DESTDIR_PLATFORM - $$DESTDIR_PLATFORM)
 
