@@ -15,43 +15,47 @@
 #include <xLib/xLib.h>
 #include <xLib/Core/Application.h>
 //-------------------------------------------------------------------------------------------------
+struct AboutData
+{
+    QString appName;
+    QString appVersionFull;
+    QString appDecription;
+    QString appCopyrightYears;
+    QString appUsage;
+    QString appHelp;
+    QString appVersionMajor;
+    QString appVersionMinor;
+    QString appVersionPatch;
+    QString appVersionType;
+    QString appVersionRevision;
+    QString appVendorName;
+    QString appVendorDomain;
+    QString appVendorAuthor;
+    QString appVendorUrl;
+    QString appVendorEmail;
+    QString appVendorSkype;
+
+    QString appDonatePayPal;
+    QString appDonateWebMoney;
+    QString appDonateYandexMoney;
+    QString appDonatePrivate24;
+};
+
+typedef const AboutData cAboutData;
+//-------------------------------------------------------------------------------------------------
 class About :
     public QDialog
 {
 public:
     Ui::UiAbout ui;
 
-    explicit    About(QWidget *parent, const QIcon &icon);
-
-    xPROPERTY(QString, appName);
-    xPROPERTY(QString, appVersionFull);
-    xPROPERTY(QString, appDecription);
-    xPROPERTY(QString, appCopyrightYears);
-    xPROPERTY(QString, appUsage);
-    xPROPERTY(QString, appHelp);
-    xPROPERTY(QString, appVersionMajor);
-    xPROPERTY(QString, appVersionMinor);
-    xPROPERTY(QString, appVersionPatch);
-    xPROPERTY(QString, appVersionType);
-    xPROPERTY(QString, appVersionRevision);
-    xPROPERTY(QString, appVendorName);
-    xPROPERTY(QString, appVendorDomain);
-    xPROPERTY(QString, appVendorAuthor);
-    xPROPERTY(QString, appVendorUrl);
-    xPROPERTY(QString, appVendorEmail);
-    xPROPERTY(QString, appVendorSkype);
-
-    xPROPERTY(QString, appDonatePayPal);
-    xPROPERTY(QString, appDonateWebMoney);
-    xPROPERTY(QString, appDonateYandexMoney);
-    xPROPERTY(QString, appDonatePrivate24);
-
-public:
-    void        construct();
+    explicit    About(QWidget *parent, cAboutData &data, const QIcon &icon);
 
 private:
+    cAboutData  &_data;
     const QIcon &_icon;
 
+    void        _construct();
     void        _destruct();
     void        _constructUi();
 

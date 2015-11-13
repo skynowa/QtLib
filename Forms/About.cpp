@@ -15,17 +15,14 @@
 //-------------------------------------------------------------------------------------------------
 About::About(
     QWidget     *a_parent,
+    cAboutData  &a_data,
     const QIcon &a_icon
 ) :
     QDialog(a_parent),
+    _data  (a_data),
     _icon  (a_icon)
 {
-}
-//-------------------------------------------------------------------------------------------------
-void
-About::construct()
-{
-    _constructUi();
+    _construct();
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -35,6 +32,12 @@ About::construct()
 *
 **************************************************************************************************/
 
+//-------------------------------------------------------------------------------------------------
+void
+About::_construct()
+{
+    _constructUi();
+}
 //-------------------------------------------------------------------------------------------------
 void
 About::_destruct()
@@ -49,7 +52,7 @@ About::_constructUi()
     // dialog title
     {
         cQString dialogTitle = QString(tr("%1 - about"))
-            .arg(_appName);
+            .arg(_data.appName);
 
         setWindowTitle(dialogTitle);
 
@@ -62,8 +65,8 @@ About::_constructUi()
         ui.lblAppIcon->setPixmap( windowIcon().pixmap(32) );
 
         cQString title = QString(tr("<p><b>%1 %2</b></p>"))
-            .arg(_appName)
-            .arg(_appVersionFull);
+            .arg(_data.appName)
+            .arg(_data.appVersionFull);
 
         ui.lblAppName->setText(title);
     }
@@ -81,11 +84,11 @@ About::_constructUi()
             "<br>"
             "Usage:<br>"
             "%5<br>"))
-            .arg(_appDecription)
-            .arg(_appCopyrightYears)
-            .arg(_appVendorName)
-            .arg(_appHelp)
-            .arg(_appUsage);
+            .arg(_data.appDecription)
+            .arg(_data.appCopyrightYears)
+            .arg(_data.appVendorName)
+            .arg(_data.appHelp)
+            .arg(_data.appUsage);
 
         ui.txtbAbout->setHtml(text);
     }
@@ -105,15 +108,15 @@ About::_constructUi()
             "Jabber: %7<br>"
             "ICQ: %8<br>"
             "Web: %9 (<a href=\"%9\">go to browser</a>)<br>"))
-            .arg(_appVendorName)
-            .arg(_appVendorDomain)
-            .arg(_appVendorAuthor)
-            .arg(_appVendorEmail)
-            .arg(_appName)
-            .arg(_appVendorSkype)
+            .arg(_data.appVendorName)
+            .arg(_data.appVendorDomain)
+            .arg(_data.appVendorAuthor)
+            .arg(_data.appVendorEmail)
+            .arg(_data.appName)
+            .arg(_data.appVendorSkype)
             .arg("skynowa@jabber.ru")
             .arg("627713628")
-            .arg(_appVendorUrl);
+            .arg(_data.appVendorUrl);
 
         ui.txtbAuthors->setHtml(text);
     }
@@ -160,12 +163,12 @@ About::_constructUi()
             "Jabber: %4<br>"
             "ICQ: %5<br>"
             "Web: %6 (<a href=\"%6\">go to browser</a>)<br>"))
-            .arg(_appVendorEmail)
-            .arg(_appName)
-            .arg(_appVendorSkype)
+            .arg(_data.appVendorEmail)
+            .arg(_data.appName)
+            .arg(_data.appVendorSkype)
             .arg("skynowa@jabber.ru")
             .arg("627713628")
-            .arg(_appVendorUrl);
+            .arg(_data.appVendorUrl);
 
         ui.txtbReportBugs->setHtml(text);
     }
@@ -218,10 +221,10 @@ About::_constructUi()
             "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">donate</a>)<br>"
             "YandexMoney - %3 (<a href=\"https://money.yandex.ru/\">donate</a>)<br>"
             "Private24 - %4 (<a href=\"https://privat24.ua/\">donate</a>)<br>"))
-            .arg(_appDonatePayPal)
-            .arg(_appDonateWebMoney)
-            .arg(_appDonateYandexMoney)
-            .arg(_appDonatePrivate24);
+            .arg(_data.appDonatePayPal)
+            .arg(_data.appDonateWebMoney)
+            .arg(_data.appDonateYandexMoney)
+            .arg(_data.appDonatePrivate24);
 
         ui.txtbDonate->setHtml(text);
     }
