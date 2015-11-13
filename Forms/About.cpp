@@ -55,9 +55,7 @@ About::_constructUi()
             .arg(_data.appName);
 
         setWindowTitle(dialogTitle);
-
-        // TODO: About::_constructUi - icon
-        // setWindowIcon(_icon);
+        setWindowIcon(_icon);
     }
 
     // title
