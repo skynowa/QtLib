@@ -119,14 +119,6 @@ About::_constructUi()
         ui.txtbAuthors->setHtml(text);
     }
 
-    // tab "Thanks to"
-    {
-        cQString text =
-            "<b>Thanks to</b><br>";
-
-        ui.txtbThanks->setHtml(text);
-    }
-
     // tab "License"
     {
         cQString text =
