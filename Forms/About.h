@@ -36,7 +36,6 @@ struct AboutData
     QString appVendorSkype;
     QString appVendorJabber;
     QString appVendorIcq;
-
     QString appDonatePayPal;
     QString appDonateWebMoney;
     QString appDonateYandexMoney;
