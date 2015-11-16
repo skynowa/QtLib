@@ -93,7 +93,6 @@ public:
 
 private:
                  Utils();
-                ~Utils();
 };
 
 } // namespace qtlib

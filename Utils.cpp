@@ -265,9 +265,9 @@ Utils::dbFilter(
     // a_sqlStrWhere - n/a
     // a_sqlStrOrderBy - n/a
 
-    cbool is_sql_relational_table_model
+    cbool isSqlRelationalTableModel
         = (dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel) != Q_NULLPTR);
-    qDebug() << qTRACE_VAR(is_sql_relational_table_model);
+    qDebug() << qTRACE_VAR(isSqlRelationalTableModel);
 
     QString sqlStr;
 
@@ -283,13 +283,13 @@ Utils::dbFilter(
     // build query
     {
         if (isAllFieldsEmpty) {
-            if ( !is_sql_relational_table_model ) {
+            if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2")
                                 .arg(a_tableName)
                                 .arg(a_sqlStrJoin);
             }
         } else {
-            if ( !is_sql_relational_table_model ) {
+            if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2 WHERE")
                                 .arg(a_tableName)
                                 .arg(a_sqlStrJoin);
@@ -336,7 +336,7 @@ Utils::dbFilter(
 
     // execute query
     {
-        if ( !is_sql_relational_table_model ) {
+        if ( !isSqlRelationalTableModel ) {
             a_sqlQueryModel->setQuery(sqlStr);
         } else {
             QSqlRelationalTableModel *model = dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel);
@@ -505,7 +505,7 @@ Utils::debugTest(
     cqint64  &a_logSizeMaxBytes
 )
 {
-    cQString csMsg = QString(
+    cQString msg = QString(
         "\n-------------------- qTEST ----------------------\n"
         " Expression: %1\n"
         " File:       %2\n"
@@ -537,9 +537,9 @@ Utils::debugTest(
         QTextStream stream(&log);
 
         stream.setCodec("UTF-8");
-        stream << csMsg;
+        stream << msg;
 
-        std::wcerr << csMsg.toStdWString() << std::endl;
+        std::wcerr << msg.toStdWString() << std::endl;
     }
 }
 //-------------------------------------------------------------------------------------------------
