@@ -519,6 +519,7 @@ Utils::debugTest(
             .arg(a_functionName)
             .arg( QDateTime::currentDateTime().toString() );
 
+#if 0
     // write to file
     {
         cQString logPath = QApplication::applicationDirPath() + QDir::separator() +
@@ -541,6 +542,9 @@ Utils::debugTest(
 
         std::wcerr << msg.toStdWString() << std::endl;
     }
+#else
+    qWarning() << msg;
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 void
