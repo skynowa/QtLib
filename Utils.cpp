@@ -519,34 +519,46 @@ Utils::debugTest(
             .arg(a_functionName)
             .arg( QDateTime::currentDateTime().toString() );
 
-#if 0
+#if Q_OS_ANDROID
+    Q_UNUSED(a_logSizeMaxBytes);
+#else
     // write to file
     {
+        bool bRv = false;
+
         cQString logPath = QApplication::applicationDirPath() + QDir::separator() +
-                           QApplication::applicationName() + ".log";
-        QFile    log(logPath);
+            QApplication::applicationName() + ".log";
+
+        QFile log(logPath);
+        bRv = log.open(QFile::Append | QIODevice::Text);
+        if (!bRv) {
+            qWarning()
+                << "Utils::debugTest: "
+                << log.errorString() << ", "
+                << qTRACE_VAR(logPath);
+
+            return;
+        }
 
         // truncate log file
         if (log.size() > a_logSizeMaxBytes) {
-            bool bRv = log.resize(0);
-            qTEST(bRv);
+            bRv = log.resize(0);
+            if (!bRv) {
+                qWarning()
+                    << "Utils::debugTest: "
+                    << log.errorString() << ", "
+                    << qTRACE_VAR(logPath);
+            }
         }
 
-        bool bRv = log.open(QFile::Append | QIODevice::Text);
-        qTEST(bRv);
-
         QTextStream stream(&log);
-
         stream.setCodec("UTF-8");
         stream << msg;
-
-        std::wcerr << msg.toStdWString() << std::endl;
     }
-#else
-    Q_UNUSED(a_logSizeMaxBytes);
-
-    qWarning() << msg;
 #endif
+
+    // write to std::cout
+    qWarning() << msg;
 }
 //-------------------------------------------------------------------------------------------------
 void
