@@ -70,7 +70,7 @@ Application::Application(
 ) :
     QApplication(a_argc, a_argv),
     _guid       (a_guid)
-#ifndef Q_OS_ANDROID
+#if !defined(Q_OS_ANDROID)
     ,
     _locker     (a_guid)
 #endif
@@ -85,7 +85,7 @@ Application::Application(
         QTextCodec::setCodecForLocale(codec);
     }
 
-#ifndef Q_OS_ANDROID
+#if !defined(Q_OS_ANDROID)
     // when can create it only if it doesn't exist
     if ( _locker.create(5000) ) {
         _locker.lock();
@@ -120,7 +120,7 @@ Application::~Application()
 bool
 Application::isRunnig() const
 {
-#ifndef Q_OS_ANDROID
+#if !defined(Q_OS_ANDROID)
     static ::RunGuard guard(_guid);
 
     return !guard.tryToRun();
@@ -141,7 +141,7 @@ Application::sendMessage(
     cQString &a_message
 ) const
 {
-#ifndef Q_OS_ANDROID
+#if !defined(Q_OS_ANDROID)
     // we cannot send mess if we are master process
     if ( isMaster() ){
         return false;
@@ -244,7 +244,7 @@ Application::selfCheck()
 void
 Application::checkForMessage()
 {
-#ifndef Q_OS_ANDROID
+#if !defined(Q_OS_ANDROID)
     QStringList arguments;
 
     _locker.lock();
