@@ -200,11 +200,10 @@ Application::selfCheck()
 
     bRv = (QString(QT_VERSION_STR) == QString( qVersion() ));
     if (!bRv) {
-        std::wcerr
+        qDebug()
             << "QtLib/Application: "
             << "Qt compile version \"" << QT_VERSION_STR << "\" and "
-            << "Qt runtime version \"" << qVersion()     << "\" mismatch" << std::endl;
-
+            << "Qt runtime version \"" << qVersion()     << "\" mismatch";
         return false;
     }
 
@@ -213,28 +212,28 @@ Application::selfCheck()
 
     bRv = QDir( pluginPlatformsDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr
+        qDebug()
             << "QtLib/Application: "
             << "Missing plugin directory \""
-            << pluginPlatformsDirPath().toStdWString() << "\"" << std::endl;
+            << pluginPlatformsDirPath() << "\"";
         return false;
     }
 
     bRv = QDir( pluginSqlDriversDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr
+        qDebug()
             << "QtLib/Application: "
             << "Missing plugin directory \""
-            << pluginSqlDriversDirPath().toStdWString() << "\"" << std::endl;
+            << pluginSqlDriversDirPath() << "\"";
         return false;
     }
 
     bRv = QDir( pluginImageFormatsDirPath() ).isReadable();
     if (!bRv) {
-        std::wcerr
+        qDebug()
             << "QtLib/Application: "
             << "Missing plugin directory \""
-            << pluginImageFormatsDirPath().toStdWString() << "\"" << std::endl;
+            << pluginImageFormatsDirPath() << "\"";
         return false;
     }
 #endif
