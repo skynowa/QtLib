@@ -605,7 +605,7 @@ Utils::debugTracer(
 
     // write to std::out
     {
-        std::wcout << msg.toStdWString() << std::endl;
+        qWarning() << msg;
     }
 
 #if defined(Q_OS_WIN)
