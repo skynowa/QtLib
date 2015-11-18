@@ -543,6 +543,8 @@ Utils::debugTest(
         std::wcerr << msg.toStdWString() << std::endl;
     }
 #else
+    Q_UNUSED(a_logSizeMaxBytes);
+
     qWarning() << msg;
 #endif
 }
