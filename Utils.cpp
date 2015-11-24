@@ -519,7 +519,7 @@ Utils::debugTest(
             .arg(a_functionName)
             .arg( QDateTime::currentDateTime().toString() );
 
-#if Q_OS_ANDROID
+#if defined(Q_OS_ANDROID)
     Q_UNUSED(a_logSizeMaxBytes);
 #else
     // write to file
