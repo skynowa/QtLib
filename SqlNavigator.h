@@ -39,7 +39,6 @@ private:
     QSqlTableModel *_model;
     QTableView     *_view;
 
-    Q_OBJECT
     Q_DISABLE_COPY(SqlNavigator)
 };
 
