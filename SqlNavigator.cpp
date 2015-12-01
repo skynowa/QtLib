@@ -186,10 +186,10 @@ SqlNavigator::edit()
 {
     qCHECK_DO(!isValid(), return);
 
-    cint              targetCell = 1;
+    cint         targetCell = 1;
 
-    cint              targetRow = view()->currentIndex().row();
-    const QModelIndex index     = model()->index(targetRow, targetCell);
+    cint         targetRow = view()->currentIndex().row();
+    cQModelIndex index     = model()->index(targetRow, targetCell);
     qCHECK_DO(- 1 == targetRow, return);
 
     bool bRv = model()->submitAll();
