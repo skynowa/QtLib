@@ -120,7 +120,7 @@ typedef const QModelIndex        cQModelIndex;
 #define qCHECK_DO(expr, do_expr) \
             { if ((expr)) { do_expr;              } }
 
-#define qNOT_IMPL \
+#define qMSG_NOT_IMPL \
             { QMessageBox::warning(this, qApp->applicationName(), QObject::tr(__FUNCTION__) + QObject::tr(": Not implemented")); }
 #define qMSG_INFO(s) \
             { QMessageBox::information(this, qApp->applicationName(), (s)); }
