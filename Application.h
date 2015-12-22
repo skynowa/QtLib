@@ -52,7 +52,7 @@ Q_SIGNALS:
     void     sig_messageAvailable(QStringList messages);
 
 private:
-    cQString              _guid;
+    cQString _guid;
 
 #if !defined(Q_OS_ANDROID)
     mutable QSharedMemory _locker;
