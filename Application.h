@@ -65,5 +65,5 @@ private:
 
 } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
-#define qlApp  ( static_cast<qtlib::Application *>(QCoreApplication::instance()) )
+#define qlApp  qtlib::Application::instance()
 //-------------------------------------------------------------------------------------------------
