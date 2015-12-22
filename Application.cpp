@@ -249,20 +249,22 @@ Application::checkForMessage()
 
     _locker.lock();
     {
-        char *from = (char *)_locker.data();
+        char *from = static_cast<char *>( _locker.data() );
 
         while (*from != '\0') {
-            int sizeToRead = int(*from);
+            cint sizeToRead = *from;
+
             ++ from;
 
-            QByteArray byteArray = QByteArray(from, sizeToRead);
-            byteArray[sizeToRead] = '\0';
+            QByteArray buff = QByteArray(from, sizeToRead);
+            buff[sizeToRead] = '\0';
+
             from += sizeToRead;
 
-            arguments << QString::fromUtf8( byteArray.constData() );
+            arguments << QString::fromUtf8( buff.constData() );
         }
 
-        *(char *)_locker.data() = '\0';
+        *static_cast<char *>( _locker.data() ) = '\0';
     }
     _locker.unlock();
 
