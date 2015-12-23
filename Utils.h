@@ -48,8 +48,7 @@ public:
                      cQString &sqlStrJoin, cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter
     static
-    void         dbFieldNames(const QSqlDatabase &db, cQString &tableName,
-                     QStringList *dbFileldNames);
+    void         dbFieldNames(cQSqlDatabase &db, cQString &tableName, QStringList *dbFileldNames);
 
         ///< DB filed names
 

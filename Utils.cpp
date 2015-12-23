@@ -349,9 +349,9 @@ Utils::dbFilter(
 //-------------------------------------------------------------------------------------------------
 void
 Utils::dbFieldNames(
-    const QSqlDatabase &a_db,           ///< database
-    cQString           &a_tableName,    ///< table name
-    QStringList        *a_dbFileldNames ///< field names [out]
+    cQSqlDatabase &a_db,           ///< database
+    cQString      &a_tableName,    ///< table name
+    QStringList   *a_dbFileldNames ///< field names [out]
 )
 {
     qTEST(a_db.isValid());
@@ -367,7 +367,7 @@ Utils::dbFieldNames(
     bool bRv = qryTableInfo.exec(sql);
     qCHECK_REF(bRv, qryTableInfo);
 
-    while (qryTableInfo.next()) {
+    while ( qryTableInfo.next() ) {
         slRv << qryTableInfo.value(1).toString();
     }
 

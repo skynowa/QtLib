@@ -19,8 +19,8 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 SignalGuard::SignalGuard(
-    QObject    *a_target,
-    const char *a_slot
+    QObject *a_target,
+    cchar   *a_slot
 ) :
    _isEmit(true)
 {
@@ -37,7 +37,7 @@ SignalGuard::~SignalGuard()
 //-------------------------------------------------------------------------------------------------
 void
 SignalGuard::setEmit(
-    const bool &a_flag
+    cbool &a_flag
 )
 {
     _isEmit = a_flag;

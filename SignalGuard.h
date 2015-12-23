@@ -16,10 +16,10 @@ class SignalGuard :
     /// Ensures through RAII that a signal will be emitted in the case of early returns
 {
 public:
-         SignalGuard(QObject *target, const char *slot);
+         SignalGuard(QObject *target, cchar *slot);
         ~SignalGuard();
 
-    void setEmit(const bool &a_flag);
+    void setEmit(cbool &a_flag);
 
 Q_SIGNALS:
     void sig_trigger();

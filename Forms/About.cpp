@@ -14,9 +14,9 @@
 
 //-------------------------------------------------------------------------------------------------
 About::About(
-    QWidget     *a_parent,
-    cAboutData  &a_data,
-    const QIcon &a_icon
+    QWidget    *a_parent,
+    cAboutData &a_data,
+    cQIcon     &a_icon
 ) :
     QDialog(a_parent),
     _data  (a_data),

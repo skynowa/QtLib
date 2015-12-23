@@ -81,27 +81,36 @@
 
 //-------------------------------------------------------------------------------------------------
 // typedefs
+
+#define qTYPEDEF_CONST(t) \
+    typedef const t c##t
+    ///< typedef const types
+
 // namespace qtlib
 // {
 
-typedef const bool               cbool;
-typedef const int                cint;
-typedef const long               clong;
+qTYPEDEF_CONST(bool);
+qTYPEDEF_CONST(int);
+qTYPEDEF_CONST(char);
+qTYPEDEF_CONST(long);
 typedef const long long          clonglong;
 typedef const unsigned int       cuint;
 typedef const unsigned long      culong;
 typedef const unsigned long long culonglong;
-typedef const float              cfloat;
-typedef const double             cdouble;
+qTYPEDEF_CONST(float);
+qTYPEDEF_CONST(double);
 
-typedef const qint64             cqint64;
-typedef const QChar              cQChar;
-typedef const QString            cQString;
-typedef const QStringList        cQStringList;
-typedef const QByteArray         cQByteArray;
-typedef const QVariant           cQVariant;
-typedef const QSize              cQSize;
-typedef const QModelIndex        cQModelIndex;
+qTYPEDEF_CONST(qint64);
+qTYPEDEF_CONST(QChar);
+qTYPEDEF_CONST(QString);
+qTYPEDEF_CONST(QStringList);
+qTYPEDEF_CONST(QByteArray);
+qTYPEDEF_CONST(QVariant);
+qTYPEDEF_CONST(QSize);
+qTYPEDEF_CONST(QModelIndex);
+qTYPEDEF_CONST(QUrl);
+qTYPEDEF_CONST(QIcon);
+qTYPEDEF_CONST(QSqlDatabase);
 
 // } // namespace qtlib
 //-------------------------------------------------------------------------------------------------

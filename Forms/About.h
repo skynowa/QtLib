@@ -42,7 +42,7 @@ struct AboutData
     QString appDonatePrivate24;
 };
 
-typedef const AboutData cAboutData;
+qTYPEDEF_CONST(AboutData);
 //-------------------------------------------------------------------------------------------------
 class About :
     public QDialog
@@ -50,11 +50,11 @@ class About :
 public:
     Ui::UiAbout ui;
 
-    explicit    About(QWidget *parent, cAboutData &data, const QIcon &icon);
+    explicit    About(QWidget *parent, cAboutData &data, cQIcon &icon);
 
 private:
     cAboutData  &_data;
-    const QIcon &_icon;
+    cQIcon      &_icon;
 
     void        _construct();
     void        _destruct();
