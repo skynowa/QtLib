@@ -1,10 +1,10 @@
 /**
- * \file   SqlTableModel.cpp
+ * \file   SqlTableModelEx.cpp
  * \brief
  */
 
 
-#include "SqlTableModel.h"
+#include "SqlTableModelEx.h"
 
 #include "Utils.h"
 
@@ -18,7 +18,7 @@ namespace qtlib
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-SqlTableModel::SqlTableModel(
+SqlTableModelEx::SqlTableModelEx(
     QObject     *a_parent /* = Q_NULLPTR */,
     QSqlDatabase a_db     /* = QSqlDatabase() */
 ) :
@@ -32,13 +32,13 @@ SqlTableModel::SqlTableModel(
 //-------------------------------------------------------------------------------------------------
 /* virtual */
 bool
-SqlTableModel::select()
+SqlTableModelEx::select()
 {
 #if defined(QT_DEBUG)
     ++ _selectCount;
 
     if (_selectCount > 1) {
-        qWarning() << "Warning: SqlTableModel::" << __FUNCTION__ << ": " << qTRACE_VAR(_selectCount);
+        qWarning() << "Warning: SqlTableModelEx::" << __FUNCTION__ << ": " << qTRACE_VAR(_selectCount);
     }
 #endif
 

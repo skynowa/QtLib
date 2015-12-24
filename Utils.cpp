@@ -117,7 +117,7 @@ Utils::sqlTableModelRowCount(
     QSqlQuery query("SELECT COUNT(*) FROM " + a_model->tableName());
     bRv = query.next();
     if (!bRv) {
-        qTEST(false);
+        // empty table
         return 0;
     }
 

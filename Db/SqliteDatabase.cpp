@@ -92,7 +92,7 @@ SqliteDatabase::_create()
         QString  sql;
         cQString comma = ", ";
 
-        sql += QString("CREATE TABLE IF NOT EXISTS %1 ( ")
+        sql += QString("CREATE TABLE IF NOT EXISTS %1 (")
                     .arg(itTable.name);
 
         Q_FOREACH (SqliteConfig::Table::Field itField, itTable.fields) {
@@ -101,6 +101,8 @@ SqliteDatabase::_create()
 
         sql.resize(sql.size() - comma.size());
         sql += ")";
+
+        qDebug() << qTRACE_VAR(sql);
 
         bRv = qryTableCreate.exec(sql);
         qCHECK_REF(bRv, qryTableCreate);

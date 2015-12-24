@@ -1,5 +1,5 @@
 /**
- * \file   SqlTableModel.h
+ * \file   SqlTableModelEx.h
  * \brief
  */
 
@@ -12,12 +12,12 @@
 namespace qtlib
 {
 
-class SqlTableModel :
+class SqlTableModelEx :
     public QSqlTableModel
 {
 public:
-    explicit     SqlTableModel(QObject *a_parent = Q_NULLPTR, QSqlDatabase a_db = QSqlDatabase());
-    virtual     ~SqlTableModel() {}
+    explicit     SqlTableModelEx(QObject *a_parent = Q_NULLPTR, QSqlDatabase a_db = QSqlDatabase());
+    virtual     ~SqlTableModelEx() {}
 
     virtual bool select() Q_DECL_OVERRIDE;
 
@@ -30,7 +30,7 @@ private:
 #endif
 
     Q_OBJECT
-    Q_DISABLE_COPY(SqlTableModel)
+    Q_DISABLE_COPY(SqlTableModelEx)
 };
 
 } // namespace qtlib
