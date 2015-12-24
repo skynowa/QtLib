@@ -6,10 +6,9 @@
 
 #pragma once
 
-#include <QtLib/Common.h>
-#include <QtLib/Utils.h>
 #include <xLib/xLib.h>
-#include "Common.h"
+#include "../Common.h"
+#include "../Utils.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
