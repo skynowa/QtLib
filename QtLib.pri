@@ -24,15 +24,17 @@ HEADERS += \
 qtlib_utils_on:         HEADERS += $$PWD/Utils.h
 qtlib_signal_guard_on:  HEADERS += $$PWD/SignalGuard.h
 qtlib_application_on:   HEADERS += $$PWD/Application.h
-qtlib_sql_navigator_on: HEADERS += $$PWD/SqlNavigator.h
 qtlib_forms_about_on:   HEADERS += $$PWD/Forms/About.h
+qtlib_db_on:            HEADERS += $$PWD/Db/SqliteDatabase.h
+qtlib_sql_navigator_on: HEADERS += $$PWD/Db/SqlNavigator.h
 
 # SOURCES
 qtlib_utils_on:         SOURCES += $$PWD/Utils.cpp
 qtlib_signal_guard_on:  SOURCES += $$PWD/SignalGuard.cpp
 qtlib_application_on:   SOURCES += $$PWD/Application.cpp
-qtlib_sql_navigator_on: SOURCES += $$PWD/SqlNavigator.cpp
 qtlib_forms_about_on:   SOURCES += $$PWD/Forms/About.cpp
+qtlib_db_on:            SOURCES += $$PWD/Db/SqliteDatabase.cpp
+qtlib_sql_navigator_on: SOURCES += $$PWD/Db/SqlNavigator.cpp
 
 # FORMS
 qtlib_forms_about_on:   FORMS += $$PWD/Forms/About.ui
