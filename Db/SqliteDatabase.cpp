@@ -102,7 +102,7 @@ SqliteDatabase::_create()
         sql.resize(sql.size() - comma.size());
         sql += ")";
 
-        qDebug() << qTRACE_VAR(sql);
+        // qDebug() << qTRACE_VAR(sql);
 
         bRv = qryTableCreate.exec(sql);
         qCHECK_REF(bRv, qryTableCreate);
