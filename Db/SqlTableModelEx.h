@@ -13,7 +13,7 @@ namespace qtlib
 {
 
 class SqlTableModelEx :
-    public QSqlTableModel
+    public QSqlRelationalTableModel
 {
 public:
     explicit     SqlTableModelEx(QObject *a_parent = Q_NULLPTR, QSqlDatabase a_db = QSqlDatabase());

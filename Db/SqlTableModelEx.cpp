@@ -22,7 +22,7 @@ SqlTableModelEx::SqlTableModelEx(
     QObject     *a_parent /* = Q_NULLPTR */,
     QSqlDatabase a_db     /* = QSqlDatabase() */
 ) :
-    QSqlTableModel(a_parent, a_db)
+    QSqlRelationalTableModel(a_parent, a_db)
 #if defined(QT_DEBUG)
     ,
     _selectCount  (0)
@@ -46,7 +46,7 @@ SqlTableModelEx::select()
 
     Q_EMIT sig_selectProgress( rowCount() );
 
-    bRv = QSqlTableModel::select();
+    bRv = QSqlRelationalTableModel::select();
     if (!bRv) {
         return false;
     }
