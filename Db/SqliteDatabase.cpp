@@ -96,7 +96,7 @@ SqliteDatabase::_create()
                     .arg(itTable.name);
 
         Q_FOREACH (SqliteConfig::Table::Field itField, itTable.fields) {
-            sql += QString(" %1 %2%3").arg(itField.name, itField.type, comma);
+            sql += QString("%1 %2%3").arg(itField.name, itField.type, comma);
         }
 
         sql.resize(sql.size() - comma.size());
