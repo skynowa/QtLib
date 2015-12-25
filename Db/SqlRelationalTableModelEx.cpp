@@ -1,10 +1,10 @@
 /**
- * \file   SqlTableModelEx.cpp
+ * \file   SqlRelationalTableModelEx.cpp
  * \brief
  */
 
 
-#include "SqlTableModelEx.h"
+#include "SqlRelationalTableModelEx.h"
 
 #include "Utils.h"
 
@@ -18,27 +18,27 @@ namespace qtlib
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-SqlTableModelEx::SqlTableModelEx(
+SqlRelationalTableModelEx::SqlRelationalTableModelEx(
     QObject     *a_parent /* = Q_NULLPTR */,
     QSqlDatabase a_db     /* = QSqlDatabase() */
 ) :
-    QSqlTableModel(a_parent, a_db)
+    QSqlRelationalTableModel(a_parent, a_db)
 #if defined(QT_DEBUG)
     ,
-    _selectCount  (0)
+    _selectCount(0)
 #endif
 {
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
 bool
-SqlTableModelEx::select()
+SqlRelationalTableModelEx::select()
 {
 #if defined(QT_DEBUG)
     ++ _selectCount;
 
     if (_selectCount > 1) {
-        qWarning() << "Warning: SqlTableModelEx::" << __FUNCTION__ << ": " << qTRACE_VAR(_selectCount);
+        qWarning() << "Warning: SqlRelationalTableModelEx::" << __FUNCTION__ << ": " << qTRACE_VAR(_selectCount);
     }
 #endif
 
@@ -46,7 +46,7 @@ SqlTableModelEx::select()
 
     Q_EMIT sig_selectProgress( rowCount() );
 
-    bRv = QSqlTableModel::select();
+    bRv = QSqlRelationalTableModel::select();
     if (!bRv) {
         return false;
     }
