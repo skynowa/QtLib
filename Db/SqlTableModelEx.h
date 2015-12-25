@@ -16,7 +16,7 @@ class SqlTableModelEx :
     public QSqlRelationalTableModel
 {
 public:
-    explicit     SqlTableModelEx(QObject *a_parent = Q_NULLPTR, QSqlDatabase a_db = QSqlDatabase());
+    explicit     SqlTableModelEx(QObject *parent = Q_NULLPTR, QSqlDatabase db = QSqlDatabase());
     virtual     ~SqlTableModelEx() {}
 
     virtual bool select() Q_DECL_OVERRIDE;
