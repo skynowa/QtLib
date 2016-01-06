@@ -24,7 +24,8 @@
 #define QTLIB_INIT_PRIVATE(pub) \
     _impl.setPublic(this);
 //-------------------------------------------------------------------------------------------------
-namespace qtlib {
+namespace qtlib
+{
 
 template <typename PublicT>
 class Private
@@ -33,6 +34,7 @@ public:
     virtual ~Private()
     {
     }
+
     void
     setPublic(PublicT* pub)
     {
@@ -40,12 +42,12 @@ public:
     }
 
 protected:
-    PublicT&
+    PublicT &
     get()
     {
         return *_pub;
     }
-    const PublicT&
+    const PublicT &
     get() const
     {
         return *_pub;
@@ -63,34 +65,38 @@ public:
     {
         _interface = new ImplT;
     }
+
     ~Impl()
     {
         delete _interface; _interface = Q_NULLPTR;
     }
 
     void
-    setPublic(PublicT* pub)
+    setPublic(PublicT *pub)
     {
         _interface->setPublic(pub);
     }
-    ImplT&
+
+    ImplT &
     operator () ()
     {
         return *static_cast<ImplT *>(_interface);
     }
-    const ImplT&
+
+    const ImplT &
     operator () () const
     {
         return *static_cast<ImplT *>(_interface);
     }
 
 private:
-    Private<PublicT>* _interface;
+    Private<PublicT> *_interface;
 
-    Impl(const Impl&)
+    Impl(const Impl &)
     {
     }
-    Impl& operator = (const Impl&)
+
+    Impl & operator = (const Impl &)
     {
     }
 
