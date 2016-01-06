@@ -190,7 +190,7 @@ GlobalShortcut_impl::nativeEventFilter(
             keystate & (ShiftMask | ControlMask | Mod1Mask | Mod4Mask));
     }
 
-    return false;
+    return true;
 }
 //-------------------------------------------------------------------------------------------------
 quint32

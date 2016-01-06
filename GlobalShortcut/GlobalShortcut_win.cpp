@@ -30,7 +30,7 @@ GlobalShortcut_impl::nativeEventFilter(
         activateShortcut(keycode, modifiers);
     }
 
-    return false;
+    return true;
 }
 //-------------------------------------------------------------------------------------------------
 quint32
