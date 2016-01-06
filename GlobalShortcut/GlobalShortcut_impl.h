@@ -19,7 +19,7 @@ namespace qtlib
 
 class GlobalShortcut_impl :
     public Private<GlobalShortcut>
-#if !defined(Q_OS_MAC)
+#if !defined(Q_OS_DARWIN)
     , public QAbstractNativeEventFilter
 #endif
 {
@@ -38,7 +38,7 @@ public:
 
     static bool    error;
 
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_DARWIN)
     static int     ref;
 
     virtual bool   nativeEventFilter(const QByteArray &eventType, void *message, long *result);

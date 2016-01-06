@@ -14,7 +14,7 @@
 #elif defined(Q_OS_UNIX)
     #include "GlobalShortcut_x11.cpp"
 #elif defined(Q_OS_DARWIN)
-    #include "GlobalShortcut_mac.cpp"
+    #include "GlobalShortcut_apple.cpp"
 #else
 
 #endif
@@ -31,7 +31,7 @@ const Qt::KeyboardModifiers modsUnknown = static_cast<Qt::KeyboardModifiers>(0);
 
 }
 //-------------------------------------------------------------------------------------------------
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_DARWIN)
     int GlobalShortcut_impl::ref = 0;
 #endif
 
@@ -42,7 +42,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
     key    (keyUnknown),
     mods   (modsUnknown)
 {
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_DARWIN)
     if (ref == 0) {
         QAbstractEventDispatcher::instance()->installNativeEventFilter(this);
     }
@@ -53,7 +53,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::~GlobalShortcut_impl()
 {
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_DARWIN)
     -- ref;
 
     if (ref == 0) {
