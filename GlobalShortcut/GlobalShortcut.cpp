@@ -40,9 +40,9 @@ GlobalShortcut_impl::~GlobalShortcut_impl()
     -- ref;
 
     if (ref == 0) {
-        QAbstractEventDispatcher *ed = QAbstractEventDispatcher::instance();
-        if (ed != Q_NULLPTR) {
-            ed->removeNativeEventFilter(this);
+        QAbstractEventDispatcher *eventDispatcher = QAbstractEventDispatcher::instance();
+        if (eventDispatcher != Q_NULLPTR) {
+            eventDispatcher->removeNativeEventFilter(this);
         }
     }
 #endif
