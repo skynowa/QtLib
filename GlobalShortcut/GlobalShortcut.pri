@@ -22,20 +22,14 @@ SOURCES += \
     $$PWD/GlobalShortcut.cpp
 
 win32 {
-    SOURCES += \
-        $$PWD/GlobalShortcut_win.cpp
     LIBS += \
         -luser32
 }
 
 unix {
-    SOURCES += \
-        $$PWD/GlobalShortcut_x11.cpp
     LIBS += \
         -lX11
 }
 
 mac {
-    SOURCES += \
-        $$PWD/GlobalShortcut_mac.cpp
 }

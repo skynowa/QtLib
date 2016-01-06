@@ -9,6 +9,15 @@
 #include "GlobalShortcut_impl.h"
 #include <QAbstractEventDispatcher>
 
+#if    defined(Q_OS_WIN)
+    #include "GlobalShortcut_win.cpp"
+#elif defined(Q_OS_UNIX)
+    #include "GlobalShortcut_x11.cpp"
+#elif defined(Q_OS_DARWIN)
+    #include "GlobalShortcut_mac.cpp"
+#else
+
+#endif
 
 namespace qtlib
 {
