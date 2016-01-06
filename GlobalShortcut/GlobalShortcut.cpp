@@ -53,7 +53,8 @@ GlobalShortcut_impl::setShortcut(
     const QKeySequence &a_shortcut
 )
 {
-    const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
+    const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
+                                          Qt::AltModifier   | Qt::MetaModifier;
 
     key  = a_shortcut.isEmpty() ? Qt::Key_unknown : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
     mods = a_shortcut.isEmpty() ? Qt::NoModifier  : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
@@ -165,7 +166,7 @@ GlobalShortcut::GlobalShortcut(
  */
 GlobalShortcut::~GlobalShortcut()
 {
-    if (_impl().key != 0) {
+    if (_impl().key != Qt::Key_unknown) {
         _impl().unsetShortcut();
     }
 }
@@ -195,7 +196,7 @@ GlobalShortcut::setShortcut(
     const QKeySequence &a_shortcut
 )
 {
-    if (_impl().key != 0) {
+    if (_impl().key != Qt::Key_unknown) {
         _impl().unsetShortcut();
     }
 
