@@ -50,13 +50,13 @@ GlobalShortcut_impl::~GlobalShortcut_impl()
 //-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut_impl::setShortcut(
-    const QKeySequence &shortcut
+    const QKeySequence &a_shortcut
 )
 {
     const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
 
-    key  = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((shortcut[0] ^ allMods) & shortcut[0]);
-    mods = shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(shortcut[0] & allMods);
+    key  = a_shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
+    mods = a_shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
 
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
@@ -97,11 +97,11 @@ GlobalShortcut_impl::unsetShortcut()
 //-------------------------------------------------------------------------------------------------
 void
 GlobalShortcut_impl::activateShortcut(
-    quint32 nativeKey,
-    quint32 nativeMods
+    quint32 a_nativeKey,
+    quint32 a_nativeMods
 )
 {
-    GlobalShortcut *shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
+    GlobalShortcut *shortcut = shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         Q_EMIT shortcut->sig_activated();
     }
@@ -139,9 +139,9 @@ GlobalShortcut_impl::activateShortcut(
     Constructs a new GlobalShortcut with \a parent.
  */
 GlobalShortcut::GlobalShortcut(
-    QObject *parent
+    QObject *a_parent
 ) :
-    QObject(parent)
+    QObject(a_parent)
 {
     QTLIB_INIT_PRIVATE(GlobalShortcut);
 }
@@ -150,14 +150,14 @@ GlobalShortcut::GlobalShortcut(
     Constructs a new GlobalShortcut with \a shortcut and \a parent.
  */
 GlobalShortcut::GlobalShortcut(
-    const QKeySequence &shortcut,
-    QObject            *parent
+    const QKeySequence &a_shortcut,
+    QObject            *a_parent
 ) :
-    QObject(parent)
+    QObject(a_parent)
 {
     QTLIB_INIT_PRIVATE(GlobalShortcut);
 
-    setShortcut(shortcut);
+    setShortcut(a_shortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -192,14 +192,14 @@ GlobalShortcut::shortcut() const
 //-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut::setShortcut(
-    const QKeySequence& shortcut
+    const QKeySequence &a_shortcut
 )
 {
     if (_impl().key != 0) {
         _impl().unsetShortcut();
     }
 
-    return _impl().setShortcut(shortcut);
+    return _impl().setShortcut(a_shortcut);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -220,10 +220,10 @@ GlobalShortcut::isEnabled() const
 //-------------------------------------------------------------------------------------------------
 void
 GlobalShortcut::setEnabled(
-    bool enabled
+    bool a_enabled
 )
 {
-    _impl().enabled = enabled;
+    _impl().enabled = a_enabled;
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -233,10 +233,10 @@ GlobalShortcut::setEnabled(
  */
 void
 GlobalShortcut::setDisabled(
-    bool disabled
+    bool a_disabled
 )
 {
-    _impl().enabled = !disabled;
+    _impl().enabled = !a_disabled;
 }
 //-------------------------------------------------------------------------------------------------
 
