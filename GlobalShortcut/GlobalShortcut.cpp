@@ -22,7 +22,7 @@ QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::shortcuts;
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::GlobalShortcut_impl() :
     enabled(true),
-    key    (Qt::Key(0)),
+    key    (Qt::Key_unknown),
     mods   (Qt::NoModifier)
 {
 #ifndef Q_OS_MAC
@@ -55,8 +55,8 @@ GlobalShortcut_impl::setShortcut(
 {
     const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
 
-    key  = a_shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
-    mods = a_shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
+    key  = a_shortcut.isEmpty() ? Qt::Key_unknown : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
+    mods = a_shortcut.isEmpty() ? Qt::NoModifier  : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
 
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
@@ -89,8 +89,8 @@ GlobalShortcut_impl::unsetShortcut()
         qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
     }
 
-    key  = Qt::Key(0);
-    mods = Qt::KeyboardModifiers(0);
+    key  = Qt::Key_unknown;
+    mods = Qt::NoModifier;
 
     return bRv;
 }
