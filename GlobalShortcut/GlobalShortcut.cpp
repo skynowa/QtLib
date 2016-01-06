@@ -60,28 +60,28 @@ GlobalShortcut_impl::setShortcut(
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
-    const bool res = registerShortcut(nativeKey, nativeMods);
-    if (res) {
+    const bool bRv = registerShortcut(nativeKey, nativeMods);
+    if (bRv) {
         shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
     } else {
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
 
-    return res;
+    return bRv;
 }
 //-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut_impl::unsetShortcut()
 {
-    bool res = false;
+    bool bRv = false;
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
     if (shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
-        res = unregisterShortcut(nativeKey, nativeMods);
+        bRv = unregisterShortcut(nativeKey, nativeMods);
     }
 
-    if (res) {
+    if (bRv) {
         shortcuts.remove(qMakePair(nativeKey, nativeMods));
     } else {
         qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
@@ -90,7 +90,7 @@ GlobalShortcut_impl::unsetShortcut()
     key  = Qt::Key(0);
     mods = Qt::KeyboardModifiers(0);
 
-    return res;
+    return bRv;
 }
 //-------------------------------------------------------------------------------------------------
 void
