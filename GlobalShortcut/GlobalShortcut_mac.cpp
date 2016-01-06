@@ -9,7 +9,8 @@
 #include <Carbon/Carbon.h>
 
 
-namespace qtlib {
+namespace qtlib
+{
 
 //-------------------------------------------------------------------------------------------------
 typedef QPair<uint, uint> Identifier;
@@ -242,13 +243,14 @@ GlobalShortcut_impl::registerShortcut(
     if (!qxt_mac_handler_installed) {
         EventTypeSpec t;
         t.eventClass = kEventClassKeyboard;
-        t.eventKind = kEventHotKeyPressed;
+        t.eventKind  = kEventHotKeyPressed;
+
         InstallApplicationEventHandler(&qxt_mac_handle_hot_key, 1, &t, Q_NULLPTR, Q_NULLPTR);
     }
 
     EventHotKeyID keyID;
     keyID.signature = 'cute';
-    keyID.id = ++hotKeySerial;
+    keyID.id        = ++ hotKeySerial;
 
     EventHotKeyRef ref = 0;
     bool rv = !RegisterEventHotKey(nativeKey, nativeMods, keyID, GetApplicationEventTarget(), 0, &ref);
@@ -268,7 +270,7 @@ GlobalShortcut_impl::unregisterShortcut(
 {
     Identifier id(nativeMods, nativeKey);
 
-    if (!keyIDs.contains(id)) {
+    if ( !keyIDs.contains(id) ) {
         return false;
     }
 

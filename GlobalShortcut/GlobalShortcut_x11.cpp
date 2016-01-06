@@ -160,6 +160,7 @@ GlobalShortcut_impl::nativeEventFilter(
     Q_UNUSED(a_result);
 
     xcb_key_press_event_t *kev = Q_NULLPTR;
+
     if (a_eventType == "xcb_generic_event_t") {
         xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(a_message);
         if ((event->response_type & 127) == XCB_KEY_PRESS) {
@@ -249,7 +250,7 @@ GlobalShortcut_impl::registerShortcut(
 
     return x11.isValid() && x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow());
 }
-
+//-------------------------------------------------------------------------------------------------
 bool
 GlobalShortcut_impl::unregisterShortcut(
     quint32 a_nativeKey,

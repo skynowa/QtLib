@@ -22,10 +22,11 @@ GlobalShortcut_impl::nativeEventFilter(
     Q_UNUSED(eventType);
     Q_UNUSED(result);
 
-    MSG* msg = static_cast<MSG*>(message);
+    MSG *msg = static_cast<MSG*>(message);
     if (msg->message == WM_HOTKEY) {
-        const quint32 keycode = HIWORD(msg->lParam);
+        const quint32 keycode   = HIWORD(msg->lParam);
         const quint32 modifiers = LOWORD(msg->lParam);
+
         activateShortcut(keycode, modifiers);
     }
 
