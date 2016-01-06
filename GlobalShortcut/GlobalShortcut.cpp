@@ -18,7 +18,7 @@ namespace qtlib
     int GlobalShortcut_impl::ref = 0;
 #endif
 
-QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::shortcuts;
+QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::_shortcuts;
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::GlobalShortcut_impl() :
     enabled(true),
@@ -63,7 +63,7 @@ GlobalShortcut_impl::setShortcut(
 
     const bool bRv = registerShortcut(nativeKey, nativeMods);
     if (bRv) {
-        shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
+        _shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
     } else {
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
@@ -79,12 +79,12 @@ GlobalShortcut_impl::unsetShortcut()
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
-    if (shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
+    if (_shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
         bRv = unregisterShortcut(nativeKey, nativeMods);
     }
 
     if (bRv) {
-        shortcuts.remove(qMakePair(nativeKey, nativeMods));
+        _shortcuts.remove(qMakePair(nativeKey, nativeMods));
     } else {
         qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
     }
@@ -101,7 +101,7 @@ GlobalShortcut_impl::activateShortcut(
     quint32 a_nativeMods
 )
 {
-    GlobalShortcut *shortcut = shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
+    GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         Q_EMIT shortcut->sig_activated();
     }

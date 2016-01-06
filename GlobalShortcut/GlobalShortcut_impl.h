@@ -53,7 +53,7 @@ private:
     static bool    registerShortcut(quint32 nativeKey, quint32 nativeMods);
     static bool    unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
 
-    static QHash<QPair<quint32, quint32>, GlobalShortcut *> shortcuts;
+    static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
 };
 
 } // namespace qtlib
