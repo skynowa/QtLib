@@ -15,8 +15,7 @@ DEPENDPATH += \
 
 HEADERS += \
     $$PWD/Global.h \
-    $$PWD/GlobalShortcut.h \
-    $$PWD/GlobalShortcut_impl.h
+    $$PWD/GlobalShortcut.h
 
 SOURCES += \
     $$PWD/GlobalShortcut.cpp
