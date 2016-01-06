@@ -53,7 +53,8 @@ GlobalShortcut_impl::setShortcut(
     const QKeySequence &shortcut
 )
 {
-    Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
+    const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
+
     key  = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key((shortcut[0] ^ allMods) & shortcut[0]);
     mods = shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(shortcut[0] & allMods);
 
@@ -74,6 +75,7 @@ bool
 GlobalShortcut_impl::unsetShortcut()
 {
     bool bRv = false;
+
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
@@ -99,7 +101,7 @@ GlobalShortcut_impl::activateShortcut(
     quint32 nativeMods
 )
 {
-    GlobalShortcut* shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
+    GlobalShortcut *shortcut = shortcuts.value(qMakePair(nativeKey, nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         Q_EMIT shortcut->sig_activated();
     }
