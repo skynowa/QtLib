@@ -20,21 +20,21 @@ class GlobalShortcut :
     public QObject
 {
 public:
-    explicit GlobalShortcut(QObject *parent = Q_NULLPTR);
-    explicit GlobalShortcut(const QKeySequence& shortcut, QObject *parent = Q_NULLPTR);
-    virtual ~GlobalShortcut();
+    explicit     GlobalShortcut(QObject *parent = Q_NULLPTR);
+    explicit     GlobalShortcut(const QKeySequence &shortcut, QObject *parent = Q_NULLPTR);
+    virtual     ~GlobalShortcut();
 
     QKeySequence shortcut() const;
-    bool setShortcut(const QKeySequence &shortcut);
+    bool         setShortcut(const QKeySequence &shortcut);
 
-    bool isEnabled() const;
+    bool         isEnabled() const;
 
 public Q_SLOTS:
-    void setEnabled(bool enabled = true);
-    void setDisabled(bool disabled = true);
+    void         setEnabled(bool enabled = true);
+    void         setDisabled(bool disabled = true);
 
 Q_SIGNALS:
-    void sig_activated();
+    void         sig_activated();
 
 private:
     Q_OBJECT
