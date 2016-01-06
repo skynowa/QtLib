@@ -14,6 +14,14 @@ namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
+namespace
+{
+
+const Qt::Key               keyUnknown  = static_cast<Qt::Key>(0);
+const Qt::KeyboardModifiers modsUnknown = static_cast<Qt::KeyboardModifiers>(0);
+
+}
+//-------------------------------------------------------------------------------------------------
 #ifndef Q_OS_MAC
     int GlobalShortcut_impl::ref = 0;
 #endif
@@ -22,8 +30,8 @@ QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::_shortcuts
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::GlobalShortcut_impl() :
     enabled(true),
-    key    (Qt::Key_unknown),
-    mods   (Qt::NoModifier)
+    key    (keyUnknown),
+    mods   (modsUnknown)
 {
 #ifndef Q_OS_MAC
     if (ref == 0) {
@@ -56,8 +64,8 @@ GlobalShortcut_impl::setShortcut(
     const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
                                           Qt::AltModifier   | Qt::MetaModifier;
 
-    key  = a_shortcut.isEmpty() ? Qt::Key_unknown : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
-    mods = a_shortcut.isEmpty() ? Qt::NoModifier  : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
+    key  = a_shortcut.isEmpty() ? keyUnknown  : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
+    mods = a_shortcut.isEmpty() ? modsUnknown : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
 
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
@@ -90,8 +98,8 @@ GlobalShortcut_impl::unsetShortcut()
         qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
     }
 
-    key  = Qt::Key_unknown;
-    mods = Qt::NoModifier;
+    key  = keyUnknown;
+    mods = modsUnknown;
 
     return bRv;
 }
@@ -166,7 +174,7 @@ GlobalShortcut::GlobalShortcut(
  */
 GlobalShortcut::~GlobalShortcut()
 {
-    if (_impl().key != Qt::Key_unknown) {
+    if (_impl().key != keyUnknown) {
         _impl().unsetShortcut();
     }
 }
@@ -196,7 +204,7 @@ GlobalShortcut::setShortcut(
     const QKeySequence &a_shortcut
 )
 {
-    if (_impl().key != Qt::Key_unknown) {
+    if (_impl().key != keyUnknown) {
         _impl().unsetShortcut();
     }
 
