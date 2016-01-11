@@ -36,9 +36,9 @@ public:
     }
 
     void
-    setPublic(PublicT* pub)
+    setPublic(PublicT *a_pub)
     {
-        _pub = pub;
+        _pub = a_pub;
     }
 
 protected:
@@ -72,9 +72,9 @@ public:
     }
 
     void
-    setPublic(PublicT *pub)
+    setPublic(PublicT *a_pub)
     {
-        _interface->setPublic(pub);
+        _interface->setPublic(a_pub);
     }
 
     ImplT &
