@@ -6,7 +6,7 @@
 
 #include "SqliteDatabase.h"
 
-#include "Utils.h"
+#include <QtLib/Utils.h>
 
 
 namespace qtlib
