@@ -241,6 +241,7 @@ Application::selfCheck()
     return true;
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Application::restart()
 {
