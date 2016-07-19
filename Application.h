@@ -44,6 +44,9 @@ public:
     static
     bool     selfCheck();
         ///< self check
+    static
+    void     restart();
+        ///< restart
 
 public Q_SLOTS:
     void     checkForMessage();

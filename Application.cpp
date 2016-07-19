@@ -242,6 +242,17 @@ Application::selfCheck()
 }
 //-------------------------------------------------------------------------------------------------
 void
+Application::restart()
+{
+    QStringList args = QApplication::arguments();
+    args.removeFirst();
+
+    QProcess::startDetached(QApplication::applicationFilePath(), args);
+
+    QCoreApplication::quit();
+}
+//-------------------------------------------------------------------------------------------------
+void
 Application::checkForMessage()
 {
 #if !defined(Q_OS_ANDROID)
