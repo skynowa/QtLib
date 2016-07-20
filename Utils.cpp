@@ -222,7 +222,23 @@ Utils::exportCsv(
 
         for (int r = 0; r < realRowCount; ++ r) {
             for (int f = 0; f < a_fieldNames.size(); ++ f) {
-                csv.push_back( a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toString() );
+                QSqlField field = a_sqlTableModel->record(f).field( a_fieldNames.at(f) );
+
+                QString fieldValue;
+
+                switch ( field.type() ) {
+                case QVariant::String:
+                    fieldValue = a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toString();
+                    break;
+                case QVariant::ByteArray:
+                    fieldValue = a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toByteArray().toBase64();
+                    break;
+                default:
+                    Q_ASSERT(false);
+                    break;
+                }
+
+                csv.push_back(fieldValue);
 
                 if (f < a_fieldNames.size() - 1) {
                     csv.push_back( a_columnSeparator );
