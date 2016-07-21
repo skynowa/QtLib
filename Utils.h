@@ -36,15 +36,15 @@ public:
     int          dbSqlTableModelRowCount(QSqlTableModel *model);
         ///< DB row count
     static
-    void         dbImportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+    void         dbImportCsv(cQString &filePath, QSqlTableModel *model,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< import DB to CSV file
     static
-    void         dbExportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+    void         dbExportCsv(cQString &filePath, QSqlTableModel *model,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
     static
-    void         dbFilter(QSqlQueryModel *sqlQueryModel, cQString &tableName, cdb_fields_t &fields,
+    void         dbFilter(QSqlQueryModel *model, cQString &tableName, cdb_fields_t &fields,
                      cQString &sqlStrJoin, cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter
     static

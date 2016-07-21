@@ -131,13 +131,13 @@ Utils::dbSqlTableModelRowCount(
 void
 Utils::dbImportCsv(
     cQString               &a_filePath,
-    QSqlTableModel         *a_sqlTableModel,
+    QSqlTableModel         *a_model,
     const QVector<QString> &a_fieldNames,
     cQString               &a_columnSeparator
 )
 {
     qTEST(!a_filePath.isEmpty());
-    qTEST_PTR(a_sqlTableModel);
+    qTEST_PTR(a_model);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_columnSeparator.isEmpty());
 
@@ -168,7 +168,7 @@ Utils::dbImportCsv(
         cQStringList line = file.at(l).split(a_columnSeparator);
 
         // targetRow
-        cint targetRow = Utils::dbSqlTableModelRowCount(a_sqlTableModel) - 1;
+        cint targetRow = Utils::dbSqlTableModelRowCount(a_model) - 1;
 
         // record
         QSqlRecord record;
@@ -178,11 +178,11 @@ Utils::dbImportCsv(
             record.setValue(a_fieldNames.at(f), line.at(f));
         }
 
-        bRv = a_sqlTableModel->insertRecord(targetRow, record);
+        bRv = a_model->insertRecord(targetRow, record);
         qTEST(bRv);
 
-        bRv = a_sqlTableModel->submitAll();
-        qCHECK_PTR(bRv, a_sqlTableModel);
+        bRv = a_model->submitAll();
+        qCHECK_PTR(bRv, a_model);
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -190,13 +190,13 @@ Utils::dbImportCsv(
 void
 Utils::dbExportCsv(
     cQString               &a_filePath,
-    QSqlTableModel         *a_sqlTableModel,
+    QSqlTableModel         *a_model,
     const QVector<QString> &a_fieldNames,
     cQString               &a_columnSeparator
 )
 {
     qTEST(!a_filePath.isEmpty());
-    qTEST_PTR(a_sqlTableModel);
+    qTEST_PTR(a_model);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_columnSeparator.isEmpty());
 
@@ -218,10 +218,10 @@ Utils::dbExportCsv(
 
     // DB -> file
     {
-        cint realRowCount = Utils::dbSqlTableModelRowCount(a_sqlTableModel);
+        cint realRowCount = Utils::dbSqlTableModelRowCount(a_model);
 
         for (int r = 0; r < realRowCount; ++ r) {
-            QSqlRecord record = a_sqlTableModel->record(r);
+            QSqlRecord record = a_model->record(r);
 
             for (int f = 0; f < a_fieldNames.size(); ++ f) {
                 QString fieldValue;
