@@ -34,8 +34,8 @@ public:
     typedef QVector< QPair<QString, QString> > db_fields_t;
     typedef const db_fields_t                  cdb_fields_t;
 
-    void         filter(cQString &tableName, cdb_fields_t &fields, cQString &sqlStrJoin,
-                    cQString &sqlStrWhere, cQString &sqlStrOrderBy);
+    void         filter(cQString &tableName, cdb_fields_t &fields, cQString &join,
+                    cQString &where, cQString &orderBy);
         ///< filter
 
 Q_SIGNALS:

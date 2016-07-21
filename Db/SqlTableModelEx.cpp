@@ -223,16 +223,16 @@ void
 SqlTableModelEx::filter(
     cQString     &a_tableName,
     cdb_fields_t &a_fields,
-    cQString     &a_sqlStrJoin,
-    cQString     &a_sqlStrWhere,
-    cQString     &a_sqlStrOrderBy
+    cQString     &a_join,
+    cQString     &a_where,
+    cQString     &a_orderBy
 )
 {
     qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
-    qTEST_NA(a_sqlStrJoin);
-    qTEST_NA(a_sqlStrWhere);
-    qTEST_NA(a_sqlStrOrderBy);
+    qTEST_NA(a_join);
+    qTEST_NA(a_where);
+    qTEST_NA(a_orderBy);
 
     cbool isSqlRelationalTableModel = (dynamic_cast<QSqlRelationalTableModel *>(this) != Q_NULLPTR);
     // qDebug() << qTRACE_VAR(isSqlRelationalTableModel);
@@ -254,13 +254,13 @@ SqlTableModelEx::filter(
             if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2")
                                 .arg(a_tableName)
-                                .arg(a_sqlStrJoin);
+                                .arg(a_join);
             }
         } else {
             if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2 WHERE")
                                 .arg(a_tableName)
-                                .arg(a_sqlStrJoin);
+                                .arg(a_join);
             }
 
             bool isFirstNotEmptyField = true;
@@ -288,18 +288,18 @@ SqlTableModelEx::filter(
         }
     }
 
-    // a_sqlStrWhere
-    if (!a_sqlStrWhere.isEmpty()) {
+    // a_where
+    if (!a_where.isEmpty()) {
         if (isAllFieldsEmpty) {
-            sqlStr += " WHERE (" + a_sqlStrWhere + ")";
+            sqlStr += " WHERE (" + a_where + ")";
         } else {
-            sqlStr += " AND ("   + a_sqlStrWhere + ")";
+            sqlStr += " AND ("   + a_where + ")";
         }
     }
 
-    // a_sqlStrOrderBy
-    if (!a_sqlStrOrderBy.isEmpty()) {
-        sqlStr += " " + a_sqlStrOrderBy + ";";
+    // a_orderBy
+    if (!a_orderBy.isEmpty()) {
+        sqlStr += " " + a_orderBy + ";";
     }
 
     // execute query
