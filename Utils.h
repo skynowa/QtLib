@@ -30,18 +30,8 @@ public:
         ///< toggle 'always on top' for a QMainWindow
 
 
-    // DB
-    typedef QVector< QPair<QString, QString> > db_fields_t;
-    typedef const db_fields_t                  cdb_fields_t;
-        ///< list of db fields
-
-    static
-    void         dbFilter(QSqlQueryModel *model, cQString &tableName, cdb_fields_t &fields,
-                     cQString &sqlStrJoin, cQString &sqlStrWhere, cQString &sqlStrOrderBy);
-        ///< DB filter
-
-
     // web
+
 
     // grafics
     static
