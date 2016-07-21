@@ -16,12 +16,18 @@ class SqlTableModelEx :
     public QSqlTableModel
 {
 public:
-    explicit     SqlTableModelEx(QObject *parent = Q_NULLPTR, QSqlDatabase db = QSqlDatabase());
+    explicit     SqlTableModelEx(QObject *parent, QSqlDatabase db);
     virtual     ~SqlTableModelEx() {}
 
     virtual bool select() Q_DECL_OVERRIDE;
+        ///< select query
 
     int          realRowCount();
+        ///< get real rows count
+    void         importCsv(cQString &filePath, const QVector<QString> &fieldNames, cQString &csvSeparator);
+        ///< import DB to CSV file
+    void         exportCsv(cQString &filePath, const QVector<QString> &fieldNames, cQString &csvSeparator);
+        ///< export CSV file to DB
 
 Q_SIGNALS:
     void         sig_selectProgress(int value);

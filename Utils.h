@@ -36,14 +36,6 @@ public:
         ///< list of db fields
 
     static
-    void         dbImportCsv(cQString &filePath, SqlTableModelEx *model,
-                     const QVector<QString> &fieldNames, cQString &columnSeparator);
-        ///< import DB to CSV file
-    static
-    void         dbExportCsv(cQString &filePath, SqlTableModelEx *model,
-                     const QVector<QString> &fieldNames, cQString &columnSeparator);
-        ///< export CSV file to DB
-    static
     void         dbFilter(QSqlQueryModel *model, cQString &tableName, cdb_fields_t &fields,
                      cQString &sqlStrJoin, cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter

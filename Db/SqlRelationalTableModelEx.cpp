@@ -19,8 +19,8 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 SqlRelationalTableModelEx::SqlRelationalTableModelEx(
-    QObject     *a_parent /* = Q_NULLPTR */,
-    QSqlDatabase a_db     /* = QSqlDatabase() */
+    QObject     *a_parent,
+    QSqlDatabase a_db
 ) :
     QSqlRelationalTableModel(a_parent, a_db)
 #if defined(QT_DEBUG)
