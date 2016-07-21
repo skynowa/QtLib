@@ -84,7 +84,7 @@ GlobalShortcut::~GlobalShortcut()
 
     \code
     qxtShortcut->setShortcut(QKeySequence("Ctrl+Alt+A,Ctrl+Alt+B"));
-    Q_ASSERT(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
+    qTEST(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
     \endcode
  */
 QKeySequence
