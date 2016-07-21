@@ -35,8 +35,8 @@ SqlNavigator::~SqlNavigator()
 //-------------------------------------------------------------------------------------------------
 void
 SqlNavigator::construct(
-    QSqlTableModel *a_tableModel,
-    QTableView     *a_tableView
+    SqlTableModelEx *a_tableModel,
+    QTableView      *a_tableView
 )
 {
     qTEST_PTR(a_tableModel);
@@ -46,7 +46,7 @@ SqlNavigator::construct(
     _view  = a_tableView;
 }
 //-------------------------------------------------------------------------------------------------
-QSqlTableModel *
+SqlTableModelEx *
 SqlNavigator::model()
 {
     qTEST_PTR(_model);
@@ -103,7 +103,7 @@ SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = qtlib::Utils::dbSqlTableModelRowCount( model() ) - 1;
+    int targetRow = model()->realRowCount() - 1;
     qCHECK_DO(targetRow <= - 1, targetRow = 0);
 
     goTo(targetRow);

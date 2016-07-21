@@ -101,37 +101,10 @@ Utils::widgetAlwaysOnTop(
 
 //-------------------------------------------------------------------------------------------------
 /* static */
-int
-Utils::dbSqlTableModelRowCount(
-    QSqlTableModel *a_model
-)
-{
-    qTEST_PTR(a_model);
-    qTEST(!a_model->tableName().isEmpty());
-
-    qCHECK_RET(a_model == Q_NULLPTR, 0);
-
-    int  iRv = 0;
-    bool bRv = false;
-
-    QSqlQuery query("SELECT COUNT(*) FROM " + a_model->tableName());
-    bRv = query.next();
-    if (!bRv) {
-        // empty table
-        return 0;
-    }
-
-    iRv = query.value(0).toInt();
-    qTEST(iRv >= 0);
-
-    return iRv;
-}
-//-------------------------------------------------------------------------------------------------
-/* static */
 void
 Utils::dbImportCsv(
     cQString               &a_filePath,
-    QSqlTableModel         *a_model,
+    SqlTableModelEx        *a_model,
     const QVector<QString> &a_fieldNames,
     cQString               &a_columnSeparator
 )
@@ -168,7 +141,7 @@ Utils::dbImportCsv(
         cQStringList line = file.at(l).split(a_columnSeparator);
 
         // targetRow
-        cint targetRow = Utils::dbSqlTableModelRowCount(a_model) - 1;
+        cint targetRow = a_model->realRowCount() - 1;
 
         // record
         QSqlRecord record;
@@ -190,7 +163,7 @@ Utils::dbImportCsv(
 void
 Utils::dbExportCsv(
     cQString               &a_filePath,
-    QSqlTableModel         *a_model,
+    SqlTableModelEx        *a_model,
     const QVector<QString> &a_fieldNames,
     cQString               &a_columnSeparator
 )
@@ -218,7 +191,7 @@ Utils::dbExportCsv(
 
     // DB -> file
     {
-        cint realRowCount = Utils::dbSqlTableModelRowCount(a_model);
+        cint realRowCount = a_model->realRowCount();
 
         for (int r = 0; r < realRowCount; ++ r) {
             QSqlRecord record = a_model->record(r);

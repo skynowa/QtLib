@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../Common.h"
+#include "SqlTableModelEx.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
@@ -16,28 +17,28 @@ class SqlNavigator :
     /// DB SQL navigator
 {
 public:
-    explicit        SqlNavigator(QWidget *parent);
-    virtual        ~SqlNavigator();
+    explicit         SqlNavigator(QWidget *parent);
+    virtual         ~SqlNavigator();
 
-    void            construct(QSqlTableModel *tableModel, QTableView *tableView);
+    void             construct(SqlTableModelEx *tableModel, QTableView *tableView);
 
-    QSqlTableModel *model();
-    QTableView     *view();
-    bool            isValid() const;
+    SqlTableModelEx *model();
+    QTableView      *view();
+    bool             isValid() const;
 
-    void            first();
-    void            prior();
-    void            next();
-    void            last();
-    void            goTo(cint &rowIndex);
+    void             first();
+    void             prior();
+    void             next();
+    void             last();
+    void             goTo(cint &rowIndex);
 
-    void            insert();
-    void            remove();
-    void            edit();
+    void             insert();
+    void             remove();
+    void             edit();
 
 private:
-    QSqlTableModel *_model;
-    QTableView     *_view;
+    SqlTableModelEx *_model;
+    QTableView      *_view;
 
     Q_DISABLE_COPY(SqlNavigator)
 };

@@ -7,9 +7,12 @@
 #pragma once
 
 #include "Common.h"
+#include "Db/SqlTableModelEx.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
+
+class SqlTableModelEx;
 
 class Utils
     /// utils
@@ -33,14 +36,11 @@ public:
         ///< list of db fields
 
     static
-    int          dbSqlTableModelRowCount(QSqlTableModel *model);
-        ///< DB row count
-    static
-    void         dbImportCsv(cQString &filePath, QSqlTableModel *model,
+    void         dbImportCsv(cQString &filePath, SqlTableModelEx *model,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< import DB to CSV file
     static
-    void         dbExportCsv(cQString &filePath, QSqlTableModel *model,
+    void         dbExportCsv(cQString &filePath, SqlTableModelEx *model,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
     static

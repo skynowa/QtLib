@@ -67,5 +67,26 @@ SqlTableModelEx::select()
     return true;
 }
 //-------------------------------------------------------------------------------------------------
+int
+SqlTableModelEx::realRowCount()
+{
+    qTEST(!tableName().isEmpty());
+
+    int  iRv = 0;
+    bool bRv = false;
+
+    QSqlQuery query("SELECT COUNT(*) FROM " + tableName());
+    bRv = query.next();
+    if (!bRv) {
+        // empty table
+        return 0;
+    }
+
+    iRv = query.value(0).toInt();
+    qTEST(iRv >= 0);
+
+    return iRv;
+}
+//-------------------------------------------------------------------------------------------------
 
 } // namespace qtlib

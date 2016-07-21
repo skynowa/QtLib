@@ -21,6 +21,8 @@ public:
 
     virtual bool select() Q_DECL_OVERRIDE;
 
+    int          realRowCount();
+
 Q_SIGNALS:
     void         sig_selectProgress(int value);
 
