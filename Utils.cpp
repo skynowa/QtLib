@@ -103,7 +103,7 @@ Utils::widgetAlwaysOnTop(
 /* static */
 void
 Utils::dbFilter(
-    QSqlQueryModel *a_sqlQueryModel,
+    QSqlQueryModel *a_model,
     cQString       &a_tableName,
     cdb_fields_t   &a_fields,
     cQString       &a_sqlStrJoin,
@@ -111,7 +111,7 @@ Utils::dbFilter(
     cQString       &a_sqlStrOrderBy
 )
 {
-    qTEST_PTR(a_sqlQueryModel);
+    qTEST_PTR(a_model);
     qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
     qTEST_NA(a_sqlStrJoin);
@@ -119,7 +119,7 @@ Utils::dbFilter(
     qTEST_NA(a_sqlStrOrderBy);
 
     cbool isSqlRelationalTableModel
-        = (dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel) != Q_NULLPTR);
+        = (dynamic_cast<QSqlRelationalTableModel *>(a_model) != Q_NULLPTR);
     qDebug() << qTRACE_VAR(isSqlRelationalTableModel);
 
     QString sqlStr;
@@ -190,9 +190,9 @@ Utils::dbFilter(
     // execute query
     {
         if ( !isSqlRelationalTableModel ) {
-            a_sqlQueryModel->setQuery(sqlStr);
+            a_model->setQuery(sqlStr);
         } else {
-            QSqlRelationalTableModel *model = dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel);
+            QSqlRelationalTableModel *model = dynamic_cast<QSqlRelationalTableModel *>(a_model);
             model->setFilter(sqlStr);
         }
 
