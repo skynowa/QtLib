@@ -7,12 +7,9 @@
 #pragma once
 
 #include "Common.h"
-#include "Db/SqlTableModelEx.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
-
-class SqlTableModelEx;
 
 class Utils
     /// utils
