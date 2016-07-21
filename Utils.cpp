@@ -80,7 +80,7 @@ Utils::widgetAlwaysOnTop(
 )
 {
     qTEST_PTR(a_widget);
-    // a_isChecked - n/a
+    qTEST_NA(a_isChecked);
 
     Qt::WindowFlags flags = a_widget->windowFlags();
     if (a_isChecked) {
@@ -278,9 +278,9 @@ Utils::dbFilter(
     qTEST_PTR(a_sqlQueryModel);
     qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
-    // a_sqlStrJoin - n/a
-    // a_sqlStrWhere - n/a
-    // a_sqlStrOrderBy - n/a
+    qTEST_NA(a_sqlStrJoin);
+    qTEST_NA(a_sqlStrWhere);
+    qTEST_NA(a_sqlStrOrderBy);
 
     cbool isSqlRelationalTableModel
         = (dynamic_cast<QSqlRelationalTableModel *>(a_sqlQueryModel) != Q_NULLPTR);
@@ -443,7 +443,7 @@ Utils::toStdWString(
     cQString &a_str
 )
 {
-    // a_str - n/a
+    qTEST_NA(a_str);
 
 #if defined(_MSC_VER)
     return std::wstring(reinterpret_cast<const wchar_t *>( a_str.utf16() ));
@@ -458,7 +458,7 @@ Utils::fromStdWString(
     const std::wstring &a_str
 )
 {
-    // a_str - n/a
+    qTEST_NA(a_str);
 
 #if defined(_MSC_VER)
     return QString::fromUtf16(reinterpret_cast<const ushort *>( a_str.c_str() ));
@@ -473,7 +473,7 @@ Utils::formatBytes(
     culonglong &a_bytes
 )
 {
-    // a_bytes - n/a
+    qTEST_NA(a_bytes);
 
     QString sRv;
 
