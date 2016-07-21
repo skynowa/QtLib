@@ -46,6 +46,31 @@ SqliteDatabase::qDb()
     return _db;
 }
 //-------------------------------------------------------------------------------------------------
+void
+SqliteDatabase::fieldNames(
+    cQString    &a_tableName,    ///< table name
+    QStringList *a_dbFileldNames ///< field names [out]
+)
+{
+    qTEST(_db.isValid());
+    qTEST(!a_tableName.isEmpty());
+    qTEST_PTR(a_dbFileldNames);
+
+    QStringList slRv;
+    QSqlQuery   qryTableInfo(_db);
+
+    cQString sql = QString("PRAGMA table_info(%1);").arg(a_tableName);
+
+    bool bRv = qryTableInfo.exec(sql);
+    qCHECK_REF(bRv, qryTableInfo);
+
+    while ( qryTableInfo.next() ) {
+        slRv << qryTableInfo.value(1).toString();
+    }
+
+    slRv.swap(*a_dbFileldNames);
+}
+//-------------------------------------------------------------------------------------------------
 
 
 /**************************************************************************************************

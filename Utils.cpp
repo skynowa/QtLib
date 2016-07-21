@@ -200,33 +200,6 @@ Utils::dbFilter(
     }
 }
 //-------------------------------------------------------------------------------------------------
-void
-Utils::dbFieldNames(
-    cQSqlDatabase &a_db,           ///< database
-    cQString      &a_tableName,    ///< table name
-    QStringList   *a_dbFileldNames ///< field names [out]
-)
-{
-    qTEST(a_db.isValid());
-    qTEST(!a_tableName.isEmpty());
-    qTEST_PTR(a_dbFileldNames);
-
-    QStringList slRv;
-    QSqlQuery   qryTableInfo(a_db);
-
-    cQString sql =
-        "pragma table_info(" + a_tableName + ");";
-
-    bool bRv = qryTableInfo.exec(sql);
-    qCHECK_REF(bRv, qryTableInfo);
-
-    while ( qryTableInfo.next() ) {
-        slRv << qryTableInfo.value(1).toString();
-    }
-
-    slRv.swap(*a_dbFileldNames);
-}
-//-------------------------------------------------------------------------------------------------
 
 
 /**************************************************************************************************

@@ -39,10 +39,6 @@ public:
     void         dbFilter(QSqlQueryModel *model, cQString &tableName, cdb_fields_t &fields,
                      cQString &sqlStrJoin, cQString &sqlStrWhere, cQString &sqlStrOrderBy);
         ///< DB filter
-    static
-    void         dbFieldNames(cQSqlDatabase &db, cQString &tableName, QStringList *dbFileldNames);
-
-        ///< DB filed names
 
 
     // web

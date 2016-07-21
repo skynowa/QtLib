@@ -42,6 +42,8 @@ public:
 
     void          construct(cSqliteConfig &config);
 
+    void          fieldNames(cQString &tableName, QStringList *dbFileldNames);
+        ///< DB filed names
 
 private:
     cSqliteConfig *_config;
