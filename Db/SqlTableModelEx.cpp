@@ -304,12 +304,12 @@ SqlTableModelEx::filter(
 
     // execute query
     {
-        if ( !isSqlRelationalTableModel ) {
-            QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>(this);
-            model->setQuery(sqlStr);
-        } else {
+        if ( isSqlRelationalTableModel ) {
             QSqlRelationalTableModel *model = dynamic_cast<QSqlRelationalTableModel *>(this);
             model->setFilter(sqlStr);
+        } else {
+            QSqlQueryModel *model = dynamic_cast<QSqlQueryModel *>(this);
+            model->setQuery(sqlStr);
         }
 
         qDebug() << sqlStr;
