@@ -33,14 +33,14 @@ public:
         ///< list of db fields
 
     static
-    int          sqlTableModelRowCount(QSqlTableModel *model);
+    int          dbSqlTableModelRowCount(QSqlTableModel *model);
         ///< DB row count
     static
-    void         importCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+    void         dbImportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< import DB to CSV file
     static
-    void         exportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
+    void         dbExportCsv(cQString &filePath, QSqlTableModel *sqlTableModel,
                      const QVector<QString> &fieldNames, cQString &columnSeparator);
         ///< export CSV file to DB
     static

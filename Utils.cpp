@@ -102,7 +102,7 @@ Utils::widgetAlwaysOnTop(
 //-------------------------------------------------------------------------------------------------
 /* static */
 int
-Utils::sqlTableModelRowCount(
+Utils::dbSqlTableModelRowCount(
     QSqlTableModel *a_model
 )
 {
@@ -129,7 +129,7 @@ Utils::sqlTableModelRowCount(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-Utils::importCsv(
+Utils::dbImportCsv(
     cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
@@ -168,7 +168,7 @@ Utils::importCsv(
         cQStringList line = file.at(l).split(a_columnSeparator);
 
         // targetRow
-        cint targetRow = Utils::sqlTableModelRowCount(a_sqlTableModel) - 1;
+        cint targetRow = Utils::dbSqlTableModelRowCount(a_sqlTableModel) - 1;
 
         // record
         QSqlRecord record;
@@ -188,7 +188,7 @@ Utils::importCsv(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-Utils::exportCsv(
+Utils::dbExportCsv(
     cQString               &a_filePath,
     QSqlTableModel         *a_sqlTableModel,
     const QVector<QString> &a_fieldNames,
@@ -218,7 +218,7 @@ Utils::exportCsv(
 
     // DB -> file
     {
-        cint realRowCount = Utils::sqlTableModelRowCount(a_sqlTableModel);
+        cint realRowCount = Utils::dbSqlTableModelRowCount(a_sqlTableModel);
 
         for (int r = 0; r < realRowCount; ++ r) {
             QSqlRecord record = a_sqlTableModel->record(r);

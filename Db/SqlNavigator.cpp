@@ -103,7 +103,7 @@ SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = qtlib::Utils::sqlTableModelRowCount( model() ) - 1;
+    int targetRow = qtlib::Utils::dbSqlTableModelRowCount( model() ) - 1;
     qCHECK_DO(targetRow <= - 1, targetRow = 0);
 
     goTo(targetRow);
