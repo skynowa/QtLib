@@ -221,21 +221,24 @@ Utils::exportCsv(
         cint realRowCount = Utils::sqlTableModelRowCount(a_sqlTableModel);
 
         for (int r = 0; r < realRowCount; ++ r) {
+            QSqlRecord record = a_sqlTableModel->record(r);
+
             for (int f = 0; f < a_fieldNames.size(); ++ f) {
-                QSqlField field = a_sqlTableModel->record(f).field( a_fieldNames.at(f) );
-
                 QString fieldValue;
+                {
+                    QSqlField field  = record.field( a_fieldNames.at(f) );
 
-                switch ( field.type() ) {
-                case QVariant::String:
-                    fieldValue = a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toString();
-                    break;
-                case QVariant::ByteArray:
-                    fieldValue = a_sqlTableModel->record(r).value( a_fieldNames.at(f) ).toByteArray().toBase64();
-                    break;
-                default:
-                    Q_ASSERT(false);
-                    break;
+                    switch ( field.type() ) {
+                    case QVariant::String:
+                        fieldValue = record.value( a_fieldNames.at(f) ).toString();
+                        break;
+                    case QVariant::ByteArray:
+                        fieldValue = record.value( a_fieldNames.at(f) ).toByteArray().toBase64();
+                        break;
+                    default:
+                        Q_ASSERT(false);
+                        break;
+                    }
                 }
 
                 csv.push_back(fieldValue);
