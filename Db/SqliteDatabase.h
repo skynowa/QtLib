@@ -36,11 +36,12 @@ class SqliteDatabase :
     public QObject
 {
 public:
+    QSqlDatabase& qDb();
+
     explicit      SqliteDatabase(QObject *parent /* = Q_NULLPTR */);
 
     void          construct(cSqliteConfig &config);
 
-    QSqlDatabase& qDb();
 
 private:
     cSqliteConfig *_config;
