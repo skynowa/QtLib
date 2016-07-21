@@ -236,7 +236,7 @@ Utils::exportCsv(
                         fieldValue = record.value( a_fieldNames.at(f) ).toByteArray().toBase64();
                         break;
                     default:
-                        Q_ASSERT(false);
+                        qTEST(false);
                         break;
                     }
                 }
@@ -255,12 +255,10 @@ Utils::exportCsv(
     // write to file
     {
         QFile fileCSV(a_filePath);
-
         bool bRv = fileCSV.open(QFile::WriteOnly | QIODevice::Text);
         qTEST(bRv);
 
         QTextStream stream(&fileCSV);
-
         stream.setCodec("UTF-8");
         stream << csv;
     }
