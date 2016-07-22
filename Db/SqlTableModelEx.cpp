@@ -92,28 +92,28 @@ void
 SqlTableModelEx::importCsv(
     cQString               &a_filePath,
     const QVector<QString> &a_fieldNames,
-    cQString               &a_csvSeparator
+    cQString               &a_csvSeparator,
+    cbool                   a_isNormalize
 )
 {
     qTEST(!a_filePath.isEmpty());
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_csvSeparator.isEmpty());
+    qTEST_NA(a_isNormalize);
 
     bool bRv = false;
 
     // read file
     QStringList fileContent;
     {
-        {
-            QFile fileCsv(a_filePath);
-            bRv = fileCsv.open(QFile::ReadOnly);
-            if (!bRv || !fileCsv.isReadable()) {
-                return;
-            }
-
-            cQString lines = fileCsv.readAll();
-            fileContent = lines.split("\n");
+        QFile fileCsv(a_filePath);
+        bRv = fileCsv.open(QFile::ReadOnly);
+        if (!bRv || !fileCsv.isReadable()) {
+            return;
         }
+
+        cQString lines = fileCsv.readAll();
+        fileContent = lines.split("\n");
 
         qCHECK_DO(fileContent.isEmpty(), return);
 
@@ -149,12 +149,14 @@ void
 SqlTableModelEx::exportCsv(
     cQString               &a_filePath,
     const QVector<QString> &a_fieldNames,
-    cQString               &a_csvSeparator
+    cQString               &a_csvSeparator,
+    cbool                   a_isNormalize
 )
 {
     qTEST(!a_filePath.isEmpty());
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_csvSeparator.isEmpty());
+    qTEST_NA(a_isNormalize);
 
     // DB -> text
     QString csv;

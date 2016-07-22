@@ -25,10 +25,10 @@ public:
     int          realRowCount();
         ///< get real rows count
     void         importCsv(cQString &filePath, const QVector<QString> &fieldNames,
-                    cQString &csvSeparator);
+                    cQString &csvSeparator, cbool isNormalize);
         ///< import to CSV file
     void         exportCsv(cQString &filePath, const QVector<QString> &fieldNames,
-                    cQString &csvSeparator);
+                    cQString &csvSeparator, cbool isNormalize);
         ///< export from CSV file
 
     typedef QVector< QPair<QString, QString> > db_fields_t;
