@@ -114,7 +114,6 @@ SqlTableModelEx::importCsv(
 
         cQString lines = fileCsv.readAll();
         fileContent = lines.split("\n");
-
         qCHECK_DO(fileContent.isEmpty(), return);
 
         if ( fileContent.last().isEmpty() ) {
@@ -133,8 +132,8 @@ SqlTableModelEx::importCsv(
         QSqlRecord record;
 
         for (int f = 0; f < a_fieldNames.size(); ++ f) {
-            record.append(QSqlField(a_fieldNames.at(f)));
-            record.setValue(a_fieldNames.at(f), line.at(f));
+            record.append( QSqlField(a_fieldNames.at(f)) );
+            record.setValue( a_fieldNames.at(f), line.at(f) );
         }
 
         bRv = insertRecord(targetRow, record);
