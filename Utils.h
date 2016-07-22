@@ -45,12 +45,6 @@ public:
         ///< convert an std::wstring to a QString
 
 
-    // formaters
-    static
-    QString      formatBytes(culonglong &bytes);
-        ///< format bytes
-
-
     // debug
     static
     void         debugTest(cQString &expression, cQString &filePath, culong &fileLine,

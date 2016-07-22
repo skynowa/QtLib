@@ -168,44 +168,6 @@ Utils::fromStdWString(
 #endif
 }
 //-------------------------------------------------------------------------------------------------
-/* static */
-QString
-Utils::formatBytes(
-    culonglong &a_bytes
-)
-{
-    qTEST_NA(a_bytes);
-
-    QString sRv;
-
-    culonglong tb   = 1024ULL * 1024ULL * 1024ULL * 1024ULL;
-    culonglong gb   = 1024ULL * 1024ULL * 1024ULL;
-    culonglong mb   = 1024ULL * 1024ULL;
-    culonglong kb   = 1024ULL;
-    culonglong byte = 1ULL;
-
-    if      (a_bytes / tb   > 0ULL) {
-        sRv.sprintf("%.2f TB", static_cast<double>(a_bytes) / static_cast<double>(tb));
-    }
-    else if (a_bytes / gb   > 0ULL) {
-        sRv.sprintf("%.2f GB", static_cast<double>(a_bytes) / static_cast<double>(gb));
-    }
-    else if (a_bytes / mb   > 0ULL) {
-        sRv.sprintf("%.2f MB", static_cast<double>(a_bytes) / static_cast<double>(mb));
-    }
-    else if (a_bytes / kb   > 0ULL) {
-        sRv.sprintf("%.2f KB", static_cast<double>(a_bytes) / static_cast<double>(kb));
-    }
-    else if (a_bytes / byte > 0ULL) {
-        sRv.sprintf("%.2f Byte(s)", static_cast<double>(a_bytes) / static_cast<double>(byte));
-    }
-    else {
-        sRv.sprintf("%.2f Bit(s)", static_cast<double>(a_bytes));
-    }
-
-    return sRv;
-}
-//-------------------------------------------------------------------------------------------------
 
 
 /**************************************************************************************************
