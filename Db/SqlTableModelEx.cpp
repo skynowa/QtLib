@@ -102,27 +102,29 @@ SqlTableModelEx::importCsv(
     bool bRv = false;
 
     // read file
-    QStringList file;
+    QStringList fileContent;
     {
-        QFile fileCsv(a_filePath);
-        bRv = fileCsv.open(QFile::ReadOnly);
-        qTEST(bRv);
+        {
+            QFile fileCsv(a_filePath);
+            bRv = fileCsv.open(QFile::ReadOnly);
+            if (!bRv || !fileCsv.isReadable()) {
+                return;
+            }
 
-        cQString lines = fileCsv.readAll();
-        file = lines.split("\n");
+            cQString lines = fileCsv.readAll();
+            fileContent = lines.split("\n");
+        }
 
-        fileCsv.close();
+        qCHECK_DO(fileContent.isEmpty(), return);
 
-        qCHECK_DO(file.isEmpty(), return);
-
-        if (file.last().isEmpty()) {
-            file.removeLast();
+        if ( fileContent.last().isEmpty() ) {
+            fileContent.removeLast();
         }
     }
 
     // file -> DB
-    for (int l = 0; l < file.size(); ++ l) {
-        cQStringList line = file.at(l).split(a_csvSeparator);
+    for (int l = 0; l < fileContent.size(); ++ l) {
+        cQStringList line = fileContent.at(l).split(a_csvSeparator);
 
         // targetRow
         cint targetRow = realRowCount() - 1;
