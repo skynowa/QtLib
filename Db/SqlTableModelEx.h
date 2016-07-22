@@ -46,6 +46,8 @@ private:
     size_t       _selectCount;
 #endif
 
+    void         _csvNormalize(QString *fieldName, QString *fieldValue);
+
     Q_OBJECT
     Q_DISABLE_COPY(SqlTableModelEx)
 };

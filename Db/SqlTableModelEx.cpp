@@ -104,7 +104,7 @@ SqlTableModelEx::importCsv(
     bool bRv = false;
 
     // read file
-    QStringList fileContent;
+    QStringList csvContent;
     {
         QFile fileCsv(a_filePath);
         bRv = fileCsv.open(QFile::ReadOnly);
@@ -113,17 +113,17 @@ SqlTableModelEx::importCsv(
         }
 
         cQString lines = fileCsv.readAll();
-        fileContent = lines.split("\n");
-        qCHECK_DO(fileContent.isEmpty(), return);
+        csvContent = lines.split("\n");
+        qCHECK_DO(csvContent.isEmpty(), return);
 
-        if ( fileContent.last().isEmpty() ) {
-            fileContent.removeLast();
+        if ( csvContent.last().isEmpty() ) {
+            csvContent.removeLast();
         }
     }
 
     // file -> DB
-    for (int l = 0; l < fileContent.size(); ++ l) {
-        cQStringList line = fileContent.at(l).split(a_csvSeparator);
+    for (int l = 0; l < csvContent.size(); ++ l) {
+        cQStringList line = csvContent.at(l).split(a_csvSeparator);
 
         // targetRow
         cint targetRow = realRowCount() - 1;
@@ -132,8 +132,16 @@ SqlTableModelEx::importCsv(
         QSqlRecord record;
 
         for (int f = 0; f < a_fieldNames.size(); ++ f) {
-            record.append( QSqlField(a_fieldNames.at(f)) );
-            record.setValue( a_fieldNames.at(f), line.at(f) );
+            QString fieldName  = a_fieldNames.at(f);
+            QString fieldValue = line.at(f);
+
+            // normalize
+            if (a_isNormalize) {
+                _csvNormalize(&fieldName, &fieldValue);
+            }
+
+            record.append( QSqlField(fieldName) );
+            record.setValue(fieldName, fieldValue);
         }
 
         bRv = insertRecord(targetRow, record);
@@ -141,7 +149,7 @@ SqlTableModelEx::importCsv(
 
         bRv = submitAll();
         qCHECK_PTR(bRv, this);
-    }
+    } // for (csvContent)
 }
 //-------------------------------------------------------------------------------------------------
 void
@@ -158,19 +166,26 @@ SqlTableModelEx::exportCsv(
     qTEST_NA(a_isNormalize);
 
     // DB -> text
-    QString csv;
+    QString csvContent;
 
     // DB fields -> CSV header
     {
         for (int f = 0; f < a_fieldNames.size(); ++ f) {
-            csv.push_back( a_fieldNames.at(f) );
+            QString fieldName = a_fieldNames.at(f);
+
+            // normalize
+            if (a_isNormalize) {
+                _csvNormalize(&fieldName, Q_NULLPTR);
+            }
+
+            csvContent.push_back(fieldName);
 
             if (f < a_fieldNames.size() - 1) {
-                csv.push_back( a_csvSeparator );
+                csvContent.push_back( a_csvSeparator );
             }
         }
 
-        csv.push_back("\n");
+        csvContent.push_back("\n");
     }
 
     // DB -> file
@@ -198,14 +213,19 @@ SqlTableModelEx::exportCsv(
                     }
                 }
 
-                csv.push_back(fieldValue);
+                // normalize
+                if (a_isNormalize) {
+                    _csvNormalize(Q_NULLPTR, &fieldValue);
+                }
+
+                csvContent.push_back(fieldValue);
 
                 if (f < a_fieldNames.size() - 1) {
-                    csv.push_back( a_csvSeparator );
+                    csvContent.push_back( a_csvSeparator );
                 }
             }
 
-            csv.push_back("\n");
+            csvContent.push_back("\n");
         } // for (realRowCount)
     }
 
@@ -217,7 +237,7 @@ SqlTableModelEx::exportCsv(
 
         QTextStream stream(&fileCsv);
         stream.setCodec("UTF-8");
-        stream << csv;
+        stream << csvContent;
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -315,6 +335,34 @@ SqlTableModelEx::filter(
         }
 
         qDebug() << sqlStr;
+    }
+}
+//-------------------------------------------------------------------------------------------------
+
+
+/**************************************************************************************************
+*   private
+*
+**************************************************************************************************/
+
+//-------------------------------------------------------------------------------------------------
+void
+SqlTableModelEx::_csvNormalize(
+    QString *a_fieldName,
+    QString *a_fieldValue
+)
+{
+    qCHECK_DO(a_fieldName == Q_NULLPTR && a_fieldValue == Q_NULLPTR, return);
+
+    // trim
+    {
+        if (a_fieldName != Q_NULLPTR) {
+            *a_fieldName  = a_fieldName->trimmed();
+        }
+
+        if (a_fieldValue != Q_NULLPTR) {
+            *a_fieldValue = a_fieldValue->trimmed();
+        }
     }
 }
 //-------------------------------------------------------------------------------------------------
