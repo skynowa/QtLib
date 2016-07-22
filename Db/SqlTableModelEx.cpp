@@ -104,15 +104,14 @@ SqlTableModelEx::importCsv(
     // read file
     QStringList file;
     {
-        QFile fileCSV(a_filePath);
-
-        bRv = fileCSV.open(QFile::ReadOnly);
+        QFile fileCsv(a_filePath);
+        bRv = fileCsv.open(QFile::ReadOnly);
         qTEST(bRv);
 
-        cQString lines = fileCSV.readAll();
+        cQString lines = fileCsv.readAll();
         file = lines.split("\n");
 
-        fileCSV.close();
+        fileCsv.close();
 
         qCHECK_DO(file.isEmpty(), return);
 
@@ -209,11 +208,11 @@ SqlTableModelEx::exportCsv(
 
     // write to file
     {
-        QFile fileCSV(a_filePath);
-        bool bRv = fileCSV.open(QFile::WriteOnly | QIODevice::Text);
+        QFile fileCsv(a_filePath);
+        bool bRv = fileCsv.open(QFile::WriteOnly | QIODevice::Text);
         qTEST(bRv);
 
-        QTextStream stream(&fileCSV);
+        QTextStream stream(&fileCsv);
         stream.setCodec("UTF-8");
         stream << csv;
     }
