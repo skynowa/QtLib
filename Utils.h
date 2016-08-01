@@ -15,7 +15,7 @@ class Utils
     /// utils
 {
 public:
-    // GUI
+    // UI
     static
     void         widgetAlignCenter(QWidget *widget);
         ///< align main widget
@@ -25,6 +25,9 @@ public:
     static
     void         widgetAlwaysOnTop(QWidget *widget, cbool &isChecked);
         ///< toggle 'always on top' for a QMainWindow
+    static
+    void         widgetActivate(QWidget *widget);
+        ///< activate widget
 
 
     // web
