@@ -182,8 +182,7 @@ About::_constructUi()
             "LibC: %10<br>"
             "LibC++: %11<br>"
             "Qt: %12<br>"
-            "xLib: %13<br>"
-            "Binary type: %14<br>"))
+            "xLib: %13 (%14)<br>"))
             .arg( info.isRelease() ? "Release" : "Debug" )
             .arg( info.datetime().c_str() )
             .arg( info.langStandart().c_str() )
@@ -197,7 +196,7 @@ About::_constructUi()
             .arg( info.stdLibCpp().c_str() )
             .arg( info.qt().c_str() )
             .arg( info.xlibVersion().c_str() )
-            .arg( info.binaryType().c_str() );
+            .arg( info.xlibBinaryType().c_str() );
 
         ui.txtbBuildinfo->setHtml(text);
     }
