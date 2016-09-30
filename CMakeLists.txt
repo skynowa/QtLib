@@ -15,14 +15,14 @@
 include_directories(
     ${CMAKE_CURRENT_LIST_DIR})
 
-qt5_wrap_ui(QTLIB_MOC_UI
+set(QTLIB_MOC_UI
     ${CMAKE_CURRENT_LIST_DIR}/Ui/About.ui
     PARENT_SCOPE)
 
-qt5_wrap_cpp(QTLIB_MOC_CPP
+set(QTLIB_MOC_CPP
     PARENT_SCOPE)
 
-set(QTLIB_CPP
+set(QTLIB_SOURCES_CPP
     ${CMAKE_CURRENT_LIST_DIR}/Application.cpp
     ${CMAKE_CURRENT_LIST_DIR}/SignalGuard.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
