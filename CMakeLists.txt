@@ -15,15 +15,15 @@
 include_directories(
     ${CMAKE_CURRENT_LIST_DIR})
 
-qt5_wrap_ui(QTLIB_MOC_UI
+set(QTLIB_MOC_UI
     ${CMAKE_CURRENT_LIST_DIR}/Ui/About.ui
     PARENT_SCOPE)
 
-qt5_wrap_cpp(QTLIB_MOC_CPP
+set(QTLIB_MOC_CPP
     PARENT_SCOPE)
 
-qt5_add_resources(QTLIB_RESOURCES
-    )
+set(QTLIB_RESOURCES
+    PARENT_SCOPE)
 
 set(QTLIB_SOURCES_CPP
     ${CMAKE_CURRENT_LIST_DIR}/Application.cpp
