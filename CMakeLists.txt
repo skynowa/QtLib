@@ -39,4 +39,15 @@ set(QTLIB_SOURCES_CPP
 set(QTLIB_UI_CPP
     ${CMAKE_CURRENT_LIST_DIR}/Ui/About.cpp
     PARENT_SCOPE)
+
+if     (ENV_WIN)
+    # n/a
+    set(QTLIB_LIBRARIES PARENT_SCOPE)
+elseif (ENV_UNIX)
+    set(QTLIB_LIBRARIES X11 PARENT_SCOPE)
+elseif (ENV_APPLE)
+    set(QTLIB_LIBRARIES X11 PARENT_SCOPE)
+else()
+    message(FATAL_ERROR "${PROJECT_NAME}: unknown compiler")
+endif()
 #--------------------------------------------------------------------------------------------------
