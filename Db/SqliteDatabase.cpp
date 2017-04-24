@@ -93,8 +93,8 @@ SqliteDatabase::_setup()
     QString databaseName;
     {
         if ( _config->dbPath.isEmpty() ) {
-            databaseName = qS2QS(xlib::core::Application::dbDirPath() + "/" +
-                xlib::core::Application::info().get().name + ".db");
+            databaseName = qS2QS(xl::core::Application::dbDirPath() + "/" +
+                xl::core::Application::info().get().name + ".db");
         } else {
             databaseName = _config->dbPath;
         }
