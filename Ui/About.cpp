@@ -165,7 +165,7 @@ About::_constructUi()
 
     // tab "Build info"
     {
-        const xl::debug::BuildInfo &info = xl::core::Application::buildInfo();
+        const xl::debug::BuildInfo &info = xl::package::Application::buildInfo();
 
         cQString text = QString(tr(
             "<b>Build info</b><br>"

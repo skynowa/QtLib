@@ -6,7 +6,7 @@
 
 #include "GlobalShortcut_impl.h"
 
-#include <qpa/qplatformnativeinterface.h>
+/// #include <qpa/qplatformnativeinterface.h>
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 
@@ -78,9 +78,9 @@ public:
     QxtX11Data()
     {
         QPlatformNativeInterface *native  = qApp->platformNativeInterface();
-        void                     *display = native->nativeResourceForScreen(QByteArray("display"),
-            QGuiApplication::primaryScreen());
-        _display = reinterpret_cast<Display *>(display);
+        /// void                     *display = native->nativeResourceForScreen(QByteArray("display"),
+        ///     QGuiApplication::primaryScreen());
+        /// _display = reinterpret_cast<Display *>(display);
     }
 
     bool
