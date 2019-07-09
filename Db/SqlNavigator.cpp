@@ -35,7 +35,7 @@ SqlNavigator::~SqlNavigator()
 //-------------------------------------------------------------------------------------------------
 void
 SqlNavigator::construct(
-    SqlTableModelEx *a_tableModel,
+    SqlRelationalTableModelEx *a_tableModel,
     QTableView      *a_tableView
 )
 {
@@ -46,7 +46,7 @@ SqlNavigator::construct(
     _view  = a_tableView;
 }
 //-------------------------------------------------------------------------------------------------
-SqlTableModelEx *
+SqlRelationalTableModelEx *
 SqlNavigator::model()
 {
     qTEST_PTR(_model);
@@ -103,7 +103,7 @@ SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = model()->realRowCount() - 1;
+    int targetRow = model()->rowCount() - 1;    /// TODO: realRowCount()
     qCHECK_DO(targetRow <= - 1, targetRow = 0);
 
     goTo(targetRow);

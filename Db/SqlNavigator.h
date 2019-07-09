@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../Common.h"
-#include "SqlTableModelEx.h"
+#include "SqlRelationalTableModelEx.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
@@ -20,9 +20,9 @@ public:
     explicit         SqlNavigator(QWidget *parent);
     virtual         ~SqlNavigator();
 
-    void             construct(SqlTableModelEx *tableModel, QTableView *tableView);
+    void             construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);
 
-    SqlTableModelEx *model();
+    SqlRelationalTableModelEx *model();
     QTableView      *view();
     bool             isValid() const;
 
@@ -37,7 +37,7 @@ public:
     void             edit();
 
 private:
-    SqlTableModelEx *_model;
+    SqlRelationalTableModelEx *_model;
     QTableView      *_view;
 
     Q_DISABLE_COPY(SqlNavigator)
