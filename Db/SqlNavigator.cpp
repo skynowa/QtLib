@@ -103,7 +103,7 @@ SqlNavigator::last()
 {
     qCHECK_DO(!isValid(), return);
 
-    int targetRow = model()->rowCount() - 1;    /// TODO: realRowCount()
+    int targetRow = model()->realRowCount() - 1;
     qCHECK_DO(targetRow <= - 1, targetRow = 0);
 
     goTo(targetRow);
