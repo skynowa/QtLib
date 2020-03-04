@@ -136,6 +136,9 @@ public:
             iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
                 GrabModeAsync, GrabModeAsync);
              // qTEST(iRv == 0);
+            if (iRv != 0) {
+                qDebug() << "XGrabKey: " << qTRACE_VAR(iRv);
+            }
         }
 
         if (errorHandler.error) {
@@ -265,6 +268,7 @@ GlobalShortcut_impl::nativeKeycode(
 
     KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
     if (keysym == NoSymbol) {
+        qTEST(false);
         keysym = static_cast<ushort>(a_key);
     }
 
@@ -277,6 +281,9 @@ GlobalShortcut_impl::registerShortcut(
     quint32 a_nativeMods
 )
 {
+    qTEST(a_nativeKey > 0);
+    /// qTEST(a_nativeMods > 0);
+
     QxtX11Data x11;
 
     if ( !x11.isValid() ) {
