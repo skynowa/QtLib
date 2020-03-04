@@ -151,10 +151,10 @@ public:
         for (int i = 0; !errorHandler.error && i < maskModifiers.size(); ++ i) {
             iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
                 GrabModeAsync, GrabModeAsync);
-             // qTEST(iRv == 0);
-            if (iRv != 0) {
+            // qTEST(iRv == 0);
+            // if (iRv != 0) {
                 qDebug() << "XGrabKey: " << qTRACE_VAR(iRv);
-            }
+            // }
         }
 
         if (errorHandler.error) {
