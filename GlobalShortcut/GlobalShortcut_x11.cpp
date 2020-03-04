@@ -26,8 +26,6 @@ namespace
 
 const QVector<quint32> maskModifiers =
     QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
-
-using X11ErrorHandler = std::add_pointer<int(Display *display, XErrorEvent *event)>::type;
 //-------------------------------------------------------------------------------------------------
 class QxtX11ErrorHandler
 {
@@ -73,6 +71,8 @@ public:
     }
 
 private:
+    using X11ErrorHandler = std::add_pointer<int(Display *display, XErrorEvent *event)>::type;
+
     X11ErrorHandler _previousErrorHandler {};
 };
 //-------------------------------------------------------------------------------------------------
