@@ -106,7 +106,7 @@ public:
              QGuiApplication::primaryScreen());
         _display = reinterpret_cast<Display *>(display);
     #else
-        // could be the value of $DISPLAY
+        // could be the value of $DISPLAY or nullptr
         const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
                                         .toStdString().c_str();
 
