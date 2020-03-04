@@ -15,7 +15,7 @@
 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
-
+#include <QProcessEnvironment>
 
 namespace qtlib
 {
@@ -92,7 +92,9 @@ public:
              QGuiApplication::primaryScreen());
         _display = reinterpret_cast<Display *>(display);
     #else
-        char *displayName {};  // could be the value of $DISPLAY
+        // could be the value of $DISPLAY
+        const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
+                                        .toStdString().c_str();
 
         _display = ::XOpenDisplay(displayName);
         if (_display == nullptr) {
@@ -192,11 +194,11 @@ GlobalShortcut_impl::nativeEventFilter(
 
     xcb_key_press_event_t *kev {};
 
-    qDebug() << qTRACE_VAR(a_eventType);
+    // qDebug() << qTRACE_VAR(a_eventType);
 
     if (a_eventType == "xcb_generic_event_t") {
         xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(a_message);
-        qDebug() << qTRACE_VAR(event->response_type);
+        // qDebug() << qTRACE_VAR(event->response_type);
         if ((event->response_type & 127) == XCB_KEY_PRESS) {
             kev = static_cast<xcb_key_press_event_t *>(a_message);
         }
@@ -281,7 +283,7 @@ GlobalShortcut_impl::registerShortcut(
     quint32 a_nativeMods
 )
 {
-    qTEST(a_nativeKey > 0);
+    /// qTEST(a_nativeKey > 0);
     /// qTEST(a_nativeMods > 0);
 
     QxtX11Data x11;
