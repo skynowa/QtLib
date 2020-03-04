@@ -33,7 +33,6 @@
 #include "GlobalShortcut_impl.cpp"
 #include <QAbstractEventDispatcher>
 
-
 namespace qtlib
 {
 
@@ -60,7 +59,8 @@ GlobalShortcut::GlobalShortcut(
 {
     QTLIB_INIT_PRIVATE(GlobalShortcut);
 
-    setShortcut(a_shortcut);
+    bool bRv = setShortcut(a_shortcut);
+    qTEST(bRv);
 }
 //-------------------------------------------------------------------------------------------------
 /*!
@@ -69,7 +69,8 @@ GlobalShortcut::GlobalShortcut(
 GlobalShortcut::~GlobalShortcut()
 {
     if (_impl().key != keyUnknown) {
-        _impl().unsetShortcut();
+        bool bRv = _impl().unsetShortcut();
+        qTEST(bRv);
     }
 }
 //-------------------------------------------------------------------------------------------------
@@ -99,7 +100,8 @@ GlobalShortcut::setShortcut(
 )
 {
     if (_impl().key != keyUnknown) {
-        _impl().unsetShortcut();
+        bool bRv = _impl().unsetShortcut();
+        qTEST(bRv);
     }
 
     return _impl().setShortcut(a_shortcut);

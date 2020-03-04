@@ -13,6 +13,8 @@
 #include <QMap>
 #include <QHash>
 #include <QApplication>
+#include "../Common.h"
+#include "../Utils.h"
 //-------------------------------------------------------------------------------------------------
 #define QTLIB_DECLARE_PRIVATE(pub) \
     friend class pub##Private; \

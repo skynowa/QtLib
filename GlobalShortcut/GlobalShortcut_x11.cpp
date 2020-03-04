@@ -107,7 +107,7 @@ public:
     Display *
     display()
     {
-        Q_ASSERT(isValid());
+        qTEST(isValid());
 
         return _display;
     }
@@ -125,15 +125,19 @@ public:
         Window  a_window
     )
     {
+        int  iRv {};
+        bool bRv {};
         QxtX11ErrorHandler errorHandler;
 
         for (int i = 0; !errorHandler.error && i < maskModifiers.size(); ++ i) {
-            ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
+            iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
                 GrabModeAsync, GrabModeAsync);
+             qTEST(iRv == 0);
         }
 
         if (errorHandler.error) {
-            ungrabKey(a_keycode, a_modifiers, a_window);
+            bRv = ungrabKey(a_keycode, a_modifiers, a_window);
+            qTEST(bRv);
 
             return false;
         }
@@ -148,10 +152,12 @@ public:
         Window  a_window
     )
     {
+        int iRv {};
         QxtX11ErrorHandler errorHandler;
 
         Q_FOREACH(quint32 maskMods, maskModifiers) {
-            ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
+            iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
+            qTEST(iRv == 0);
         }
 
         return !errorHandler.error;
@@ -176,8 +182,11 @@ GlobalShortcut_impl::nativeEventFilter(
 
     xcb_key_press_event_t *kev = Q_NULLPTR;
 
+    qDebug() << qTRACE_VAR(a_eventType);
+
     if (a_eventType == "xcb_generic_event_t") {
         xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(a_message);
+        qDebug() << qTRACE_VAR(event->response_type);
         if ((event->response_type & 127) == XCB_KEY_PRESS) {
             kev = static_cast<xcb_key_press_event_t *>(a_message);
         }
