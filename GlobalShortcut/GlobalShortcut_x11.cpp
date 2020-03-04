@@ -34,7 +34,7 @@ class QxtX11ErrorHandler
 public:
     QxtX11ErrorHandler()
     {
-        error = false;
+        error                 = false;
         _previousErrorHandler = ::XSetErrorHandler(qxtX11ErrorHandler);
     }
 
@@ -73,7 +73,7 @@ public:
     }
 
 private:
-    X11ErrorHandler _previousErrorHandler;
+    X11ErrorHandler _previousErrorHandler {};
 };
 //-------------------------------------------------------------------------------------------------
 bool QxtX11ErrorHandler::error = false;
