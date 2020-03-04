@@ -24,8 +24,8 @@ namespace qtlib
 namespace
 {
 
-const QVector<quint32> maskModifiers = QVector<quint32>() << 0 << Mod2Mask << LockMask
-                                                          << (Mod2Mask | LockMask);
+const QVector<quint32> maskModifiers =
+    QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
 
 typedef int (* X11ErrorHandler)(Display *display, XErrorEvent *event);
 //-------------------------------------------------------------------------------------------------
