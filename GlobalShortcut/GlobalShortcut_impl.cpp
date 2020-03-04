@@ -26,21 +26,21 @@ namespace qtlib
 namespace
 {
 
-const Qt::Key               keyUnknown  = static_cast<Qt::Key>(0);
-const Qt::KeyboardModifiers modsUnknown = static_cast<Qt::KeyboardModifiers>(0);
+const Qt::Key               keyUnknown  {};
+const Qt::KeyboardModifiers modsUnknown {};
 
 }
 //-------------------------------------------------------------------------------------------------
 #if !defined(Q_OS_DARWIN)
-    int GlobalShortcut_impl::ref = 0;
+    int GlobalShortcut_impl::ref {};
 #endif
 
 QHash<QPair<quint32, quint32>, GlobalShortcut *> GlobalShortcut_impl::_shortcuts;
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::GlobalShortcut_impl() :
-    enabled(true),
-    key    (keyUnknown),
-    mods   (modsUnknown)
+    enabled{true},
+    key    {keyUnknown},
+    mods   {modsUnknown}
 {
 #if !defined(Q_OS_DARWIN)
     if (ref == 0) {
@@ -92,7 +92,7 @@ GlobalShortcut_impl::setShortcut(
 bool
 GlobalShortcut_impl::unsetShortcut()
 {
-    bool bRv = false;
+    bool bRv {};
 
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
