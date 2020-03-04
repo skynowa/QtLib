@@ -6,7 +6,13 @@
 
 #include "GlobalShortcut_impl.h"
 
-/// #include <qpa/qplatformnativeinterface.h>
+// Qt 5.11.1: don't supprt Qt Platform Abstraction (QPA)
+#define QT_QPA 0
+
+#if QT_QPA
+#include <qpa/qplatformnativeinterface.h>
+#endif
+
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
 
@@ -77,16 +83,25 @@ class QxtX11Data
 public:
     QxtX11Data()
     {
+    #if QT_QPA
         QPlatformNativeInterface *native  = qApp->platformNativeInterface();
-        /// void                     *display = native->nativeResourceForScreen(QByteArray("display"),
-        ///     QGuiApplication::primaryScreen());
-        /// _display = reinterpret_cast<Display *>(display);
+        void                     *display = native->nativeResourceForScreen(QByteArray("display"),
+             QGuiApplication::primaryScreen());
+        _display = reinterpret_cast<Display *>(display);
+    #else
+        char *displayName {};  // could be the value of $DISPLAY
+
+        _display = ::XOpenDisplay(displayName);
+        if (_display == nullptr) {
+            qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
+        }
+    #endif
     }
 
     bool
     isValid()
     {
-        return _display != Q_NULLPTR;
+        return (_display != Q_NULLPTR);
     }
 
     Display *
@@ -143,7 +158,7 @@ public:
     }
 
 private:
-    Display *_display;
+    Display *_display {};
 };
 //-------------------------------------------------------------------------------------------------
 
