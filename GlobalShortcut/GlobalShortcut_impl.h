@@ -29,7 +29,7 @@ public:
                    GlobalShortcut_impl();
     virtual       ~GlobalShortcut_impl();
 
-    bool           enabled;
+    bool           enabled {};
     Qt::Key        key;
     Qt::KeyboardModifiers mods;
 

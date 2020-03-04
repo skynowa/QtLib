@@ -49,6 +49,9 @@ public:
         XErrorEvent *a_event
     )
     {
+        qTEST_PTR(a_display);
+        qTEST_PTR(a_event);
+
         switch (a_event->error_code) {
         case BadAccess:
         case BadValue:
@@ -60,7 +63,7 @@ public:
                 error = true;
 
                 // TODO:
-                char errorText[255 + 1] = {0};
+                char errorText[255 + 1] {0};
                 ::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
                 qDebug() << "QxtX11ErrorHandler: " << errorText;
@@ -132,7 +135,7 @@ public:
         for (int i = 0; !errorHandler.error && i < maskModifiers.size(); ++ i) {
             iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
                 GrabModeAsync, GrabModeAsync);
-             qTEST(iRv == 0);
+             // qTEST(iRv == 0);
         }
 
         if (errorHandler.error) {
@@ -155,7 +158,7 @@ public:
         int iRv {};
         QxtX11ErrorHandler errorHandler;
 
-        Q_FOREACH(quint32 maskMods, maskModifiers) {
+        for (auto &maskMods : maskModifiers) {
             iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
             qTEST(iRv == 0);
         }
@@ -178,9 +181,13 @@ GlobalShortcut_impl::nativeEventFilter(
     long             *a_result
 )
 {
+    qTEST(a_eventType.size() > 0);
+    qTEST_PTR(a_message);
+    qTEST_PTR(a_result);
+
     Q_UNUSED(a_result);
 
-    xcb_key_press_event_t *kev = Q_NULLPTR;
+    xcb_key_press_event_t *kev {};
 
     qDebug() << qTRACE_VAR(a_eventType);
 
@@ -223,7 +230,7 @@ GlobalShortcut_impl::nativeModifiers(
 )
 {
     // ShiftMask, LockMask, ControlMask, Mod1Mask, Mod2Mask, Mod3Mask, Mod4Mask, and Mod5Mask
-    quint32 native = 0;
+    quint32 native {};
 
     if (a_modifiers & Qt::ShiftModifier) {
         native |= ShiftMask;
@@ -253,7 +260,7 @@ GlobalShortcut_impl::nativeKeycode(
 {
     QxtX11Data x11;
     if ( !x11.isValid() ) {
-        return 0;
+        return {};
     }
 
     KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
@@ -272,7 +279,15 @@ GlobalShortcut_impl::registerShortcut(
 {
     QxtX11Data x11;
 
-    return x11.isValid() && x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow());
+    if ( !x11.isValid() ) {
+        return false;
+    }
+
+    if ( !x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+        return false;
+    }
+
+    return true;
 }
 //-------------------------------------------------------------------------------------------------
 bool
@@ -283,7 +298,15 @@ GlobalShortcut_impl::unregisterShortcut(
 {
     QxtX11Data x11;
 
-    return x11.isValid() && x11.ungrabKey(a_nativeKey, a_nativeMods, x11.rootWindow());
+    if ( !x11.isValid() ) {
+        return false;
+    }
+
+    if ( !x11.ungrabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+        return false;
+    }
+
+    return true;
 }
 //-------------------------------------------------------------------------------------------------
 
