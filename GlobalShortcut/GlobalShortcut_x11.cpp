@@ -137,6 +137,9 @@ public:
         return DefaultRootWindow(display());
     }
 
+    /**
+     * http://incise.org/xlib-key-passing.html
+     */
     bool
     grabKey(
         quint32 a_keycode,
