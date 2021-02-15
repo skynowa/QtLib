@@ -179,7 +179,7 @@ qTYPEDEF_CONST(QSqlDatabase);
             cqint64 mByte = 1000 * 1000; \
             qtlib::Utils::debugTest(#expression, __FILE__, __LINE__, __FUNCTION__, mByte); \
             Q_ASSERT(expression); \
-            std::exit(EXIT_FAILURE); \
+            /* std::exit(EXIT_FAILURE); */ \
         }
 
     #define qTEST_PTR(expression) \
