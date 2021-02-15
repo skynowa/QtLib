@@ -115,7 +115,7 @@ GlobalShortcut_impl::nativeKeycode(
         keysym = static_cast<ushort>(a_key);
     }
 
-    return ::XKeysymToKeycode(x11.display(), keysym);
+    return x11.keysymToKeycode(keysym);
 }
 //-------------------------------------------------------------------------------------------------
 bool

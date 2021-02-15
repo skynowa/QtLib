@@ -48,6 +48,8 @@ QxtX11Data::QxtX11Data()
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
 #endif
+
+    _rootWindow = DefaultRootWindow(_display);
 }
 //--------------------------------------------------------------------------------------------------
 bool
@@ -56,18 +58,12 @@ QxtX11Data::isValid()
 	return (_display != Q_NULLPTR);
 }
 //--------------------------------------------------------------------------------------------------
-Display *
-QxtX11Data::display()
+KeyCode
+QxtX11Data::keysymToKeycode(
+    KeySym a_keysym
+)
 {
-	qTEST(isValid());
-
-	return _display;
-}
-//--------------------------------------------------------------------------------------------------
-Window
-QxtX11Data::rootWindow()
-{
-	return DefaultRootWindow(display());
+    return ::XKeysymToKeycode(_display, a_keysym);
 }
 //--------------------------------------------------------------------------------------------------
 /**
@@ -79,13 +75,11 @@ QxtX11Data::grabKey(
     quint32 a_modifiers
 )
 {
-    const Window window = rootWindow();
-
 	QxtX11ErrorHandler errorHandler;
 	qDebug() << "grabKey 1: " << qTRACE_VAR(errorHandler.isError);
 
 	for (int i = 0; !errorHandler.isError && i < maskModifiers.size(); ++ i) {
-        int iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], window, True,
+        int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | maskModifiers[i], _rootWindow, True,
 			GrabModeAsync, GrabModeAsync);
 		// qTEST(iRv == 0);
 		// if (iRv != 0) {
@@ -110,12 +104,10 @@ QxtX11Data::ungrabKey(
     quint32 a_modifiers
 )
 {
-    const Window window = rootWindow();
-
 	QxtX11ErrorHandler errorHandler;
 
 	for (const auto &maskMods : maskModifiers) {
-        int iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, window);
+        int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | maskMods, _rootWindow);
 		if (iRv != 0) {
 			qDebug() << "XUngrabKey: " << qTRACE_VAR(iRv);
 		}

@@ -20,14 +20,15 @@ public:
     QxtX11Data();
 
     bool     isValid();
-    Display *display();
-    Window   rootWindow();
+
+    KeyCode  keysymToKeycode(KeySym keysym);
 
     bool     grabKey(quint32 keycode, quint32 modifiers);
     bool     ungrabKey(quint32 keycode, quint32 modifiers);
 
 private:
     Display *_display {};
+    Window   _rootWindow {};
 };
 
 } // namespace qtlib
