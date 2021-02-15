@@ -44,18 +44,26 @@ const QVector<quint32> maskModifiers =
 class QxtX11ErrorHandler
 {
 public:
+    static Bool isError;
+
     QxtX11ErrorHandler()
     {
-        error                 = false;
-        _previousErrorHandler = ::XSetErrorHandler(qxtX11ErrorHandler);
+        isError = False;
+
+        _errorHandlerLast = ::XSetErrorHandler(qxtX11ErrorHandler);
+        qTEST_PTR(_errorHandlerLast);
     }
 
     ~QxtX11ErrorHandler()
     {
-        ::XSetErrorHandler(_previousErrorHandler);
+        x11_error_handler_t errorHandlerLast = ::XSetErrorHandler(_errorHandlerLast);
+        qTEST_PTR(errorHandlerLast);
     }
 
-    static bool error;
+private:
+    using x11_error_handler_t = std::add_pointer<Bool(Display *display, XErrorEvent *event)>::type;
+
+    x11_error_handler_t _errorHandlerLast {};
 
     static int
     qxtX11ErrorHandler(
@@ -63,8 +71,19 @@ public:
         XErrorEvent *a_event
     )
     {
+        qDebug() << "::::: " << __FUNCTION__ << " :::::ы";
+
         qTEST_PTR(a_display);
         qTEST_PTR(a_event);
+
+        if (a_event->error_code == Success) {
+            isError = False;
+            qDebug() << "Success";
+            return 0;
+        }
+
+        isError = True;
+        errorText(a_display, a_event);
 
         switch (a_event->error_code) {
         case BadAccess:
@@ -74,26 +93,34 @@ public:
             if (a_event->request_code == 33 /* X_GrabKey */ ||
                 a_event->request_code == 34 /* X_UngrabKey */)
             {
-                error = true;
-
-                // TODO:
-                char errorText[255 + 1] {0};
-                ::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
-
-                qDebug() << "QxtX11ErrorHandler: " << errorText;
+                ///
             }
         }
 
-        return 0;
+        return 1;
     }
 
-private:
-    using X11ErrorHandler = std::add_pointer<int(Display *display, XErrorEvent *event)>::type;
+    static
+    void errorText(
+        Display     *a_display,
+        XErrorEvent *a_event
+    )
+    {
+        char errorText[255 + 1] {};
+        ::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
-    X11ErrorHandler _previousErrorHandler {};
+        // could be the value of $DISPLAY or nullptr
+        const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
+                                        .toStdString().c_str();
+
+        qDebug() << "QxtX11ErrorHandler: "
+            << "Dispaly: " << ::XDisplayName(displayName) << "\n"
+            << "Error:   " << a_event->error_code << " - " << errorText << "\n"
+            << "Event: "   << a_event->type;
+    }
 };
 //-------------------------------------------------------------------------------------------------
-bool QxtX11ErrorHandler::error = false;
+Bool QxtX11ErrorHandler::isError {False};
 
 class QxtX11Data
 {
@@ -110,10 +137,13 @@ public:
         const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
                                         .toStdString().c_str();
 
-        _display = ::XOpenDisplay(displayName);
+        /// _display = ::XOpenDisplay(displayName);
+        _display = ::XOpenDisplay(NULL);
         if (_display == nullptr) {
             qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
         }
+
+
     #endif
     }
 
@@ -147,12 +177,11 @@ public:
         Window  a_window
     )
     {
-        int  iRv {};
-        bool bRv {};
         QxtX11ErrorHandler errorHandler;
+        qDebug() << "grabKey 1: " << qTRACE_VAR(errorHandler.isError);
 
-        for (int i = 0; !errorHandler.error && i < maskModifiers.size(); ++ i) {
-            iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
+        for (int i = 0; !errorHandler.isError && i < maskModifiers.size(); ++ i) {
+            int iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
                 GrabModeAsync, GrabModeAsync);
             // qTEST(iRv == 0);
             // if (iRv != 0) {
@@ -160,8 +189,9 @@ public:
             // }
         }
 
-        if (errorHandler.error) {
-            bRv = ungrabKey(a_keycode, a_modifiers, a_window);
+        qDebug() << "grabKey 2: " << qTRACE_VAR(errorHandler.isError);
+        if (errorHandler.isError) {
+            bool bRv = ungrabKey(a_keycode, a_modifiers, a_window);
             qTEST(bRv);
 
             return false;
@@ -177,15 +207,17 @@ public:
         Window  a_window
     )
     {
-        int iRv {};
         QxtX11ErrorHandler errorHandler;
 
-        for (auto &maskMods : maskModifiers) {
-            iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
-            qTEST(iRv == 0);
+        for (const auto &maskMods : maskModifiers) {
+            int iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
+            if (iRv != 0) {
+                qDebug() << "XUngrabKey: " << qTRACE_VAR(iRv);
+            }
+            /// qTEST(iRv == 0);
         }
 
-        return !errorHandler.error;
+        return !errorHandler.isError;
     }
 
 private:
@@ -306,12 +338,16 @@ GlobalShortcut_impl::registerShortcut(
     QxtX11Data x11;
 
     if ( !x11.isValid() ) {
+        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
     if ( !x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
+
+    qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }
@@ -325,12 +361,16 @@ GlobalShortcut_impl::unregisterShortcut(
     QxtX11Data x11;
 
     if ( !x11.isValid() ) {
+        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
     if ( !x11.ungrabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
+
+    qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }
