@@ -23,8 +23,8 @@ public:
     Display *display();
     Window   rootWindow();
 
-    bool     grabKey(quint32 keycode, quint32 modifiers, Window window);
-    bool     ungrabKey(quint32 keycode, quint32 modifiers, Window window);
+    bool     grabKey(quint32 keycode, quint32 modifiers);
+    bool     ungrabKey(quint32 keycode, quint32 modifiers);
 
 private:
     Display *_display {};

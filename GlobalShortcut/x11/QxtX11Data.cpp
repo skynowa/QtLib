@@ -76,15 +76,16 @@ QxtX11Data::rootWindow()
 bool
 QxtX11Data::grabKey(
 	quint32 a_keycode,
-	quint32 a_modifiers,
-	Window  a_window
+    quint32 a_modifiers
 )
 {
+    const Window window = rootWindow();
+
 	QxtX11ErrorHandler errorHandler;
 	qDebug() << "grabKey 1: " << qTRACE_VAR(errorHandler.isError);
 
 	for (int i = 0; !errorHandler.isError && i < maskModifiers.size(); ++ i) {
-		int iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], a_window, True,
+        int iRv = ::XGrabKey(display(), a_keycode, a_modifiers | maskModifiers[i], window, True,
 			GrabModeAsync, GrabModeAsync);
 		// qTEST(iRv == 0);
 		// if (iRv != 0) {
@@ -94,7 +95,7 @@ QxtX11Data::grabKey(
 
 	qDebug() << "grabKey 2: " << qTRACE_VAR(errorHandler.isError);
 	if (errorHandler.isError) {
-		bool bRv = ungrabKey(a_keycode, a_modifiers, a_window);
+        bool bRv = ungrabKey(a_keycode, a_modifiers);
 		qTEST(bRv);
 
 		return false;
@@ -106,14 +107,15 @@ QxtX11Data::grabKey(
 bool
 QxtX11Data::ungrabKey(
 	quint32 a_keycode,
-	quint32 a_modifiers,
-	Window  a_window
+    quint32 a_modifiers
 )
 {
+    const Window window = rootWindow();
+
 	QxtX11ErrorHandler errorHandler;
 
 	for (const auto &maskMods : maskModifiers) {
-		int iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, a_window);
+        int iRv = ::XUngrabKey(display(), a_keycode, a_modifiers | maskMods, window);
 		if (iRv != 0) {
 			qDebug() << "XUngrabKey: " << qTRACE_VAR(iRv);
 		}

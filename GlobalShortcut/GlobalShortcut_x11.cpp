@@ -134,7 +134,7 @@ GlobalShortcut_impl::registerShortcut(
         return false;
     }
 
-    if ( !x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+    if ( !x11.grabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
@@ -157,7 +157,7 @@ GlobalShortcut_impl::unregisterShortcut(
         return false;
     }
 
-    if ( !x11.ungrabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
+    if ( !x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
