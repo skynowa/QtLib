@@ -42,8 +42,8 @@ QxtX11Data::QxtX11Data()
 	const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
 									.toStdString().c_str();
 
-	/// _display = ::XOpenDisplay(displayName);
-	_display = ::XOpenDisplay(NULL);
+    _display = ::XOpenDisplay(displayName);
+    /// _display = ::XOpenDisplay(NULL);
 	if (_display == nullptr) {
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
@@ -63,7 +63,10 @@ QxtX11Data::keysymToKeycode(
     KeySym a_keysym
 )
 {
-    return ::XKeysymToKeycode(_display, a_keysym);
+    const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
+    qTEST(keyCode != 0);
+
+    return keyCode;
 }
 //--------------------------------------------------------------------------------------------------
 /**
