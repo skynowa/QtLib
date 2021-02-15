@@ -6,6 +6,8 @@
 
 #include "QxtX11Data.h"
 
+#include <QProcessEnvironment>
+#include "QxtX11ErrorHandler.h"
 
 namespace qtlib
 {
@@ -45,8 +47,6 @@ QxtX11Data::QxtX11Data()
 	if (_display == nullptr) {
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
-
-
 #endif
 }
 //--------------------------------------------------------------------------------------------------
@@ -71,8 +71,8 @@ QxtX11Data::rootWindow()
 }
 //--------------------------------------------------------------------------------------------------
 /**
-	* http://incise.org/xlib-key-passing.html
-	*/
+ * http://incise.org/xlib-key-passing.html
+ */
 bool
 QxtX11Data::grabKey(
 	quint32 a_keycode,

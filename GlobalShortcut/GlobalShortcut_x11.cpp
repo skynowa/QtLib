@@ -13,10 +13,6 @@
 #include <qpa/qplatformnativeinterface.h>
 #endif
 
-#include <X11/Xlib.h>
-#include <xcb/xcb.h>
-#include <QProcessEnvironment>
-
 #include "x11/QxtX11ErrorHandler.h"
 #include "x11/QxtX11Data.h"
 

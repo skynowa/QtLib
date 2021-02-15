@@ -8,8 +8,9 @@
 
 namespace qtlib
 {
+
 //-------------------------------------------------------------------------------------------------
-Bool QxtX11ErrorHandler::isError {False};
+int QxtX11ErrorHandler::isError {};
 //-------------------------------------------------------------------------------------------------
 QxtX11ErrorHandler::QxtX11ErrorHandler()
 {
