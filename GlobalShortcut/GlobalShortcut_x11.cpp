@@ -47,12 +47,12 @@ public:
     QxtX11ErrorHandler()
     {
         error                 = false;
-        _errorHandlerLast = ::XSetErrorHandler(qxtX11ErrorHandler);
+        _previousErrorHandler = ::XSetErrorHandler(qxtX11ErrorHandler);
     }
 
     ~QxtX11ErrorHandler()
     {
-        ::XSetErrorHandler(_errorHandlerLast);
+        ::XSetErrorHandler(_previousErrorHandler);
     }
 
     static bool error;
@@ -90,7 +90,7 @@ public:
 private:
     using X11ErrorHandler = std::add_pointer<int(Display *display, XErrorEvent *event)>::type;
 
-    X11ErrorHandler _errorHandlerLast {};
+    X11ErrorHandler _previousErrorHandler {};
 };
 //-------------------------------------------------------------------------------------------------
 bool QxtX11ErrorHandler::error = false;
