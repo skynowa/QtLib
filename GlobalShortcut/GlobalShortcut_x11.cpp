@@ -130,16 +130,16 @@ GlobalShortcut_impl::registerShortcut(
     QxtX11Data x11;
 
     if ( !x11.isValid() ) {
-        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
     if ( !x11.grabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
-        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
-    qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - OK";
+    qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }
@@ -153,16 +153,16 @@ GlobalShortcut_impl::unregisterShortcut(
     QxtX11Data x11;
 
     if ( !x11.isValid() ) {
-        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
     if ( !x11.ungrabKey(a_nativeKey, a_nativeMods, x11.rootWindow()) ) {
-        qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
 
-    qDebug() << qTRACE_VAR(__FUNCTION__) << ": " << qTRACE_VAR(__LINE__) << " - OK";
+    qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }

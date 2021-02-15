@@ -33,7 +33,7 @@ QxtX11ErrorHandler::qxtX11ErrorHandler(
 	XErrorEvent *a_event
 )
 {
-	qDebug() << "::::: " << __FUNCTION__ << " :::::ы";
+    qDebug() << "::::: " << __FUNCTION__ << " :::::";
 
 	qTEST_PTR(a_display);
 	qTEST_PTR(a_event);
