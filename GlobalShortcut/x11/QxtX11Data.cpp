@@ -71,6 +71,9 @@ QxtX11Data::grabKey(
     quint32 a_modifiers
 )
 {
+    qTEST(a_keycode > 0);
+    /// qTEST(a_modifiers > 0);
+
 #if 0
     for (int i = 0; !_errorHandler.isError && i < maskModifiers.size(); ++ i) {
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | maskModifiers[i], _rootWindow, True,
@@ -111,6 +114,9 @@ QxtX11Data::ungrabKey(
     quint32 a_modifiers
 )
 {
+    qTEST(a_keycode > 0);
+    /// qTEST(a_modifiers > 0);
+
 	for (const auto &maskMods : maskModifiers) {
         int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | maskMods, _rootWindow);
 		if (iRv != 0) {
