@@ -114,7 +114,7 @@ GlobalShortcut_impl::_register(
     /// qTEST(a_nativeMods > 0);
 
     if ( !_x11.grabKey(a_nativeKey, a_nativeMods) ) {
-        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qTEST(false);
         return false;
     }
 
@@ -130,7 +130,7 @@ GlobalShortcut_impl::_unregister(
 )
 {
     if ( !_x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
-        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
+        qTEST(false);
         return false;
     }
 
