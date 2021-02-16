@@ -13,6 +13,7 @@
 #include <QAbstractNativeEventFilter>
 
 #include "GlobalShortcut.h"
+#include "x11/QxtX11Data.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
