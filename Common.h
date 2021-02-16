@@ -169,8 +169,10 @@ qTYPEDEF_CONST(QSqlDatabase);
 #endif
 //-------------------------------------------------------------------------------------------------
 // debug variables, trace variable and value
-#define  qTRACE_VAR(v) \
+#define qTRACE_VAR(v) \
                 #v":" << (v)
+#define qTRACE_FUNC \
+                qDebug() << "::::: " << __FUNCTION__ << " :::::"
 //-------------------------------------------------------------------------------------------------
 // custom assert
 #if qTEST_IS_USED
