@@ -86,7 +86,7 @@ QxtX11Data::grabKey(
 		// }
 	}
 #else
-    KeyCode F = XKeysymToKeycode(_display, XStringToKeysym("F3"));
+    const KeyCode F = XKeysymToKeycode(_display, XStringToKeysym("F3"));
 
     int iRv = XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, True,
         GrabModeAsync, GrabModeAsync);
