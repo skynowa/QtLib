@@ -1,6 +1,9 @@
 /**
  * \file
  * \brief
+ *
+ * http://incise.org/xlib-key-passing.html
+ * https://github.com/kupferlauncher/keybinder
  */
 
 
