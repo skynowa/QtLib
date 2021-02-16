@@ -16,11 +16,13 @@ DEPENDPATH += \
 HEADERS += \
     $$PWD/Global.h \
     $$PWD/GlobalShortcut.h \
+    $$PWD/ShortcutActivator.h \
     $$PWD/x11/QxtX11ErrorHandler.h \
     $$PWD/x11/QxtX11Data.h
 
 SOURCES += \
     $$PWD/GlobalShortcut.cpp \
+    $$PWD/ShortcutActivator.cpp \
     $$PWD/x11/QxtX11ErrorHandler.cpp \
     $$PWD/x11/QxtX11Data.cpp
 
