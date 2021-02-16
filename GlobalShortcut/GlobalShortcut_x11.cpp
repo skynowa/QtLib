@@ -110,15 +110,13 @@ GlobalShortcut_impl::_register(
     quint32 a_nativeMods
 )
 {
-    /// qTEST(a_nativeKey > 0);
+    qTEST(a_nativeKey > 0);
     /// qTEST(a_nativeMods > 0);
 
     if ( !_x11.grabKey(a_nativeKey, a_nativeMods) ) {
         qTEST(false);
         return false;
     }
-
-    qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }
@@ -129,12 +127,13 @@ GlobalShortcut_impl::_unregister(
     quint32 a_nativeMods
 )
 {
+    qTEST(a_nativeKey > 0);
+    /// qTEST(a_nativeMods > 0);
+
     if ( !_x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
         qTEST(false);
         return false;
     }
-
-    qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - OK";
 
     return true;
 }
