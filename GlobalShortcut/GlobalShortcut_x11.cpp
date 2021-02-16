@@ -11,6 +11,8 @@ namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
+#if 0 && !defined(Q_OS_DARWIN)
+
 bool
 GlobalShortcut_impl::nativeEventFilter(
     const QByteArray &a_eventType,
@@ -60,6 +62,8 @@ GlobalShortcut_impl::nativeEventFilter(
 
     return false;
 }
+
+#endif
 //-------------------------------------------------------------------------------------------------
 quint32
 GlobalShortcut_impl::nativeModifiers(

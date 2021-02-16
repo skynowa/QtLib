@@ -31,7 +31,7 @@ const Qt::KeyboardModifiers modsUnknown {};
 
 }
 //-------------------------------------------------------------------------------------------------
-#if !defined(Q_OS_DARWIN)
+#if 0 && !defined(Q_OS_DARWIN)
     int GlobalShortcut_impl::ref {};
 #endif
 
@@ -42,7 +42,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
     key    {keyUnknown},
     mods   {modsUnknown}
 {
-#if !defined(Q_OS_DARWIN)
+#if 0 && !defined(Q_OS_DARWIN)
     if (ref == 0) {
         QAbstractEventDispatcher::instance()->installNativeEventFilter(this);
     }
@@ -53,7 +53,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::~GlobalShortcut_impl()
 {
-#if !defined(Q_OS_DARWIN)
+#if 0 && !defined(Q_OS_DARWIN)
     -- ref;
 
     if (ref == 0) {
