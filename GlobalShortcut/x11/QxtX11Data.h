@@ -1,7 +1,11 @@
 /**
- * \file
+ * \file  QxtX11Data.h
  * \brief
+ *
+ * http://incise.org/xlib-key-passing.html
+ * https://github.com/kupferlauncher/keybinder
  */
+
 
 
 #pragma once

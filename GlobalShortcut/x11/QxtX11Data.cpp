@@ -1,9 +1,6 @@
 /**
- * \file
+ * \file  QxtX11Data.cpp
  * \brief
- *
- * http://incise.org/xlib-key-passing.html
- * https://github.com/kupferlauncher/keybinder
  */
 
 
