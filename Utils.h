@@ -92,7 +92,7 @@ private:
 };
 
 #define qTRACE_SCOPE(s) qtlib::AutoTrace autoLog(s)
-#define qTRACE_FUNCTION qTRACE_SCOPE(__FUNCTION__)
+#define qTRACE_SCOPE_FUNC qTRACE_SCOPE(__FUNCTION__)
 
 } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
