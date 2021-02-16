@@ -29,7 +29,7 @@ GlobalShortcut_impl::nativeEventFilter(
     // qDebug() << qTRACE_VAR(a_eventType);
 
     if (a_eventType == "xcb_generic_event_t") {
-        xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(a_message);
+        auto *event = static_cast<xcb_generic_event_t *>(a_message);
         // qDebug() << qTRACE_VAR(event->response_type);
         if ((event->response_type & 127) == XCB_KEY_PRESS) {
             kev = static_cast<xcb_key_press_event_t *>(a_message);
