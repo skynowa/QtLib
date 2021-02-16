@@ -48,7 +48,7 @@ QxtX11Data::QxtX11Data()
 //--------------------------------------------------------------------------------------------------
 QxtX11Data::~QxtX11Data()
 {
-    if (_display != nullptr) {}
+    if (_display != nullptr) {
         ::XCloseDisplay(_display);
         _display = nullptr;
     }
