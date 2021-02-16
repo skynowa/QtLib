@@ -59,7 +59,7 @@ GlobalShortcut::GlobalShortcut(
 {
     QTLIB_INIT_PRIVATE(GlobalShortcut);
 
-    bool bRv = setShortcut(a_shortcut);
+    bool bRv = set(a_shortcut);
     qTEST(bRv);
 }
 //-------------------------------------------------------------------------------------------------
@@ -89,13 +89,13 @@ GlobalShortcut::~GlobalShortcut()
     \endcode
  */
 QKeySequence
-GlobalShortcut::shortcut() const
+GlobalShortcut::get() const
 {
     return QKeySequence(_impl().key | _impl().mods);
 }
 //-------------------------------------------------------------------------------------------------
 bool
-GlobalShortcut::setShortcut(
+GlobalShortcut::set(
     const QKeySequence &a_shortcut
 )
 {

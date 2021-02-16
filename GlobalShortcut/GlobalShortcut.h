@@ -24,8 +24,8 @@ public:
     explicit     GlobalShortcut(const QKeySequence &shortcut, QObject *parent = Q_NULLPTR);
     virtual     ~GlobalShortcut();
 
-    QKeySequence shortcut() const;
-    bool         setShortcut(const QKeySequence &shortcut);
+    QKeySequence get() const;
+    bool         set(const QKeySequence &shortcut);
 
     bool         isEnabled() const;
 
@@ -41,7 +41,7 @@ private:
     QTLIB_DECLARE_PRIVATE(GlobalShortcut)
 
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
-    Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
+    Q_PROPERTY(QKeySequence shortcut READ get WRITE set)
 };
 
 } // namespace qtlib
