@@ -106,7 +106,7 @@ GlobalShortcut_impl::nativeKeycode(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-GlobalShortcut_impl::registerShortcut(
+GlobalShortcut_impl::_register(
     quint32 a_nativeKey,
     quint32 a_nativeMods
 )
@@ -125,7 +125,7 @@ GlobalShortcut_impl::registerShortcut(
 }
 //-------------------------------------------------------------------------------------------------
 bool
-GlobalShortcut_impl::unregisterShortcut(
+GlobalShortcut_impl::_unregister(
     quint32 a_nativeKey,
     quint32 a_nativeMods
 )

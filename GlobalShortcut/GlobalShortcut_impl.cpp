@@ -79,7 +79,7 @@ GlobalShortcut_impl::setShortcut(
     const quint32 nativeKey  = nativeKeycode(key);
     const quint32 nativeMods = nativeModifiers(mods);
 
-    const bool bRv = registerShortcut(nativeKey, nativeMods);
+    const bool bRv = _register(nativeKey, nativeMods);
     if (bRv) {
         _shortcuts.insert(qMakePair(nativeKey, nativeMods), &get());
     } else {
@@ -98,7 +98,7 @@ GlobalShortcut_impl::unsetShortcut()
     const quint32 nativeMods = nativeModifiers(mods);
 
     if (_shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
-        bRv = unregisterShortcut(nativeKey, nativeMods);
+        bRv = _unregister(nativeKey, nativeMods);
     }
 
     if (bRv) {

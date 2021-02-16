@@ -51,8 +51,8 @@ private:
     quint32 nativeKeycode(Qt::Key keycode);
     static quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
 
-    bool           registerShortcut(quint32 nativeKey, quint32 nativeMods);
-    bool           unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
+    bool           _register(quint32 nativeKey, quint32 nativeMods);
+    bool           _unregister(quint32 nativeKey, quint32 nativeMods);
 
 private:
 #if defined(Q_OS_UNIX)
