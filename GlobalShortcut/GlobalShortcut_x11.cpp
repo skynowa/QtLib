@@ -37,8 +37,8 @@ GlobalShortcut_impl::nativeEventFilter(
     }
 
     if (kev != Q_NULLPTR) {
-        unsigned int keycode  = kev->detail;
-        unsigned int keystate = 0;
+        unsigned int keycode  {kev->detail};
+        unsigned int keystate {0};
 
         if (kev->state & XCB_MOD_MASK_1) {
             keystate |= Mod1Mask;
