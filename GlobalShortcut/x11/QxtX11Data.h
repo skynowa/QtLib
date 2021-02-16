@@ -27,9 +27,8 @@ public:
     bool     ungrabKey(quint32 keycode, quint32 modifiers);
 
 private:
-    Display *_display {};
-    Window   _rootWindow {};
-
+    Display           *_display {};
+    Window             _rootWindow {};
     QxtX11ErrorHandler _errorHandler;
 };
 
