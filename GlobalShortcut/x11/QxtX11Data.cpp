@@ -91,11 +91,11 @@ QxtX11Data::grabKey(
     int iRv = XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, True,
         GrabModeAsync, GrabModeAsync);
     // qTEST(iRv == 0);
-    // if (iRv != 0) {
+    if (iRv != 0) {
         qDebug()
             << "XGrabKey: " << qTRACE_VAR(iRv)
             << qTRACE_VAR(_errorHandler.isError);
-    // }
+    }
 #endif
 
     if (_errorHandler.isError) {
