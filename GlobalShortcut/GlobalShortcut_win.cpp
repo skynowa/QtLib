@@ -17,7 +17,7 @@ GlobalShortcut_impl::nativeEventFilter(
     const QByteArray &eventType,
     void             *message,
     long             *result
-)
+) /* override */
 {
     Q_UNUSED(eventType);
     Q_UNUSED(result);
