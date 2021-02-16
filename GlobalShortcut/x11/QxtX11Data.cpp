@@ -10,7 +10,6 @@
 #include "QxtX11Data.h"
 
 #include <QProcessEnvironment>
-#include "QxtX11ErrorHandler.h"
 
 namespace qtlib
 {
