@@ -25,7 +25,7 @@ GlobalShortcut_impl::nativeEventFilter(
     const QByteArray &a_eventType,
     void             *a_message,
     long             *a_result
-)
+) /* override */
 {
     qTEST(a_eventType.size() > 0);
     qTEST_PTR(a_message);
