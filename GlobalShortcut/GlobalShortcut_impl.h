@@ -43,7 +43,6 @@ public:
     bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
 #endif
 
-    static
     void activateShortcut(quint32 nativeKey, quint32 nativeMods);
 
 private:

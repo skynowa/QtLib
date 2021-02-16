@@ -113,7 +113,6 @@ GlobalShortcut_impl::unsetShortcut()
     return bRv;
 }
 //-------------------------------------------------------------------------------------------------
-/* static */
 void
 GlobalShortcut_impl::activateShortcut(
     quint32 a_nativeKey,
