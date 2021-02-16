@@ -36,7 +36,7 @@ QxtX11Data::QxtX11Data()
 									.toStdString().c_str();
 
     /// _display = ::XOpenDisplay(displayName);
-    _display = ::XOpenDisplay(NULL);
+    _display = ::XOpenDisplay(nullptr);
 	if (_display == nullptr) {
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
@@ -48,7 +48,10 @@ QxtX11Data::QxtX11Data()
 //--------------------------------------------------------------------------------------------------
 QxtX11Data::~QxtX11Data()
 {
-    ::XCloseDisplay(_display);
+    if (_display != nullptr) {}
+        ::XCloseDisplay(_display);
+        _display = nullptr;
+    }
 }
 //--------------------------------------------------------------------------------------------------
 KeyCode
