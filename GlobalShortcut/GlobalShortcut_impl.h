@@ -30,12 +30,14 @@ public:
              GlobalShortcut_impl();
     virtual ~GlobalShortcut_impl();
 
-    bool    enabled {};
-    Qt::Key key {};
-    Qt::KeyboardModifiers mods {};
-
     bool setShortcut(const QKeySequence &shortcut);
     bool unsetShortcut();
+    void activateShortcut(quint32 nativeKey, quint32 nativeMods);
+
+private:
+    bool                  enabled {};
+    Qt::Key               key {};
+    Qt::KeyboardModifiers mods {};
 
 #if !defined(Q_OS_DARWIN)
     static int ref;
@@ -43,9 +45,6 @@ public:
     bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
 #endif
 
-    void activateShortcut(quint32 nativeKey, quint32 nativeMods);
-
-private:
     static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
 
     quint32 nativeKeycode(Qt::Key keycode);
