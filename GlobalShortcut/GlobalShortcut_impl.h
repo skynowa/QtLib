@@ -49,7 +49,7 @@ private:
     static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
 
     quint32 nativeKeycode(Qt::Key keycode);
-    static quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
+    quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
 
     bool           _register(quint32 nativeKey, quint32 nativeMods);
     bool           _unregister(quint32 nativeKey, quint32 nativeMods);

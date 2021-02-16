@@ -61,7 +61,6 @@ GlobalShortcut_impl::nativeEventFilter(
     return false;
 }
 //-------------------------------------------------------------------------------------------------
-/* static */
 quint32
 GlobalShortcut_impl::nativeModifiers(
     Qt::KeyboardModifiers a_modifiers
