@@ -35,7 +35,7 @@ qxt_mac_handle_hot_key(
         GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, Q_NULLPTR, sizeof(keyID), Q_NULLPTR, &keyID);
 
         Identifier id = keyIDs.key(keyID.id);
-        GlobalShortcut_impl::activateShortcut(id.second, id.first);
+        GlobalShortcut_impl::_activateShortcut(id.second, id.first);
     }
 
     return noErr;

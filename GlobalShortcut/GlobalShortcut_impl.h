@@ -56,7 +56,7 @@ private:
     bool    _register(quint32 nativeKey, quint32 nativeMods);
     bool    _unregister(quint32 nativeKey, quint32 nativeMods);
 
-    void    activateShortcut(quint32 nativeKey, quint32 nativeMods);
+    void    _activateShortcut(quint32 nativeKey, quint32 nativeMods);
 };
 
 } // namespace qtlib

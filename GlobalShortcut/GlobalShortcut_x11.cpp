@@ -55,7 +55,7 @@ GlobalShortcut_impl::nativeEventFilter(
             keystate |= ShiftMask;
         }
 
-        activateShortcut(keycode,
+        _activateShortcut(keycode,
             // Mod1Mask == Alt, Mod4Mask == Meta
             keystate & (ShiftMask | ControlMask | Mod1Mask | Mod4Mask));
     }

@@ -27,7 +27,7 @@ GlobalShortcut_impl::nativeEventFilter(
         const quint32 keycode   = HIWORD(msg->lParam);
         const quint32 modifiers = LOWORD(msg->lParam);
 
-        activateShortcut(keycode, modifiers);
+        _activateShortcut(keycode, modifiers);
     }
 
     return false;

@@ -114,7 +114,7 @@ GlobalShortcut_impl::unsetShortcut()
 }
 //-------------------------------------------------------------------------------------------------
 void
-GlobalShortcut_impl::activateShortcut(
+GlobalShortcut_impl::_activateShortcut(
     quint32 a_nativeKey,
     quint32 a_nativeMods
 )
