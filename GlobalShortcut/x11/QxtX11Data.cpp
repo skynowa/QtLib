@@ -44,14 +44,20 @@ QxtX11Data::QxtX11Data()
 	const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
 									.toStdString().c_str();
 
-    _display = ::XOpenDisplay(displayName);
-    /// _display = ::XOpenDisplay(NULL);
+    /// _display = ::XOpenDisplay(displayName);
+    _display = ::XOpenDisplay(NULL);
 	if (_display == nullptr) {
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
 #endif
+    _errorHandler.set();
 
     _rootWindow = DefaultRootWindow(_display);
+}
+//--------------------------------------------------------------------------------------------------
+QxtX11Data::~QxtX11Data()
+{
+    ::XCloseDisplay(_display);
 }
 //--------------------------------------------------------------------------------------------------
 KeyCode
@@ -59,35 +65,43 @@ QxtX11Data::keysymToKeycode(
     KeySym a_keysym
 )
 {
-    const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
+    const KeyCode keyCode = ::XKeysymToKeycode(_display, XStringToKeysym("F3") /*a_keysym*/);
     qTEST(keyCode != 0);
 
     return keyCode;
 }
 //--------------------------------------------------------------------------------------------------
-/**
- * http://incise.org/xlib-key-passing.html
- */
 bool
 QxtX11Data::grabKey(
 	quint32 a_keycode,
     quint32 a_modifiers
 )
 {
-	QxtX11ErrorHandler errorHandler;
-	qDebug() << "grabKey 1: " << qTRACE_VAR(errorHandler.isError);
-
-	for (int i = 0; !errorHandler.isError && i < maskModifiers.size(); ++ i) {
+#if 0
+    for (int i = 0; !_errorHandler.isError && i < maskModifiers.size(); ++ i) {
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | maskModifiers[i], _rootWindow, True,
 			GrabModeAsync, GrabModeAsync);
 		// qTEST(iRv == 0);
 		// if (iRv != 0) {
-			qDebug() << "XGrabKey: " << qTRACE_VAR(iRv);
+            qDebug()
+                << "XGrabKey: " << qTRACE_VAR(iRv)
+                << qTRACE_VAR(_errorHandler.isError);
 		// }
 	}
+#else
+    KeyCode F = XKeysymToKeycode(_display, XStringToKeysym("F3"));
 
-	qDebug() << "grabKey 2: " << qTRACE_VAR(errorHandler.isError);
-	if (errorHandler.isError) {
+    int iRv = XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, True,
+        GrabModeAsync, GrabModeAsync);
+    // qTEST(iRv == 0);
+    // if (iRv != 0) {
+        qDebug()
+            << "XGrabKey: " << qTRACE_VAR(iRv)
+            << qTRACE_VAR(_errorHandler.isError);
+    // }
+#endif
+
+    if (_errorHandler.isError) {
         bool bRv = ungrabKey(a_keycode, a_modifiers);
 		qTEST(bRv);
 
@@ -103,17 +117,17 @@ QxtX11Data::ungrabKey(
     quint32 a_modifiers
 )
 {
-	QxtX11ErrorHandler errorHandler;
-
 	for (const auto &maskMods : maskModifiers) {
         int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | maskMods, _rootWindow);
 		if (iRv != 0) {
-			qDebug() << "XUngrabKey: " << qTRACE_VAR(iRv);
+            qDebug()
+                << "XUngrabKey: " << qTRACE_VAR(iRv)
+                << qTRACE_VAR(_errorHandler.isError);
 		}
 		/// qTEST(iRv == 0);
 	}
 
-	return !errorHandler.isError;
+    return !_errorHandler.isError;
 }
 //-------------------------------------------------------------------------------------------------
 

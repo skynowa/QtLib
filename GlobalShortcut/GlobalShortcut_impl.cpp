@@ -113,14 +113,19 @@ GlobalShortcut_impl::unsetShortcut()
     return bRv;
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 GlobalShortcut_impl::activateShortcut(
     quint32 a_nativeKey,
     quint32 a_nativeMods
 )
 {
+    qTRACE_FUNC;
+
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
+        qDebug() << "Q_EMIT";
+
         Q_EMIT shortcut->sig_activated();
     }
 }

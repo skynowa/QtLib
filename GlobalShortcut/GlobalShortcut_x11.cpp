@@ -13,9 +13,6 @@
 #include <qpa/qplatformnativeinterface.h>
 #endif
 
-#include "x11/QxtX11ErrorHandler.h"
-#include "x11/QxtX11Data.h"
-
 namespace qtlib
 {
 
@@ -70,6 +67,7 @@ GlobalShortcut_impl::nativeEventFilter(
     return false;
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 quint32
 GlobalShortcut_impl::nativeModifiers(
     Qt::KeyboardModifiers a_modifiers
@@ -104,15 +102,13 @@ GlobalShortcut_impl::nativeKeycode(
     Qt::Key a_key
 )
 {
-    QxtX11Data x11;
-
     KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
     if (keysym == NoSymbol) {
         qTEST(false);
         keysym = static_cast<ushort>(a_key);
     }
 
-    return x11.keysymToKeycode(keysym);
+    return _x11.keysymToKeycode(keysym);
 }
 //-------------------------------------------------------------------------------------------------
 bool
@@ -124,9 +120,7 @@ GlobalShortcut_impl::registerShortcut(
     /// qTEST(a_nativeKey > 0);
     /// qTEST(a_nativeMods > 0);
 
-    QxtX11Data x11;
-
-    if ( !x11.grabKey(a_nativeKey, a_nativeMods) ) {
+    if ( !_x11.grabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }
@@ -142,9 +136,7 @@ GlobalShortcut_impl::unregisterShortcut(
     quint32 a_nativeMods
 )
 {
-    QxtX11Data x11;
-
-    if ( !x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
+    if ( !_x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
     }

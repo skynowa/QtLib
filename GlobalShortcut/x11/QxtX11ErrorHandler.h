@@ -18,13 +18,15 @@ namespace qtlib
 class QxtX11ErrorHandler
 {
 public:
-    static int isError;
+    static Bool isError;
 
     QxtX11ErrorHandler();
    ~QxtX11ErrorHandler();
 
+   void set();
+
 private:
-    using x11_error_handler_t = std::add_pointer<int(Display *display, XErrorEvent *event)>::type;
+    using x11_error_handler_t = std::add_pointer<Bool(Display *display, XErrorEvent *event)>::type;
     x11_error_handler_t _errorHandlerLast {};
 
     static

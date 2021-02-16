@@ -10,20 +10,28 @@ namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
-int QxtX11ErrorHandler::isError {};
+Bool QxtX11ErrorHandler::isError {};
 //-------------------------------------------------------------------------------------------------
 QxtX11ErrorHandler::QxtX11ErrorHandler()
 {
 	isError = False;
-
-	_errorHandlerLast = ::XSetErrorHandler(qxtX11ErrorHandler);
-	qTEST_PTR(_errorHandlerLast);
 }
 //-------------------------------------------------------------------------------------------------
 QxtX11ErrorHandler::~QxtX11ErrorHandler()
 {
 	x11_error_handler_t errorHandlerLast = ::XSetErrorHandler(_errorHandlerLast);
 	qTEST_PTR(errorHandlerLast);
+}
+//-------------------------------------------------------------------------------------------------
+void
+QxtX11ErrorHandler::set()
+{
+    qTRACE_FUNC;
+
+    isError = False;
+
+    _errorHandlerLast = ::XSetErrorHandler(qxtX11ErrorHandler);
+    qTEST_PTR(_errorHandlerLast);
 }
 //-------------------------------------------------------------------------------------------------
 /* static  */
@@ -33,7 +41,7 @@ QxtX11ErrorHandler::qxtX11ErrorHandler(
 	XErrorEvent *a_event
 )
 {
-    qDebug() << "::::: " << __FUNCTION__ << " :::::";
+    qTRACE_FUNC;
 
 	qTEST_PTR(a_display);
 	qTEST_PTR(a_event);

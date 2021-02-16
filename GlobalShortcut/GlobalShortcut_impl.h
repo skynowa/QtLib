@@ -37,24 +37,27 @@ public:
     bool           setShortcut(const QKeySequence &shortcut);
     bool           unsetShortcut();
 
-    static bool    error;
-
 #if !defined(Q_OS_DARWIN)
     static int     ref;
 
-    virtual bool   nativeEventFilter(const QByteArray &eventType, void *message, long *result);
+    bool           nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
 #endif
 
     static void    activateShortcut(quint32 nativeKey, quint32 nativeMods);
 
 private:
-    static quint32 nativeKeycode(Qt::Key keycode);
+    static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
+
+    quint32 nativeKeycode(Qt::Key keycode);
     static quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
 
-    static bool    registerShortcut(quint32 nativeKey, quint32 nativeMods);
-    static bool    unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
+    bool           registerShortcut(quint32 nativeKey, quint32 nativeMods);
+    bool           unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
 
-    static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
+private:
+#if defined(Q_OS_UNIX)
+    QxtX11Data _x11;
+#endif
 };
 
 } // namespace qtlib
