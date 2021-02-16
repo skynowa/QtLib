@@ -19,8 +19,6 @@ class QxtX11Data
 public:
     QxtX11Data();
 
-    bool     isValid();
-
     KeyCode  keysymToKeycode(KeySym keysym);
 
     bool     grabKey(quint32 keycode, quint32 modifiers);

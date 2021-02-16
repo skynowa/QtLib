@@ -55,12 +55,6 @@ QxtX11Data::QxtX11Data()
     _rootWindow = DefaultRootWindow(_display);
 }
 //--------------------------------------------------------------------------------------------------
-bool
-QxtX11Data::isValid()
-{
-	return (_display != Q_NULLPTR);
-}
-//--------------------------------------------------------------------------------------------------
 KeyCode
 QxtX11Data::keysymToKeycode(
     KeySym a_keysym

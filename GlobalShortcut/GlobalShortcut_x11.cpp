@@ -105,9 +105,6 @@ GlobalShortcut_impl::nativeKeycode(
 )
 {
     QxtX11Data x11;
-    if ( !x11.isValid() ) {
-        return {};
-    }
 
     KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
     if (keysym == NoSymbol) {
@@ -129,11 +126,6 @@ GlobalShortcut_impl::registerShortcut(
 
     QxtX11Data x11;
 
-    if ( !x11.isValid() ) {
-        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
-        return false;
-    }
-
     if ( !x11.grabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
         return false;
@@ -151,11 +143,6 @@ GlobalShortcut_impl::unregisterShortcut(
 )
 {
     QxtX11Data x11;
-
-    if ( !x11.isValid() ) {
-        qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
-        return false;
-    }
 
     if ( !x11.ungrabKey(a_nativeKey, a_nativeMods) ) {
         qDebug() << __FUNCTION__ << ": " << qTRACE_VAR(__LINE__) << " - FAIL";
