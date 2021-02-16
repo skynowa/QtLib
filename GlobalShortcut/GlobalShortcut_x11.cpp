@@ -6,12 +6,6 @@
 
 #include "GlobalShortcut_impl.h"
 
-// Qt 5.11.1: don't supprt Qt Platform Abstraction (QPA)
-#define QT_QPA 0
-
-#if QT_QPA
-#include <qpa/qplatformnativeinterface.h>
-#endif
 
 namespace qtlib
 {

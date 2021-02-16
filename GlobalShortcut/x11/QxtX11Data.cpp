@@ -34,12 +34,6 @@ const QVector<quint32> maskModifiers =
 //--------------------------------------------------------------------------------------------------
 QxtX11Data::QxtX11Data()
 {
-#if QT_QPA
-	QPlatformNativeInterface *native  = qApp->platformNativeInterface();
-	void                     *display = native->nativeResourceForScreen(QByteArray("display"),
-			QGuiApplication::primaryScreen());
-	_display = reinterpret_cast<Display *>(display);
-#else
 	// could be the value of $DISPLAY or nullptr
 	const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
 									.toStdString().c_str();
@@ -49,7 +43,7 @@ QxtX11Data::QxtX11Data()
 	if (_display == nullptr) {
 		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
 	}
-#endif
+
     _errorHandler.set();
 
     _rootWindow = DefaultRootWindow(_display);
