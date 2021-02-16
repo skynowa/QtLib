@@ -31,8 +31,8 @@ public:
     virtual       ~GlobalShortcut_impl();
 
     bool           enabled {};
-    Qt::Key        key;
-    Qt::KeyboardModifiers mods;
+    Qt::Key        key {};
+    Qt::KeyboardModifiers mods {};
 
     bool           setShortcut(const QKeySequence &shortcut);
     bool           unsetShortcut();
