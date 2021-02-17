@@ -30,9 +30,9 @@ set(QTLIB_SOURCES_CPP
     ${CMAKE_CURRENT_LIST_DIR}/SignalGuard.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/GlobalShortcut.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/ShortcutActivator.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/x11/QxtX11ErrorHandler.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/x11/QxtX11Data.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/x11/ShortcutActivator.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Db/SqliteDatabase.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Db/SqlTableModelEx.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Db/SqlRelationalTableModelEx.cpp

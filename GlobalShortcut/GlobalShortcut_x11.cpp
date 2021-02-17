@@ -9,7 +9,7 @@
 #if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     // n/a
 #else
-    #include "ShortcutActivator.h"
+    #include "x11/ShortcutActivator.h"
 #endif
 
 namespace qtlib

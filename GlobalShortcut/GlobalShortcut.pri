@@ -16,15 +16,15 @@ DEPENDPATH += \
 HEADERS += \
     $$PWD/Global.h \
     $$PWD/GlobalShortcut.h \
-    $$PWD/ShortcutActivator.h \
     $$PWD/x11/QxtX11ErrorHandler.h \
-    $$PWD/x11/QxtX11Data.h
+    $$PWD/x11/QxtX11Data.h \
+    $$PWD/x11/ShortcutActivator.h
 
 SOURCES += \
     $$PWD/GlobalShortcut.cpp \
-    $$PWD/ShortcutActivator.cpp \
     $$PWD/x11/QxtX11ErrorHandler.cpp \
-    $$PWD/x11/QxtX11Data.cpp
+    $$PWD/x11/QxtX11Data.cpp \
+    $$PWD/x11/ShortcutActivator.cpp
 
 win32 {
     LIBS += \
