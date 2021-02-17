@@ -5,6 +5,7 @@
 
 #include "ShortcutActivator.h"
 
+#include <QDebug>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 //-------------------------------------------------------------------------------------------------
@@ -17,12 +18,9 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
-    Display      *display = ::XOpenDisplay(nullptr);
-    const Window  root    = DefaultRootWindow(display);
+    auto *display = static_cast<Display *>(this->display);
 
-    const unsigned int modifiers     = AnyModifier; // Mod1Mask | ControlMask | ShiftMask | AnyModifier;
-    const int          keycode       = ::XKeysymToKeycode(display, XStringToKeysym("F3") /* XK_space */);
-    const Window       grab_window   = root;
+    const Window       grab_window   = DefaultRootWindow(display);
     const Bool         owner_events  = False;
     const int          pointer_mode  = GrabModeAsync;
     const int          keyboard_mode = GrabModeAsync;
@@ -32,7 +30,7 @@ ShortcutActivator::run() /* override */
     ::XGrabKey(display, keycode, modifiers | LockMask, grab_window, owner_events, pointer_mode, keyboard_mode);
     ::XGrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
 
-    ::XSelectInput(display, root, KeyPressMask);
+    ::XSelectInput(display, grab_window, KeyPressMask);
 
     for ( ;; ) {
         XEvent event {};
@@ -40,8 +38,7 @@ ShortcutActivator::run() /* override */
 
         switch(event.type) {
         case KeyPress:
-            printf("Key pressed\n");
-            Q_EMIT sig_activated();
+            Q_EMIT sig_activated(keycode, modifiers);
         default:
             break;
         }

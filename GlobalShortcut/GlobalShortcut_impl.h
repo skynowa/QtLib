@@ -20,8 +20,10 @@ namespace qtlib
 
 class GlobalShortcut_impl :
     public Private<GlobalShortcut>
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     , public QAbstractNativeEventFilter
+#else
+    , public QObject
 #endif
 {
 public:
@@ -42,7 +44,7 @@ private:
     QxtX11Data _x11;
 #endif
 
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     static int ref;
 
     bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;

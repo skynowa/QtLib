@@ -31,7 +31,7 @@ const Qt::KeyboardModifiers modsUnknown {};
 
 }
 //-------------------------------------------------------------------------------------------------
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     int GlobalShortcut_impl::ref {};
 #endif
 
@@ -42,7 +42,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
     key    {keyUnknown},
     mods   {modsUnknown}
 {
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     if (ref == 0) {
         QAbstractEventDispatcher::instance()->installNativeEventFilter(this);
     }
@@ -53,7 +53,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::~GlobalShortcut_impl()
 {
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     -- ref;
 
     if (ref == 0) {
@@ -85,6 +85,25 @@ GlobalShortcut_impl::setShortcut(
     } else {
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
+
+#if QTLIB_GLOBAL_SHORTCUT_V1
+    // n/a
+#else
+    // ShortcutActivator
+    {
+        ShortcutActivator *workerThread = new ShortcutActivator();
+        workerThread->display   = ::XOpenDisplay(nullptr);
+        workerThread->keycode   = nativeKey;
+        workerThread->modifiers = nativeMods;
+
+        connect(workerThread, &ShortcutActivator::sig_activated,
+                this,         &GlobalShortcut_impl::_activateShortcut);
+        connect(workerThread, &ShortcutActivator::finished,
+                workerThread, &QObject::deleteLater);
+
+        workerThread->start();
+    }
+#endif
 
     return bRv;
 }
@@ -119,12 +138,8 @@ GlobalShortcut_impl::_activateShortcut(
     quint32 a_nativeMods
 )
 {
-    qTRACE_FUNC;
-
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
-        qDebug() << "Q_EMIT";
-
         Q_EMIT shortcut->sig_activated();
     }
 }
