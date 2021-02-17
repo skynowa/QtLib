@@ -136,8 +136,6 @@ GlobalShortcut_impl::_activateShortcut(
 {
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
-        qDebug() << "Q_EMIT";
-
         Q_EMIT shortcut->sig_activated();
     }
 }
