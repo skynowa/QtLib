@@ -31,7 +31,7 @@ const Qt::KeyboardModifiers modsUnknown {};
 
 }
 //-------------------------------------------------------------------------------------------------
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     int GlobalShortcut_impl::ref {};
 #endif
 
@@ -42,7 +42,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
     key    {keyUnknown},
     mods   {modsUnknown}
 {
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     if (ref == 0) {
         QAbstractEventDispatcher::instance()->installNativeEventFilter(this);
     }
@@ -53,7 +53,7 @@ GlobalShortcut_impl::GlobalShortcut_impl() :
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut_impl::~GlobalShortcut_impl()
 {
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     -- ref;
 
     if (ref == 0) {
@@ -86,6 +86,9 @@ GlobalShortcut_impl::setShortcut(
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
 
+#if QTLIB_GLOBAL_SHORTCUT_V1
+    // n/a
+#else
     // ShortcutActivator
     {
         ShortcutActivator *workerThread = new ShortcutActivator();
@@ -100,6 +103,7 @@ GlobalShortcut_impl::setShortcut(
 
         workerThread->start();
     }
+#endif
 
     return bRv;
 }
