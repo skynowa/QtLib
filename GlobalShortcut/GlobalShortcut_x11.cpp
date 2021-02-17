@@ -6,7 +6,7 @@
 
 #include "GlobalShortcut_impl.h"
 
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
     // n/a
 #else
     #include "ShortcutActivator.h"
@@ -16,7 +16,7 @@ namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
-#if 0 && !defined(Q_OS_DARWIN)
+#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
 
 bool
 GlobalShortcut_impl::nativeEventFilter(
