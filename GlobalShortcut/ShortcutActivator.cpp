@@ -18,8 +18,6 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
-    qDebug() << __FUNCTION__ << ": start";
-
     auto *display = static_cast<Display *>(this->display);
 
     const Window       grab_window   = DefaultRootWindow(display);
@@ -60,8 +58,6 @@ ShortcutActivator::run() /* override */
     ::XUngrabKey(display, keycode, modifiers | LockMask, grab_window);
     ::XUngrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window);
 
-//    ::XCloseDisplay(display);
-
-    qDebug() << __FUNCTION__ << ": stop";
+    ::XCloseDisplay(display);
 }
 //-------------------------------------------------------------------------------------------------
