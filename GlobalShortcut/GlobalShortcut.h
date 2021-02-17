@@ -13,7 +13,7 @@
 //-------------------------------------------------------------------------------------------------
 /**
  * 0 - QThread + XNextEvent
- * 1 - QAbstractEventDispatcher (dont't work on Qt 5.9.5)
+ * 1 - QAbstractEventDispatcher (dont't work on Qt 5.11.1)
  */
 #define QTLIB_GLOBAL_SHORTCUT_V1 0
 //-------------------------------------------------------------------------------------------------
