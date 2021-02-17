@@ -33,16 +33,11 @@ ShortcutActivator::run() /* override */
     ::XSelectInput(display, grab_window, KeyPressMask);
 
     for ( ;; ) {
-        qDebug() << "XEvent: start";
-
         XEvent event {};
         ::XNextEvent(display, &event);
 
-        qDebug() << "XEvent: stop";
-
         switch(event.type) {
         case KeyPress:
-            // qDebug() << "XEvent: Q_EMIT sig_activated()";
             Q_EMIT sig_activated(keycode, modifiers);
         default:
             break;
