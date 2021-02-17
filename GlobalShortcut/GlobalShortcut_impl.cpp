@@ -19,7 +19,6 @@
 
 #endif
 
-
 namespace qtlib
 {
 
