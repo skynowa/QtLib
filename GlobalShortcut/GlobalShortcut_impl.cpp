@@ -19,6 +19,7 @@
 
 #endif
 
+
 namespace qtlib
 {
 
@@ -86,6 +87,21 @@ GlobalShortcut_impl::setShortcut(
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
 
+    // ShortcutActivator
+    {
+        ShortcutActivator *workerThread = new ShortcutActivator();
+        workerThread->display   = ::XOpenDisplay(nullptr);
+        workerThread->keycode   = nativeKey;
+        workerThread->modifiers = nativeMods;
+
+        connect(workerThread, &ShortcutActivator::sig_activated,
+                this,         &GlobalShortcut_impl::_activateShortcut);
+        connect(workerThread, &ShortcutActivator::finished,
+                workerThread, &QObject::deleteLater);
+
+        workerThread->start();
+    }
+
     return bRv;
 }
 //-------------------------------------------------------------------------------------------------
@@ -120,8 +136,10 @@ GlobalShortcut_impl::_activateShortcut(
 )
 {
     qTRACE_FUNC;
+    qDebug() << qTRACE_VAR(a_nativeKey) << ", " << qTRACE_VAR(a_nativeMods);
 
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
+    qDebug() << qTRACE_VAR(shortcut);
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         qDebug() << "Q_EMIT";
 

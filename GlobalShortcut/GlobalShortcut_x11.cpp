@@ -6,6 +6,11 @@
 
 #include "GlobalShortcut_impl.h"
 
+#if 0 && !defined(Q_OS_DARWIN)
+    // n/a
+#else
+    #include "ShortcutActivator.h"
+#endif
 
 namespace qtlib
 {

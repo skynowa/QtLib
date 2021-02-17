@@ -22,6 +22,8 @@ class GlobalShortcut_impl :
     public Private<GlobalShortcut>
 #if 0 && !defined(Q_OS_DARWIN)
     , public QAbstractNativeEventFilter
+#else
+    , public QObject
 #endif
 {
 public:

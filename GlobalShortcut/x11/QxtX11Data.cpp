@@ -8,6 +8,7 @@
 
 #include <QProcessEnvironment>
 
+
 namespace qtlib
 {
 
@@ -86,9 +87,9 @@ QxtX11Data::grabKey(
 		// }
 	}
 #else
-    const KeyCode F = XKeysymToKeycode(_display, XStringToKeysym("F3"));
+    const KeyCode F = ::XKeysymToKeycode(_display, XStringToKeysym("F3"));
 
-    int iRv = XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, True,
+    int iRv = ::XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, False /* True */,
         GrabModeAsync, GrabModeAsync);
     // qTEST(iRv == 0);
     if (iRv != 0) {

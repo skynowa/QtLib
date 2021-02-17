@@ -5,6 +5,7 @@
 
 #include "ShortcutActivator.h"
 
+#include <QDebug>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 //-------------------------------------------------------------------------------------------------
@@ -17,31 +18,34 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
-    Display      *display = ::XOpenDisplay(nullptr);
-    const Window  root    = DefaultRootWindow(display);
+    qDebug() << __FUNCTION__ << ": start";
 
-    const unsigned int modifiers     = AnyModifier; // Mod1Mask | ControlMask | ShiftMask | AnyModifier;
-    const int          keycode       = ::XKeysymToKeycode(display, XStringToKeysym("F3") /* XK_space */);
-    const Window       grab_window   = root;
+    auto *display = static_cast<Display *>(this->display);
+
+    const Window       grab_window   = DefaultRootWindow(display);
     const Bool         owner_events  = False;
     const int          pointer_mode  = GrabModeAsync;
     const int          keyboard_mode = GrabModeAsync;
 
-    ::XGrabKey(display, keycode, modifiers, grab_window, owner_events, pointer_mode, keyboard_mode);
+//    ::XGrabKey(display, keycode, modifiers, grab_window, owner_events, pointer_mode, keyboard_mode);
     ::XGrabKey(display, keycode, modifiers | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
-    ::XGrabKey(display, keycode, modifiers | LockMask, grab_window, owner_events, pointer_mode, keyboard_mode);
-    ::XGrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
+//    ::XGrabKey(display, keycode, modifiers | LockMask, grab_window, owner_events, pointer_mode, keyboard_mode);
+//    ::XGrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
 
-    ::XSelectInput(display, root, KeyPressMask);
+    ::XSelectInput(display, grab_window, KeyPressMask);
 
     for ( ;; ) {
+        qDebug() << "XEvent: start";
+
         XEvent event {};
         ::XNextEvent(display, &event);
 
+        qDebug() << "XEvent: stop";
+
         switch(event.type) {
         case KeyPress:
-            printf("Key pressed\n");
-            Q_EMIT sig_activated();
+            // qDebug() << "XEvent: Q_EMIT sig_activated()";
+            Q_EMIT sig_activated(keycode, modifiers);
         default:
             break;
         }
@@ -51,11 +55,13 @@ ShortcutActivator::run() /* override */
         }
     }
 
-    ::XUngrabKey(display, keycode, modifiers, grab_window);
+//    ::XUngrabKey(display, keycode, modifiers, grab_window);
     ::XUngrabKey(display, keycode, modifiers | Mod2Mask, grab_window);
-    ::XUngrabKey(display, keycode, modifiers | LockMask, grab_window);
-    ::XUngrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window);
+//    ::XUngrabKey(display, keycode, modifiers | LockMask, grab_window);
+//    ::XUngrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window);
 
-    ::XCloseDisplay(display);
+//    ::XCloseDisplay(display);
+
+    qDebug() << __FUNCTION__ << ": stop";
 }
 //-------------------------------------------------------------------------------------------------
