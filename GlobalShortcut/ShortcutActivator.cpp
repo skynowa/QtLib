@@ -27,10 +27,10 @@ ShortcutActivator::run() /* override */
     const int          pointer_mode  = GrabModeAsync;
     const int          keyboard_mode = GrabModeAsync;
 
-//    ::XGrabKey(display, keycode, modifiers, grab_window, owner_events, pointer_mode, keyboard_mode);
+    ::XGrabKey(display, keycode, modifiers, grab_window, owner_events, pointer_mode, keyboard_mode);
     ::XGrabKey(display, keycode, modifiers | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
-//    ::XGrabKey(display, keycode, modifiers | LockMask, grab_window, owner_events, pointer_mode, keyboard_mode);
-//    ::XGrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
+    ::XGrabKey(display, keycode, modifiers | LockMask, grab_window, owner_events, pointer_mode, keyboard_mode);
+    ::XGrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window, owner_events, pointer_mode, keyboard_mode);
 
     ::XSelectInput(display, grab_window, KeyPressMask);
 
@@ -55,10 +55,10 @@ ShortcutActivator::run() /* override */
         }
     }
 
-//    ::XUngrabKey(display, keycode, modifiers, grab_window);
+    ::XUngrabKey(display, keycode, modifiers, grab_window);
     ::XUngrabKey(display, keycode, modifiers | Mod2Mask, grab_window);
-//    ::XUngrabKey(display, keycode, modifiers | LockMask, grab_window);
-//    ::XUngrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window);
+    ::XUngrabKey(display, keycode, modifiers | LockMask, grab_window);
+    ::XUngrabKey(display, keycode, modifiers | LockMask | Mod2Mask, grab_window);
 
 //    ::XCloseDisplay(display);
 

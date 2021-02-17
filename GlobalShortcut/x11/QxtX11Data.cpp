@@ -60,7 +60,7 @@ QxtX11Data::keysymToKeycode(
     KeySym a_keysym
 )
 {
-    const KeyCode keyCode = ::XKeysymToKeycode(_display, XStringToKeysym("F3") /*a_keysym*/);
+    const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
     qTEST(keyCode != 0);
 
     return keyCode;
@@ -75,7 +75,6 @@ QxtX11Data::grabKey(
     qTEST(a_keycode > 0);
     /// qTEST(a_modifiers > 0);
 
-#if 0
     for (int i = 0; !_errorHandler.isError && i < maskModifiers.size(); ++ i) {
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | maskModifiers[i], _rootWindow, True,
 			GrabModeAsync, GrabModeAsync);
@@ -86,18 +85,6 @@ QxtX11Data::grabKey(
                 << qTRACE_VAR(_errorHandler.isError);
 		// }
 	}
-#else
-    const KeyCode F = ::XKeysymToKeycode(_display, XStringToKeysym("F3"));
-
-    int iRv = ::XGrabKey(_display, F /* AnyKey */, AnyModifier /* mod */, _rootWindow, False /* True */,
-        GrabModeAsync, GrabModeAsync);
-    // qTEST(iRv == 0);
-    if (iRv != 0) {
-        qDebug()
-            << "XGrabKey: " << qTRACE_VAR(iRv)
-            << qTRACE_VAR(_errorHandler.isError);
-    }
-#endif
 
     if (_errorHandler.isError) {
         bool bRv = ungrabKey(a_keycode, a_modifiers);
