@@ -134,11 +134,7 @@ GlobalShortcut_impl::_activateShortcut(
     quint32 a_nativeMods
 )
 {
-    qTRACE_FUNC;
-    qDebug() << qTRACE_VAR(a_nativeKey) << ", " << qTRACE_VAR(a_nativeMods);
-
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
-    qDebug() << qTRACE_VAR(shortcut);
     if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
         qDebug() << "Q_EMIT";
 
