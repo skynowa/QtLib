@@ -81,11 +81,10 @@ QxtX11ErrorHandler::errorText(
 	::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
 	// could be the value of $DISPLAY or nullptr
-	const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
-									.toStdString().c_str();
+    cQString &displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0");
 
 	qDebug() << "QxtX11ErrorHandler: "
-		<< "Dispaly: " << ::XDisplayName(displayName) << "\n"
+        << "Dispaly: " << ::XDisplayName(displayName.toStdString().c_str()) << "\n"
 		<< "Error:   " << a_event->error_code << " - " << errorText << "\n"
 		<< "Event: "   << a_event->type;
 }
