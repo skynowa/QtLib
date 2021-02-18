@@ -19,7 +19,7 @@ public:
     explicit     SqlTableModelEx(QObject *parent, QSqlDatabase db);
     virtual     ~SqlTableModelEx() {}
 
-    virtual bool select() Q_DECL_OVERRIDE;
+    bool         select() override;
         ///< select query
 
     int          realRowCount();
