@@ -332,7 +332,7 @@ Utils::sleepMsec(
         (a_timeoutMsec % 1000) * 1000 * 1000
     };
 
-    ::nanosleep(&tsTime, Q_NULLPTR);
+    ::nanosleep(&tsTime, nullptr);
 #endif
 }
 //-------------------------------------------------------------------------------------------------

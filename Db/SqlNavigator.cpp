@@ -22,8 +22,8 @@ SqlNavigator::SqlNavigator(
     QWidget *a_parent
 ) :
     QObject(a_parent),
-    _model (Q_NULLPTR),
-    _view  (Q_NULLPTR)
+    _model (nullptr),
+    _view  (nullptr)
 {
     qTEST_PTR(a_parent);
 }
@@ -65,7 +65,7 @@ SqlNavigator::view()
 bool
 SqlNavigator::isValid() const
 {
-    return ( (_model != Q_NULLPTR ) && (_view != Q_NULLPTR) );
+    return ( (_model != nullptr ) && (_view != nullptr) );
 }
 //-------------------------------------------------------------------------------------------------
 void

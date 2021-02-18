@@ -175,7 +175,7 @@ SqlRelationalTableModelEx::exportCsv(
 
             // normalize
             if (a_isNormalize) {
-                _csvNormalize(&fieldName, Q_NULLPTR);
+                _csvNormalize(&fieldName, nullptr);
             }
 
             csvContent.push_back(fieldName);
@@ -215,7 +215,7 @@ SqlRelationalTableModelEx::exportCsv(
 
                 // normalize
                 if (a_isNormalize) {
-                    _csvNormalize(Q_NULLPTR, &fieldValue);
+                    _csvNormalize(nullptr, &fieldValue);
                 }
 
                 csvContent.push_back(fieldValue);
@@ -256,7 +256,7 @@ SqlRelationalTableModelEx::filter(
     qTEST_NA(a_where);
     qTEST_NA(a_orderBy);
 
-    cbool isSqlRelationalTableModel = (dynamic_cast<QSqlRelationalTableModel *>(this) != Q_NULLPTR);
+    cbool isSqlRelationalTableModel = (dynamic_cast<QSqlRelationalTableModel *>(this) != nullptr);
     qDebug() << qTRACE_VAR(isSqlRelationalTableModel);
 
     QString sqlStr;
@@ -352,15 +352,15 @@ SqlRelationalTableModelEx::_csvNormalize(
     QString *a_fieldValue
 )
 {
-    qCHECK_DO(a_fieldName == Q_NULLPTR && a_fieldValue == Q_NULLPTR, return);
+    qCHECK_DO(a_fieldName == nullptr && a_fieldValue == nullptr, return);
 
     // trim
     {
-        if (a_fieldName != Q_NULLPTR) {
+        if (a_fieldName != nullptr) {
             *a_fieldName  = a_fieldName->trimmed();
         }
 
-        if (a_fieldValue != Q_NULLPTR) {
+        if (a_fieldValue != nullptr) {
             *a_fieldValue = a_fieldValue->trimmed();
         }
     }

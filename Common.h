@@ -136,7 +136,7 @@ qTYPEDEF_CONST(QSqlDatabase);
 #define qMSG_WARN(s) \
             { QMessageBox::warning(this, qApp->applicationName(), (s)); }
 #define qMSG(s) \
-            { QMessageBox::information(Q_NULLPTR, qApp->applicationName(), (s)); }
+            { QMessageBox::information(nullptr, qApp->applicationName(), (s)); }
 
 #define qCHECK_REF(var, object) \
             { \
@@ -185,13 +185,13 @@ qTYPEDEF_CONST(QSqlDatabase);
         }
 
     #define qTEST_PTR(expression) \
-            qTEST((expression) != Q_NULLPTR)
+            qTEST((expression) != nullptr)
 #else
     #define qTEST(expression) \
                 Q_ASSERT(expression)
 
     #define qTEST_PTR(expression) \
-                Q_ASSERT((expression) != Q_NULLPTR)
+                Q_ASSERT((expression) != nullptr)
 #endif
 
 #define qTEST_NA(expression) \
@@ -199,5 +199,5 @@ qTYPEDEF_CONST(QSqlDatabase);
 //-------------------------------------------------------------------------------------------------
 // etc
 #define qARRAY_LENGTH(a) ( sizeof(a) / sizeof((a)[0]) )
-#define qPTR_DELETE(p)   { delete p; p = Q_NULLPTR; }
+#define qPTR_DELETE(p)   { delete p; p = nullptr; }
 //-------------------------------------------------------------------------------------------------

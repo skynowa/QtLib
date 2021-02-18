@@ -70,7 +70,7 @@ public:
 
     ~Impl()
     {
-        delete _interface; _interface = Q_NULLPTR;
+        delete _interface; _interface = nullptr;
     }
 
     void

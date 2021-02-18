@@ -37,7 +37,7 @@ class SqliteDatabase :
 {
 public:
 
-    explicit      SqliteDatabase(QObject *parent /* = Q_NULLPTR */);
+    explicit      SqliteDatabase(QObject *parent /* = nullptr */);
 
     void          construct(cSqliteConfig &config);
     QSqlDatabase& qDb();
