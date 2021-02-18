@@ -31,14 +31,13 @@ const QVector<quint32> maskModifiers =
 //--------------------------------------------------------------------------------------------------
 QxtX11Data::QxtX11Data()
 {
-	// could be the value of $DISPLAY or nullptr
-	const char *displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0")
-									.toStdString().c_str();
+    // could be the value of $DISPLAY or nullptr
+    cQString &displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0");
 
-    /// _display = ::XOpenDisplay(displayName);
+    /// _display = ::XOpenDisplay(displayName.toStdString().c_str());
     _display = ::XOpenDisplay(nullptr);
 	if (_display == nullptr) {
-		qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName);
+        qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName.toStdString().c_str());
 	}
 
     _errorHandler.set();
