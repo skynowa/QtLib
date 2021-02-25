@@ -23,7 +23,7 @@ public:
     QxtX11ErrorHandler();
    ~QxtX11ErrorHandler();
 
-   void set();
+    void set();
 
 private:
     using x11_error_handler_t = std::add_pointer<Bool(Display *display, XErrorEvent *event)>::type;
