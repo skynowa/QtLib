@@ -19,7 +19,7 @@ QxtX11ErrorHandler::QxtX11ErrorHandler()
 //-------------------------------------------------------------------------------------------------
 QxtX11ErrorHandler::~QxtX11ErrorHandler()
 {
-	x11_error_handler_t errorHandlerLast = ::XSetErrorHandler(_errorHandlerLast);
+    XErrorHandler errorHandlerLast = ::XSetErrorHandler(_errorHandlerLast);
 	qTEST_PTR(errorHandlerLast);
 }
 //-------------------------------------------------------------------------------------------------
@@ -30,13 +30,13 @@ QxtX11ErrorHandler::set()
 
     isError = False;
 
-    _errorHandlerLast = ::XSetErrorHandler(qxtX11ErrorHandler);
+    _errorHandlerLast = ::XSetErrorHandler(_OnError);
     qTEST_PTR(_errorHandlerLast);
 }
 //-------------------------------------------------------------------------------------------------
 /* static  */
 int
-QxtX11ErrorHandler::qxtX11ErrorHandler(
+QxtX11ErrorHandler::_OnError(
 	Display     *a_display,
 	XErrorEvent *a_event
 )
@@ -53,7 +53,7 @@ QxtX11ErrorHandler::qxtX11ErrorHandler(
 	}
 
 	isError = True;
-	errorText(a_display, a_event);
+    _errorText(a_display, a_event);
 
 	switch (a_event->error_code) {
 	case BadAccess:
@@ -72,21 +72,25 @@ QxtX11ErrorHandler::qxtX11ErrorHandler(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-QxtX11ErrorHandler::errorText(
+QxtX11ErrorHandler::_errorText(
 	Display     *a_display,
 	XErrorEvent *a_event
 )
 {
+    // could be the value of $DISPLAY or nullptr
+    cQString &displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0");
+
 	char errorText[255 + 1] {};
 	::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
-	// could be the value of $DISPLAY or nullptr
-    cQString &displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0");
-
-	qDebug() << "QxtX11ErrorHandler: "
-        << "Dispaly: " << ::XDisplayName(displayName.toStdString().c_str()) << "\n"
-		<< "Error:   " << a_event->error_code << " - " << errorText << "\n"
-		<< "Event: "   << a_event->type;
+    qDebug()
+        << "XErrorEvent: "
+        << "Type:     " << a_event->type << "\n"
+        << "Dispaly:  " << ::XDisplayName(displayName.toStdString().c_str()) << "\n"
+        << "Resource: " << a_event->resourceid << "\n"
+        << "Serial:   " << a_event->serial << "\n"
+        << "Pp-code:  " << a_event->request_code << "." << a_event->minor_code << "\n"
+        << "Error:    " << a_event->error_code << " - " << errorText << "\n";
 }
 //-------------------------------------------------------------------------------------------------
 
