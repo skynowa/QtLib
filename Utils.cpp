@@ -251,7 +251,7 @@ Utils::debugTest(
 #endif
 
     // write to std::cout
-    qWarning() << msg;
+    qWarning().noquote() << msg;
 }
 //-------------------------------------------------------------------------------------------------
 void

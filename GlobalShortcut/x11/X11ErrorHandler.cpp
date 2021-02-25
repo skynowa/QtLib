@@ -84,13 +84,13 @@ X11ErrorHandler::_errorText(
 	::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
     qDebug()
-        << "XErrorEvent: " << "\n"
-        << "Type:     " << a_event->type << "\n"
-        << "Dispaly:  " << ::XDisplayName(displayName.toStdString().c_str()) << "\n"
-        << "Resource: " << a_event->resourceid << "\n"
-        << "Serial:   " << a_event->serial << "\n"
-        << "Pp-code:  " << a_event->request_code << "/" << a_event->minor_code << "\n"
-        << "Error:    " << a_event->error_code << "-" << errorText << "\n";
+        << "XErrorEvent:" << "\n"
+        << "Type:    " << a_event->type << "\n"
+        << "Dispaly: " << ::XDisplayName(displayName.toStdString().c_str()) << "\n"
+        << "Resource:" << a_event->resourceid << "\n"
+        << "Serial:  " << a_event->serial << "\n"
+        << "Pp-code: " << a_event->request_code << "/" << a_event->minor_code << "\n"
+        << "Error:   " << a_event->error_code << "-" << errorText << "\n";
 }
 //-------------------------------------------------------------------------------------------------
 
