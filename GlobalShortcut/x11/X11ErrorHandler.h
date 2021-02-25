@@ -14,11 +14,11 @@
 namespace qtlib
 {
 
-class QxtX11ErrorHandler
+class X11ErrorHandler
 {
 public:
-    QxtX11ErrorHandler();
-   ~QxtX11ErrorHandler();
+    X11ErrorHandler();
+   ~X11ErrorHandler();
 
     void set();
 

@@ -1,10 +1,10 @@
 /**
- * \file  QxtX11Data.cpp
+ * \file  X11Data.cpp
  * \brief
  */
 
 
-#include "QxtX11Data.h"
+#include "X11Data.h"
 
 #include <QProcessEnvironment>
 
@@ -29,7 +29,7 @@ namespace qtlib
 const QVector<quint32> maskModifiers =
     QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
 //--------------------------------------------------------------------------------------------------
-QxtX11Data::QxtX11Data()
+X11Data::X11Data()
 {
     // could be the value of $DISPLAY or nullptr
     cQString &displayName = QProcessEnvironment::systemEnvironment().value("DISPLAY", ":0.0");
@@ -45,7 +45,7 @@ QxtX11Data::QxtX11Data()
     _rootWindow = DefaultRootWindow(_display);
 }
 //--------------------------------------------------------------------------------------------------
-QxtX11Data::~QxtX11Data()
+X11Data::~X11Data()
 {
     if (_display != nullptr) {
         ::XCloseDisplay(_display);
@@ -54,7 +54,7 @@ QxtX11Data::~QxtX11Data()
 }
 //--------------------------------------------------------------------------------------------------
 KeyCode
-QxtX11Data::keysymToKeycode(
+X11Data::keysymToKeycode(
     KeySym a_keysym
 )
 {
@@ -65,7 +65,7 @@ QxtX11Data::keysymToKeycode(
 }
 //--------------------------------------------------------------------------------------------------
 bool
-QxtX11Data::grabKey(
+X11Data::grabKey(
 	quint32 a_keycode,
     quint32 a_modifiers
 )
@@ -95,7 +95,7 @@ QxtX11Data::grabKey(
 }
 //--------------------------------------------------------------------------------------------------
 bool
-QxtX11Data::ungrabKey(
+X11Data::ungrabKey(
 	quint32 a_keycode,
     quint32 a_modifiers
 )

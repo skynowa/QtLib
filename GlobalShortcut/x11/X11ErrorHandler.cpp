@@ -4,27 +4,27 @@
  */
 
 
-#include "QxtX11ErrorHandler.h"
+#include "X11ErrorHandler.h"
 
 namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
-Bool QxtX11ErrorHandler::isError {};
+Bool X11ErrorHandler::isError {};
 //-------------------------------------------------------------------------------------------------
-QxtX11ErrorHandler::QxtX11ErrorHandler()
+X11ErrorHandler::X11ErrorHandler()
 {
 	isError = False;
 }
 //-------------------------------------------------------------------------------------------------
-QxtX11ErrorHandler::~QxtX11ErrorHandler()
+X11ErrorHandler::~X11ErrorHandler()
 {
     XErrorHandler errorHandlerLast = ::XSetErrorHandler(_errorHandlerLast);
 	qTEST_PTR(errorHandlerLast);
 }
 //-------------------------------------------------------------------------------------------------
 void
-QxtX11ErrorHandler::set()
+X11ErrorHandler::set()
 {
     qTRACE_FUNC;
 
@@ -36,7 +36,7 @@ QxtX11ErrorHandler::set()
 //-------------------------------------------------------------------------------------------------
 /* static  */
 int
-QxtX11ErrorHandler::_OnError(
+X11ErrorHandler::_OnError(
 	Display     *a_display,
 	XErrorEvent *a_event
 )
@@ -72,7 +72,7 @@ QxtX11ErrorHandler::_OnError(
 //-------------------------------------------------------------------------------------------------
 /* static */
 void
-QxtX11ErrorHandler::_errorText(
+X11ErrorHandler::_errorText(
 	Display     *a_display,
 	XErrorEvent *a_event
 )

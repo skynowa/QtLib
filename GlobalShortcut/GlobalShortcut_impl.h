@@ -13,7 +13,7 @@
 #include <QAbstractNativeEventFilter>
 
 #include "GlobalShortcut.h"
-#include "x11/QxtX11Data.h"
+#include "x11/X11Data.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
@@ -41,7 +41,7 @@ private:
     Qt::KeyboardModifiers mods {};
 
 #if defined(Q_OS_UNIX)
-    QxtX11Data _x11;
+    X11Data _x11;
 #endif
 
 #if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)

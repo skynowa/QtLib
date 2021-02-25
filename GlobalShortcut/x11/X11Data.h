@@ -1,5 +1,5 @@
 /**
- * \file  QxtX11Data.h
+ * \file  X11Data.h
  * \brief
  *
  * http://incise.org/xlib-key-passing.html
@@ -14,16 +14,16 @@
 
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
-#include "QxtX11ErrorHandler.h"
+#include "X11ErrorHandler.h"
 //-------------------------------------------------------------------------------------------------
 namespace qtlib
 {
 
-class QxtX11Data
+class X11Data
 {
 public:
-    QxtX11Data();
-   ~QxtX11Data();
+    X11Data();
+   ~X11Data();
 
     KeyCode keysymToKeycode(KeySym keysym);
 
@@ -31,9 +31,9 @@ public:
     bool    ungrabKey(quint32 keycode, quint32 modifiers);
 
 private:
-    Display           *_display {};
-    Window             _rootWindow {};
-    QxtX11ErrorHandler _errorHandler;
+    Display        *_display {};
+    Window          _rootWindow {};
+    X11ErrorHandler _errorHandler;
 };
 
 } // namespace qtlib
