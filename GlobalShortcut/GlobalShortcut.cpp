@@ -1,30 +1,6 @@
-/*!
-    \file
-    \class GlobalShortcut
-    \inmodule QxtWidgets
-    \brief The GlobalShortcut class provides a global shortcut aka "hotkey".
-
-    A global shortcut triggers even if the application is not active. This
-    makes it easy to implement applications that react to certain shortcuts
-    still if some other application is active or if the application is for
-    example minimized to the system tray.
-
-    Example usage:
-    \code
-    GlobalShortcut* shortcut = new GlobalShortcut(window);
-    connect(shortcut, SIGNAL(activated()), window, SLOT(toggleVisibility()));
-    shortcut->setShortcut(QKeySequence("Ctrl+Shift+F12"));
-    \endcode
-
-    \bold {Note:} Since Qxt 0.6 GlobalShortcut no more requires QxtApplication.
- */
-
-/*!
-    \fn GlobalShortcut::activated()
-
-    This signal is emitted when the user types the shortcut's key sequence.
-
-    \sa shortcut
+/**
+ * \file
+ * \brief
  */
 
 
