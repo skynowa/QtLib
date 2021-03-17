@@ -13,7 +13,7 @@ namespace qtlib
 
 //--------------------------------------------------------------------------------------------------
 /**
- * maskModifiers
+ * Modifiers
  *
  * Mask        | Value | Key
  * ------------+-------+------------
@@ -26,7 +26,7 @@ namespace qtlib
  * Mod4Mask    |    64 | Windows
  * Mod5Mask    |   128 | ???
  */
-const QVector<quint32> maskModifiers =
+const QVector<quint32> X11Data::_modifiers =
     QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
 //--------------------------------------------------------------------------------------------------
 X11Data::X11Data()
@@ -73,8 +73,8 @@ X11Data::grabKey(
     qTEST(a_keycode > 0);
     /// qTEST(a_modifiers > 0);
 
-    for (int i = 0; !_errorHandler.isError && i < maskModifiers.size(); ++ i) {
-        int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | maskModifiers[i], _rootWindow, True,
+    for (int i = 0; !_errorHandler.isError && i < _modifiers.size(); ++ i) {
+        int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | _modifiers[i], _rootWindow, True,
 			GrabModeAsync, GrabModeAsync);
 		// qTEST(iRv == 0);
 		// if (iRv != 0) {
@@ -103,7 +103,7 @@ X11Data::ungrabKey(
     qTEST(a_keycode > 0);
     /// qTEST(a_modifiers > 0);
 
-	for (const auto &maskMods : maskModifiers) {
+    for (const auto &maskMods : _modifiers) {
         int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | maskMods, _rootWindow);
 		if (iRv != 0) {
             qDebug()

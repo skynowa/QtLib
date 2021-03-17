@@ -31,6 +31,8 @@ public:
     bool    ungrabKey(const quint32 keycode, const quint32 modifiers);
 
 private:
+    static const QVector<quint32> _modifiers;
+
     Display        *_display {};
     Window          _rootWindow {};
     X11ErrorHandler _errorHandler;
