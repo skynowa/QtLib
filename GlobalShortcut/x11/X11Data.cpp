@@ -26,8 +26,8 @@ namespace qtlib
  * Mod4Mask    |    64 | Windows
  * Mod5Mask    |   128 | ???
  */
-const QVector<quint32> X11Data::_modifiers =
-    QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
+const QVector<quint32>
+X11Data::_modifiers = QVector<quint32>() << 0 << Mod2Mask << LockMask << (Mod2Mask | LockMask);
 //--------------------------------------------------------------------------------------------------
 X11Data::X11Data()
 {
@@ -103,8 +103,8 @@ X11Data::ungrabKey(
     qTEST(a_keycode > 0);
     /// qTEST(a_modifiers > 0);
 
-    for (const auto &maskMods : _modifiers) {
-        int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | maskMods, _rootWindow);
+    for (const auto &it_modifier : _modifiers) {
+        int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | it_modifier, _rootWindow);
 		if (iRv != 0) {
             qDebug()
                 << "XUngrabKey: " << qTRACE_VAR(iRv)
