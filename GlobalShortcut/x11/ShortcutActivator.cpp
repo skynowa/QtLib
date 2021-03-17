@@ -18,7 +18,7 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
-    qTRACE_FUNC;
+    qTRACE_FUNC << "- start";
 
     auto *display = static_cast<Display *>(this->display);
 
@@ -63,5 +63,7 @@ ShortcutActivator::run() /* override */
     }
 
     ::XCloseDisplay(display);
+
+    qTRACE_FUNC << "- stop";
 }
 //-------------------------------------------------------------------------------------------------
