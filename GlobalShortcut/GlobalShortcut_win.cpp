@@ -34,7 +34,7 @@ GlobalShortcut_impl::nativeEventFilter(
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-GlobalShortcut_impl::nativeModifiers(
+GlobalShortcut_impl::_nativeModifiers(
     Qt::KeyboardModifiers modifiers
 )
 {
@@ -62,7 +62,7 @@ GlobalShortcut_impl::nativeModifiers(
 }
 //-------------------------------------------------------------------------------------------------
 quint32
-GlobalShortcut_impl::nativeKeycode(
+GlobalShortcut_impl::_nativeKeycode(
     Qt::Key key
 )
 {
