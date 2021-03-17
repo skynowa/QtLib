@@ -1,5 +1,5 @@
 /**
- * \file
+ * \file  GlobalShortcut.cpp
  * \brief
  */
 
@@ -41,19 +41,19 @@ GlobalShortcut::~GlobalShortcut()
     }
 }
 //-------------------------------------------------------------------------------------------------
-/*!
-    \property GlobalShortcut::shortcut
-    \brief the shortcut key sequence
-
-    \bold {Note:} Notice that corresponding key press and release events are not
-    delivered for registered global shortcuts even if they are disabled.
-    Also, comma separated key sequences are not supported.
-    Only the first part is used:
-
-    \code
-    qxtShortcut->setShortcut(QKeySequence("Ctrl+Alt+A,Ctrl+Alt+B"));
-    qTEST(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
-    \endcode
+/**
+ * \property GlobalShortcut::shortcut
+ * \brief    the shortcut key sequence
+ *
+ * \bold {Note:} Notice that corresponding key press and release events are not
+ * delivered for registered global shortcuts even if they are disabled.
+ * Also, comma separated key sequences are not supported.
+ * Only the first part is used:
+ *
+ * \code
+ * qxtShortcut->setShortcut(QKeySequence("Ctrl+Alt+A,Ctrl+Alt+B"));
+ * qTEST(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
+ * \endcode
  */
 QKeySequence
 GlobalShortcut::get() const
@@ -74,16 +74,6 @@ GlobalShortcut::set(
     return _impl().setShortcut(a_shortcut);
 }
 //-------------------------------------------------------------------------------------------------
-/*!
-    \property GlobalShortcut::enabled
-    \brief whether the shortcut is enabled
-
-    A disabled shortcut does not get activated.
-
-    The default value is \c true.
-
-    \sa setDisabled()
- */
 bool
 GlobalShortcut::isEnabled() const
 {
@@ -98,11 +88,6 @@ GlobalShortcut::setEnabled(
     _impl().enabled = a_enabled;
 }
 //-------------------------------------------------------------------------------------------------
-/*!
-    Sets the shortcut \a disabled.
-
-    \sa enabled
- */
 void
 GlobalShortcut::setDisabled(
     bool a_disabled
