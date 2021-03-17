@@ -47,7 +47,7 @@ class GlobalShortcut :
     public QObject
 {
 public:
-    explicit     GlobalShortcut(QObject *parent /* = nullptr */);
+    explicit     GlobalShortcut(QObject *parent);
     explicit     GlobalShortcut(const QKeySequence &shortcut, QObject *parent /* = nullptr */);
     virtual     ~GlobalShortcut();
 
