@@ -12,14 +12,14 @@ class ShortcutActivator :
 {
 public:
     void    *display {};
-    quint32  keycode {};
+    int      keycode {};
     quint32  modifiers {};
 
     void run() override;
     void end();
 
 Q_SIGNALS:
-    void sig_activated(quint32, quint32);
+    void sig_activated(int, quint32);
 
 private:
     bool _isTerminate {};
