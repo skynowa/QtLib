@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "../Global.h"
 #include <QThread>
 //-------------------------------------------------------------------------------------------------
 class ShortcutActivator :

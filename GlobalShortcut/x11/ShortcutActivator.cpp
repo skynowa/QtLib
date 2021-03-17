@@ -18,6 +18,8 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
+    qTRACE_FUNC;
+
     auto *display = static_cast<Display *>(this->display);
 
     const quint32 keyModifiers[]
