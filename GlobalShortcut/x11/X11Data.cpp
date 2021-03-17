@@ -77,11 +77,13 @@ X11Data::grabKey(
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | _modifiers[i], _rootWindow, True,
 			GrabModeAsync, GrabModeAsync);
 		// qTEST(iRv == 0);
-		// if (iRv != 0) {
+        if (iRv != 0 &&
+            _errorHandler.isError != 0)
+        {
             qDebug()
                 << "XGrabKey: " << qTRACE_VAR(iRv)
                 << qTRACE_VAR(_errorHandler.isError);
-		// }
+        }
 	}
 
     if (_errorHandler.isError) {
@@ -105,7 +107,9 @@ X11Data::ungrabKey(
 
     for (const auto &it_modifier : _modifiers) {
         int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | it_modifier, _rootWindow);
-		if (iRv != 0) {
+        if (iRv != 0 &&
+            _errorHandler.isError != 0)
+        {
             qDebug()
                 << "XUngrabKey: " << qTRACE_VAR(iRv)
                 << qTRACE_VAR(_errorHandler.isError);

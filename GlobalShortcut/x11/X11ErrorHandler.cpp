@@ -41,7 +41,7 @@ X11ErrorHandler::_OnError(
 	XErrorEvent *a_event
 )
 {
-    qTRACE_FUNC;
+    // qTRACE_FUNC;
 
 	qTEST_PTR(a_display);
 	qTEST_PTR(a_event);
@@ -83,6 +83,7 @@ X11ErrorHandler::_errorText(
 	char errorText[255 + 1] {};
 	::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
+#if 0
     qDebug()
         << "XErrorEvent:" << "\n"
         << "Type:    " << a_event->type << "\n"
@@ -91,6 +92,7 @@ X11ErrorHandler::_errorText(
         << "Serial:  " << a_event->serial << "\n"
         << "Pp-code: " << a_event->request_code << "/" << a_event->minor_code << "\n"
         << "Error:   " << a_event->error_code << "-" << errorText << "\n";
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 
