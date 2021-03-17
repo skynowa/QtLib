@@ -117,10 +117,12 @@ GlobalShortcut_impl::unsetShortcut()
     const quint32 nativeMods = nativeModifiers(mods);
 
     if (_shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
+        qDebug() << "_unregister()...";
         bRv = _unregister(nativeKey, nativeMods);
     }
 
     if (bRv) {
+        qDebug() << "_shortcuts.remove()...";
         _shortcuts.remove(qMakePair(nativeKey, nativeMods));
     } else {
         qWarning() << "GlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
