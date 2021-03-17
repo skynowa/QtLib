@@ -13,9 +13,6 @@ namespace qtlib
 {
 
 //-------------------------------------------------------------------------------------------------
-/*!
-    Constructs a new GlobalShortcut with \a parent.
- */
 GlobalShortcut::GlobalShortcut(
     QObject *a_parent
 ) :
@@ -24,9 +21,6 @@ GlobalShortcut::GlobalShortcut(
     QTLIB_INIT_PRIVATE(GlobalShortcut);
 }
 //-------------------------------------------------------------------------------------------------
-/*!
-    Constructs a new GlobalShortcut with \a shortcut and \a parent.
- */
 GlobalShortcut::GlobalShortcut(
     const QKeySequence &a_shortcut,
     QObject            *a_parent
@@ -39,9 +33,6 @@ GlobalShortcut::GlobalShortcut(
     qTEST(bRv);
 }
 //-------------------------------------------------------------------------------------------------
-/*!
-    Destructs the GlobalShortcut.
- */
 GlobalShortcut::~GlobalShortcut()
 {
     if (_impl().key != keyUnknown) {
