@@ -25,10 +25,10 @@ public:
     X11Data();
    ~X11Data();
 
-    KeyCode keysymToKeycode(KeySym keysym);
+    KeyCode keysymToKeycode(const KeySym keysym);
 
-    bool    grabKey(quint32 keycode, quint32 modifiers);
-    bool    ungrabKey(quint32 keycode, quint32 modifiers);
+    bool    grabKey(const quint32 keycode, const quint32 modifiers);
+    bool    ungrabKey(const quint32 keycode, const quint32 modifiers);
 
 private:
     Display        *_display {};

@@ -55,7 +55,7 @@ X11Data::~X11Data()
 //--------------------------------------------------------------------------------------------------
 KeyCode
 X11Data::keysymToKeycode(
-    KeySym a_keysym
+    const KeySym a_keysym
 )
 {
     const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
@@ -66,8 +66,8 @@ X11Data::keysymToKeycode(
 //--------------------------------------------------------------------------------------------------
 bool
 X11Data::grabKey(
-	quint32 a_keycode,
-    quint32 a_modifiers
+    const quint32 a_keycode,
+    const quint32 a_modifiers
 )
 {
     qTEST(a_keycode > 0);
@@ -96,8 +96,8 @@ X11Data::grabKey(
 //--------------------------------------------------------------------------------------------------
 bool
 X11Data::ungrabKey(
-	quint32 a_keycode,
-    quint32 a_modifiers
+    const quint32 a_keycode,
+    const quint32 a_modifiers
 )
 {
     qTEST(a_keycode > 0);
