@@ -1,5 +1,5 @@
 /**
- * \file
+ * \file  GlobalShortcut_impl.cpp
  * \brief
  */
 
@@ -76,8 +76,8 @@ GlobalShortcut_impl::setShortcut(
     key  = a_shortcut.isEmpty() ? keyUnknown  : Qt::Key((a_shortcut[0] ^ allMods) & a_shortcut[0]);
     mods = a_shortcut.isEmpty() ? modsUnknown : Qt::KeyboardModifiers(a_shortcut[0] & allMods);
 
-    const quint32 nativeKey  = nativeKeycode(key);
-    const quint32 nativeMods = nativeModifiers(mods);
+    const quint32 nativeKey  = _nativeKeycode(key);
+    const quint32 nativeMods = _nativeModifiers(mods);
 
     const bool bRv = _register(nativeKey, nativeMods);
     if (bRv) {
@@ -113,8 +113,8 @@ GlobalShortcut_impl::unsetShortcut()
 {
     bool bRv {};
 
-    const quint32 nativeKey  = nativeKeycode(key);
-    const quint32 nativeMods = nativeModifiers(mods);
+    const quint32 nativeKey  = _nativeKeycode(key);
+    const quint32 nativeMods = _nativeModifiers(mods);
 
     if (_shortcuts.value(qMakePair(nativeKey, nativeMods)) == &get()) {
         qDebug() << "_unregister()...";

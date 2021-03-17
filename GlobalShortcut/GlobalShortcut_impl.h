@@ -1,5 +1,5 @@
 /**
- * \file
+ * \file  GlobalShortcut_impl.h
  * \brief
  */
 
@@ -27,13 +27,13 @@ class GlobalShortcut_impl :
 #endif
 {
 public:
-    QTLIB_DECLARE_PUBLIC(GlobalShortcut)
-
              GlobalShortcut_impl();
     virtual ~GlobalShortcut_impl();
 
     bool setShortcut(const QKeySequence &shortcut);
     bool unsetShortcut();
+
+    QTLIB_DECLARE_PUBLIC(GlobalShortcut)
 
 private:
     bool                  enabled {};
@@ -52,8 +52,8 @@ private:
 
     static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
 
-    quint32 nativeKeycode(Qt::Key keycode);
-    quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
+    quint32 _nativeKeycode(Qt::Key keycode);
+    quint32 _nativeModifiers(Qt::KeyboardModifiers modifiers);
 
     bool    _register(quint32 nativeKey, quint32 nativeMods);
     bool    _unregister(quint32 nativeKey, quint32 nativeMods);
