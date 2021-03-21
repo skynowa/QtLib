@@ -23,7 +23,7 @@ ShortcutActivator::run() /* override */
     auto *display = static_cast<Display *>(this->display);
     qTEST_PTR(display);
     qTEST(keycode > 0);
-    qTEST(modifiers > 0);
+    qTEST_NA(modifiers);
 
     const quint32 keyModifiers[]
     {
