@@ -55,10 +55,16 @@ X11Data::~X11Data()
 //--------------------------------------------------------------------------------------------------
 KeyCode
 X11Data::keysymToKeycode(
-    const KeySym a_keysym
+    const Qt::Key a_key
 )
 {
-    const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
+    KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
+    if (keysym == NoSymbol) {
+        qTEST(false);
+        keysym = static_cast<ushort>(a_key);
+    }
+
+    const KeyCode keyCode = ::XKeysymToKeycode(_display, keysym);
     qTEST(keyCode != 0);
 
     return keyCode;
