@@ -36,7 +36,7 @@ ShortcutActivator::run() /* override */
     const int    keyboard_mode {GrabModeAsync};
 
     for (const auto &it_modifier : keyModifiers) {
-        ::XGrabKey(display, keycode, it_modifier, grab_window, owner_events, pointer_mode,
+        ::XGrabKey(display, this->keycode, it_modifier, grab_window, owner_events, pointer_mode,
             keyboard_mode);
     }
 
@@ -52,7 +52,7 @@ ShortcutActivator::run() /* override */
 
         switch(event.type) {
         case KeyPress:
-            Q_EMIT sig_activated(keycode, modifiers);
+            Q_EMIT sig_activated(this->keycode, this->modifiers);
         default:
             break;
         }
@@ -63,7 +63,7 @@ ShortcutActivator::run() /* override */
     }
 
     for (const auto &it_modifier : keyModifiers) {
-        ::XUngrabKey(display, keycode, it_modifier, grab_window);
+        ::XUngrabKey(display, this->keycode, it_modifier, grab_window);
     }
 
     ::XCloseDisplay(display);
