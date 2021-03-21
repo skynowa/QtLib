@@ -53,19 +53,6 @@ X11Data::~X11Data()
     }
 }
 //--------------------------------------------------------------------------------------------------
-#if 0
-KeyCode
-X11Data::keysymToKeycode(
-    const KeySym a_keysym
-)
-{
-    const KeyCode keyCode = ::XKeysymToKeycode(_display, a_keysym);
-    qTEST(keyCode != 0);
-
-    return keyCode;
-}
-#else
-//--------------------------------------------------------------------------------------------------
 KeyCode
 X11Data::keysymToKeycode(
     const Qt::Key a_key
@@ -82,7 +69,6 @@ X11Data::keysymToKeycode(
 
     return keyCode;
 }
-#endif
 //--------------------------------------------------------------------------------------------------
 bool
 X11Data::grabKey(

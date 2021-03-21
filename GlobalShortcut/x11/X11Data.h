@@ -25,11 +25,7 @@ public:
     X11Data();
    ~X11Data();
 
-#if 0
-    KeyCode keysymToKeycode(const KeySym keysym);
-#else
     KeyCode keysymToKeycode(const Qt::Key key);
-#endif
 
     bool    grabKey(const quint32 keycode, const quint32 modifiers);
     bool    ungrabKey(const quint32 keycode, const quint32 modifiers);
