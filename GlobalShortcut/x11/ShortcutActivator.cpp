@@ -34,7 +34,7 @@ ShortcutActivator::run() /* override */
     };
 
     const Window grab_window   { DefaultRootWindow(display) };
-    const Bool   owner_events  {False};
+    const Bool   owner_events  {True};
     const int    pointer_mode  {GrabModeAsync};
     const int    keyboard_mode {GrabModeAsync};
 
