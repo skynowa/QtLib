@@ -1,6 +1,8 @@
 /**
  * \file  ShortcutActivator.h
  * \brief
+ *
+ * xgrabkey.c - https://gist.github.com/jouyouyun/669726de58df8d333666
  */
 
 #pragma once
