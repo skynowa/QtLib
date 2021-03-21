@@ -77,7 +77,7 @@ X11Data::grabKey(
 )
 {
     qTEST(a_keycode > 0);
-    /// qTEST(a_modifiers > 0);
+    qTEST_NA(a_modifiers);
 
     for (int i = 0; !_errorHandler.isError && i < _modifiers.size(); ++ i) {
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | _modifiers[i], _rootWindow, True,
