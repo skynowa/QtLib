@@ -104,6 +104,7 @@ GlobalShortcut_impl::_nativeKeycode(
     Qt::Key a_key
 )
 {
+#if 0
     KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
     if (keysym == NoSymbol) {
         qTEST(false);
@@ -111,6 +112,9 @@ GlobalShortcut_impl::_nativeKeycode(
     }
 
     return _x11.keysymToKeycode(keysym);
+#else
+    return _x11.keysymToKeycode(a_key);
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 bool

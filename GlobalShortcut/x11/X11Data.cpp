@@ -53,6 +53,7 @@ X11Data::~X11Data()
     }
 }
 //--------------------------------------------------------------------------------------------------
+#if 0
 KeyCode
 X11Data::keysymToKeycode(
     const KeySym a_keysym
@@ -63,6 +64,25 @@ X11Data::keysymToKeycode(
 
     return keyCode;
 }
+#else
+//--------------------------------------------------------------------------------------------------
+KeyCode
+X11Data::keysymToKeycode(
+    const Qt::Key a_key
+)
+{
+    KeySym keysym = ::XStringToKeysym(QKeySequence(a_key).toString().toLatin1().data());
+    if (keysym == NoSymbol) {
+        qTEST(false);
+        keysym = static_cast<ushort>(a_key);
+    }
+
+    const KeyCode keyCode = ::XKeysymToKeycode(_display, keysym);
+    qTEST(keyCode != 0);
+
+    return keyCode;
+}
+#endif
 //--------------------------------------------------------------------------------------------------
 bool
 X11Data::grabKey(
