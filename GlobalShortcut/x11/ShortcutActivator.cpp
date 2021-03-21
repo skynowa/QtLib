@@ -21,6 +21,9 @@ ShortcutActivator::run() /* override */
     qTRACE_FUNC << "- start";
 
     auto *display = static_cast<Display *>(this->display);
+    qTEST_PTR(display);
+    qTEST(keycode > 0);
+    qTEST(modifiers > 0);
 
     const quint32 keyModifiers[]
     {
