@@ -6,69 +6,11 @@
 
 #include "GlobalShortcut_impl.h"
 
-#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
-    // n/a
-#else
-    #include "x11/ShortcutActivator.h"
-#endif
+#include "x11/ShortcutActivator.h"
 
 namespace qtlib
 {
 
-//-------------------------------------------------------------------------------------------------
-#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
-
-bool
-GlobalShortcut_impl::nativeEventFilter(
-    const QByteArray &a_eventType,
-    void             *a_message,
-    long             *a_result
-) /* override */
-{
-    qTEST(a_eventType.size() > 0);
-    qTEST_PTR(a_message);
-    qTEST_PTR(a_result);
-
-    Q_UNUSED(a_result);
-
-    xcb_key_press_event_t *kev {};
-
-    // qDebug() << qTRACE_VAR(a_eventType);
-
-    if (a_eventType == "xcb_generic_event_t") {
-        auto *event = static_cast<xcb_generic_event_t *>(a_message);
-        // qDebug() << qTRACE_VAR(event->response_type);
-        if ((event->response_type & 127) == XCB_KEY_PRESS) {
-            kev = static_cast<xcb_key_press_event_t *>(a_message);
-        }
-    }
-
-    if (kev != Q_NULLPTR) {
-        unsigned int keycode  {kev->detail};
-        unsigned int keystate {0};
-
-        if (kev->state & XCB_MOD_MASK_1) {
-            keystate |= Mod1Mask;
-        }
-        if (kev->state & XCB_MOD_MASK_CONTROL) {
-            keystate |= ControlMask;
-        }
-        if (kev->state & XCB_MOD_MASK_4) {
-            keystate |= Mod4Mask;
-        }
-        if (kev->state & XCB_MOD_MASK_SHIFT) {
-            keystate |= ShiftMask;
-        }
-
-        _activateShortcut(keycode,
-            // Mod1Mask == Alt, Mod4Mask == Meta
-            keystate & (ShiftMask | ControlMask | Mod1Mask | Mod4Mask));
-    }
-
-    return false;
-}
-
-#endif
 //-------------------------------------------------------------------------------------------------
 quint32
 GlobalShortcut_impl::_nativeModifiers(
@@ -116,24 +58,20 @@ GlobalShortcut_impl::_register(
 #if 0
     return _x11.grabKey(a_nativeKey, a_nativeMods);
 #else
-    #if QTLIB_GLOBAL_SHORTCUT_V1
-        // n/a
-    #else
-        // ShortcutActivator
-        {
-            ShortcutActivator *workerThread = new ShortcutActivator();
-            workerThread->display   = ::XOpenDisplay(nullptr);
-            workerThread->keycode   = a_nativeKey;
-            workerThread->modifiers = a_nativeMods;
+    // ShortcutActivator
+    {
+        ShortcutActivator *workerThread = new ShortcutActivator();
+        workerThread->display   = ::XOpenDisplay(nullptr);
+        workerThread->keycode   = a_nativeKey;
+        workerThread->modifiers = a_nativeMods;
 
-            connect(workerThread, &ShortcutActivator::sig_activated,
-                    this,         &GlobalShortcut_impl::_activateShortcut);
-            connect(workerThread, &ShortcutActivator::finished,
-                    workerThread, &QObject::deleteLater);
+        connect(workerThread, &ShortcutActivator::sig_activated,
+                this,         &GlobalShortcut_impl::_activateShortcut);
+        connect(workerThread, &ShortcutActivator::finished,
+                workerThread, &QObject::deleteLater);
 
-            workerThread->start();
-        }
-    #endif
+        workerThread->start();
+    }
 
     return true;
 #endif

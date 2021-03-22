@@ -19,12 +19,8 @@ namespace qtlib
 {
 
 class GlobalShortcut_impl :
-    public Private<GlobalShortcut>
-#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
-    , public QAbstractNativeEventFilter
-#else
-    , public QObject
-#endif
+    public Private<GlobalShortcut>,
+    public QObject
 {
 public:
              GlobalShortcut_impl();
@@ -42,12 +38,6 @@ private:
 
 #if defined(Q_OS_UNIX)
     X11Data _x11;
-#endif
-
-#if QTLIB_GLOBAL_SHORTCUT_V1 && !defined(Q_OS_DARWIN)
-    static int ref;
-
-    bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
 #endif
 
     static QHash<QPair<quint32, quint32>, GlobalShortcut *> _shortcuts;
