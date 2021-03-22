@@ -113,7 +113,30 @@ GlobalShortcut_impl::_register(
     quint32 a_nativeMods
 )
 {
+#if 0
     return _x11.grabKey(a_nativeKey, a_nativeMods);
+#else
+    #if QTLIB_GLOBAL_SHORTCUT_V1
+        // n/a
+    #else
+        // ShortcutActivator
+        {
+            ShortcutActivator *workerThread = new ShortcutActivator();
+            workerThread->display   = ::XOpenDisplay(nullptr);
+            workerThread->keycode   = a_nativeKey;
+            workerThread->modifiers = a_nativeMods;
+
+            connect(workerThread, &ShortcutActivator::sig_activated,
+                    this,         &GlobalShortcut_impl::_activateShortcut);
+            connect(workerThread, &ShortcutActivator::finished,
+                    workerThread, &QObject::deleteLater);
+
+            workerThread->start();
+        }
+    #endif
+
+    return true;
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 bool

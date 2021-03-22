@@ -86,25 +86,6 @@ GlobalShortcut_impl::setShortcut(
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
 
-#if QTLIB_GLOBAL_SHORTCUT_V1
-    // n/a
-#else
-    // ShortcutActivator
-    {
-        ShortcutActivator *workerThread = new ShortcutActivator();
-        workerThread->display   = ::XOpenDisplay(nullptr);
-        workerThread->keycode   = nativeKey;
-        workerThread->modifiers = nativeMods;
-
-        connect(workerThread, &ShortcutActivator::sig_activated,
-                this,         &GlobalShortcut_impl::_activateShortcut);
-        connect(workerThread, &ShortcutActivator::finished,
-                workerThread, &QObject::deleteLater);
-
-        workerThread->start();
-    }
-#endif
-
     return bRv;
 }
 //-------------------------------------------------------------------------------------------------
