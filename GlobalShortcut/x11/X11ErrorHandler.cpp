@@ -83,7 +83,7 @@ X11ErrorHandler::_errorText(
 	char errorText[255 + 1] {};
 	::XGetErrorText(a_display, a_event->error_code, errorText, sizeof(errorText) - 1);
 
-#if 0
+#if 1
     qDebug()
         << "XErrorEvent:" << "\n"
         << "Type:    " << a_event->type << "\n"
