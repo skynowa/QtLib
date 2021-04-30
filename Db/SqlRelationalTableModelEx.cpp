@@ -119,6 +119,10 @@ SqlRelationalTableModelEx::importCsv(
         if ( csvContent.last().isEmpty() ) {
             csvContent.removeLast();
         }
+
+        csvContent.sort();
+        cint duplicatesNum = csvContent.removeDuplicates();
+        qDebug() << qTRACE_VAR(duplicatesNum) << "- removed";
     }
 
     // file -> DB
