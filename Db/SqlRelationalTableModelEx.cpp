@@ -112,7 +112,7 @@ SqlRelationalTableModelEx::importCsv(
             return;
         }
 
-        cQString lines = fileCsv.readAll();
+        cQString &lines = fileCsv.readAll();
         csvContent = lines.split("\n");
         qCHECK_DO(csvContent.isEmpty(), return);
 
