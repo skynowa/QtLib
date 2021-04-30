@@ -51,6 +51,6 @@ elseif (ENV_UNIX)
 elseif (ENV_APPLE)
     set(QTLIB_LIBRARIES X11 PARENT_SCOPE)
 else()
-    message(FATAL_ERROR "${PROJECT_NAME}: unknown compiler")
+    message(WARNING "${PROJECT_NAME}: unknown compiler")
 endif()
 #--------------------------------------------------------------------------------------------------
