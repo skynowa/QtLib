@@ -90,14 +90,14 @@ SqlRelationalTableModelEx::realRowCount()
 //-------------------------------------------------------------------------------------------------
 void
 SqlRelationalTableModelEx::importCsv(
-    cQString               &a_filePath,
-    const QVector<QString> &a_fieldNames,
-    cQString               &a_csvSeparator,
-    cbool                   a_isNormalize,
-    QString                *out_infoMsg
+    cQString               &a_filePath,     ///< CSV path, if empty - import from clipboard
+    const QVector<QString> &a_fieldNames,   ///< DB table columns
+    cQString               &a_csvSeparator, ///< CSV separator
+    cbool                   a_isNormalize,  ///< normalize filed names/values
+    QString                *out_infoMsg     ///< [out] info message (statistic)
 )
 {
-    qTEST(!a_filePath.isEmpty());
+    qTEST_NA(a_filePath);
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_csvSeparator.isEmpty());
     qTEST_NA(a_isNormalize);
@@ -118,13 +118,20 @@ SqlRelationalTableModelEx::importCsv(
     // read file
     QStringList csvContent;
     {
-        QFile fileCsv(a_filePath);
-        bRv = fileCsv.open(QFile::ReadOnly);
-        if (!bRv || !fileCsv.isReadable()) {
-            return;
+        QString lines;
+
+        if ( !a_filePath.isEmpty() ) {
+            QFile fileCsv(a_filePath);
+            bRv = fileCsv.open(QFile::ReadOnly);
+            if (!bRv || !fileCsv.isReadable()) {
+                return;
+            }
+
+            lines = fileCsv.readAll();
+        } else {
+            lines = QApplication::clipboard()->text();
         }
 
-        cQString &lines = fileCsv.readAll();
         csvContent = lines.split("\n");
         qCHECK_DO(csvContent.isEmpty(), return);
 
@@ -212,6 +219,17 @@ SqlRelationalTableModelEx::importCsv(
                         .arg(info.wordsSkip)
                         .arg(info.wordsDone);
     }
+}
+//-------------------------------------------------------------------------------------------------
+void
+SqlRelationalTableModelEx::importCsvClipboard(
+    const QVector<QString> &a_fieldNames,   ///< DB table columns
+    cQString               &a_csvSeparator, ///< CSV separator
+    cbool                   a_isNormalize,  ///< normalize filed names/values
+    QString                *out_infoMsg     ///< [out] info message (statistic)
+)
+{
+    importCsv("", a_fieldNames, a_csvSeparator, a_isNormalize, out_infoMsg);
 }
 //-------------------------------------------------------------------------------------------------
 void
