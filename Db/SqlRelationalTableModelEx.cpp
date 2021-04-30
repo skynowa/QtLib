@@ -127,7 +127,21 @@ SqlRelationalTableModelEx::importCsv(
 
     // file -> DB
     for (int l = 0; l < csvContent.size(); ++ l) {
-        cQStringList line = csvContent.at(l).split(a_csvSeparator);
+        QStringList lineColumns;
+        {
+            cQString rawLine = csvContent.at(l);
+
+            lineColumns = rawLine.split(a_csvSeparator);
+
+            cint csvSeparatorsNum = rawLine.count(a_csvSeparator);
+            if (csvSeparatorsNum == a_fieldNames.size()) {
+                // line with all fields
+                lineColumns = rawLine.split(a_csvSeparator);
+            } else {
+                // line with term field only
+                lineColumns.append( rawLine.trimmed() );
+            }
+        }
 
         // targetRow
         cint targetRow = realRowCount() - 1;
@@ -136,8 +150,20 @@ SqlRelationalTableModelEx::importCsv(
         QSqlRecord record;
 
         for (int f = 0; f < a_fieldNames.size(); ++ f) {
-            QString fieldName  = a_fieldNames.at(f);
-            QString fieldValue = line.at(f);
+            QString fieldName = a_fieldNames.at(f);
+
+            QString fieldValue;
+            {
+                if      (lineColumns.size() == a_fieldNames.size()) {
+                    fieldValue = lineColumns.at(f);
+                }
+                else if (f == 0) {
+                    fieldValue = lineColumns.at(f);
+                }
+                else {
+                    fieldValue = "";
+                }
+            }
 
             // normalize
             if (a_isNormalize) {
@@ -152,7 +178,15 @@ SqlRelationalTableModelEx::importCsv(
         qTEST(bRv);
 
         bRv = submitAll();
-        qCHECK_PTR(bRv, this);
+        if (!bRv &&
+            lastError().text().contains("failed", Qt::CaseInsensitive))
+        {
+            // lastError(): QSqlError("19", "Unable to fetch row", "UNIQUE constraint failed: t_main.f_main_term")
+            // qDebug() << qTRACE_VAR(lastError().text());
+            continue;
+        }
+
+        /// qCHECK_PTR(bRv, this);
     } // for (csvContent)
 }
 //-------------------------------------------------------------------------------------------------
