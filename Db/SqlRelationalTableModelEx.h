@@ -24,7 +24,7 @@ public:
     int          realRowCount();
         ///< get real rows count
     void         importCsv(cQString &filePath, const QVector<QString> &fieldNames,
-                    cQString &csvSeparator, cbool isNormalize);
+                    cQString &csvSeparator, cbool isNormalize, QString *infoMsg);
         ///< import to CSV file
     void         exportCsv(cQString &filePath, const QVector<QString> &fieldNames,
                     cQString &csvSeparator, cbool isNormalize);

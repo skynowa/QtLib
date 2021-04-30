@@ -93,15 +93,27 @@ SqlRelationalTableModelEx::importCsv(
     cQString               &a_filePath,
     const QVector<QString> &a_fieldNames,
     cQString               &a_csvSeparator,
-    cbool                   a_isNormalize
+    cbool                   a_isNormalize,
+    QString                *out_infoMsg
 )
 {
     qTEST(!a_filePath.isEmpty());
     qTEST(!a_fieldNames.isEmpty());
     qTEST(!a_csvSeparator.isEmpty());
     qTEST_NA(a_isNormalize);
+    qTEST_NA(out_infoMsg);
 
-    bool bRv = false;
+    bool bRv {};
+
+    struct Info
+    {
+        int wordsAll {};
+        int wordsDuplicates {};
+        int wordsSkip {};
+        int wordsDone {};
+    };
+
+    Info info;
 
     // read file
     QStringList csvContent;
@@ -120,8 +132,8 @@ SqlRelationalTableModelEx::importCsv(
             csvContent.removeLast();
         }
 
-        cint duplicatesNum = csvContent.removeDuplicates();
-        qDebug() << qTRACE_VAR(duplicatesNum) << "- removed";
+        info.wordsAll        = csvContent.size();
+        info.wordsDuplicates = csvContent.removeDuplicates();
     }
 
     // file -> DB
@@ -182,11 +194,24 @@ SqlRelationalTableModelEx::importCsv(
         {
             // lastError(): QSqlError("19", "Unable to fetch row", "UNIQUE constraint failed: t_main.f_main_term")
             // qDebug() << qTRACE_VAR(lastError().text());
+            ++ info.wordsSkip;
+
             continue;
         }
 
-        /// qCHECK_PTR(bRv, this);
+        qCHECK_PTR(bRv, this);
+
+        ++ info.wordsDone;
     } // for (csvContent)
+
+    // [out]
+    if (out_infoMsg != nullptr) {
+        *out_infoMsg = QString("Words: All - %1, Duplicates - %2, Skip - %3, Done - %4")
+                        .arg(info.wordsAll)
+                        .arg(info.wordsDuplicates)
+                        .arg(info.wordsSkip)
+                        .arg(info.wordsDone);
+    }
 }
 //-------------------------------------------------------------------------------------------------
 void
