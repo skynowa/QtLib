@@ -23,10 +23,6 @@ SqlRelationalTableModelEx::SqlRelationalTableModelEx(
     QSqlDatabase a_db
 ) :
     QSqlRelationalTableModel(a_parent, a_db)
-#if defined(QT_DEBUG)
-    ,
-    _selectCount(0)
-#endif
 {
 }
 //-------------------------------------------------------------------------------------------------

@@ -17,30 +17,30 @@ class SqlNavigator :
     /// DB SQL navigator
 {
 public:
-    explicit         SqlNavigator(QWidget *parent);
-    virtual         ~SqlNavigator();
+    explicit  SqlNavigator(QWidget *parent);
+    virtual  ~SqlNavigator();
 
-    void             construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);
+    void      construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);
 
     SqlRelationalTableModelEx *model();
-    QTableView      *view();
-    bool             isValid() const;
+    QTableView *view();
+    bool        isValid() const;
 
-    void             first();
-    void             prior();
-    void             next();
-    void             last();
-    void             goTo(cint &rowIndex);
+    void        first();
+    void        prior();
+    void        next();
+    void        last();
+    void        goTo(cint rowIndex);
 
-    void             insert();
-    void             remove();
-    void             edit();
+    void        insert();
+    void        remove();
+    void        edit();
 
 private:
     SqlRelationalTableModelEx *_model {};
     QTableView                *_view {};
 
-    Q_DISABLE_COPY(SqlNavigator)
+    Q_DISABLE_COPY(SqlNavigator);
 };
 
 } // namespace qtlib

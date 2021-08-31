@@ -71,7 +71,7 @@ SqlNavigator::first()
 {
     qCHECK_DO(!isValid(), return);
 
-    cint targetRow = 0;
+    cint targetRow {};
 
     goTo(targetRow);
 }
@@ -109,7 +109,7 @@ SqlNavigator::last()
 //-------------------------------------------------------------------------------------------------
 void
 SqlNavigator::goTo(
-    cint &a_rowIndex
+    cint a_rowIndex
 )
 {
     // rowIndex - n/a
@@ -136,7 +136,7 @@ SqlNavigator::insert()
 {
     qCHECK_DO(!isValid(), return);
 
-    cint targetField = 1;
+    cint targetField {1};
 
     // empty record
     QSqlRecord record = model()->record();
@@ -160,9 +160,9 @@ SqlNavigator::remove()
 {
     qCHECK_DO(!isValid(), return);
 
-    bool            bRv       = false;
-    int             targetRow = 0;
-    QModelIndexList indexes   = view()->selectionModel()->selectedRows();
+    bool            bRv {};
+    int             targetRow {};
+    QModelIndexList indexes = view()->selectionModel()->selectedRows();
 
     for (QModelIndex &index : indexes) {
         targetRow = index.row();
@@ -184,7 +184,7 @@ SqlNavigator::edit()
 {
     qCHECK_DO(!isValid(), return);
 
-    cint         targetCell = 1;
+    cint         targetCell {1};
 
     cint         targetRow = view()->currentIndex().row();
     cQModelIndex index     = model()->index(targetRow, targetCell);
