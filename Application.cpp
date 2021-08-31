@@ -42,7 +42,7 @@ private:
     cQString _memLockKey;
     cQString _sharedmemKey;
 
-    QSharedMemory _sharedMem;
+    QSharedMemory    _sharedMem;
     QSystemSemaphore _memLock;
 
     QString  _generateKeyHash(cQString &key, cQString &salt) const;
@@ -196,7 +196,7 @@ Application::pluginImageFormatsDirPath()
 bool
 Application::selfCheck()
 {
-    bool bRv = false;
+    bool bRv {};
 
     bRv = (QString(QT_VERSION_STR) == QString( qVersion() ));
     if (!bRv) {
