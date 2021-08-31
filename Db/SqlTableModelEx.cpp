@@ -23,10 +23,6 @@ SqlTableModelEx::SqlTableModelEx(
     QSqlDatabase a_db
 ) :
     QSqlTableModel(a_parent, a_db)
-#if defined(QT_DEBUG)
-    ,
-    _selectCount  (0)
-#endif
 {
 }
 //-------------------------------------------------------------------------------------------------
@@ -42,7 +38,7 @@ SqlTableModelEx::select()
     }
 #endif
 
-    bool bRv = false;
+    bool bRv {};
 
     Q_EMIT sig_selectProgress( rowCount() );
 
@@ -72,8 +68,8 @@ SqlTableModelEx::realRowCount()
 {
     qTEST(!tableName().isEmpty());
 
-    int  iRv = 0;
-    bool bRv = false;
+    int  iRv {};
+    bool bRv {};
 
     QSqlQuery query("SELECT COUNT(*) FROM " + tableName());
     bRv = query.next();
@@ -101,7 +97,7 @@ SqlTableModelEx::importCsv(
     qTEST(!a_csvSeparator.isEmpty());
     qTEST_NA(a_isNormalize);
 
-    bool bRv = false;
+    bool bRv {};
 
     // read file
     QStringList csvContent;
