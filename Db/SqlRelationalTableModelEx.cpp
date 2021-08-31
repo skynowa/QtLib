@@ -323,14 +323,12 @@ SqlRelationalTableModelEx::exportCsv(
 //-------------------------------------------------------------------------------------------------
 void
 SqlRelationalTableModelEx::filter(
-    cQString     &a_tableName,
     cdb_fields_t &a_fields,
     cQString     &a_join,
     cQString     &a_where,
     cQString     &a_orderBy
 )
 {
-    qTEST(!a_tableName.isEmpty());
     qTEST(!a_fields.isEmpty());
     qTEST_NA(a_join);
     qTEST_NA(a_where);
@@ -355,13 +353,13 @@ SqlRelationalTableModelEx::filter(
         if (isAllFieldsEmpty) {
             if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2")
-                                .arg(a_tableName)
+                                .arg( tableName() )
                                 .arg(a_join);
             }
         } else {
             if ( !isSqlRelationalTableModel ) {
                 sqlStr = QString("SELECT * FROM %1 %2 WHERE")
-                                .arg(a_tableName)
+                                .arg( tableName() )
                                 .arg(a_join);
             }
 

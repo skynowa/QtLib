@@ -37,8 +37,8 @@ public:
     void             edit();
 
 private:
-    SqlRelationalTableModelEx *_model;
-    QTableView      *_view;
+    SqlRelationalTableModelEx *_model {};
+    QTableView                *_view {};
 
     Q_DISABLE_COPY(SqlNavigator)
 };

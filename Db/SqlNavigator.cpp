@@ -21,9 +21,7 @@ namespace qtlib
 SqlNavigator::SqlNavigator(
     QWidget *a_parent
 ) :
-    QObject(a_parent),
-    _model (nullptr),
-    _view  (nullptr)
+    QObject(a_parent)
 {
     qTEST_PTR(a_parent);
 }
@@ -36,11 +34,11 @@ SqlNavigator::~SqlNavigator()
 void
 SqlNavigator::construct(
     SqlRelationalTableModelEx *a_tableModel,
-    QTableView      *a_tableView
+    QTableView                *a_tableView
 )
 {
-    qTEST_PTR(a_tableModel);
-    qTEST_PTR(a_tableView);
+    qTEST_NA(a_tableModel);
+    qTEST_NA(a_tableView);
 
     _model = a_tableModel;
     _view  = a_tableView;
@@ -65,7 +63,7 @@ SqlNavigator::view()
 bool
 SqlNavigator::isValid() const
 {
-    return ( (_model != nullptr ) && (_view != nullptr) );
+    return (_model != nullptr && _view != nullptr);
 }
 //-------------------------------------------------------------------------------------------------
 void
