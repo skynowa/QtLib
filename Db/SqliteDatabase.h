@@ -30,14 +30,14 @@ struct SqliteConfig
     QString        dbPath; /* = QString() */  ///< DB file path
     QVector<Table> tables;
 };
-qTYPEDEF_CONST(SqliteConfig);
+qUSING_CONST(SqliteConfig);
 //-------------------------------------------------------------------------------------------------
 class SqliteDatabase :
     public QObject
 {
 public:
 
-    explicit      SqliteDatabase(QObject *parent /* = nullptr */);
+    explicit      SqliteDatabase(QObject *parent);
 
     void          construct(cSqliteConfig &config);
     QSqlDatabase& qDb();
@@ -46,7 +46,7 @@ public:
         ///< DB filed names
 
 private:
-    cSqliteConfig *_config;
+    cSqliteConfig *_config {};
     QSqlDatabase  _db;
 
     void          _setup();

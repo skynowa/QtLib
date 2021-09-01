@@ -19,10 +19,9 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 SqliteDatabase::SqliteDatabase(
-    QObject *a_parent /* = Q_NULLPTR */
+    QObject *a_parent   ///< maybe nullptr
 ) :
-    QObject(a_parent),
-    _db    ()
+    QObject(a_parent)
 {
 }
 //-------------------------------------------------------------------------------------------------
@@ -82,7 +81,7 @@ SqliteDatabase::fieldNames(
 void
 SqliteDatabase::_setup()
 {
-    bool bRv = false;
+    bool bRv {};
 
     bRv = QSqlDatabase::isDriverAvailable("QSQLITE");
     qCHECK_DO(!bRv, qMSG(QSqlDatabase().lastError().text()); return);
@@ -106,7 +105,7 @@ SqliteDatabase::_setup()
 void
 SqliteDatabase::_create()
 {
-    bool bRv = false;
+    bool bRv {};
 
     bRv = qDb().open();
     qCHECK_REF(bRv, qDb());

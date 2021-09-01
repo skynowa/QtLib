@@ -42,7 +42,7 @@ struct AboutData
     QString appDonatePrivate24;
 };
 
-qTYPEDEF_CONST(AboutData);
+qUSING_CONST(AboutData);
 //-------------------------------------------------------------------------------------------------
 class About :
     public QDialog
