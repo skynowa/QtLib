@@ -17,7 +17,7 @@ class SqlNavigator :
     /// DB SQL navigator
 {
 public:
-    explicit  SqlNavigator(QWidget *parent);
+    explicit  SqlNavigator(QObject *parent);
     virtual  ~SqlNavigator();
 
     void      construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);

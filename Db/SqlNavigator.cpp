@@ -19,7 +19,7 @@ namespace qtlib
 
 //-------------------------------------------------------------------------------------------------
 SqlNavigator::SqlNavigator(
-    QWidget *a_parent
+    QObject *a_parent
 ) :
     QObject(a_parent)
 {
