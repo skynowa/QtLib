@@ -37,8 +37,8 @@ SqlNavigator::construct(
     QTableView                *a_tableView
 )
 {
-    qTEST_NA(a_tableModel);
-    qTEST_NA(a_tableView);
+    qTEST_PTR(a_tableModel);
+    qTEST_PTR(a_tableView);
 
     _model = a_tableModel;
     _view  = a_tableView;
