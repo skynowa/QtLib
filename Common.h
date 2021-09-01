@@ -53,6 +53,7 @@
 #include <QSqlTableModel>
 
 // DB
+#include <QSqlDatabase>
 #include <QDataWidgetMapper>
 
 // table
@@ -82,35 +83,36 @@
 //-------------------------------------------------------------------------------------------------
 // typedefs
 
-#define qTYPEDEF_CONST(t) \
-    typedef const t c##t
+#define qUSING_CONST(t) \
+    using c##t = const t
     ///< typedef const types
 
 // namespace qtlib
 // {
 
-qTYPEDEF_CONST(bool);
-qTYPEDEF_CONST(int);
-qTYPEDEF_CONST(char);
-qTYPEDEF_CONST(long);
-typedef const long long          clonglong;
-typedef const unsigned int       cuint;
-typedef const unsigned long      culong;
-typedef const unsigned long long culonglong;
-qTYPEDEF_CONST(float);
-qTYPEDEF_CONST(double);
+qUSING_CONST(bool);
+qUSING_CONST(int);
+qUSING_CONST(char);
+qUSING_CONST(long);
+using clonglong  = const long long;
+using cuint      = const unsigned int;
+using culong     = const unsigned long;
+using culonglong = const unsigned long long;
+qUSING_CONST(float);
+qUSING_CONST(double);
 
-qTYPEDEF_CONST(qint64);
-qTYPEDEF_CONST(QChar);
-qTYPEDEF_CONST(QString);
-qTYPEDEF_CONST(QStringList);
-qTYPEDEF_CONST(QByteArray);
-qTYPEDEF_CONST(QVariant);
-qTYPEDEF_CONST(QSize);
-qTYPEDEF_CONST(QModelIndex);
-qTYPEDEF_CONST(QUrl);
-qTYPEDEF_CONST(QIcon);
-qTYPEDEF_CONST(QSqlDatabase);
+qUSING_CONST(qint64);
+qUSING_CONST(QChar);
+qUSING_CONST(QString);
+qUSING_CONST(QStringList);
+qUSING_CONST(QByteArray);
+qUSING_CONST(QVariant);
+qUSING_CONST(QSize);
+qUSING_CONST(QModelIndex);
+qUSING_CONST(QUrl);
+qUSING_CONST(QIcon);
+qUSING_CONST(QSqlDatabase);
+qUSING_CONST(QSqlTableModel);
 
 // } // namespace qtlib
 //-------------------------------------------------------------------------------------------------
