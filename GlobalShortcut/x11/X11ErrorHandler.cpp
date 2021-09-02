@@ -26,7 +26,7 @@ X11ErrorHandler::~X11ErrorHandler()
 void
 X11ErrorHandler::set()
 {
-    qTRACE_FUNC;
+    // qTRACE_FUNC;
 
     isError = False;
 

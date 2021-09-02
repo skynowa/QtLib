@@ -18,7 +18,7 @@ ShortcutActivator::end()
 void
 ShortcutActivator::run() /* override */
 {
-    qTRACE_FUNC << "- start";
+    // qTRACE_FUNC << "- start";
 
     auto *display = static_cast<Display *>(this->display);
     qTEST_PTR(display);
@@ -46,12 +46,12 @@ ShortcutActivator::run() /* override */
     ::XSelectInput(display, grab_window, KeyPressMask);
 
     for ( ;; ) {
-        qDebug() << "XNextEvent - start";
+        // qDebug() << "XNextEvent - start";
 
         XEvent event {};
         ::XNextEvent(display, &event);
 
-        qDebug() << "XNextEvent - stop";
+        // qDebug() << "XNextEvent - stop";
 
         switch(event.type) {
         case KeyPress:
@@ -71,6 +71,6 @@ ShortcutActivator::run() /* override */
 
     ::XCloseDisplay(display);
 
-    qTRACE_FUNC << "- stop";
+    // qTRACE_FUNC << "- stop";
 }
 //-------------------------------------------------------------------------------------------------
