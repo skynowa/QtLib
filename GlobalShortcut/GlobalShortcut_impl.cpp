@@ -101,7 +101,9 @@ GlobalShortcut_impl::_activateShortcut(
 )
 {
     GlobalShortcut *shortcut = _shortcuts.value(qMakePair(a_nativeKey, a_nativeMods));
-    if (shortcut != Q_NULLPTR && shortcut->isEnabled()) {
+    if (shortcut != Q_NULLPTR &&
+        shortcut->isEnabled())
+    {
         Q_EMIT shortcut->sig_activated();
     }
 }
