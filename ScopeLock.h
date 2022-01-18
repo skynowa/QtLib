@@ -11,7 +11,7 @@ template <typename T>
 class ScopeLock
 {
 public:
-    ScopeLock(T &a_object) :
+    explicit ScopeLock(const T &a_object) :
         _object(a_object)
     {
         bool bRv = _object.lock();
@@ -27,6 +27,6 @@ public:
     }
 
 private:
-    T &_object;
+    const T &_object;
 };
 //-------------------------------------------------------------------------------------------------
