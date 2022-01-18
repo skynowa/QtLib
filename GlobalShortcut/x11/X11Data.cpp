@@ -36,13 +36,13 @@ X11Data::X11Data()
 
     /// _display = ::XOpenDisplay(displayName.toStdString().c_str());
     _display = ::XOpenDisplay(nullptr);
-	if (_display == nullptr) {
+    if (_display == nullptr) {
         qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName.toStdString().c_str());
-	}
-
-    _errorHandler.set();
+    }
 
     _rootWindow = DefaultRootWindow(_display);
+
+    _errorHandler.set();
 }
 //--------------------------------------------------------------------------------------------------
 X11Data::~X11Data()
@@ -81,8 +81,8 @@ X11Data::grabKey(
 
     for (int i = 0; !_errorHandler.isError && i < _modifiers.size(); ++ i) {
         int iRv = ::XGrabKey(_display, a_keycode, a_modifiers | _modifiers[i], _rootWindow, True,
-			GrabModeAsync, GrabModeAsync);
-		// qTEST(iRv == 0);
+            GrabModeAsync, GrabModeAsync);
+        // qTEST(iRv == 0);
         if (iRv != 0 &&
             _errorHandler.isError != 0)
         {
@@ -90,16 +90,16 @@ X11Data::grabKey(
                 << "XGrabKey: " << qTRACE_VAR(iRv)
                 << qTRACE_VAR(_errorHandler.isError);
         }
-	}
+    }
 
     if (_errorHandler.isError) {
         bool bRv = ungrabKey(a_keycode, a_modifiers);
-		qTEST(bRv);
+        qTEST(bRv);
 
-		return false;
-	}
+        return false;
+    }
 
-	return true;
+    return true;
 }
 //--------------------------------------------------------------------------------------------------
 bool
@@ -111,7 +111,7 @@ X11Data::ungrabKey(
     qTEST(a_keycode > 0);
     /// qTEST(a_modifiers > 0);
 
-    for (const auto &it_modifier : _modifiers) {
+    for (const auto it_modifier : _modifiers) {
         int iRv = ::XUngrabKey(_display, a_keycode, a_modifiers | it_modifier, _rootWindow);
         if (iRv != 0 &&
             _errorHandler.isError != 0)
@@ -119,9 +119,9 @@ X11Data::ungrabKey(
             qDebug()
                 << "XUngrabKey: " << qTRACE_VAR(iRv)
                 << qTRACE_VAR(_errorHandler.isError);
-		}
-		/// qTEST(iRv == 0);
-	}
+        }
+        /// qTEST(iRv == 0);
+    }
 
     return !_errorHandler.isError;
 }
