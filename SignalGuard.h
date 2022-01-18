@@ -19,13 +19,13 @@ public:
          SignalGuard(QObject *target, cchar *slot);
         ~SignalGuard();
 
-    void setEmit(cbool &a_flag);
+    void setEmit(cbool a_flag);
 
 Q_SIGNALS:
     void sig_trigger();
 
 private:
-    bool _isEmit;
+    bool _isEmit {true};
 
     Q_OBJECT
 };
