@@ -9,6 +9,20 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 //-------------------------------------------------------------------------------------------------
+ShortcutActivator::ShortcutActivator(
+    void          *a_display,
+    const quint32  a_keycode,
+    const quint32  a_modifiers
+) :
+    _display  {a_display},
+    _keycode  {a_keycode},
+    _modifiers{a_modifiers}
+{
+    qTEST_PTR(a_display);
+    qTEST(_keycode > 0);
+    qTEST_NA(_modifiers);
+}
+//-------------------------------------------------------------------------------------------------
 void
 ShortcutActivator::end()
 {
@@ -16,21 +30,18 @@ ShortcutActivator::end()
 }
 //-------------------------------------------------------------------------------------------------
 void
-ShortcutActivator::run() /* override */
+ShortcutActivator::run() /* final */
 {
     // qTRACE_FUNC << "- start";
 
-    auto *display = static_cast<Display *>(this->display);
-    qTEST_PTR(display);
-    qTEST(keycode > 0);
-    qTEST_NA(modifiers);
+    auto *display = static_cast<Display *>(_display);
 
     const quint32 keyModifiers[]
     {
-        modifiers,
-        modifiers | Mod2Mask,
-        modifiers | LockMask,
-        modifiers | LockMask | Mod2Mask
+        _modifiers,
+        _modifiers | Mod2Mask,
+        _modifiers | LockMask,
+        _modifiers | LockMask | Mod2Mask
     };
 
     const Window grab_window   { DefaultRootWindow(display) };
@@ -38,8 +49,8 @@ ShortcutActivator::run() /* override */
     const int    pointer_mode  {GrabModeAsync};
     const int    keyboard_mode {GrabModeAsync};
 
-    for (const auto &it_modifier : keyModifiers) {
-        ::XGrabKey(display, this->keycode, it_modifier, grab_window, owner_events, pointer_mode,
+    for (const auto it_modifier : keyModifiers) {
+        ::XGrabKey(display, _keycode, it_modifier, grab_window, owner_events, pointer_mode,
             keyboard_mode);
     }
 
@@ -55,7 +66,7 @@ ShortcutActivator::run() /* override */
 
         switch(event.type) {
         case KeyPress:
-            Q_EMIT sig_activated(this->keycode, this->modifiers);
+            Q_EMIT sig_activated(_keycode, _modifiers);
         default:
             break;
         }
@@ -65,8 +76,8 @@ ShortcutActivator::run() /* override */
         }
     }
 
-    for (const auto &it_modifier : keyModifiers) {
-        ::XUngrabKey(display, this->keycode, it_modifier, grab_window);
+    for (const auto it_modifier : keyModifiers) {
+        ::XUngrabKey(display, _keycode, it_modifier, grab_window);
     }
 
     ::XCloseDisplay(display);

@@ -60,10 +60,8 @@ GlobalShortcut_impl::_register(
 #else
     // ShortcutActivator
     {
-        ShortcutActivator *workerThread = new ShortcutActivator();
-        workerThread->display   = ::XOpenDisplay(nullptr);
-        workerThread->keycode   = a_nativeKey;
-        workerThread->modifiers = a_nativeMods;
+        ShortcutActivator *workerThread = new ShortcutActivator(::XOpenDisplay(nullptr),
+            a_nativeKey, a_nativeMods);
 
         connect(workerThread, &ShortcutActivator::sig_activated,
                 this,         &GlobalShortcut_impl::_activateShortcut);

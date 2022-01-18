@@ -14,19 +14,21 @@ class ShortcutActivator :
     public QThread
 {
 public:
-    void    *display {};
-    quint32  keycode {};
-    quint32  modifiers {};
+    ShortcutActivator(void *display, const quint32 keycode, const quint32 modifiers);
 
-    void run() override;
+    void run() final;
     void end();
 
 Q_SIGNALS:
     void sig_activated(quint32, quint32);
 
 private:
-    bool _isTerminate {};
-
     Q_OBJECT
+
+    void          *_display {};
+    const quint32  _keycode {};
+    const quint32  _modifiers {};
+
+    bool _isTerminate {};
 };
 //-------------------------------------------------------------------------------------------------
