@@ -1,5 +1,5 @@
 /**
- * \file   SqlNavigator.cpp
+ * \file  SqlNavigator.cpp
  * \brief
  */
 
@@ -23,7 +23,7 @@ SqlNavigator::SqlNavigator(
 ) :
     QObject(a_parent)
 {
-    ///? qTEST_PTR(a_parent);
+    qTEST_PTR(a_parent);
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */

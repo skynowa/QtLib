@@ -1,5 +1,5 @@
 /**
- * \file   SqlTableModelEx.cpp
+ * \file  SqlTableModelEx.cpp
  * \brief
  */
 
@@ -26,7 +26,6 @@ SqlTableModelEx::SqlTableModelEx(
 {
 }
 //-------------------------------------------------------------------------------------------------
-/* virtual */
 bool
 SqlTableModelEx::select()
 {

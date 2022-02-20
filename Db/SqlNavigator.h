@@ -1,5 +1,5 @@
 /**
- * \file   SqlNavigator.h
+ * \file  SqlNavigator.h
  * \brief
  */
 
@@ -17,10 +17,15 @@ class SqlNavigator :
     /// DB SQL navigator
 {
 public:
+///@name ctors, dtor
+///@{
     explicit  SqlNavigator(QObject *parent);
     virtual  ~SqlNavigator();
 
+    Q_DISABLE_COPY(SqlNavigator);
+
     void      construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);
+///@}
 
     SqlRelationalTableModelEx *model();
     QTableView *view();
@@ -39,8 +44,6 @@ public:
 private:
     SqlRelationalTableModelEx *_model {};
     QTableView                *_view {};
-
-    Q_DISABLE_COPY(SqlNavigator);
 };
 
 } // namespace qtlib

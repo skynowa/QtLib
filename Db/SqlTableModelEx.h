@@ -1,5 +1,5 @@
 /**
- * \file   SqlTableModelEx.h
+ * \file  SqlTableModelEx.h
  * \brief
  */
 
@@ -16,10 +16,15 @@ class SqlTableModelEx :
     public QSqlTableModel
 {
 public:
+///@name ctors, dtor
+///@{
     explicit  SqlTableModelEx(QObject *parent, QSqlDatabase db);
     virtual  ~SqlTableModelEx() {}
 
-    bool select() override;
+    Q_DISABLE_COPY(SqlTableModelEx)
+///@}
+
+    bool select() final;
         ///< select query
 
     int  realRowCount();
@@ -42,14 +47,13 @@ Q_SIGNALS:
     void sig_selectProgress(int value);
 
 private:
+    Q_OBJECT
+
 #if defined(QT_DEBUG)
     size_t _selectCount {};
 #endif
 
     void _csvNormalize(QString *fieldName, QString *fieldValue);
-
-    Q_OBJECT
-    Q_DISABLE_COPY(SqlTableModelEx)
 };
 
 } // namespace qtlib
