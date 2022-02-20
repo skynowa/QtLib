@@ -172,9 +172,13 @@ qUSING_CONST(QSqlTableModel);
 //-------------------------------------------------------------------------------------------------
 // debug variables, trace variable and value
 #define qTRACE_VAR(v) \
-                #v":" << (v)
+            #v":" << (v)
 #define qTRACE_FUNC \
-                qDebug() << "::::: " << __FUNCTION__ << " :::::"
+            qDebug() << "::::: " << __FUNCTION__ << " :::::"
+#define qTRACE_FUNC_VAR(v) \
+            qDebug() << "\t::: " << __FUNCTION__ << ": " << qTRACE_VAR(v) << " :::"
+#define qTRACE_POINT \
+            qDebug() << "\t::: " << __FUNCTION__ << " (" << __LINE__ << ") :::"
 //-------------------------------------------------------------------------------------------------
 // custom assert
 #if qTEST_IS_USED
