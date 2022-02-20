@@ -1,5 +1,5 @@
 /**
- * \file   SignalGuard.h
+ * \file  SignalGuard.h
  * \brief
  */
 
@@ -16,8 +16,13 @@ class SignalGuard :
     /// Ensures through RAII that a signal will be emitted in the case of early returns
 {
 public:
-         SignalGuard(QObject *target, cchar *slot);
-        ~SignalGuard();
+///@name ctors, dtor
+///@{
+    SignalGuard(QObject *target, cchar *slot);
+    ~SignalGuard();
+
+    Q_DISABLE_COPY(SignalGuard);
+///@}
 
     void setEmit(cbool a_flag);
 
@@ -25,9 +30,9 @@ Q_SIGNALS:
     void sig_trigger();
 
 private:
-    bool _isEmit {true};
-
     Q_OBJECT
+
+    bool _isEmit {true};
 };
 
 } // namespace qtlib

@@ -1,5 +1,5 @@
 /**
- * \file   SignalGuard.cpp
+ * \file  SignalGuard.cpp
  * \brief
  */
 

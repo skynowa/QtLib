@@ -19,10 +19,15 @@ class Application :
     /// application
 {
 public:
+///@name ctors, dtor
+///@{
              Application(int &argc, char **argv, cQString &guid);
         ///< constructor
     virtual ~Application();
         ///< destructor
+
+    Q_DISABLE_COPY(Application)
+///@}
 
     bool     isRunnig() const;
         ///< is application running
@@ -55,15 +60,13 @@ Q_SIGNALS:
     void     sig_messageAvailable(QStringList messages);
 
 private:
+    Q_OBJECT
+
     cQString _guid;
 
 #if !defined(Q_OS_ANDROID)
     mutable QSharedMemory _locker;
 #endif
-
-private:
-    Q_OBJECT
-    Q_DISABLE_COPY(Application)
 };
 
 } // namespace qtlib
