@@ -40,7 +40,9 @@ X11Data::X11Data()
         qDebug() << "XOpenDisplay: " << ::XDisplayName(displayName.toStdString().c_str());
     }
 
-    _rootWindow = DefaultRootWindow(_display);
+    if (_display != nullptr) {
+        _rootWindow = DefaultRootWindow(_display);
+    }
 
     _errorHandler.set();
 }
