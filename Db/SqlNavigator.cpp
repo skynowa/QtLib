@@ -23,7 +23,7 @@ SqlNavigator::SqlNavigator(
 ) :
     QObject(a_parent)
 {
-    qTEST_PTR(a_parent);
+    qTEST_NA(a_parent);
 }
 //-------------------------------------------------------------------------------------------------
 /* virtual */
