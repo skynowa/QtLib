@@ -1,5 +1,5 @@
 /**
- * \file   Utils.h
+ * \file  Utils.h
  * \brief
  */
 
@@ -15,6 +15,8 @@ class Utils
     /// utils
 {
 public:
+    Utils() = delete;
+
     // UI
     static
     void         widgetAlignCenter(QWidget *widget);
@@ -23,7 +25,7 @@ public:
     void         widgetAlignTopCenter(QWidget *widget);
         ///< align main widget
     static
-    void         widgetAlwaysOnTop(QWidget *widget, cbool &isChecked);
+    void         widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
         ///< toggle 'always on top' for a QMainWindow
     static
     void         widgetActivate(QWidget *widget);
@@ -50,8 +52,8 @@ public:
 
     // debug
     static
-    void         debugTest(cQString &expression, cQString &filePath, culong &fileLine,
-                     cQString &functionName, cqint64 &logSizeMaxBytes);
+    void         debugTest(cQString &expression, cQString &filePath, culong fileLine,
+                     cQString &functionName, cqint64 logSizeMaxBytes);
         ///< custom assert
     static
     void         debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
@@ -60,10 +62,7 @@ public:
 
     // other
     static
-    void         sleepMsec(cint &timeoutMsec);
-
-private:
-                 Utils();
+    void         sleepMsec(cint timeoutMsec);
 };
 
 } // namespace qtlib
@@ -88,7 +87,7 @@ public:
     }
 
 private:
-    const char *_str;
+    const char *_str {};
 };
 
 #define qTRACE_SCOPE(s) qtlib::AutoTrace autoLog(s)

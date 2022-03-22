@@ -1,5 +1,5 @@
 /**
- * \file   Utils.cpp
+ * \file  Utils.cpp
  * \brief
  */
 
@@ -17,18 +17,6 @@
 
 namespace qtlib
 {
-
-/**************************************************************************************************
-*   private
-*
-**************************************************************************************************/
-
-//-------------------------------------------------------------------------------------------------
-Utils::Utils()
-{
-}
-//-------------------------------------------------------------------------------------------------
-
 
 /**************************************************************************************************
 *   public
@@ -76,7 +64,7 @@ Utils::widgetAlignTopCenter(
 void
 Utils::widgetAlwaysOnTop(
     QWidget *a_widget,
-    cbool   &a_isChecked
+    cbool    a_isChecked
 )
 {
     qTEST_PTR(a_widget);
@@ -193,9 +181,9 @@ void
 Utils::debugTest(
     cQString &a_expression,
     cQString &a_filePath,
-    culong   &a_fileLine,
+    culong    a_fileLine,
     cQString &a_functionName,
-    cqint64  &a_logSizeMaxBytes
+    cqint64   a_logSizeMaxBytes
 )
 {
     cQString msg = QString(
@@ -285,16 +273,14 @@ Utils::debugTracer(
     }
 
     // write to file
-    {
-    #if 0
-        // TODO: Utils::debugTracer() - trace file path
-        QFile outFile( Application::debugTracePath() );
-        outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+#if 0
+    // TODO: Utils::debugTracer() - trace file path
+    QFile outFile( Application::debugTracePath() );
+    outFile.open(QIODevice::WriteOnly | QIODevice::Append);
 
-        QTextStream ts(&outFile);
-        ts << msg << endl;
-    #endif
-    }
+    QTextStream ts(&outFile);
+    ts << msg << endl;
+#endif
 
     // write to std::out
     {
@@ -319,7 +305,7 @@ Utils::debugTracer(
 //-------------------------------------------------------------------------------------------------
 void
 Utils::sleepMsec(
-    cint &a_timeoutMsec
+    cint a_timeoutMsec
 )
 {
     qTEST(a_timeoutMsec > 0);
@@ -327,7 +313,8 @@ Utils::sleepMsec(
 #if defined(Q_OS_WIN)
     (void)::Sleep( DWORD(a_timeoutMsec) );
 #else
-    struct timespec tsTime = {
+    const struct timespec tsTime
+    {
         a_timeoutMsec / 1000,
         (a_timeoutMsec % 1000) * 1000 * 1000
     };
