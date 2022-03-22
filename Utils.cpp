@@ -80,6 +80,31 @@ Utils::widgetAlwaysOnTop(
     a_widget->setWindowFlags(flags);
 }
 //-------------------------------------------------------------------------------------------------
+void
+Utils::widgetAlwaysOnTop(
+    QMainWindow *a_window
+)
+{
+    qTEST_PTR(a_window);
+
+    Qt::WindowFlags flags = a_window->windowFlags();
+
+    cbool isOnTop = (flags & Qt::WindowStaysOnTopHint);
+    if (isOnTop) {
+        qTRACE_POINT;
+
+        flags &= ~(Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+    } else {
+        qTRACE_POINT;
+
+        flags |= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+
+    }
+
+    a_window->setWindowFlags(flags);
+    a_window->show();
+}
+//-------------------------------------------------------------------------------------------------
 /* static */
 void
 Utils::widgetActivate(
@@ -93,12 +118,6 @@ Utils::widgetActivate(
     a_widget->raise();
 }
 //-------------------------------------------------------------------------------------------------
-
-
-/**************************************************************************************************
-*   web
-*
-**************************************************************************************************/
 
 
 /**************************************************************************************************

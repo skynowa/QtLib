@@ -28,12 +28,11 @@ public:
     void         widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
         ///< toggle 'always on top' for a QMainWindow
     static
+    void         widgetAlwaysOnTop(QMainWindow *window);
+    ///< toggle 'always on top' for a QMainWindow
+    static
     void         widgetActivate(QWidget *widget);
         ///< activate widget
-
-
-    // web
-
 
     // grafics
     static
