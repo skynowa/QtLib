@@ -63,46 +63,42 @@ Utils::widgetAlignTopCenter(
 //-------------------------------------------------------------------------------------------------
 void
 Utils::widgetAlwaysOnTop(
-    QWidget *a_widget,
+    QWidget *out_widget,
     cbool    a_isChecked
 )
 {
-    qTEST_PTR(a_widget);
+    qTEST_PTR(out_widget);
     qTEST_NA(a_isChecked);
 
-    Qt::WindowFlags flags = a_widget->windowFlags();
+    Qt::WindowFlags flags = out_widget->windowFlags();
+
     if (a_isChecked) {
-        flags |= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+        flags |=  (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     } else {
         flags &= ~(Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     }
 
-    a_widget->setWindowFlags(flags);
+    out_widget->setWindowFlags(flags);
 }
 //-------------------------------------------------------------------------------------------------
 void
 Utils::widgetAlwaysOnTop(
-    QMainWindow *a_window
+    QMainWindow *out_window
 )
 {
-    qTEST_PTR(a_window);
+    qTEST_PTR(out_window);
 
-    Qt::WindowFlags flags = a_window->windowFlags();
+    Qt::WindowFlags flags = out_window->windowFlags();
 
     cbool isOnTop = (flags & Qt::WindowStaysOnTopHint);
     if (isOnTop) {
-        qTRACE_POINT;
-
         flags &= ~(Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     } else {
-        qTRACE_POINT;
-
-        flags |= (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
-
+        flags |=  (Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     }
 
-    a_window->setWindowFlags(flags);
-    a_window->show();
+    out_window->setWindowFlags(flags);
+    out_window->show();
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
