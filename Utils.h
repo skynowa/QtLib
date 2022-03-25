@@ -15,9 +15,12 @@ class Utils
     /// utils
 {
 public:
+///\name ctors, dtor
+///\{
     Utils() = delete;
+///\}
 
-    // UI
+///\name UI
     static
     void         widgetAlignCenter(QWidget *widget);
         ///< align main widget
@@ -26,30 +29,31 @@ public:
         ///< align main widget
     static
     void         widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
-        ///< toggle 'always on top' for a QMainWindow
+        ///< toggle 'always on top' for a QWidget
     static
     void         widgetAlwaysOnTop(QMainWindow *window);
     ///< toggle 'always on top' for a QMainWindow
     static
     void         widgetActivate(QWidget *widget);
         ///< activate widget
+///\}
 
-    // grafics
+///\name Grafics
     static
     void         imageConvert(cQString &filePathIn, QByteArray *photo, cQByteArray &format = "JPEG");
         ///< convert images
+///\}
 
-
-    // converters
+///\name Converters
     static
     std::wstring toStdWString(cQString &str);
         ///< convert a QString to an std::wstring
     static
     QString      fromStdWString(const std::wstring &str);
         ///< convert an std::wstring to a QString
+///\}
 
-
-    // debug
+///\name Debug
     static
     void         debugTest(cQString &expression, cQString &filePath, culong fileLine,
                      cQString &functionName, cqint64 logSizeMaxBytes);
@@ -57,11 +61,12 @@ public:
     static
     void         debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
         ///< callback for qInstallMessageHandler
+///\}
 
-
-    // other
+///\name Etc
     static
     void         sleepMsec(cint timeoutMsec);
+///\}
 };
 
 } // namespace qtlib
@@ -80,6 +85,7 @@ public:
     {
         qDebug() << "\n\n::: Start " << _str << " (" << QDateTime::currentDateTime().toString() << ") :::";
     }
+
    ~AutoTrace()
     {
         qDebug() << "\n::: Finish " << _str << " (" << QDateTime::currentDateTime().toString() << ") :::";
