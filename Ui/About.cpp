@@ -209,7 +209,6 @@ About::_constructUi()
             "<br>"
             "PayPal -  %1 (<a href=\"https://www.paypal.com/\">donate</a>)<br>"
             "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">donate</a>)<br>"
-            "YandexMoney - %3 (<a href=\"https://money.yandex.ru/\">donate</a>)<br>"
             "Private24 - %4 (<a href=\"https://privat24.ua/\">donate</a>)<br>"))
             .arg(_data.appDonatePayPal)
             .arg(_data.appDonateWebMoney)
