@@ -1,6 +1,6 @@
 /**
  * \file  Utils.h
- * \brief
+ * \brief Utils
  */
 
 
@@ -78,6 +78,7 @@ namespace qtlib
 {
 
 class AutoTrace
+    /// Auto trace logger
 {
 public:
     explicit AutoTrace(const char *a_str) :
