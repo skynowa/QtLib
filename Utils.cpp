@@ -6,13 +6,9 @@
 
 #include "Utils.h"
 
-#include "Application.h"
-
 #if defined(Q_OS_WIN)
     #include <windows.h>
 #endif
-
-#include <QTextStream>
 
 
 namespace qtlib

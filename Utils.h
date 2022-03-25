@@ -96,7 +96,7 @@ private:
     const char *_str {};
 };
 
-#define qTRACE_SCOPE(s) qtlib::AutoTrace autoLog(s)
+#define qTRACE_SCOPE(s)   qtlib::AutoTrace autoLog(s)
 #define qTRACE_SCOPE_FUNC qTRACE_SCOPE(__FUNCTION__)
 
 } // namespace qtlib
