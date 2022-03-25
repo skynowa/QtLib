@@ -61,6 +61,7 @@ Utils::widgetAlignTopCenter(
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Utils::widgetAlwaysOnTop(
     QWidget *out_widget,
@@ -81,6 +82,7 @@ Utils::widgetAlwaysOnTop(
     out_widget->setWindowFlags(flags);
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Utils::widgetAlwaysOnTop(
     QMainWindow *out_window
@@ -149,7 +151,7 @@ Utils::imageConvert(
 
 
 /**************************************************************************************************
-*   converters
+*   Converters
 *
 **************************************************************************************************/
 
@@ -187,11 +189,12 @@ Utils::fromStdWString(
 
 
 /**************************************************************************************************
-*   debug
+*   Debug
 *
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Utils::debugTest(
     cQString &a_expression,
@@ -257,6 +260,7 @@ Utils::debugTest(
     qWarning().noquote() << msg;
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Utils::debugTracer(
     QtMsgType                 a_type,
@@ -313,28 +317,29 @@ Utils::debugTracer(
 
 
 /**************************************************************************************************
-*   other
+*   Etc
 *
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
+/* static */
 void
 Utils::sleepMsec(
     cint a_timeoutMsec
 )
 {
-    qTEST(a_timeoutMsec > 0);
+    qTEST_NA(a_timeoutMsec);
 
 #if defined(Q_OS_WIN)
     (void)::Sleep( DWORD(a_timeoutMsec) );
 #else
-    const struct timespec tsTime
+    const struct timespec tmSpec
     {
         a_timeoutMsec / 1000,
         (a_timeoutMsec % 1000) * 1000 * 1000
     };
 
-    ::nanosleep(&tsTime, nullptr);
+    ::nanosleep(&tmSpec, nullptr);
 #endif
 }
 //-------------------------------------------------------------------------------------------------

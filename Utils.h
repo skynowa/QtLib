@@ -22,25 +22,25 @@ public:
 
 ///\name UI
     static
-    void         widgetAlignCenter(QWidget *widget);
+    void widgetAlignCenter(QWidget *widget);
         ///< align main widget
     static
-    void         widgetAlignTopCenter(QWidget *widget);
+    void widgetAlignTopCenter(QWidget *widget);
         ///< align main widget
     static
-    void         widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
+    void widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
         ///< toggle 'always on top' for a QWidget
     static
-    void         widgetAlwaysOnTop(QMainWindow *window);
-    ///< toggle 'always on top' for a QMainWindow
+    void widgetAlwaysOnTop(QMainWindow *window);
+        ///< toggle 'always on top' for a QMainWindow
     static
-    void         widgetActivate(QWidget *widget);
+    void widgetActivate(QWidget *widget);
         ///< activate widget
 ///\}
 
 ///\name Grafics
     static
-    void         imageConvert(cQString &filePathIn, QByteArray *photo, cQByteArray &format = "JPEG");
+    void imageConvert(cQString &filePathIn, QByteArray *photo, cQByteArray &format = "JPEG");
         ///< convert images
 ///\}
 
@@ -55,17 +55,17 @@ public:
 
 ///\name Debug
     static
-    void         debugTest(cQString &expression, cQString &filePath, culong fileLine,
-                     cQString &functionName, cqint64 logSizeMaxBytes);
+    void debugTest(cQString &expression, cQString &filePath, culong fileLine,
+            cQString &functionName, cqint64 logSizeMaxBytes);
         ///< custom assert
     static
-    void         debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
+    void debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
         ///< callback for qInstallMessageHandler
 ///\}
 
 ///\name Etc
     static
-    void         sleepMsec(cint timeoutMsec);
+    void sleepMsec(cint timeoutMsec);
 ///\}
 };
 
