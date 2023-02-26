@@ -333,5 +333,21 @@ Utils::sleepMsec(
 #endif
 }
 //-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Utils::clipBoardSelecrtionOrClipboard()
+{
+    QClipboard *clipboard = QApplication::clipboard();
+    if (clipboard == nullptr) {
+        qDebug() << __FUNCTION__ << ": clipboard - fail";
+        return {};
+    }
+
+    const auto mode = clipboard->supportsSelection() ?
+        QClipboard::Mode::Selection : QClipboard::Mode::Clipboard;
+
+    return clipboard->text(mode).trimmed();
+}
+//-------------------------------------------------------------------------------------------------
 
 } // namespace qtlib

@@ -54,7 +54,8 @@ public:
 ///\}
 
 ///\name Etc
-    static void sleepMsec(cint timeoutMsec);
+    static void    sleepMsec(cint timeoutMsec);
+    static QString clipBoardSelecrtionOrClipboard();
 ///\}
 };
 
