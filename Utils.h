@@ -12,7 +12,7 @@ namespace qtlib
 {
 
 class Utils
-    /// utils
+    /// Utils
 {
 public:
 ///\name ctors, dtor
@@ -21,51 +21,40 @@ public:
 ///\}
 
 ///\name UI
-    static
-    void widgetAlignCenter(QWidget *widget);
+    static void widgetAlignCenter(QWidget *widget);
         ///< align main widget
-    static
-    void widgetAlignTopCenter(QWidget *widget);
+    static void widgetAlignTopCenter(QWidget *widget);
         ///< align main widget
-    static
-    void widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
+    static void widgetAlwaysOnTop(QWidget *widget, cbool isChecked);
         ///< toggle 'always on top' for a QWidget
-    static
-    void widgetAlwaysOnTop(QMainWindow *window);
+    static void widgetAlwaysOnTop(QMainWindow *window);
         ///< toggle 'always on top' for a QMainWindow
-    static
-    void widgetActivate(QWidget *widget);
+    static void widgetActivate(QWidget *widget);
         ///< activate widget
 ///\}
 
 ///\name Grafics
-    static
-    void imageConvert(cQString &filePathIn, QByteArray *photo, cQByteArray &format = "JPEG");
+    static void imageConvert(cQString &filePathIn, QByteArray *photo, cQByteArray &format = "JPEG");
         ///< convert images
 ///\}
 
 ///\name Converters
-    static
-    std::wstring toStdWString(cQString &str);
+    static  std::wstring toStdWString(cQString &str);
         ///< convert a QString to an std::wstring
-    static
-    QString      fromStdWString(const std::wstring &str);
+    static  QString      fromStdWString(const std::wstring &str);
         ///< convert an std::wstring to a QString
 ///\}
 
 ///\name Debug
-    static
-    void debugTest(cQString &expression, cQString &filePath, culong fileLine,
-            cQString &functionName, cqint64 logSizeMaxBytes);
+    static void debugTest(cQString &expression, cQString &filePath, culong fileLine,
+                    cQString &functionName, cqint64 logSizeMaxBytes);
         ///< custom assert
-    static
-    void debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
+    static void debugTracer(QtMsgType type, const QMessageLogContext &context, cQString &msg);
         ///< callback for qInstallMessageHandler
 ///\}
 
 ///\name Etc
-    static
-    void sleepMsec(cint timeoutMsec);
+    static void sleepMsec(cint timeoutMsec);
 ///\}
 };
 
