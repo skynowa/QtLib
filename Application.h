@@ -20,14 +20,14 @@ class Application :
 {
 public:
 ///@name ctors, dtor
-///@{
+///\{
              Application(int &argc, char **argv, cQString &guid);
         ///< constructor
     virtual ~Application();
         ///< destructor
 
     Q_DISABLE_COPY(Application)
-///@}
+///\}
 
     bool     isRunnig() const;
         ///< is application running
