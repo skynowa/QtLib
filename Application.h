@@ -29,14 +29,20 @@ public:
     Q_DISABLE_COPY(Application)
 ///\}
 
-    bool     isRunnig() const;
+    bool isRunnig() const;
         ///< is application running
-    bool     isMaster() const;
+    bool isMaster() const;
         ///<
-    bool     sendMessage(cQString &message) const;
+    bool sendMessage(cQString &message) const;
         ///< send message to another application instance
 
-    // static
+public Q_SLOTS:
+    void checkForMessage();
+
+Q_SIGNALS:
+    void sig_messageAvailable(QStringList messages);
+
+public: /* static */
     static QString pluginPlatformsDirPath();
         ///< plugin platforms directory path
     static QString pluginSqlDriversDirPath();
@@ -47,12 +53,6 @@ public:
         ///< self check
     static void    restart();
         ///< restart
-
-public Q_SLOTS:
-    void     checkForMessage();
-
-Q_SIGNALS:
-    void     sig_messageAvailable(QStringList messages);
 
 private:
     Q_OBJECT
