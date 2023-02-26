@@ -321,7 +321,7 @@ Utils::sleepMsec(
     qTEST_NA(a_timeoutMsec);
 
 #if defined(Q_OS_WIN)
-    (void)::Sleep( DWORD(a_timeoutMsec) );
+    (void)::Sleep( static_cast<DWORD>(a_timeoutMsec) );
 #else
     const struct timespec tmSpec
     {
