@@ -37,20 +37,15 @@ public:
         ///< send message to another application instance
 
     // static
-    static
-    QString  pluginPlatformsDirPath();
+    static QString pluginPlatformsDirPath();
         ///< plugin platforms directory path
-    static
-    QString  pluginSqlDriversDirPath();
+    static QString pluginSqlDriversDirPath();
         ///< plugin sqldrivers  directory path
-    static
-    QString  pluginImageFormatsDirPath();
+    static QString pluginImageFormatsDirPath();
         ///< plugin imageformats  directory path
-    static
-    bool     selfCheck();
+    static bool    selfCheck();
         ///< self check
-    static
-    void     restart();
+    static void    restart();
         ///< restart
 
 public Q_SLOTS:
