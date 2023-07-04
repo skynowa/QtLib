@@ -109,8 +109,6 @@ qUSING_CONST(qint64);
 qUSING_CONST(QChar);
 qUSING_CONST(QString);
 qUSING_CONST(QStringList);
-qUSING_CONST(QVector);
-qUSING_CONST(QList);
 qUSING_CONST(QByteArray);
 qUSING_CONST(QVariant);
 qUSING_CONST(QSize);
