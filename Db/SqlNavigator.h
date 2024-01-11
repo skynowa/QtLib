@@ -22,7 +22,7 @@ public:
     explicit  SqlNavigator(QObject *parent);
     virtual  ~SqlNavigator();
 
-    Q_DISABLE_COPY(SqlNavigator);
+    Q_DISABLE_COPY(SqlNavigator)
 
     void      construct(SqlRelationalTableModelEx *tableModel, QTableView *tableView);
 ///@}

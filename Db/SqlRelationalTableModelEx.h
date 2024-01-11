@@ -21,7 +21,7 @@ public:
     explicit  SqlRelationalTableModelEx(QObject *parent, QSqlDatabase db);
     virtual  ~SqlRelationalTableModelEx() {}
 
-    Q_DISABLE_COPY(SqlRelationalTableModelEx);
+    Q_DISABLE_COPY(SqlRelationalTableModelEx)
 ///@}
 
     bool select() final;

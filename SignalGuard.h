@@ -21,7 +21,7 @@ public:
     SignalGuard(QObject *target, cchar *slot);
     ~SignalGuard();
 
-    Q_DISABLE_COPY(SignalGuard);
+    Q_DISABLE_COPY(SignalGuard)
 ///@}
 
     void setEmit(cbool a_flag);
