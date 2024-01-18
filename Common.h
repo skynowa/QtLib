@@ -148,7 +148,7 @@ qUSING_CONST(QSqlTableModel);
             { \
                 if (!var) { \
                     QMessageBox::critical(0, qApp->applicationName(), QObject::tr("Error: ") + object.lastError().text(),  QMessageBox::Ok); \
-                }\
+                } \
             }
 #define qCHECK_PTR(var, object) \
             { \
