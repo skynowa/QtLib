@@ -11,7 +11,7 @@
 // core
 #include <Qt>
 #include <QtGlobal>
-#include <QTextCodec>
+// #include <QTextCodec>
 #include <QClipboard>
 #include <QSignalMapper>
 #include <QTimer>
@@ -25,7 +25,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QMainWindow>
-#include <QDesktopWidget>
+// #include <QDesktopWidget>
 #include <QWidget>
 #include <QShortcut>
 #include <QFileDialog>
