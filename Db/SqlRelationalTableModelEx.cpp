@@ -275,11 +275,11 @@ SqlRelationalTableModelEx::exportCsv(
                 {
                     QSqlField field = rec.field( a_fieldNames.at(f) );
 
-                    switch ( field.type() ) {
-                    case QVariant::String:
+                    switch ( QMetaType::Type(field.metaType().id()) ) {
+                    case QMetaType::Type::QString:
                         fieldValue = rec.value( a_fieldNames.at(f) ).toString();
                         break;
-                    case QVariant::ByteArray:
+                    case QMetaType::Type::QByteArray:
                         fieldValue = rec.value( a_fieldNames.at(f) ).toByteArray().toBase64();
                         break;
                     default:
@@ -311,7 +311,7 @@ SqlRelationalTableModelEx::exportCsv(
         qTEST(bRv);
 
         QTextStream stream(&fileCsv);
-        stream.setCodec("UTF-8");
+        stream.setEncoding(QStringConverter::Encoding::Utf8);
         stream << csvContent;
     }
 }
