@@ -7,6 +7,7 @@
 #pragma once
 
 #define qTEST_IS_USED  1
+#define qQT5           0
 
 // core
 #include <Qt>
