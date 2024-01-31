@@ -28,7 +28,8 @@ Utils::widgetAlignCenter(
 {
     qTEST_PTR(a_widget);
 
-    QScreen *screen = qApp->screens().at(0);
+    const QScreen *screen = qApp->primaryScreen();
+    qTEST_PTR(screen);
 
     QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
         screen->availableGeometry());
@@ -44,7 +45,7 @@ Utils::widgetAlignTopCenter(
 {
     qTEST_PTR(a_widget);
 
-    QScreen *screen = qApp->screens().at(0);
+    const QScreen *screen = qApp->primaryScreen();
     qTEST_PTR(screen);
 
     cint x = (screen->geometry().width() - a_widget->width()) / 2;
