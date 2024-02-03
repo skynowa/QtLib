@@ -28,8 +28,11 @@ Utils::widgetAlignCenter(
 {
     qTEST_PTR(a_widget);
 
+    const QScreen *screen = qApp->primaryScreen();
+    qTEST_PTR(screen);
+
     QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, a_widget->size(),
-        qApp->desktop()->availableGeometry());
+        screen->availableGeometry());
 
     a_widget->setGeometry(rect);
 }
@@ -42,10 +45,10 @@ Utils::widgetAlignTopCenter(
 {
     qTEST_PTR(a_widget);
 
-    QDesktopWidget *desktop = QApplication::desktop();
-    qTEST_PTR(desktop);
+    const QScreen *screen = qApp->primaryScreen();
+    qTEST_PTR(screen);
 
-    cint x = (desktop->width() - a_widget->width()) / 2;
+    cint x = (screen->geometry().width() - a_widget->width()) / 2;
     cint y = 0;
 
     a_widget->setGeometry(x, y, a_widget->width(), a_widget->height());
@@ -241,7 +244,7 @@ Utils::debugTest(
         }
 
         QTextStream stream(&log);
-        stream.setCodec("UTF-8");
+        stream.setEncoding(QStringConverter::Encoding::Utf8);
         stream << msg;
     }
 #endif
