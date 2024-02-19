@@ -23,12 +23,15 @@ GlobalShortcut_impl::_nativeModifiers(
     if (a_modifiers & Qt::ShiftModifier) {
         native |= ShiftMask;
     }
+
     if (a_modifiers & Qt::ControlModifier) {
         native |= ControlMask;
     }
+
     if (a_modifiers & Qt::AltModifier) {
         native |= Mod1Mask;
     }
+
     if (a_modifiers & Qt::MetaModifier) {
         native |= Mod4Mask;
     }

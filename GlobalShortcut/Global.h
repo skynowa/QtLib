@@ -56,7 +56,7 @@ protected:
     }
 
 private:
-    PublicT* _pub;
+    PublicT *_pub {};
 };
 //-------------------------------------------------------------------------------------------------
 template <typename PublicT, typename ImplT>
@@ -92,7 +92,7 @@ public:
     }
 
 private:
-    Private<PublicT> *_interface;
+    Private<PublicT> *_interface {};
 
     Impl(const Impl &)
     {

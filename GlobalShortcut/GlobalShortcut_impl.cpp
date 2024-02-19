@@ -9,7 +9,7 @@
 #include "GlobalShortcut_impl.h"
 #include <QAbstractEventDispatcher>
 
-#if    defined(Q_OS_WIN)
+#if   defined(Q_OS_WIN)
     #include "GlobalShortcut_win.cpp"
 #elif defined(Q_OS_UNIX)
     #include "GlobalShortcut_x11.cpp"
@@ -121,9 +121,11 @@ GlobalShortcut_impl::_activateShortcut(
 )
 {
     GlobalShortcut *shortcut = _shortcuts.value( {a_nativeKey, a_nativeMods} );
-    if (shortcut != Q_NULLPTR &&
-        shortcut->isEnabled())
-    {
+    if (shortcut == nullptr) {
+        return;
+    }
+
+    if ( shortcut->isEnabled() ) {
         Q_EMIT shortcut->sig_activated();
     }
 }
