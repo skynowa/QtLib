@@ -49,6 +49,7 @@ GlobalShortcut_impl::setShortcut(
     const QKeySequence &a_shortcut
 )
 {
+#if 1
     const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
                                           Qt::AltModifier   | Qt::MetaModifier;
 
@@ -64,6 +65,25 @@ GlobalShortcut_impl::setShortcut(
     } else {
         qWarning() << "GlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
     }
+#else
+    const Qt::KeyboardModifiers allMods = Qt::ShiftModifier | Qt::ControlModifier |
+                                          Qt::AltModifier | Qt::MetaModifier;
+
+    QKeyCombination combination(a_shortcut);
+
+    key = a_shortcut.isEmpty() ? Qt::Key_unknown : combination.key();
+    mods = a_shortcut.isEmpty() ? Qt::NoModifier : combination.modifiers();
+
+    const quint32 nativeKey = _nativeKeycode(key);
+    const quint32 nativeMods = _nativeModifiers(mods);
+
+    const bool bRv = _register(nativeKey, nativeMods);
+    if (bRv) {
+        _shortcuts.insert(QPair<quint32, quint32>(nativeKey, nativeMods), &get());
+    } else {
+        qWarning() << "GlobalShortcut failed to register:" << a_shortcut.toString();
+    }
+#endif
 
     return bRv;
 }
