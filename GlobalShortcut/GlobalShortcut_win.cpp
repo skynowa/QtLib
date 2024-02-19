@@ -44,12 +44,15 @@ GlobalShortcut_impl::_nativeModifiers(
     if (modifiers & Qt::ShiftModifier) {
         native |= MOD_SHIFT;
     }
+
     if (modifiers & Qt::ControlModifier) {
         native |= MOD_CONTROL;
     }
+
     if (modifiers & Qt::AltModifier) {
         native |= MOD_ALT;
     }
+
     if (modifiers & Qt::MetaModifier) {
         native |= MOD_WIN;
     }
