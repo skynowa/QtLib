@@ -26,8 +26,8 @@ namespace qtlib
 namespace
 {
 
-const Qt::Key               keyUnknown  {};
-const Qt::KeyboardModifiers modsUnknown {};
+const Qt::Key               keyUnknown  {Qt::Key_unknown};
+const Qt::KeyboardModifiers modsUnknown {Qt::NoModifier};
 
 }
 //-------------------------------------------------------------------------------------------------
