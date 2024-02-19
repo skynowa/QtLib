@@ -35,7 +35,7 @@ GlobalShortcut::GlobalShortcut(
 //-------------------------------------------------------------------------------------------------
 GlobalShortcut::~GlobalShortcut()
 {
-    if (_impl().key != keyUnknown) {
+    if (_impl()._key != keyUnknown) {
         bool bRv = _impl().unsetShortcut();
         qTEST(bRv);
     }
@@ -58,7 +58,7 @@ GlobalShortcut::~GlobalShortcut()
 QKeySequence
 GlobalShortcut::get() const
 {
-    return QKeySequence(_impl().key | _impl().mods);
+    return QKeySequence(_impl()._key | _impl()._mods);
 }
 //-------------------------------------------------------------------------------------------------
 bool
@@ -66,7 +66,7 @@ GlobalShortcut::set(
     const QKeySequence &a_shortcut
 )
 {
-    if (_impl().key != keyUnknown) {
+    if (_impl()._key != keyUnknown) {
         bool bRv = _impl().unsetShortcut();
         qTEST(bRv);
     }
@@ -77,7 +77,7 @@ GlobalShortcut::set(
 bool
 GlobalShortcut::isEnabled() const
 {
-    return _impl().enabled;
+    return _impl()._enabled;
 }
 //-------------------------------------------------------------------------------------------------
 void
@@ -85,7 +85,7 @@ GlobalShortcut::setEnabled(
     bool a_enabled
 )
 {
-    _impl().enabled = a_enabled;
+    _impl()._enabled = a_enabled;
 }
 //-------------------------------------------------------------------------------------------------
 void
@@ -93,7 +93,7 @@ GlobalShortcut::setDisabled(
     bool a_disabled
 )
 {
-    _impl().enabled = !a_disabled;
+    _impl()._enabled = !a_disabled;
 }
 //-------------------------------------------------------------------------------------------------
 

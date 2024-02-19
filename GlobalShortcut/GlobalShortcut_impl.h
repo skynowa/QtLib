@@ -32,9 +32,9 @@ public:
     QTLIB_DECLARE_PUBLIC(GlobalShortcut)
 
 private:
-    bool                  enabled {};
-    Qt::Key               key {};
-    Qt::KeyboardModifiers mods {};
+    bool                  _enabled {};
+    Qt::Key               _key {};
+    Qt::KeyboardModifiers _mods {};
 
 #if defined(Q_OS_UNIX)
     X11Data _x11;
