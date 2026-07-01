@@ -20,6 +20,7 @@
 
 #include <QObject>
 #include <QKeySequence>
+#include <QKeyCombination>
 
 #include "Global.h"
 //-------------------------------------------------------------------------------------------------
