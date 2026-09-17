@@ -1,0 +1,5 @@
+# TODO
+
+- [ ] BuildInfo
+- [ ] Resources dir
+
