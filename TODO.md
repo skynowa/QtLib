@@ -3,3 +3,4 @@
 - [ ] BuildInfo
 - [ ] Resources dir
 - [+] Human datetimes, file sizes, ...
+- [ ] About
