@@ -11,7 +11,6 @@
 // core
 #include <Qt>
 #include <QtGlobal>
-#include <QTextCodec>
 #include <QClipboard>
 #include <QSignalMapper>
 #include <QTimer>
