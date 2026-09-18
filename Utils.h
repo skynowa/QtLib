@@ -54,7 +54,7 @@ public:
 ///\}
 
 ///\name Human formats
-    static QString fileSizeHuman(qint64 bytes);
+    static QString fileSizeHuman(const qint64 bytes);
         ///< file size in decimal units with one fractional digit
     static QString dateTimeHuman(const QDateTime &dateTime);
         ///< local time with minute precision and date

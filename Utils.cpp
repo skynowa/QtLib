@@ -318,10 +318,11 @@ Utils::debugTracer(
 /* static */
 QString
 Utils::fileSizeHuman(
-    qint64 a_bytes
+    const qint64 a_bytes
 )
 {
-    static const QStringList units {
+    static const QStringList units
+    {
         QStringLiteral("B"),
         QStringLiteral("KB"),
         QStringLiteral("MB"),
@@ -330,11 +331,11 @@ Utils::fileSizeHuman(
     };
 
     double size = static_cast<double>(a_bytes);
-    int unit = 0;
+    int    unit = 0;
 
     while (size >= 1000.0 && unit + 1 < units.size()) {
         size /= 1000.0;
-        ++unit;
+        ++ unit;
     }
 
     if (unit == 0) {
@@ -350,12 +351,13 @@ Utils::dateTimeHuman(
     const QDateTime &a_dateTime
 )
 {
-    if (!a_dateTime.isValid()) {
+    if ( !a_dateTime.isValid() ) {
         return {};
     }
 
     const QDateTime localTime = a_dateTime.toLocalTime();
-    const QLocale englishLocale(QLocale::English);
+    const QLocale   englishLocale(QLocale::English);
+
     const QString month = englishLocale.monthName(
         localTime.date().month(), QLocale::ShortFormat).toLower();
     const QString date = QStringLiteral("%1-%2-%3")
@@ -374,12 +376,12 @@ Utils::dateTimeHumanDetailed(
     const QDateTime &a_dateTime
 )
 {
-    if (!a_dateTime.isValid()) {
+    if ( !a_dateTime.isValid() ) {
         return {};
     }
 
     const QDateTime localTime = a_dateTime.toLocalTime();
-    const QString date = dateTimeHuman(localTime).section(QLatin1Char(' '), 0, 0);
+    const QString   date      = dateTimeHuman(localTime).section(QLatin1Char(' '), 0, 0);
 
     return QStringLiteral("%1 %2 %3").arg(
         localTime.time().toString(QStringLiteral("HH:mm:ss")),
