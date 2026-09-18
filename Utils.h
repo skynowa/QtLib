@@ -53,6 +53,13 @@ public:
         ///< callback for qInstallMessageHandler
 ///\}
 
+///\name Human formats
+    static QString dateTimeHuman(const QDateTime &dateTime);
+        ///< local date and time with minute precision
+    static QString dateTimeHumanDetailed(const QDateTime &dateTime);
+        ///< local date and time with seconds and time zone
+///\}
+
 ///\name Etc
     static void    sleepMsec(cint timeoutMsec);
     static QString clipBoardSelecrtionOrClipboard();

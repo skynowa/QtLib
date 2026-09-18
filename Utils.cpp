@@ -310,6 +310,56 @@ Utils::debugTracer(
 
 
 /**************************************************************************************************
+*   Human formats
+*
+**************************************************************************************************/
+
+//-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Utils::dateTimeHuman(
+    const QDateTime &a_dateTime
+)
+{
+    if (!a_dateTime.isValid()) {
+        return {};
+    }
+
+    const QDateTime localTime = a_dateTime.toLocalTime();
+    const QLocale englishLocale(QLocale::English);
+    const QString month = englishLocale.monthName(
+        localTime.date().month(), QLocale::ShortFormat).toLower();
+    const QString date = QStringLiteral("%1-%2-%3")
+        .arg(localTime.date().year(), 4, 10, QLatin1Char('0'))
+        .arg(month)
+        .arg(localTime.date().day(), 2, 10, QLatin1Char('0'));
+
+    return QStringLiteral("%1 %2").arg(
+        date, localTime.time().toString(QStringLiteral("HH:mm")));
+}
+//-------------------------------------------------------------------------------------------------
+/* static */
+QString
+Utils::dateTimeHumanDetailed(
+    const QDateTime &a_dateTime
+)
+{
+    if (!a_dateTime.isValid()) {
+        return {};
+    }
+
+    const QDateTime localTime = a_dateTime.toLocalTime();
+    const QString date = dateTimeHuman(localTime).section(QLatin1Char(' '), 0, 0);
+
+    return QStringLiteral("%1 %2 %3").arg(
+        date,
+        localTime.time().toString(QStringLiteral("HH:mm:ss")),
+        localTime.timeZoneAbbreviation());
+}
+//-------------------------------------------------------------------------------------------------
+
+
+/**************************************************************************************************
 *   Etc
 *
 **************************************************************************************************/
