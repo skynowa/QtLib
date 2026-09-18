@@ -57,7 +57,7 @@ public:
     static QString fileSizeHuman(qint64 bytes);
         ///< file size in decimal units with one fractional digit
     static QString dateTimeHuman(const QDateTime &dateTime);
-        ///< local date and time with minute precision
+        ///< local time with minute precision and date
     static QString dateTimeHumanDetailed(const QDateTime &dateTime);
         ///< local date and time with seconds and time zone
 ///\}

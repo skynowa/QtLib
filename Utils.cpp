@@ -359,12 +359,13 @@ Utils::dateTimeHuman(
     const QString month = englishLocale.monthName(
         localTime.date().month(), QLocale::ShortFormat).toLower();
     const QString date = QStringLiteral("%1-%2-%3")
-        .arg(localTime.date().year(), 4, 10, QLatin1Char('0'))
+        .arg(localTime.date().day(), 2, 10, QLatin1Char('0'))
         .arg(month)
-        .arg(localTime.date().day(), 2, 10, QLatin1Char('0'));
+        .arg(localTime.date().year(), 4, 10, QLatin1Char('0'));
 
     return QStringLiteral("%1 %2").arg(
-        date, localTime.time().toString(QStringLiteral("HH:mm")));
+        localTime.time().toString(QStringLiteral("HH:mm")),
+        date);
 }
 //-------------------------------------------------------------------------------------------------
 /* static */
@@ -381,9 +382,9 @@ Utils::dateTimeHumanDetailed(
     const QString date = dateTimeHuman(localTime).section(QLatin1Char(' '), 0, 0);
 
     return QStringLiteral("%1 %2 %3").arg(
-        date,
         localTime.time().toString(QStringLiteral("HH:mm:ss")),
-        localTime.timeZoneAbbreviation());
+        localTime.timeZoneAbbreviation(),
+        date);
 }
 //-------------------------------------------------------------------------------------------------
 
