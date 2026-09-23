@@ -29,6 +29,7 @@ set(QTLIB_SOURCES_CPP
     ${CMAKE_CURRENT_LIST_DIR}/Application.cpp
     ${CMAKE_CURRENT_LIST_DIR}/SignalGuard.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ThemeManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/GlobalShortcut.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/x11/X11ErrorHandler.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GlobalShortcut/x11/X11Data.cpp
