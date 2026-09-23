@@ -36,7 +36,7 @@ DESTDIR_PLATFORM = $${_QMAKE_HOST_OS}_$${QMAKE_HOST.arch}_Qt$${QT_VERSION}_$${BU
 # DESTDIR_PLATFORM
 #
 # build-[XXXDb]-[Android]_for_[armeabi_v7a]_[GCC_4_8]_[Qt_5_5_0]-[Debug]
-# ../build-%{CurrentProject:Name}-%{CurrentKit:FileSystemName}-%{CurrentBuild:Name}
+# build/%{CurrentKit:FileSystemName}-%{CurrentBuild:Name}
 #
 # message(*******************************************************************************************)
 # message(TARGET                    - $${TARGET})
