@@ -7,6 +7,8 @@
 #include "SqliteDatabase.h"
 
 #include <QtLib/Utils.h>
+#include <QCoreApplication>
+#include <QFileInfo>
 
 
 namespace qtlib
@@ -34,7 +36,9 @@ SqliteDatabase::construct(
 
     // qTEST(_config.isValid());
 
-    _setup();
+    if ( !_setup() ) {
+        return;
+    }
     _create();
     _optimize();
 }
@@ -78,13 +82,13 @@ SqliteDatabase::fieldNames(
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-void
+bool
 SqliteDatabase::_setup()
 {
-    bool bRv {};
-
-    bRv = QSqlDatabase::isDriverAvailable("QSQLITE");
-    qCHECK_DO(!bRv, qMSG(QSqlDatabase().lastError().text()); return);
+    if ( !QSqlDatabase::isDriverAvailable("QSQLITE") ) {
+        qWarning() << "SQLite driver is unavailable";
+        return false;
+    }
 
     _db = QSqlDatabase::addDatabase("QSQLITE");
     qTEST(!qDb().driver()->hasFeature(QSqlDriver::QuerySize));
@@ -92,14 +96,32 @@ SqliteDatabase::_setup()
     QString databaseName;
     {
         if ( _config->dbPath.isEmpty() ) {
-            databaseName = qS2QS(xl::core::Application::dbDirPath() + "/" +
-                xl::core::Application::info().get().name + ".db");
+            const QString baseDirectory =
+#if defined(Q_OS_ANDROID)
+                QDir::currentPath();
+#else
+                QCoreApplication::applicationDirPath();
+#endif
+            const QString dbDirectory = QDir(baseDirectory)
+                .filePath(QStringLiteral("Db"));
+            const QString appName = QCoreApplication::applicationName();
+            const QString dbName = appName.isEmpty()
+                ? QFileInfo(QCoreApplication::applicationFilePath()).completeBaseName()
+                : appName;
+
+            if ( !QDir().mkpath(dbDirectory) ) {
+                qWarning() << "Unable to create database directory:" << dbDirectory;
+                return false;
+            }
+
+            databaseName = QDir(dbDirectory).filePath(dbName + QStringLiteral(".db"));
         } else {
             databaseName = _config->dbPath;
         }
     }
 
     qDb().setDatabaseName(databaseName);
+    return true;
 }
 //-------------------------------------------------------------------------------------------------
 void

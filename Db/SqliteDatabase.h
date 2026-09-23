@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include <xLib/xLib.h>
 #include "../Common.h"
 #include "../Utils.h"
 //-------------------------------------------------------------------------------------------------
@@ -49,7 +48,7 @@ private:
     cSqliteConfig *_config {};
     QSqlDatabase  _db;
 
-    void          _setup();
+    bool          _setup();
     void          _create();
     void          _optimize();
 

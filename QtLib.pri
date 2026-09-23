@@ -14,12 +14,12 @@
 QT += core gui widgets sql network xml
 
 # INCLUDEPATH
-INCLUDEPATH += \
-    $$PWD $$PWD/../../xLib/Include
+INCLUDEPATH += $$PWD
 
 # HEADERS
 HEADERS += \
-    $$PWD/Common.h
+    $$PWD/Common.h \
+    $$PWD/BuildInfo.h
 
 qtlib_utils_on:                 HEADERS += $$PWD/Utils.h
 qtlib_signal_guard_on:          HEADERS += $$PWD/SignalGuard.h
@@ -32,6 +32,7 @@ qtlib_db_sql_table_model_ex_on: HEADERS += $$PWD/Db/SqlTableModelEx.h \
 qtlib_db_sql_navigator_on:      HEADERS += $$PWD/Db/SqlNavigator.h
 
 # SOURCES
+SOURCES += $$PWD/BuildInfo.cpp
 qtlib_utils_on:                 SOURCES += $$PWD/Utils.cpp
 qtlib_signal_guard_on:          SOURCES += $$PWD/SignalGuard.cpp
 qtlib_application_on:           SOURCES += $$PWD/Application.cpp

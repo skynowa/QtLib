@@ -5,6 +5,7 @@
 
 
 #include "About.h"
+#include "../BuildInfo.h"
 
 
 /**************************************************************************************************
@@ -165,14 +166,14 @@ About::_constructUi()
 
     // tab "Build info"
     {
-        const xl::debug::BuildInfo &info = xl::package::Application::buildInfo();
+        const qtlib::BuildInfo info;
 
         cQString text = QString(tr(
             "<b>Build info</b><br>"
             "<br>"
             "Type: %1<br>"
             "Date time: %2<br>"
-            "Language standart: %3<br>"
+            "Language standard: %3<br>"
             "OS environment: %4<br>"
             "OS: %5<br>"
             "Architecture: %6<br>"
@@ -181,23 +182,19 @@ About::_constructUi()
             "Character encoding: %9<br>"
             "LibC: %10<br>"
             "LibC++: %11<br>"
-            "Qt: %12<br>"
-            "xLib: %13 (%14 %15)"))
-            .arg( info.isRelease() ? "Release" : "Debug" )
-            .arg( info.datetime().c_str() )
-            .arg( info.langStandart().c_str() )
-            .arg( info.osEnvironment().c_str() )
-            .arg( info.os().c_str() )
-            .arg( info.arch().c_str() )
-            .arg( info.bitsArch().c_str() )
-            .arg( info.compiler().c_str() )
-            .arg( info.isUnicodeEncoding() ? "Unicode" : "Ansi" )
-            .arg( info.stdLibC().c_str() )
-            .arg( info.stdLibCpp().c_str() )
-            .arg( info.qt().c_str() )
-            .arg( info.xlibVersion().c_str() )
-            .arg( info.xlibBinaryType().c_str() )
-            .arg( info.xlibBuildType().c_str());
+            "Qt: %12"))
+            .arg(info.configuration())
+            .arg(info.dateTime())
+            .arg(info.languageStandard())
+            .arg(info.environment())
+            .arg(info.operatingSystem())
+            .arg(info.architecture())
+            .arg(info.architectureBits())
+            .arg(info.compiler())
+            .arg(info.characterEncoding())
+            .arg(info.cLibrary())
+            .arg(info.cppLibrary())
+            .arg(info.qtVersion());
 
         ui.txtbBuildinfo->setHtml(text);
     }

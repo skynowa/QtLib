@@ -12,8 +12,6 @@
 #include "../Utils.h"
 #include "../Application.h"
 
-#include <xLib/xLib.h>
-#include <xLib/Package/Application.h>
 //-------------------------------------------------------------------------------------------------
 struct AboutData
 {

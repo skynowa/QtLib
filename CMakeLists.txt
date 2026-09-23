@@ -27,6 +27,7 @@ set(QTLIB_RESOURCES
 
 set(QTLIB_SOURCES_CPP
     ${CMAKE_CURRENT_LIST_DIR}/Application.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/BuildInfo.cpp
     ${CMAKE_CURRENT_LIST_DIR}/SignalGuard.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ThemeManager.cpp
