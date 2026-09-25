@@ -9,9 +9,6 @@
 #include "ui_About.h"
 
 #include "../Common.h"
-#include "../Utils.h"
-#include "../Application.h"
-
 //-------------------------------------------------------------------------------------------------
 struct AboutData
 {
