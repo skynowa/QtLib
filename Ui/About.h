@@ -33,9 +33,6 @@ struct AboutData
     QString appVendorAuthor;
     QString appVendorUrl;
     QString appVendorEmail;
-    QString appVendorSkype;
-    QString appVendorJabber;
-    QString appVendorIcq;
 
     QString appDonatePayPal;
     QString appDonateWebMoney;
@@ -51,15 +48,16 @@ class About :
 public:
     Ui::UiAbout ui;
 
-    explicit    About(QWidget *parent, cAboutData &data, cQIcon &icon);
+    About() = delete;
+    About(QWidget *parent, cAboutData &data, cQIcon &icon);
 
 private:
-    cAboutData  &_data;
-    cQIcon      &_icon;
+    cAboutData &_data;
+    cQIcon     &_icon;
 
-    void        _construct();
-    void        _destruct();
-    void        _constructUi();
+    void _construct();
+    void _destruct();
+    void _constructUi();
 
     Q_OBJECT
     Q_DISABLE_COPY(About)

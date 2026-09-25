@@ -101,20 +101,12 @@ About::_constructUi()
             "Domain: %2<br>"
             "Authors: %3<br>"
             "E-mail: %4 (<a href=\"mailto:%4?subject=%5\">send</a>)<br>"
-            "Skype: %6 (<a href=\"skype:%6?add\">add</a>, "
-                       "<a href=\"skype:%6?chat\">chat</a>, "
-                       "<a href=\"skype:%6?call\">call</a>)<br>"
-            "Jabber: %7<br>"
-            "ICQ: %8<br>"
-            "Web: %9 (<a href=\"%9\">go to browser</a>)<br>"))
+            "Web: %6 (<a href=\"%9\">go to browser</a>)<br>"))
             .arg(_data.appVendorName)
             .arg(_data.appVendorDomain)
             .arg(_data.appVendorAuthor)
             .arg(_data.appVendorEmail)
             .arg(_data.appName)
-            .arg(_data.appVendorSkype)
-            .arg(_data.appVendorJabber)
-            .arg(_data.appVendorIcq)
             .arg(_data.appVendorUrl);
 
         ui.txtbAuthors->setHtml(text);
@@ -148,17 +140,9 @@ About::_constructUi()
             "<b>Report bugs or wishes</b><br>"
             "<br>"
             "E-mail: %1 (<a href=\"mailto:%1?subject=%2\">send</a>)<br>"
-            "Skype: %3 (<a href=\"skype:%3?add\">add</a>, "
-                       "<a href=\"skype:%3?chat\">chat</a>, "
-                       "<a href=\"skype:%3?call\">call</a>)<br>"
-            "Jabber: %4<br>"
-            "ICQ: %5<br>"
-            "Web: %6 (<a href=\"%6\">go to browser</a>)<br>"))
+            "Web: %3 (<a href=\"%3\">go to browser</a>)<br>"))
             .arg(_data.appVendorEmail)
             .arg(_data.appName)
-            .arg(_data.appVendorSkype)
-            .arg(_data.appVendorJabber)
-            .arg(_data.appVendorIcq)
             .arg(_data.appVendorUrl);
 
         ui.txtbReportBugs->setHtml(text);
