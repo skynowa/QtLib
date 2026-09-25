@@ -16,16 +16,18 @@
 struct AboutData
 {
     QString appName;
-    QString appVersionFull;
     QString appDecription;
     QString appCopyrightYears;
     QString appUsage;
     QString appHelp;
+
+    QString appVersionFull;
     QString appVersionMajor;
     QString appVersionMinor;
     QString appVersionPatch;
     QString appVersionType;
     QString appVersionRevision;
+
     QString appVendorName;
     QString appVendorDomain;
     QString appVendorAuthor;
@@ -34,6 +36,7 @@ struct AboutData
     QString appVendorSkype;
     QString appVendorJabber;
     QString appVendorIcq;
+
     QString appDonatePayPal;
     QString appDonateWebMoney;
     QString appDonateYandexMoney;
