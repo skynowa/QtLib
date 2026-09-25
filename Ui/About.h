@@ -43,6 +43,8 @@ public:
     About() = delete;
     About(QWidget *parent, cAboutData &data, cQIcon &icon);
 
+    Q_DISABLE_COPY_MOVE(About)
+
 private:
     Ui::UiAbout ui;
 
@@ -54,7 +56,6 @@ private:
     void _constructUi();
 
     Q_OBJECT
-    Q_DISABLE_COPY(About)
 
 private Q_SLOTS:
     void        bbxButtons_onClicked(QAbstractButton *button);
