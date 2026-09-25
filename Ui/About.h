@@ -46,12 +46,12 @@ class About :
     public QDialog
 {
 public:
-    Ui::UiAbout ui;
-
     About() = delete;
     About(QWidget *parent, cAboutData &data, cQIcon &icon);
 
 private:
+    Ui::UiAbout ui;
+
     cAboutData &_data;
     cQIcon     &_icon;
 
