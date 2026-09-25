@@ -35,9 +35,6 @@ struct AboutData
     QString appVendorEmail;
 
     QString appDonatePayPal;
-    QString appDonateWebMoney;
-    QString appDonateYandexMoney;
-    QString appDonatePrivate24;
 };
 
 qUSING_CONST(AboutData);

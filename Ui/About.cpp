@@ -140,7 +140,7 @@ About::_constructUi()
             "<b>Report bugs or wishes</b><br>"
             "<br>"
             "E-mail: %1 (<a href=\"mailto:%1?subject=%2\">send</a>)<br>"
-            "Web: %3 (<a href=\"%3\">go to browser</a>)<br>"))
+            "Web: %3 (<a href=\"%\">go to browser</a>)<br>"))
             .arg(_data.appVendorEmail)
             .arg(_data.appName)
             .arg(_data.appVendorUrl);
@@ -188,13 +188,8 @@ About::_constructUi()
         cQString text = QString(tr(
             "<b>Donate</b><br>"
             "<br>"
-            "PayPal -  %1 (<a href=\"https://www.paypal.com/\">donate</a>)<br>"
-            "WebMoney - %2 (<a href=\"http://www.webmoney.ru/\">donate</a>)<br>"
-            "Private24 - %4 (<a href=\"https://privat24.ua/\">donate</a>)<br>"))
-            .arg(_data.appDonatePayPal)
-            .arg(_data.appDonateWebMoney)
-            .arg(_data.appDonateYandexMoney)
-            .arg(_data.appDonatePrivate24);
+            "PayPal -  %1 (<a href=\"https://www.paypal.com/\">donate</a>)<br>"))
+            .arg(_data.appDonatePayPal);
 
         ui.txtbDonate->setHtml(text);
     }
